@@ -24,12 +24,6 @@
 | **DevOps**   | Git, Docker, Jenkins    |
 
 ## 📚Tech Specifications
-### [기능명세서 바로가기](https://docs.google.com/spreadsheets/d/1hQY69DIqmML3cubXh1oSkBYgT4yhRZiXsK6mI_f-EeI/edit#gid=0)
-
-### [화면설계서 바로가기](https://www.figma.com/file/WZHm2zGmlgqLCwbs7ftYLR/%EC%B2%AB%EB%8B%A8%EC%B6%94?node-id=585%3A3019)
-
-### [API 설계서 바로가기](https://docs.google.com/spreadsheets/d/1hQY69DIqmML3cubXh1oSkBYgT4yhRZiXsK6mI_f-EeI/edit#gid=1081310975)
-
 ### 시스템 아키텍처
 ![시스템 아키텍처](image/specifications/system_structure.png)
 
