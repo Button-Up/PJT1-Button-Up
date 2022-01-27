@@ -10,7 +10,7 @@
 |:---------:|:----------------------------------------:|:-----------------------------------------:|:-----------------------------------------------:|:-------------------------------------:|:---------------------------------------------:|:-------------------------------------:|
 |  **Profile**  |     ![image](image/profile/김응철.jpg)      |      ![image](image/profile/김지언.jpg)      |         ![image](image/profile/우정연.jpg)         |    ![image](image/profile/유현수.jpg)    |        ![image](image/profile/정은이.jpg)        |    ![image](image/profile/황승연.jpg)    |
 | **Position**  |              Jira Assignee               |               Git Assignee                |                Release Assignee                 |            Frontend Leader            |                  Team Leader                  |            Backend Leader             |
-|    **Git**    | [@zbqlr456](https://github.com/zbqlr456) |  [@rlajiun](https://github.com/rlajiun)   |  [@JeongYeon](https://github.com/WooJeongYeon)  | [@82surf](https://github.com/82surf)  | [@EuneeChung](https://github.com/EuneeChung)  | [@yeon-s](https://github.com/yeon-s)  |
+|    **Git**    | [GitHub](https://github.com/zbqlr456) |  [GitHub](https://github.com/rlajiun)   |  [GitHub](https://github.com/WooJeongYeon)  | [GitHub](https://github.com/82surf)  | [GitHub](https://github.com/EuneeChung)  | [GitHub](https://github.com/yeon-s)  |
 
 ### Technologies used
 
