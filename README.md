@@ -24,7 +24,6 @@
 | **DevOps**   | Git, Docker, Jenkins    |
 
 ## 📚Tech Specifications
-
 ### 시스템 아키텍처
 ![시스템 아키텍처](image/specifications/system_structure.png)
 
