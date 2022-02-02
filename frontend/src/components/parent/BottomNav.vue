@@ -14,7 +14,7 @@
     </v-btn>
 
     <v-btn :exact="true" to="/parent/userinfo" height="100%" style="background-color: #ffffff">
-      <v-icon>mdi-basket</v-icon>
+      <v-icon>mdi-account</v-icon>
     </v-btn>
   </v-bottom-navigation>
 </template>
