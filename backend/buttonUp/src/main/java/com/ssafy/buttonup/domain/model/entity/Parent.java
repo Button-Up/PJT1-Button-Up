@@ -19,7 +19,7 @@ public class Parent {
     @Id
     @GeneratedValue
     @Column(name = "parent_seq")
-    private final long seq;
+    private final long seq;  
 
     @Column(name = "parent_phone")
     private String phone;
