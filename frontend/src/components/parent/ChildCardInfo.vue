@@ -1,19 +1,21 @@
 <template>
   <div>
     <v-card
+           
             elevation="4"
             max-width="250"
             outlined
             shaped
             class="ma-4 justify-center"
             height="200"
+            :color="active ? 'parent02' : 'white'"
             width="150"
           >
             <div class="text-center mb-1">
               <v-list-item two-line>
                 <v-list-item-content class="pa-2 mb-1">
                   <v-list-item-title class="font-weight-black text-h5 justify-start ma-2 pa-0">
-                    {{item.name}}
+                    {{active}}
                   </v-list-item-title>
                   <v-list-item-subtitle class="justify-start ma-0 pa-0">
                     {{item.danchuAmount}}
@@ -65,6 +67,7 @@
     },
     props: {
       item: Object,
+      active : Boolean
     },
     beforeDestroy() {
       clearInterval(this.interval);
@@ -76,7 +79,7 @@
         return (this.value = this.item.progressValue);
       }
       this.value += 1;
-    }, 100);
+    }, 50);
     },
   }
 </script>

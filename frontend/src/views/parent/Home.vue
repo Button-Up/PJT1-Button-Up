@@ -9,7 +9,8 @@
           :key="i"
           v-slot="{ active, toggle }"
         >
-        <child-card-info @click="toggle"  :item="card"  :color="active ? 'parent02' : 'white'">
+        
+         <child-card-info @click="toggle"  :item="card"  :color="active ? 'parent02' : 'white'">
         </child-card-info>
         </v-slide-item>
       </v-slide-group>
@@ -17,9 +18,8 @@
 
   </div>
 </template>
-
 <script>
-import ChildCardInfo from './ChildCardInfo.vue';
+import ChildCardInfo from '../../components/parent/ChildCardInfo.vue';
 export default {
   components: { ChildCardInfo },
   name: "Home",
@@ -41,6 +41,31 @@ export default {
           progressValue: 60,
           progressAmount: "2/3",
         },
+        {
+          name: "유현수",
+          danchuAmount: "14,000 단추",
+          progressValue: 60,
+          progressAmount: "2/3",
+        },
+        {
+          name: "정은이",
+          danchuAmount: "32,000 단추",
+          progressValue: 30,
+          progressAmount: "1/3",
+        },
+        {
+          name: "김응철",
+          danchuAmount: "14,000 단추",
+          progressValue: 60,
+          progressAmount: "2/3",
+        },
+        {
+          name: "유현수",
+          danchuAmount: "14,000 단추",
+          progressValue: 60,
+          progressAmount: "2/3",
+        },
+        
       ],
     };
   },
