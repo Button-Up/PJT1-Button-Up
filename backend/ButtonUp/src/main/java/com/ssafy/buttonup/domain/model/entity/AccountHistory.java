@@ -8,6 +8,12 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * 입출금 내역 엔티티
+ * 
+ * @author jiun kim
+ * created on 2022-02-02
+ */
 @Entity
 @Table(name = "account_histories")
 @Getter
@@ -20,8 +26,9 @@ public class AccountHistory {
     @Column(name = "account_history_seq")
     private final long seq;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "account_history_type")
-    private int type;
+    private AccountHistoryType type;
 
     @Column(name = "account_history_content")
     private String content;
