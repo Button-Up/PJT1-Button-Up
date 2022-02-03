@@ -3,26 +3,31 @@
     <h1 class="font-weight-black">아이 정보</h1>
     <v-sheet class="mx-auto" elevation="" max-width="1200">
       <v-slide-group v-model="model" class="pa-1" center-active show-arrows>
+        <!--
+          아이 정보 카드 클릭 시 activity로 이동하게 되어있습니다.
+          추후 아이 상세 페이지로 이동하도록 수정 필요
+        -->
         <v-slide-item
           justify-center
-          v-for="(card, i) in items"
+          v-for="(item, i) in items"
           :key="i"
-          v-slot="{ active, toggle }"
+          @click.native="$router.push('/parent/activity')"
         >
-        
-         <child-card-info @click="toggle"  :item="card"  :color="active ? 'parent02' : 'white'">
-        </child-card-info>
+          <child-card-info
+            @click="toggle"
+            :item="item"
+          ></child-card-info>
         </v-slide-item>
       </v-slide-group>
     </v-sheet>
-
   </div>
 </template>
 <script>
-import ChildCardInfo from '../../components/parent/ChildCardInfo.vue';
+import ChildCardInfo from '@/components/parent/home/ChildCardInfo';
+
 export default {
-  components: { ChildCardInfo },
   name: "Home",
+  components: { ChildCardInfo },
   data() {
     return {
       interval: {},
