@@ -2,23 +2,24 @@ package com.ssafy.buttonup.domain.service.account;
 
 import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
 import com.ssafy.buttonup.domain.model.entity.Child;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * 입출금 내역 관련 서비스 interface
- *
- * @author jiun kim
- * created on 2022-02-02
- */
-public interface AccountService {
+@Service("AccountService")
+@Transactional(readOnly = true)
+public class AccountServiceImpl implements AccountService {
     /**
      * 자녀 입출금 내역에서 가장 최근 잔액 조회
      *
      * @param child_seq 자녀
      * @return 잔액
      */
-    public int getBalanceByChild(long child_seq);
+    @Override
+    public int getBalanceByChild(long child_seq) {
+        return 0;
+    }
 
     /**
      * 단추 입출금 내역 목록 조회
@@ -26,10 +27,16 @@ public interface AccountService {
      * @param child_seq 자녀
      * @return 입출금 내역 목록
      */
-    public List<HistoryResponse> getAccountHistoryList(long child_seq);
+    @Override
+    public List<HistoryResponse> getAccountHistoryList(long child_seq) {
+        return null;
+    }
 
     /**
      * 단추 입출금 내역 생성 - 출금, 입금
      */
-    public void addAccountHistory();
+    @Override
+    public void addAccountHistory() {
+
+    }
 }
