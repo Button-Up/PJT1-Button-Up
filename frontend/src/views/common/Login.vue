@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="content mx-9 mt-16">
+    <div class="mx-9 mt-10">
 
       <!-- 부모/자녀 탭 -->
       <v-tabs
