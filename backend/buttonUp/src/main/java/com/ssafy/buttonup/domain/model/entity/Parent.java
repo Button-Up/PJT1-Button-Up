@@ -18,7 +18,7 @@ import java.util.List;
 public class Parent {
     @Id
     @GeneratedValue
-    @Column(name = "parent_seq")
+    @Column(name = "parent_seq") 
     private final long seq;
 
     @Column(name = "parent_phone")
