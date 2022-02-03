@@ -14,7 +14,6 @@
       >
         로그인
       </v-btn>
-      <v-btn text class="white--text">회원가입</v-btn>
     </v-app-bar>
   </div>
 </template>

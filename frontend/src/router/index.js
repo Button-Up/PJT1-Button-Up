@@ -1,101 +1,33 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// 공통 컴포넌트
-import Index from '../views/Index'
-import IndexHeader from '../components/headers/IndexHeader'
-import GreetingHeader from '../components/headers/GreetingHeader'
-import Login from '../views/account/Login'
+// 공통 라우트 모듈
+import common from './common/common.js'
 
-// 부모 컴포넌트
-import ParentBottomNav from '../components/footers/ParentBottomNav'
-import ParentHome from '../views/parent/Home'
-import ParentActivity from '../views/parent/Activity'
-import ParentUserInfo from '../views/parent/UserInfo'
+// 부모 라우트 모듈
+import parentSignup from './parent/signup'
+import parentHome from './parent/home'
+import parentActivity from './parent/activity'
+import parentUserInfo from './parent/userInfo'
 
-// 자녀 컴포넌트
-import ChildHome from '../views/child/Home'
-import ChildActivity from '../views/child/Activity'
-import ChildShop from '../views/child/Shop'
-import ChildBottomNav from '../components/footers/ChildBottomNav'
+// 자녀 라우트 모듈
+import childSignup from './child/signup'
+import childHome from './child/home'
+import childActivity from './child/activity'
+import childShop from './child/shop'
 
 Vue.use(VueRouter)
 
 const routes = [
-  // 공통
-  {
-    path: '/',
-    name: 'Index',
-    components: {
-      default: Index,
-      header: IndexHeader
-    }
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    components: {
-      default: Login,
-    }
-  },
-
-  // 부모
-  {
-    path: '/parent/home',
-    name: 'ParentHome',
-    components: {
-      default: ParentHome,
-      header: GreetingHeader,
-      footer: ParentBottomNav
-    }
-  },
-  {
-    path: '/parent/activity',
-    name: 'ParentActivity',
-    components: {
-      default: ParentActivity,
-      header: GreetingHeader,
-      footer: ParentBottomNav
-    }
-  },
-  {
-    path: '/parent/userinfo',
-    name: 'ParentUserInfo',
-    components: {
-      default: ParentUserInfo,
-      header: GreetingHeader,
-      footer: ParentBottomNav
-    }
-  },
-  
-  // 자녀
-  {
-    path: '/child/home',
-    name: 'ChildHome',
-    components: {
-      default: ChildHome,
-      header: GreetingHeader,
-      footer: ChildBottomNav
-    }
-  },
-  {
-    path: '/child/activity',
-    name: 'ChildActivity',
-    components: {
-      default: ChildActivity,
-      header: GreetingHeader,
-      footer: ChildBottomNav
-    }
-  },
-  {
-    path: '/child/shop',
-    name: 'ChildShop',
-    components: {
-      default: ChildShop,
-      header: GreetingHeader,
-      footer: ChildBottomNav
-    }
-  }
+  ...common,
+  ...parentSignup,
+  ...parentHome,
+  ...parentActivity,
+  ...parentUserInfo,
+  ...childSignup,
+  ...childHome,
+  ...childActivity,
+  ...childShop
 ]
 
 const router = new VueRouter({
