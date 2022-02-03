@@ -13,8 +13,8 @@ build/
 .settings
 .springBeans
 .sts4-cache
-.yml
-.yaml
+*.yml
+*.yaml
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
