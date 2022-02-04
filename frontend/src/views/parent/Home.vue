@@ -1,33 +1,44 @@
 <template>
-  <div  class="ma-4">
-    <h1 class="font-weight-black">아이 정보</h1>
-    <v-sheet class="mx-auto" elevation="" max-width="1200">
-      <v-slide-group v-model="model" class="pa-1" center-active show-arrows>
-        <!--
-          아이 정보 카드 클릭 시 activity로 이동하게 되어있습니다.
-          추후 아이 상세 페이지로 이동하도록 수정 필요
-        -->
-        <v-slide-item
-          justify-center
-          v-for="(item, i) in items"
-          :key="i"
-          @click.native="$router.push('/parent/activity')"
-        >
-          <child-card-info
-            @click="toggle"
-            :item="item"
-          ></child-card-info>
-        </v-slide-item>
-      </v-slide-group>
-    </v-sheet>
+  <div class="mx-9 mt-6">
+    <div v-if="inTutorial">
+      <parent-onboard :tutorialStep="tutorialStep"></parent-onboard>
+    </div>
+    <div v-else>
+      <h1 class="font-weight-black">아이 정보</h1>
+      <v-sheet class="mx-auto" elevation="" max-width="1200">
+        <v-slide-group v-model="model" class="pa-1" center-active show-arrows>
+          <!--
+            아이 정보 카드 클릭 시 activity로 이동하게 되어있습니다.
+            추후 아이 상세 페이지로 이동하도록 수정 필요
+          -->
+          <v-slide-item
+            justify-center
+            v-for="(item, i) in items"
+            :key="i"
+            @click.native="$router.push('/parent/activity')"
+          >
+            <child-card-info
+              @click="toggle"
+              :item="item"
+            ></child-card-info>
+          </v-slide-item>
+        </v-slide-group>
+      </v-sheet>
+    </div>
   </div>
 </template>
 <script>
 import ChildCardInfo from '@/components/parent/home/ChildCardInfo';
+import ParentOnboard from '@/components/parent/home/Onboard'
+
+import { mapState } from 'vuex'
 
 export default {
   name: "Home",
-  components: { ChildCardInfo },
+  components: { 
+    ChildCardInfo,
+    ParentOnboard
+  },
   data() {
     return {
       interval: {},
@@ -73,6 +84,9 @@ export default {
         
       ],
     };
+  },
+  computed: {
+    ...mapState('tempAccountStore', ['inTutorial', 'tutorialStep']),
   },
   beforeDestroy() {
     clearInterval(this.interval);
