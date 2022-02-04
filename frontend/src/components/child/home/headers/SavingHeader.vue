@@ -4,9 +4,7 @@
       <v-icon @click="$router.go(-1)" class="mr-6 back-btn"
         >mdi-arrow-left</v-icon
       >
-      <v-toolbar-title>
-        {{ pageTitle }}
-      </v-toolbar-title>
+      <v-toolbar-title> 예금 거래내역 </v-toolbar-title>
     </v-app-bar>
   </div>
 </template>

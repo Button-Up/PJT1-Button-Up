@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-card class="ma-4" height="200" width="350" :color="item.color">
+    <v-card
+      class="ma-4"
+      height="200"
+      width="350"
+      :color="item.color"
+      @click="goSaving"
+    >
       <v-row class="fill-height" align="center" justify="center">
         <v-scale-transition> </v-scale-transition>
       </v-row>
@@ -14,6 +20,14 @@ export default {
   data() {},
   props: {
     item: Object,
+  },
+  methods: {
+    goSaving: function () {
+      this.$router.push("/child/saving");
+    },
+    goInstallmentSaving() {
+      this.$router.push("/child/installmentsaving");
+    },
   },
 };
 </script>

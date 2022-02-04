@@ -13,19 +13,48 @@
     <!--잔액 표시-->
 
     <h1>오늘 할 일</h1>
-    <div></div>
+    <div>
+      <v-list-item
+        v-for="(todo, t) in TodoList"
+        :key="t"
+        class="mb-2 pa-2"
+        style="display: contents"
+      >
+        <todo-list :todo="todo" :isParent="false"></todo-list>
+      </v-list-item>
+    </div>
   </div>
 </template>
 
 <script>
 import SavingCardInfo from "@/components/child/home/SavingCardInfo";
+import TodoList from "@/components/common/TodoList.vue";
 
 export default {
   name: "Home",
-  components: { SavingCardInfo },
+  components: { SavingCardInfo, TodoList },
   data() {
     return {
       items: [{ color: "child01" }, { color: "child04" }],
+      TodoList: [
+        {
+          done: false,
+          task: "투자 가격 업데이트 1",
+          url: "/parent/activity",
+          backgroundColor: "child01",
+          checkColor: "parent01",
+        },
+        {
+          done: true,
+          task: "투자 가격 업데이트 2",
+          url: "/parent/userinfo",
+        },
+        {
+          done: true,
+          task: "투자 가격 업데이트 3",
+          url: "/parent/userinfo",
+        },
+      ],
     };
   },
 };
