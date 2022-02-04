@@ -2,6 +2,7 @@ package com.ssafy.buttonup.controller.user;
 
 import com.ssafy.buttonup.config.security.JwtTokenProvider;
 import com.ssafy.buttonup.domain.model.dto.user.request.JoinRequest;
+import com.ssafy.buttonup.domain.model.dto.user.request.LoginRequest;
 import com.ssafy.buttonup.domain.model.dto.user.response.ParentResponse;
 import com.ssafy.buttonup.domain.model.entity.Parent;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
@@ -44,10 +45,10 @@ public class ParentController {
 
     //로그인
     @PostMapping("/login")
-    public String login(@RequestBody Map<String,String> parent){
-        Parent member = parentRepository.findByNickname(parent.get("nickname"))
+    public String login(@RequestBody LoginRequest loginRequest){
+        Parent member = parentRepository.findByNickname(loginRequest.getNickname())
                 .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
-        if(!passwordEncoder.matches(parent.get("password"),member.getPassword())){
+        if(!passwordEncoder.matches(loginRequest.getPassword(),member.getPassword())){
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
         List<String> roles = new ArrayList<>();
