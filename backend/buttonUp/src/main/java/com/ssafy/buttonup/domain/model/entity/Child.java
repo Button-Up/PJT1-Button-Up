@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Table(name = "children")
 @Getter
@@ -15,8 +17,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 public class Child {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "child_seq")
     private final long seq;
 
