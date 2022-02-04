@@ -1,16 +1,23 @@
 <template>
   <div class="ma-2">
-    <v-card class="px-0" elevation="2" rounded="lg" :color="backgroundColor">
+    <v-card
+      class="px-0"
+      elevation="2"
+      rounded="lg"
+      :color="todo.done ? (isParent ? 'parent04 ' : 'child03') : 'white'"
+    >
       <v-container class="pa-2" width="200" fluid>
         <v-row align="center" class="mx-0" id="space-between">
           <v-checkbox
             v-model="todo.done"
             class="ml-2 font-weight-black black--text"
-            :color="checkColor"
+            :color="isParent ? 'parent01' : 'child01'"
             :label="todo.task"
           >
           </v-checkbox>
+
           <v-btn
+            v-if="isParent"
             icon
             class="ml-4"
             align="right"
@@ -29,13 +36,11 @@
 export default {
   name: "TodoList",
   data() {
-    return {
-      backgroundColor: `parent04`,
-      checkColor: `parent01`,
-    };
+    return {};
   },
   props: {
     todo: Object,
+    isParent: Boolean,
   },
   methods: {
     goToPage: function () {

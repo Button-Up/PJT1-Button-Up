@@ -53,23 +53,21 @@ public class AccountController {
      * 입금 내역 추가
      *
      * @param historyRequest 입금 내역
-     * @return 성공 여부
+     * @return 잔액
      */
     @PostMapping("history/deposit")
-    public HttpStatus addAccountHistoryForDeposit(@RequestBody HistoryRequest historyRequest) {
-        accountService.insertAccountHistory(historyRequest, AccountHistoryType.입금);
-        return HttpStatus.OK;
+    public ResponseEntity<Integer> addAccountHistoryForDeposit(@RequestBody HistoryRequest historyRequest) {
+        return new ResponseEntity<>(accountService.insertAccountHistory(historyRequest, AccountHistoryType.입금), HttpStatus.OK);
     }
 
     /**
      * 출금 내역 추가
      *
      * @param historyRequest 출금 내역
-     * @return 성공 여부
+     * @return 잔액
      */
     @PostMapping("history/withdraw")
-    public HttpStatus addAccountHistoryForWithdraw(@RequestBody HistoryRequest historyRequest) {
-        accountService.insertAccountHistory(historyRequest, AccountHistoryType.출금);
-        return HttpStatus.OK;
+    public ResponseEntity<Integer> addAccountHistoryForWithdraw(@RequestBody HistoryRequest historyRequest) {
+        return new ResponseEntity<>(accountService.insertAccountHistory(historyRequest, AccountHistoryType.출금), HttpStatus.OK);
     }
 }

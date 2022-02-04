@@ -1,6 +1,7 @@
 package com.ssafy.buttonup.controller.user;
 
 import com.ssafy.buttonup.config.security.JwtTokenProvider;
+import com.ssafy.buttonup.domain.model.dto.user.request.JoinRequest;
 import com.ssafy.buttonup.domain.model.dto.user.response.ParentResponse;
 import com.ssafy.buttonup.domain.model.entity.Parent;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
@@ -17,6 +18,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 부모 컨트롤러
+ *
+ * @author SeungYeon Hwang
+ * created on 2022-02-03
+ */
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/parents")
@@ -29,15 +37,9 @@ public class ParentController {
 
     //회원가입
     @PostMapping("/join")
-    public Long join(@RequestBody Map<String,String> parent){
-        return parentRepository.save(Parent.builder()
-                .name(parent.get("name"))
-                .nickname(parent.get("nickname"))
-                .phone(parent.get("phone"))
-                .email(parent.get("email"))
-                .password(passwordEncoder.encode(parent.get("password")))
-                .auth("ROLE_USER")      //최초가입시 USER로 설정
-                .build()).getSeq();
+    public HttpStatus join(@RequestBody JoinRequest joinRequest){
+        parentService.join(joinRequest);
+        return HttpStatus.OK;
     }
 
     //로그인

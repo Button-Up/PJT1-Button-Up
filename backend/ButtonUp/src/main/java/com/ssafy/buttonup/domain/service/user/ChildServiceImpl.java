@@ -1,12 +1,14 @@
 package com.ssafy.buttonup.domain.service.user;
 
 import com.ssafy.buttonup.domain.model.dto.user.request.ConnectRequest;
+import com.ssafy.buttonup.domain.model.dto.user.request.JoinRequest;
 import com.ssafy.buttonup.domain.model.dto.user.response.ChildResponse;
 import com.ssafy.buttonup.domain.model.entity.Child;
 import com.ssafy.buttonup.domain.model.entity.Parent;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,18 @@ public class ChildServiceImpl implements ChildService{
 
     private final ChildRepository childRepository;
     private final ParentRepository parentRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public void join(JoinRequest joinRequest) {
+        childRepository.save(Child.builder()
+                .name(joinRequest.getName())
+                .nickname(joinRequest.getNickname())
+                .password(passwordEncoder.encode(joinRequest.getPassword()))
+                .phone(joinRequest.getPhone())
+                .auth("USER")           //최초가입시 USer로 설정
+                .build());
+    }
 
     /**
      * 아이 seq로 정보 조회

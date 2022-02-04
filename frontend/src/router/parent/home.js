@@ -6,15 +6,15 @@ import GreetingHeader from '../../components/common/headers/GreetingHeader'
 import ParentBottomNav from '../../components/parent/BottomNav'
 
 // 페이지
-import ParentHome from '../../views/parent/Home'
-
+// import ParentHome from '../../views/parent/Home'
+import ChlidInfo from '../../components/parent/home/ChildInfo'
 
 export default [
   {
     path: '/parent/home',
     name: 'ParentHome',
     components: {
-      default: ParentHome,
+      default: ChlidInfo,
       header: GreetingHeader,
       footer: ParentBottomNav
     }
