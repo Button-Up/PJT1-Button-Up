@@ -39,4 +39,14 @@ public class Child {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_parent_seq")
     private Parent parent;
+
+    /**
+     * 자식과 부모 객체에 서로의 정보 추가(저장)
+     * @param parent
+     * @author jeongyeon woo
+     */
+    public void connectParent(Parent parent) {
+        this.parent = parent;
+        parent.getChildren().add(this);
+    }
 }
