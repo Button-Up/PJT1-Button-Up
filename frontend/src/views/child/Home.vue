@@ -35,7 +35,10 @@ export default {
   components: { SavingCardInfo, TodoList },
   data() {
     return {
-      items: [{ color: "child01" }, { color: "child04" }],
+      items: [
+        { color: "child01", url: "saving" },
+        { color: "child04", url: "installmentsaving" },
+      ],
       TodoList: [
         {
           done: false,

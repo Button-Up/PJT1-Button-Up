@@ -5,7 +5,7 @@
       height="200"
       width="350"
       :color="item.color"
-      @click="goSaving"
+      @click="goToPage"
     >
       <v-row class="fill-height" align="center" justify="center">
         <v-scale-transition> </v-scale-transition>
@@ -17,16 +17,12 @@
 <script>
 export default {
   name: "SavingCardInfo",
-  data() {},
   props: {
     item: Object,
   },
   methods: {
-    goSaving: function () {
-      this.$router.push("/child/saving");
-    },
-    goInstallmentSaving() {
-      this.$router.push("/child/installmentsaving");
+    goToPage() {
+      this.$router.push(this.item.url);
     },
   },
 };
