@@ -9,6 +9,7 @@ import parentSignup from './parent/signup'
 import parentHome from './parent/home'
 import parentActivity from './parent/activity'
 import parentUserInfo from './parent/userInfo'
+import parentTutorial from './parent/tutorial'
 
 // 자녀 라우트 모듈
 import childSignup from './child/signup'
@@ -24,6 +25,7 @@ const routes = [
   ...parentHome,
   ...parentActivity,
   ...parentUserInfo,
+  ...parentTutorial,
   ...childSignup,
   ...childHome,
   ...childActivity,
