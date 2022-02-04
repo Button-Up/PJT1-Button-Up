@@ -30,7 +30,7 @@
           <p class="caption font-weight-normal">오늘 확인해야 할 항목들이에요</p>
       </div>
       <v-list-item v-for="(todo, t) in TodoList"  :key="t" class="mb-2 pa-2" style="display:contents">
-        <todo-list :todo="todo"></todo-list>
+        <todo-list :todo="todo" :isParent="true"></todo-list>
       </v-list-item>
     </div>
   </div>
@@ -113,15 +113,8 @@ export default {
     ...mapState('tempAccountStore', ['inTutorial', 'tutorialStep']),
   },
   beforeDestroy() {
-    clearInterval(this.interval);
   },
   mounted() {
-    this.interval = setInterval(() => {
-      if (this.value === 60) {
-        return (this.value = 60);
-      }
-      this.value += 10;
-    }, 1000);
   },
 };
 </script>
