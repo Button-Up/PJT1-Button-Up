@@ -78,21 +78,25 @@ public class Parent implements UserDetails {
         return nickname;
     }
 
+    //계정 만료 여부 반환
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return false;       //true가 유효
     }
 
+    //계정 잠금 여부 반환
     @Override
     public boolean isAccountNonLocked() {
         return false;
     }
 
+    //패스워드 만료 여부 반환
     @Override
     public boolean isCredentialsNonExpired() {
         return false;
     }
 
+    //계정 사용 가능 여부 반환
     @Override
     public boolean isEnabled() {
         return false;

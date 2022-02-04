@@ -4,9 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -16,8 +22,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-public class Child {
-
+public class Child implements UserDetails {
+    //SpringSecurity는 UserDeatails 객체를 통해 권한 정보를 관리하기 때문에 Child에 UserDetails를 구현하고 추가 정보 재정의 해야함
+    
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "child_seq")
@@ -48,6 +55,44 @@ public class Child {
 
     @Column(name = "child_auth")
     private String auth;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> roles = new HashSet<>();
+        for(String role : auth.split(",")){
+            roles.add(new SimpleGrantedAuthority(role));
+        }
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return nickname;
+    }
+
+    //계정 만료 여부 반환
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;       //true가 유효
+    }
+
+    //계정 잠금 여부 반환
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+    
+    //패스워드 만료 여부 반환
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    //계정 사용 가능 여부 반환
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 
     /**
      * 자식과 부모 객체에 서로의 정보 추가(저장)
