@@ -7,7 +7,6 @@
       shaped
       class="ma-4 justify-center"
       height="200"
-      :color="active ? 'parent02' : 'white'"
       width="150"
     >
       <div class="text-center mb-1">
@@ -33,30 +32,13 @@
           {{ item.progressAmount }}완료
         </v-progress-circular>
       </div>
-      
-      <v-row
-        class="fill-height justify-center"
-        align="center"
-        justify="center"
-      >
-        <v-flex justify-center>
-          <v-scale-transition>
-            <v-icon
-              v-if="active"
-              color="white"
-              size="48"
-              v-text="'mdi-close-circle-outline'"
-            ></v-icon>
-          </v-scale-transition>
-        </v-flex>
-      </v-row>
   </v-card>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'UserInfo',
+    name: 'ChildCardInfo',
     data() {
       return {
         interval: {},
@@ -71,7 +53,7 @@
     },
     mounted() {
     this.interval = setInterval(() => {
-      console.log(this.value);
+      // console.log(this.value);
       if (this.value == this.item.progressValue) {
         return (this.value = this.item.progressValue);
       }
