@@ -26,7 +26,7 @@ public class ParentServiceImpl implements ParentService {
                 .seq(parent.getSeq())
                 .phone(parent.getPhone())
                 .name(parent.getName())
-                .nickName(parent.getNickName())
+                .nickName(parent.getNickname())
                 .password(parent.getPassword())
                 .email(parent.getEmail())
                 .image(parent.getImage())
