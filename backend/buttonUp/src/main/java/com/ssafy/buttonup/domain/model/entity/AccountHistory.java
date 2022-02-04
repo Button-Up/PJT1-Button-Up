@@ -4,13 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.Date;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 /**
  * 입출금 내역 엔티티
- * 
+ *
  * @author jiun kim
  * created on 2022-02-02
  */
@@ -18,17 +21,22 @@ import java.util.Date;
 @Table(name = "account_histories")
 @Getter
 @Builder
+@DynamicInsert
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 public class AccountHistory {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "account_history_seq")
-    private final long seq;
+    private Long seq;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "account_history_type")
     private AccountHistoryType type;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "account_history_category")
+    private AccountHistoryCategory category;
 
     @Column(name = "account_history_content")
     private String content;
