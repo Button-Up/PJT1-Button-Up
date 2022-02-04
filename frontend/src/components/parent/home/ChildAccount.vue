@@ -9,9 +9,8 @@
     <v-list-item three-line class="text-center justify-center pa-0">
       <v-list-item-content class="pa-2">
         
-        <v-card-text v-text="savingType" :class="account.isDeposit ? 'white--text' : 'black--text'" class="pt-3 pb-0"></v-card-text>
-        <v-list-item-title class="text-h4 ma-1 font-weight-bold " :class="account.isDeposit ? 'white--text' : 'black--text'">
-          {{account.amount}}
+        <v-card-text v-text="account.isDeposit ? '예금' : '적금'" :class="account.isDeposit ? 'white--text' : 'black--text'" class="pt-3 pb-0"></v-card-text>
+        <v-list-item-title v-text="account.amount" class="text-h4 ma-1 font-weight-bold " :class="account.isDeposit ? 'white--text' : 'black--text'">
         </v-list-item-title>
         <v-card-text v-text="`단추`" :class="account.isDeposit ? 'white--text' : 'black--text'" class="pb-3 pt-2"></v-card-text>
       </v-list-item-content>
@@ -23,7 +22,7 @@
 export default {
   name: 'ChildAccount',
   data(){
-    return{ savingType:`적금`}
+    return{}
   },
   props:{
     account:Object

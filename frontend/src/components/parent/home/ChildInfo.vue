@@ -34,11 +34,11 @@ export default {
     return{
       accounts:[
         {
-          isDeposit:true,
+          isDeposit:false,
           amount:"25,000"
         },
         {
-          isDeposit:false,
+          isDeposit:true,
           amount:"15,000"
         },
       ],
