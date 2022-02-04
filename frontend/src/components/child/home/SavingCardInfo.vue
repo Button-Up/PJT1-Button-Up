@@ -11,7 +11,6 @@
 <script>
 export default {
   name: "SavingCardInfo",
-  data() {},
   props: {
     item: Object,
   },
