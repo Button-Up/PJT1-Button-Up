@@ -26,6 +26,9 @@ public class Child {
     @Column(name = "child_phone")
     private String phone;
 
+    @Column(name = "child_nickname")
+    private String nickname;
+
     @Column(name = "child_name")
     private String name;
 
@@ -42,6 +45,9 @@ public class Child {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_parent_seq")
     private Parent parent;
+
+    @Column(name = "child_auth")
+    private String auth;
 
     /**
      * 자식과 부모 객체에 서로의 정보 추가(저장)

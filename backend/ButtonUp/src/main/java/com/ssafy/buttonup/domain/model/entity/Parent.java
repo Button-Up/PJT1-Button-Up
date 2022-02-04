@@ -14,6 +14,13 @@ import java.util.stream.Collectors;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+/**
+ * 부모 엔티티
+ *
+ * @author SeungYeon Hwang
+ * created on 2022-02-03
+ */
+
 @Entity
 @Table(name = "parents")
 @Getter

@@ -13,7 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 
-//인증작업 진행하는 필터
+/**
+ * 인증작업 진행하는 필터
+ *
+ * @author SeungYeon Hwang
+ * created on 2022-02-03
+ */
+
 //이 필터는 검증이 끝난 JWT로부터 유저정보를 받아와서 UsernamePasswordAuthenticationFilter로 전달
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends GenericFilterBean {

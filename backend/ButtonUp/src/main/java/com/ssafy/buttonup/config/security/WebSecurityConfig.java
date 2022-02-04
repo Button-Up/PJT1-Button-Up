@@ -12,6 +12,12 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Security Config
+ *
+ * @author SeungYeon Hwang
+ * created on 2022-02-03
+ */
 
 //Spring Security를 사용하기 위해서는 Spring Security Filter Chain을 사용한다는 것을 명시해줘야함
 @RequiredArgsConstructor
