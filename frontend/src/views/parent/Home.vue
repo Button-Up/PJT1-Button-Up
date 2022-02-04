@@ -36,9 +36,9 @@
   </div>
 </template>
 <script>
-import ChildCardInfo from '@/components/parent/home/ChildCardInfo';
+import ChildCardInfo from '@/components/parent/home/ChildCardInfo'
 import ParentOnboard from '@/components/parent/home/Onboard'
-import TodoList from '../../components/common/TodoList.vue';
+import TodoList from '../../components/common/TodoList.vue'
 
 import { mapState } from 'vuex'
 
