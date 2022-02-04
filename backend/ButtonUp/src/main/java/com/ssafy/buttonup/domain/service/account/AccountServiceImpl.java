@@ -2,8 +2,8 @@ package com.ssafy.buttonup.domain.service.account;
 
 import com.ssafy.buttonup.domain.model.dto.account.request.HistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
-import com.ssafy.buttonup.domain.model.entity.AccountHistory;
-import com.ssafy.buttonup.domain.model.entity.AccountHistoryType;
+import com.ssafy.buttonup.domain.model.entity.account.AccountHistory;
+import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryType;
 import com.ssafy.buttonup.domain.repository.account.AccountRepository;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
-package com.ssafy.buttonup.domain.model.entity;
+package com.ssafy.buttonup.domain.model.entity.account;
 
+import com.ssafy.buttonup.domain.model.entity.Child;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

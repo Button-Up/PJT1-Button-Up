@@ -1,4 +1,4 @@
-package com.ssafy.buttonup.domain.model.entity;
+package com.ssafy.buttonup.domain.model.entity.account;
 
 /**
  * 입출금 내역 이벤트 카테고리 정보 구분값

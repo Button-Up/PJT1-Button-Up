@@ -1,6 +1,6 @@
 package com.ssafy.buttonup.domain.repository.account;
 
-import com.ssafy.buttonup.domain.model.entity.AccountHistory;
+import com.ssafy.buttonup.domain.model.entity.account.AccountHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

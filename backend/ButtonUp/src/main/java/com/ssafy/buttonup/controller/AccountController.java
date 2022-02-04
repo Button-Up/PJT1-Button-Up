@@ -2,7 +2,7 @@ package com.ssafy.buttonup.controller;
 
 import com.ssafy.buttonup.domain.model.dto.account.request.HistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
-import com.ssafy.buttonup.domain.model.entity.AccountHistoryType;
+import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryType;
 import com.ssafy.buttonup.domain.service.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
