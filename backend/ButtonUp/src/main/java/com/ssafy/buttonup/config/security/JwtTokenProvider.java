@@ -18,8 +18,13 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * JWT 생성하고 검증하는 컴포넌트
+ *
+ * @author SeungYeon Hwang
+ * created on 2022-02-03
+ */
 
-///JWT 생성하고 검증하는 컴포넌트
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {

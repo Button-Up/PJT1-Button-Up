@@ -1,9 +1,11 @@
 package com.ssafy.buttonup.domain.service.user;
 
+import com.ssafy.buttonup.domain.model.dto.user.request.JoinRequest;
 import com.ssafy.buttonup.domain.model.dto.user.response.ParentResponse;
 import com.ssafy.buttonup.domain.model.entity.Parent;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class ParentServiceImpl implements ParentService {
 
     private final ParentRepository parentRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public void join(JoinRequest joinRequest) {
+        parentRepository.save(Parent.builder()
+                .name(joinRequest.getName())
+                .nickname(joinRequest.getNickname())
+                .phone(joinRequest.getPhone())
+                .email(joinRequest.getEmail())
+                .password(passwordEncoder.encode(joinRequest.getPassword()))
+                .auth("USER")      //최초가입시 USER로 설정
+                .build());
+    }
 
     /**
      * 부모 seq로 부모 조회

@@ -7,8 +7,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * 토큰에 저장된 유저정보 활용 위한 클래스
+ *
+ * @author SeungYeon Hwang
+ * created on 2022-02-03
+ */
 
-//토큰에 저장된 유저정보 활용 위한 클래스
 //UserDetailsService 상속받아서 재정의
 @RequiredArgsConstructor
 @Service

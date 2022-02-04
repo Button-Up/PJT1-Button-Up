@@ -1,6 +1,7 @@
 package com.ssafy.buttonup.controller.user;
 
 import com.ssafy.buttonup.domain.model.dto.user.request.ConnectRequest;
+import com.ssafy.buttonup.domain.model.dto.user.request.JoinRequest;
 import com.ssafy.buttonup.domain.model.dto.user.response.ChildResponse;
 import com.ssafy.buttonup.domain.model.entity.Child;
 import com.ssafy.buttonup.domain.service.user.ChildService;
@@ -22,6 +23,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChildController {
     private final ChildService childService;
+
+    @PostMapping("/join")
+    public HttpStatus join(@RequestBody JoinRequest joinRequest){
+        childService.join(joinRequest);
+        return HttpStatus.OK;
+    }
 
     @GetMapping("/{child_seq}")
     public ResponseEntity<ChildResponse> findBySeq(@PathVariable("child_seq") int childSeq) {
