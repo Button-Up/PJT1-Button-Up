@@ -13,6 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 입출금 내역과 관련된 서비스 클래스
+ * 
+ * @author jiun kim
+ * created on 2022-02-02
+ */
 @Service
 @Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountService {
@@ -65,20 +71,22 @@ public class AccountServiceImpl implements AccountService {
      * 입출금 내역 생성
      *
      * @param historyRequest 추가할 내역
+     * @param type 입/출금 구분 값
+     * @return 추가 후 잔액
      */
     @Override
     @Transactional
-    public void insertAccountHistory(HistoryRequest historyRequest, AccountHistoryType type) {
+    public int insertAccountHistory(HistoryRequest historyRequest, AccountHistoryType type) {
         AccountHistory.AccountHistoryBuilder builder = AccountHistory.builder();
 
         int balance = getBalanceByChild(historyRequest.getChild_seq());
 
         switch (type) {
             case 입금:
-                builder.balance(balance + historyRequest.getMoney());
+                builder.balance(balance += historyRequest.getMoney());
                 break;
             case 출금:
-                builder.balance(balance - historyRequest.getMoney());
+                builder.balance(balance -= historyRequest.getMoney());
                 break;
         }
 
@@ -89,5 +97,7 @@ public class AccountServiceImpl implements AccountService {
                 .child(childRepository.getById(historyRequest.getChild_seq()));
 
         accountRepository.save(builder.build());
+
+        return balance;
     }
 }
