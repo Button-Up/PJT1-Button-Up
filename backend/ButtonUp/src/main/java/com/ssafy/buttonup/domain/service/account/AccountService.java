@@ -1,7 +1,8 @@
 package com.ssafy.buttonup.domain.service.account;
 
+import com.ssafy.buttonup.domain.model.dto.account.request.HistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
-import com.ssafy.buttonup.domain.model.entity.Child;
+import com.ssafy.buttonup.domain.model.entity.AccountHistoryType;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface AccountService {
      * @param child_seq 자녀
      * @return 잔액
      */
-    public int getBalanceByChild(long child_seq);
+    int getBalanceByChild(long child_seq);
 
     /**
      * 단추 입출금 내역 목록 조회
@@ -26,10 +27,12 @@ public interface AccountService {
      * @param child_seq 자녀
      * @return 입출금 내역 목록
      */
-    public List<HistoryResponse> getAccountHistoryList(long child_seq);
+    List<HistoryResponse> getAccountHistoryList(long child_seq);
 
     /**
-     * 단추 입출금 내역 생성 - 출금, 입금
+     * 입출금 내역 생성
+     *
+     * @param historyRequest 추가할 내역
      */
-    public void addAccountHistory();
+    void insertAccountHistory(HistoryRequest historyRequest, AccountHistoryType type);
 }

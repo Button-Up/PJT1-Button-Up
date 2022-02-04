@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Table(name = "children")
 @Getter
@@ -15,8 +17,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 public class Child {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "child_seq")
     private final long seq;
 
@@ -39,4 +42,14 @@ public class Child {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_parent_seq")
     private Parent parent;
+
+    /**
+     * 자식과 부모 객체에 서로의 정보 추가(저장)
+     * @param parent
+     * @author jeongyeon woo
+     */
+    public void connectParent(Parent parent) {
+        this.parent = parent;
+        parent.getChildren().add(this);
+    }
 }
