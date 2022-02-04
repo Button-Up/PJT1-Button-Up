@@ -1,6 +1,5 @@
 <template>
   <v-bottom-navigation
-    :value="value"
     color="child01"
     grow
     fixed
