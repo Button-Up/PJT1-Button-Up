@@ -1,8 +1,8 @@
 <template>
   <div  class="ma-4">
-    <h1 class="font-weight-black">아이 정보</h1>
+    <h2>아이 정보</h2>
     <v-sheet class="mx-auto" elevation="" max-width="1200">
-      <v-slide-group v-model="model" class="pa-1" center-active show-arrows>
+      <v-slide-group class="pa-1" center-active>
         <!--
           아이 정보 카드 클릭 시 activity로 이동하게 되어있습니다.
           추후 아이 상세 페이지로 이동하도록 수정 필요
@@ -14,25 +14,31 @@
           @click.native="$router.push('/parent/activity')"
         >
           <child-card-info
-            @click="toggle"
             :item="item"
           ></child-card-info>
         </v-slide-item>
       </v-slide-group>
     </v-sheet>
+
+    <!-- 부모의 할일 -->
+    <div class="mt-2">
+        <h2>확인해주세요!</h2>
+        <p class="caption font-weight-normal">오늘 확인해야 할 항목들이에요</p>
+    </div>
+    <v-list-item v-for="(todo, t) in TodoList"  :key="t" class="mb-2 pa-2" style="display:contents">
+      <todo-list :todo="todo"></todo-list>
+    </v-list-item>
   </div>
 </template>
 <script>
 import ChildCardInfo from '@/components/parent/home/ChildCardInfo';
+import TodoList from '../../components/common/TodoList.vue';
 
 export default {
   name: "Home",
-  components: { ChildCardInfo },
+  components: { ChildCardInfo,TodoList },
   data() {
     return {
-      interval: {},
-      value: 0,
-      progressAmount: "2/3",
       items: [
         {
           name: "정은이",
@@ -72,6 +78,23 @@ export default {
         },
         
       ],
+      TodoList:[
+        {
+          done:false,
+          task:"투자 가격 업데이트",
+          url:'/parent/activity',
+        },
+        {
+          done:true,
+          task:"투자 가격 업데이트",
+          url:'/parent/userinfo',
+        },
+        {
+          done:true,
+          task:"투자 가격 업데이트",
+          url:'/parent/userinfo',
+        }
+      ]
     };
   },
   beforeDestroy() {
