@@ -4,12 +4,15 @@ import com.ssafy.buttonup.config.security.JwtTokenProvider;
 import com.ssafy.buttonup.domain.model.entity.Parent;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -29,7 +32,7 @@ public class ParentController {
                 .phone(parent.get("phone"))
                 .email(parent.get("email"))
                 .password(passwordEncoder.encode(parent.get("password")))
-                .roles(Collections.singletonList("ROLE_USER"))      //최초가입시 USER로 설정
+                .auth("ROLE_USER")      //최초가입시 USER로 설정
                 .build()).getSeq();
     }
 
@@ -41,6 +44,10 @@ public class ParentController {
         if(!passwordEncoder.matches(parent.get("password"),member.getPassword())){
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
-        return  jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
+        List<String> roles = new ArrayList<>();
+        for (String role : member.getAuth().split(",")) {
+            roles.add(role);
+        }
+        return  jwtTokenProvider.createToken(member.getUsername(), roles);
     }
 }

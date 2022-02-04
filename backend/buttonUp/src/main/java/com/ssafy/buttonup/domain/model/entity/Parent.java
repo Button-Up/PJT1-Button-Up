@@ -9,9 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -51,13 +49,21 @@ public class Parent implements UserDetails {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Child> children = new ArrayList<>();
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
+    @Column(name = "parent_auth")
+    private String auth;
+
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @Builder.Default
+//    private List<String> roles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        Set<GrantedAuthority> roles = new HashSet<>();
+        for (String role : auth.split(",")) {
+            roles.add(new SimpleGrantedAuthority(role));
+        }
+        return roles;
+//        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override
