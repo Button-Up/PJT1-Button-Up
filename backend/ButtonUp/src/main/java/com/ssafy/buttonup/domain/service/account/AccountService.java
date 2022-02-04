@@ -33,6 +33,8 @@ public interface AccountService {
      * 입출금 내역 생성
      *
      * @param historyRequest 추가할 내역
+     * @param type 입/출금 구분 값
+     * @return 추가 후 잔액
      */
-    void insertAccountHistory(HistoryRequest historyRequest, AccountHistoryType type);
+    int insertAccountHistory(HistoryRequest historyRequest, AccountHistoryType type);
 }
