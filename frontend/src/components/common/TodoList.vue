@@ -4,61 +4,57 @@
       class="px-0"
       elevation="2"
       rounded="lg"
-      :color="todo.done ? ( isParent ? 'parent04 ': 'child03')  :'white'">
-    <v-container
-      class="pa-2"
-      width="200"
-      fluid 
-    > 
-      <v-row
-          align="center"
-          class="mx-0"
-          id="space-between"
-      >
-        <v-checkbox
-          v-model="todo.done"
-          class="ml-2 font-weight-black black--text"
-          :color="isParent ? 'parent01': 'child01' "
-          :label="todo.task">
-        </v-checkbox>
-      
-        <v-btn v-if="isParent"
-          icon class="ml-4"
-          align="right"
-          color="black"
-          @click="goToPage">
+      :color="todo.done ? (isParent ? 'parent04 ' : 'child03') : 'white'"
+    >
+      <v-container class="pa-2" width="200" fluid>
+        <v-row align="center" class="mx-0" id="space-between">
+          <v-checkbox
+            v-model="todo.done"
+            class="ml-2 font-weight-black black--text"
+            :color="isParent ? 'parent01' : 'child01'"
+            :label="todo.task"
+          >
+          </v-checkbox>
+
+          <v-btn
+            v-if="isParent"
+            icon
+            class="ml-4"
+            align="right"
+            color="black"
+            @click="goToPage"
+          >
             <v-icon>mdi-chevron-right</v-icon>
-        </v-btn>
-      </v-row>
-    </v-container>
+          </v-btn>
+        </v-row>
+      </v-container>
     </v-card>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'TodoList',
+  name: "TodoList",
   data() {
-    return{
-    }
+    return {};
   },
-  props:{
-    todo :Object,
-    isParent:Boolean
+  props: {
+    todo: Object,
+    isParent: Boolean,
   },
-  methods:{
-    goToPage:function(){
+  methods: {
+    goToPage: function () {
       this.$router.push(this.todo.url);
-    }
+    },
   },
-}
+};
 </script>
 
 <style scoped>
 .black--text /deep/ label {
-    color: black;
+  color: black;
 }
-#space-between{
-  justify-content: space-between
+#space-between {
+  justify-content: space-between;
 }
 </style>

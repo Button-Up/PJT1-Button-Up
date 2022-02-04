@@ -1,5 +1,5 @@
 <template>
-  <div>f</div>
+  <div>InstallmentSaving</div>
 </template>
 
 <script>

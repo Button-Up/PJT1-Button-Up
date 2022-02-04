@@ -1,10 +1,10 @@
 <template>
-  <div>f</div>
+  <div>Saving</div>
 </template>
 
 <script>
 export default {
-  name: "ChildBottomNav",
+  name: "ChildSaving",
 };
 </script>
 
