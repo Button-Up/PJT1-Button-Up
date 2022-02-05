@@ -1,6 +1,6 @@
 package com.ssafy.buttonup.domain.model.dto.account.request;
 
-import com.ssafy.buttonup.domain.model.entity.AccountHistoryCategory;
+import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryCategory;
 import lombok.Builder;
 import lombok.Getter;
 

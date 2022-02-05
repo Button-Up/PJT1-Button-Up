@@ -1,4 +1,4 @@
-package com.ssafy.buttonup.domain.model.entity;
+package com.ssafy.buttonup.domain.model.entity.account;
 
 /**
  * 입출금 구분값

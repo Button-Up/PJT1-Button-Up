@@ -2,7 +2,7 @@ package com.ssafy.buttonup.domain.service.account;
 
 import com.ssafy.buttonup.domain.model.dto.account.request.HistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
-import com.ssafy.buttonup.domain.model.entity.AccountHistoryType;
+import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryType;
 
 import java.util.List;
 
