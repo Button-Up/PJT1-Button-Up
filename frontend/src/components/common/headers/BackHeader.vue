@@ -6,7 +6,7 @@
       elevation="0"
     >
       <v-icon
-        @click="$router.go(-1)"
+        @click="onClickBackBtn(backBtnPath)"
         class="mr-6 back-btn"
       >mdi-arrow-left</v-icon>
       <v-toolbar-title>
@@ -23,6 +23,19 @@ export default {
     pageTitle: {
       type: String,
       default: ''
+    },
+    backBtnPath: {
+      type: String,
+      default: ''
+    }
+  },
+  methods: {
+    onClickBackBtn(path) {
+      if (path) {
+        this.$router.push(path)
+      } else {
+        this.$router.go(-1)
+      }
     }
   }
 }

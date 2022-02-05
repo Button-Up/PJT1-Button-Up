@@ -112,9 +112,5 @@ export default {
   computed: {
     ...mapState('tempAccountStore', ['inTutorial', 'tutorialStep']),
   },
-  beforeDestroy() {
-  },
-  mounted() {
-  },
 };
 </script>
