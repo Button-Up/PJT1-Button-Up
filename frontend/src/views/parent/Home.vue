@@ -93,8 +93,8 @@ export default {
       TodoList:[
         {
           done:false,
-          task:"투자 가격 업데이트",
-          url:'/parent/activity',
+          task:"환전/결제 요청 확인",
+          url:'/parent/request-list',
         },
         {
           done:true,
