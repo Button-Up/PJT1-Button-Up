@@ -10,6 +10,7 @@ import parentHome from './parent/home'
 import parentActivity from './parent/activity'
 import parentUserInfo from './parent/userInfo'
 import parentTutorial from './parent/tutorial'
+import parentRequestList from './parent/requestList'
 
 // 자녀 라우트 모듈
 import childSignup from './child/signup'
@@ -26,6 +27,7 @@ const routes = [
   ...parentActivity,
   ...parentUserInfo,
   ...parentTutorial,
+  ...parentRequestList,
   ...childSignup,
   ...childHome,
   ...childActivity,
