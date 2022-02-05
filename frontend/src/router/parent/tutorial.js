@@ -19,12 +19,15 @@ export default [
       header: BackHeader,
     },
     props: {
-      header: { pageTitle: '첫단추의 화폐, 단추' }
+      header: {
+        pageTitle: '첫단추의 화폐, 단추',
+        backBtnPath: '/parent/home'
+      }
     },
     children: [
       {
         path: ':id',
-        component:ParentTutorialDanchoo
+        component: ParentTutorialDanchoo
       }
     ]
   },
@@ -35,7 +38,10 @@ export default [
       header: BackHeader,
     },
     props: {
-      header: { pageTitle: '직업과 할 일' }
+      header: {
+        pageTitle: '직업과 할 일',
+        backBtnPath: '/parent/home'
+      }
     },
     children: [
       {

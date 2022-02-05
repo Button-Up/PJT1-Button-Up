@@ -25,7 +25,7 @@
             <v-btn
               block
               color="parent01"
-              @click="[addTutorialStep(), $router.push('/parent/tutorial/what-is-danchoo/1')]"
+              @click="$router.push('/parent/tutorial/what-is-danchoo/1')"
               class="white--text"
             >
               지금 알아보기
@@ -51,7 +51,7 @@
             <v-btn
               block
               color="parent01"
-              @click="[addTutorialStep(), $router.push('/parent/tutorial/job/1')]"
+              @click="$router.push('/parent/tutorial/job/1')"
               class="white--text"
             >
               아이 직업 만들기
@@ -77,7 +77,7 @@
             <v-btn
               block
               color="parent01"
-              @click="[endTutorial(), $router.push('/parent/tutorial/stock/1')]"
+              @click="$router.push('/parent/tutorial/stock/1')"
               class="white--text"
             >
               지금 알아보기
