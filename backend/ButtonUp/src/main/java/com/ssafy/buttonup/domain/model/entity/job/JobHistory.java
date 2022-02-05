@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,6 +24,7 @@ import java.util.Date;
 @Getter
 @Builder
 @DynamicInsert
+@DynamicUpdate
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobHistory {
@@ -30,10 +33,12 @@ public class JobHistory {
     @Column(name = "job_history_seq")
     private Long seq;
 
+    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "job_history_start_date")
     private Date startDate;
 
+    @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "job_history_end_date")
     private Date endDate;
@@ -45,4 +50,8 @@ public class JobHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_job_seq")
     private Job job;
+
+    public void updateRecentJobHistory() {
+        this.endDate = new Date();
+    }
 }

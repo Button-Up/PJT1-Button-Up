@@ -31,6 +31,9 @@ public class Job {
     @Column(name = "job_pay_term")
     private int payTerm;
 
+    @Column(name = "job_pay")
+    private int pay;
+
     @Column(name = "job_name")
     private String name;
 

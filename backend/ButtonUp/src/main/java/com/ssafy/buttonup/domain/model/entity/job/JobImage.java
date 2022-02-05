@@ -1,9 +1,6 @@
 package com.ssafy.buttonup.domain.model.entity.job;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
@@ -27,6 +24,7 @@ public class JobImage {
     @Column(name = "job_image_seq")
     private Long seq;
 
+    @NonNull
     @Column(name = "job_image")
-    private String url;
+    private String path;
 }
