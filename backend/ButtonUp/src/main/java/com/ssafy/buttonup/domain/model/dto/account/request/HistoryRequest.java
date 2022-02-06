@@ -1,6 +1,8 @@
 package com.ssafy.buttonup.domain.model.dto.account.request;
 
 import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryCategory;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -10,11 +12,23 @@ import lombok.Getter;
  * @author jiun kim
  * created on 2022-02-03
  */
+@ApiModel(value = "입출금 내역 추가 요청 정보")
 @Getter
 @Builder
 public class HistoryRequest {
-    private AccountHistoryCategory category;
-    private String content;
-    private int money;
-    private long child_seq;
+    /* 거래 이벤트 카테고리 */
+    @ApiModelProperty(value = "거래 카테고리", required = true, example = "급여")
+    private final AccountHistoryCategory category;
+
+    /* 거래 관련 이벤트 내용 */
+    @ApiModelProperty(value = "이벤트 내용", required = true)
+    private final String content;
+
+    /* 거래되는 금액 */
+    @ApiModelProperty(value = "금액", required = true)
+    private final int money;
+
+    /* 내역 추가하는 자녀 키 */
+    @ApiModelProperty(value = "자녀 키", required = true)
+    private final long childSeq;
 }
