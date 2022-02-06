@@ -13,7 +13,7 @@ public interface JobHistoryRepository extends JpaRepository<JobHistory, Long> {
     /**
      * 가장 최근 직업 내역 조회
      *
-     * @param child_seq 아이 키
+     * @param childSeq 아이 키
      * @return 최근 직업 내역 조회     */
-    JobHistory findTopByChild_SeqOrderBySeqDesc(long child_seq);
+    JobHistory findTopByChild_SeqOrderBySeqDesc(long childSeq);
 }
