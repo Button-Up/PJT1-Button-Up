@@ -57,6 +57,12 @@ public class AccountHistory {
     @JoinColumn(name = "fk_child_seq")
     private Child child;
 
+    /**
+     * AccountHistory Entity를 Response dto로 바꿔주는 메서드
+     *
+     * @param history AccountHistory Entity
+     * @return HistoryResponse
+     */
     public static HistoryResponse toResponse(AccountHistory history) {
         return HistoryResponse.builder()
                 .type(history.getType())

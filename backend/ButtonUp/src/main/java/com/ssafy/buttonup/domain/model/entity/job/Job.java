@@ -50,7 +50,7 @@ public class Job {
     /**
      * Job Entity를 Response dto로 바꿔주는 메서드
      *
-     * @param job
+     * @param job Job Entity
      * @return JobResponse
      */
     public static JobResponse ToResponse(Job job) {
