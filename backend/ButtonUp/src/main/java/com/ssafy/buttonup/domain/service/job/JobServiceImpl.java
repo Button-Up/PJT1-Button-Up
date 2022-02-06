@@ -47,41 +47,27 @@ public class JobServiceImpl extends ImageService implements JobService {
     /**
      * 아이 현재 직업 조회
      *
-     * @param child_seq 아이 키
+     * @param childSeq 아이 키
      * @return 직업
      */
     @Override
-    public JobResponse getChildJob(long child_seq) {
-        Job job = jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(child_seq).getJob();
-
-        JobResponse response = JobResponse.builder()
-                .seq(job.getSeq())
-                .payTerm(job.getPayTerm())
-                .pay(job.getPay())
-                .jobImagePath(job.getJobImage().getPath())
-                .build();
-        return response;
+    public JobResponse getChildJob(long childSeq) {
+        return Job.ToResponse(jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(childSeq).getJob());
     }
+
 
     /**
      * 부모의 직업 리스트 조회
      *
-     * @param parent_seq 부모 키
+     * @param parentSeq 부모 키
      * @return 직업 목록
      */
     @Override
-    public List<JobResponse> getJobList(long parent_seq) {
-        List<Job> jobs = jobRepository.findByParent_SeqOrderBySeqDesc(parent_seq);
-
+    public List<JobResponse> getJobList(long parentSeq) {
+        List<Job> jobs = jobRepository.findByParent_SeqOrderBySeqDesc(parentSeq);
         List<JobResponse> list = new ArrayList<>();
         for (Job job : jobs) {
-            JobResponse response = JobResponse.builder()
-                    .seq(job.getSeq())
-                    .payTerm(job.getPayTerm())
-                    .pay(job.getPay())
-                    .jobImagePath(job.getJobImage().getPath())
-                    .build();
-            list.add(response);
+            list.add(Job.ToResponse(job));
         }
         return list;
     }
@@ -89,20 +75,12 @@ public class JobServiceImpl extends ImageService implements JobService {
     /**
      * 직업 단일 조회
      *
-     * @param job_seq 직업 키
+     * @param jobSeq 직업 키
      * @return 직업
      */
     @Override
-    public JobResponse getJob(long job_seq) {
-        Job job = jobRepository.getById(job_seq);
-
-        JobResponse response = JobResponse.builder()
-                .seq(job.getSeq())
-                .payTerm(job.getPayTerm())
-                .pay(job.getPay())
-                .jobImagePath(job.getJobImage().getPath())
-                .build();
-        return response;
+    public JobResponse getJob(long jobSeq) {
+        return Job.ToResponse(jobRepository.getById(jobSeq));
     }
 
     /**
@@ -114,15 +92,15 @@ public class JobServiceImpl extends ImageService implements JobService {
     @Transactional
     public void insertJob(JobRequest request) {
         // 직업 이미지 추가
-//        JobImage jobImage = null;
-//        JobImage.JobImageBuilder imageBuilder = JobImage.builder();
-//        try {
-//            imageBuilder.path(uploadFile(image));
-//            jobImage = imageBuilder.build();
-//            imageRepository.save(jobImage);
-//        } catch (NullPointerException e) {
-//            e.printStackTrace();
-//        }
+        /*JobImage jobImage = null;
+        JobImage.JobImageBuilder imageBuilder = JobImage.builder();
+        try {
+            imageBuilder.path(uploadFile(image));
+            jobImage = imageBuilder.build();
+            imageRepository.save(jobImage);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }*/
 
         long jobImageSeq = request.getJobImageSeq();
         JobImage jobImage = jobImageSeq == 0 ? null : imageRepository.getById(jobImageSeq);
@@ -141,17 +119,6 @@ public class JobServiceImpl extends ImageService implements JobService {
     }
 
     /**
-     * 직업 삭제
-     *
-     * @param job_seq 직업 키
-     */
-    @Override
-    @Transactional
-    public void deleteJob(long job_seq) {
-        // TODO: 직업 삭제 서비스 메서드 구현하기
-    }
-
-    /**
      * 새로운 직업 내역 추가
      *
      * @param request 직업 내역
@@ -161,20 +128,24 @@ public class JobServiceImpl extends ImageService implements JobService {
     @Transactional
     public JobResponse insertJobHistory(JobHistoryRequest request) {
         // 기존 직업 내역 업데이트
-        JobHistory jobHistory = jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(request.getChild_seq());
-        jobHistory.updateRecentJobHistory();
-        jobHistoryRepository.save(jobHistory);
+        JobHistory jobHistory = jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(request.getChildSeq());
+
+        if (jobHistory != null) { // 처음 직업 추가할 때 null 체크
+            jobHistory.updateRecentJobHistory();
+            jobHistoryRepository.save(jobHistory);
+        }
 
         // 새로운 직업 내역 추가
         JobHistory newJobHistory = JobHistory.builder()
                 .endDate(null)
-                .job(jobRepository.getById(request.getJob_seq()))
-                .child(childRepository.getById(request.getChild_seq()))
+                .job(jobRepository.getById(request.getJobSeq()))
+                .child(childRepository.getById(request.getChildSeq()))
                 .build();
         jobHistoryRepository.save(newJobHistory);
 
         // TODO: 새로운 직업에 대한 할일 체크리스트 추가하기
 
-        return getJob(request.getJob_seq());
+        return getJob(request.getJobSeq());
     }
+
 }

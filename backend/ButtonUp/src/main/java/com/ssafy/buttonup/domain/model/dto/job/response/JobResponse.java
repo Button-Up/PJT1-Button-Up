@@ -1,25 +1,34 @@
 package com.ssafy.buttonup.domain.model.dto.job.response;
 
+import com.ssafy.buttonup.domain.model.entity.job.PayTerm;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.io.Serializable;
 
+@ApiModel(value = "직업 응답 정보")
 @Getter
 @Builder
 public class JobResponse implements Serializable {
     /* 직업 키 */
-    private final Long seq;
+    @ApiModelProperty(value = "직업 키", required = true)
+    private final long seq;
 
     /* 급여 지급 주기 */
-    private final int payTerm;
+    @ApiModelProperty(value = "급여 지급 주기", required = true, example = "주급")
+    private final PayTerm payTerm;
 
     /* 급여 */
+    @ApiModelProperty(value = "급여", required = true)
     private final int pay;
 
     /* 직업명 */
+    @ApiModelProperty(value = "직업명", required = true)
     private final String name;
 
     /* 직업 이미지 경로 */
+    @ApiModelProperty(value = "직업 이미지 경로")
     private final String jobImagePath;
 }
