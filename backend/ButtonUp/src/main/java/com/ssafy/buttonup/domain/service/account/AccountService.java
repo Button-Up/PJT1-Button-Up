@@ -16,25 +16,25 @@ public interface AccountService {
     /**
      * 자녀 입출금 내역에서 가장 최근 잔액 조회
      *
-     * @param child_seq 자녀
+     * @param childSeq 자녀
      * @return 잔액
      */
-    int getBalanceByChild(long child_seq);
+    int getBalanceByChild(long childSeq);
 
     /**
      * 단추 입출금 내역 목록 조회
      *
-     * @param child_seq 자녀
+     * @param childSeq 자녀
      * @return 입출금 내역 목록
      */
-    List<HistoryResponse> getAccountHistoryList(long child_seq);
+    List<HistoryResponse> getAccountHistoryList(long childSeq);
 
     /**
      * 입출금 내역 생성
      *
-     * @param historyRequest 추가할 내역
+     * @param request 추가할 내역
      * @param type 입/출금 구분 값
      * @return 추가 후 잔액
      */
-    int insertAccountHistory(HistoryRequest historyRequest, AccountHistoryType type);
+    int insertAccountHistory(HistoryRequest request, AccountHistoryType type);
 }

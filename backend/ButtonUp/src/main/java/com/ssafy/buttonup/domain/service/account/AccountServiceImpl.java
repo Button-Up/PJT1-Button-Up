@@ -34,35 +34,27 @@ public class AccountServiceImpl implements AccountService {
     /**
      * 자녀 입출금 내역에서 가장 최근 잔액 조회
      *
-     * @param child_seq 자녀
+     * @param childSeq 자녀
      * @return 잔액
      */
     @Override
-    public int getBalanceByChild(long child_seq) {
-        return accountRepository.findTopByChild_SeqOrderByDateDesc(child_seq).getBalance();
+    public int getBalanceByChild(long childSeq) {
+        return accountRepository.findTopByChild_SeqOrderByDateDesc(childSeq).getBalance();
     }
 
     /**
      * 단추 입출금 내역 목록 조회
      *
-     * @param child_seq 자녀
+     * @param childSeq 자녀
      * @return 입출금 내역 목록
      */
     @Override
-    public List<HistoryResponse> getAccountHistoryList(long child_seq) {
-        List<AccountHistory> historyList = accountRepository.findByChild_SeqOrderByDateDesc(child_seq);
+    public List<HistoryResponse> getAccountHistoryList(long childSeq) {
+        List<AccountHistory> historyList = accountRepository.findByChild_SeqOrderByDateDesc(childSeq);
         List<HistoryResponse> responseList = new ArrayList<>();
 
         for (AccountHistory history : historyList) {
-            HistoryResponse response = HistoryResponse.builder()
-                    .type(history.getType())
-                    .category(history.getCategory())
-                    .content(history.getContent())
-                    .money(history.getMoney())
-                    .balance(history.getBalance())
-                    .date(history.getDate())
-                    .build();
-            responseList.add(response);
+            responseList.add(AccountHistory.toResponse(history));
         }
         return responseList;
     }
@@ -70,31 +62,31 @@ public class AccountServiceImpl implements AccountService {
     /**
      * 입출금 내역 생성
      *
-     * @param historyRequest 추가할 내역
+     * @param request 추가할 내역
      * @param type 입/출금 구분 값
      * @return 추가 후 잔액
      */
     @Override
     @Transactional
-    public int insertAccountHistory(HistoryRequest historyRequest, AccountHistoryType type) {
+    public int insertAccountHistory(HistoryRequest request, AccountHistoryType type) {
         AccountHistory.AccountHistoryBuilder builder = AccountHistory.builder();
 
-        int balance = getBalanceByChild(historyRequest.getChild_seq());
+        int balance = getBalanceByChild(request.getChildSeq());
 
         switch (type) {
             case 입금:
-                builder.balance(balance += historyRequest.getMoney());
+                builder.balance(balance += request.getMoney());
                 break;
             case 출금:
-                builder.balance(balance -= historyRequest.getMoney());
+                builder.balance(balance -= request.getMoney());
                 break;
         }
 
-        builder.category(historyRequest.getCategory())
+        builder.category(request.getCategory())
                 .type(type)
-                .content(historyRequest.getContent())
-                .money(historyRequest.getMoney())
-                .child(childRepository.getById(historyRequest.getChild_seq()));
+                .content(request.getContent())
+                .money(request.getMoney())
+                .child(childRepository.getById(request.getChildSeq()));
 
         accountRepository.save(builder.build());
 

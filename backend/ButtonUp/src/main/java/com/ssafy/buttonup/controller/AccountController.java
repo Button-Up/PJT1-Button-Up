@@ -18,7 +18,7 @@ import java.util.List;
  * created on 2022-02-02
  */
 @RestController
-@RequestMapping("account")
+@RequestMapping("accounts")
 public class AccountController {
     private final AccountService accountService;
 
@@ -30,44 +30,44 @@ public class AccountController {
     /**
      * 입출금 계좌 잔액을 확인
      *
-     * @param child_seq 자녀 코드
+     * @param childSeq 자녀 코드
      * @return 잔액
      */
     @GetMapping("balance/{child_seq}")
-    public ResponseEntity<Integer> checkBalance(@PathVariable long child_seq) {
-        return new ResponseEntity<>(accountService.getBalanceByChild(child_seq), HttpStatus.OK);
+    public ResponseEntity<Integer> checkBalance(@PathVariable("child_seq") long childSeq) {
+        return new ResponseEntity<>(accountService.getBalanceByChild(childSeq), HttpStatus.OK);
     }
 
     /**
      * 단추 입출금 목록 조회
      *
-     * @param child_seq 자녀 코드
+     * @param childSeq 자녀 코드
      * @return 단추 입출금 목록
      */
-    @GetMapping("history/list/{child_seq}")
-    public ResponseEntity<List<HistoryResponse>> viewAccountHistoryList(@PathVariable long child_seq) {
-        return new ResponseEntity<>(accountService.getAccountHistoryList(child_seq), HttpStatus.OK);
+    @GetMapping("histories/{child_seq}")
+    public ResponseEntity<List<HistoryResponse>> viewAccountHistoryList(@PathVariable("child_seq") long childSeq) {
+        return new ResponseEntity<>(accountService.getAccountHistoryList(childSeq), HttpStatus.OK);
     }
 
     /**
      * 입금 내역 추가
      *
-     * @param historyRequest 입금 내역
+     * @param request 입금 내역
      * @return 잔액
      */
-    @PostMapping("history/deposit")
-    public ResponseEntity<Integer> addAccountHistoryForDeposit(@RequestBody HistoryRequest historyRequest) {
-        return new ResponseEntity<>(accountService.insertAccountHistory(historyRequest, AccountHistoryType.입금), HttpStatus.OK);
+    @PostMapping("histories/deposit")
+    public ResponseEntity<Integer> addAccountHistoryForDeposit(@RequestBody HistoryRequest request) {
+        return new ResponseEntity<>(accountService.insertAccountHistory(request, AccountHistoryType.입금), HttpStatus.OK);
     }
 
     /**
      * 출금 내역 추가
      *
-     * @param historyRequest 출금 내역
+     * @param request 출금 내역
      * @return 잔액
      */
-    @PostMapping("history/withdraw")
-    public ResponseEntity<Integer> addAccountHistoryForWithdraw(@RequestBody HistoryRequest historyRequest) {
-        return new ResponseEntity<>(accountService.insertAccountHistory(historyRequest, AccountHistoryType.출금), HttpStatus.OK);
+    @PostMapping("histories/withdraw")
+    public ResponseEntity<Integer> addAccountHistoryForWithdraw(@RequestBody HistoryRequest request) {
+        return new ResponseEntity<>(accountService.insertAccountHistory(request, AccountHistoryType.출금), HttpStatus.OK);
     }
 }

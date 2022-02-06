@@ -15,16 +15,16 @@ public interface AccountRepository extends JpaRepository<AccountHistory, Long> {
     /**
      * 가장 최근 입출금 내역 하나만 조회
      *
-     * @param child_seq 자녀 코드
+     * @param childSeq 자녀 코드
      * @return 최근 입출금 내역
      */
-    AccountHistory findTopByChild_SeqOrderByDateDesc(long child_seq);
+    AccountHistory findTopByChild_SeqOrderByDateDesc(long childSeq);
 
     /**
      * 자녀의 단추 입출금 리스트 조회
      *
-     * @param child_seq 자녀 코드
+     * @param childSeq 자녀 코드
      * @return 입출금 내역 목록
      */
-    List<AccountHistory> findByChild_SeqOrderByDateDesc(long child_seq);
+    List<AccountHistory> findByChild_SeqOrderByDateDesc(long childSeq);
 }

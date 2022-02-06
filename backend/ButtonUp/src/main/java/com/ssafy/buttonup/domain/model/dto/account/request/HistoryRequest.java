@@ -16,5 +16,5 @@ public class HistoryRequest {
     private AccountHistoryCategory category;
     private String content;
     private int money;
-    private long child_seq;
+    private long childSeq;
 }
