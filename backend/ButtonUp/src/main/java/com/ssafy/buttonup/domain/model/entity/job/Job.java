@@ -29,8 +29,9 @@ public class Job {
     @Column(name = "job_seq")
     private Long seq;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "job_pay_term")
-    private int payTerm;
+    private PayTerm payTerm;
 
     @Column(name = "job_pay")
     private int pay;
