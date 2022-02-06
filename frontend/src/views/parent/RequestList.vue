@@ -26,9 +26,10 @@
 
         <v-list-item-action>
           <v-list-item-action-text v-text="exchangeRequest.requestedTime"></v-list-item-action-text>
-          <v-btn icon>
-            <v-icon>mdi-arrow-right</v-icon>
-          </v-btn>
+          <bottom-sheet
+            :isIcon="true"
+            iconName="mdi-arrow-right"
+          ></bottom-sheet>
         </v-list-item-action>
       </v-list-item>
 
@@ -53,9 +54,10 @@
 
         <v-list-item-action>
           <v-list-item-action-text v-text="buyRequest.requestedTime"></v-list-item-action-text>
-          <v-btn icon>
-            <v-icon>mdi-arrow-right</v-icon>
-          </v-btn>
+          <bottom-sheet
+            :isIcon="true"
+            iconName="mdi-arrow-right"
+          ></bottom-sheet>
         </v-list-item-action>
       </v-list-item>
 
@@ -84,9 +86,11 @@
 
         <v-list-item-action>
           <v-list-item-action-text v-text="exchangeRequest.requestedTime"></v-list-item-action-text>
-          <v-btn icon>
-            <v-icon color="grey lighten-1">mdi-information</v-icon>
-          </v-btn>
+          <bottom-sheet
+            :isIcon="true"
+            iconName="mdi-information"
+            btnColor="grey lighten-1"
+          ></bottom-sheet>
         </v-list-item-action>
       </v-list-item>
 
@@ -111,9 +115,11 @@
 
         <v-list-item-action>
           <v-list-item-action-text v-text="buyRequest.requestedTime"></v-list-item-action-text>
-          <v-btn icon>
-            <v-icon color="grey lighten-1">mdi-information</v-icon>
-          </v-btn>
+          <bottom-sheet
+            :isIcon="true"
+            iconName="mdi-information"
+            btnColor="grey lighten-1"
+          ></bottom-sheet>
         </v-list-item-action>
       </v-list-item>
     </v-list>
@@ -121,9 +127,16 @@
 </template>
 
 <script>
+  import BottomSheet from '@/components/common/BottomSheet'
+
   export default {
+    name: 'ParentRequestList',
+    components: {
+      BottomSheet,
+    },
     data() {
       return {
+        sheetStatus: false,
         exchageRequests: [
           {
             childName: '황승연',
