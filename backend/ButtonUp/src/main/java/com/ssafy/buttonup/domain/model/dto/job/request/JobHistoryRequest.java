@@ -15,8 +15,8 @@ import java.io.Serializable;
 @Builder
 public class JobHistoryRequest implements Serializable {
     /* 직업 내역에 추가되는 직업 키 */
-    private final long job_seq;
+    private final long jobSeq;
 
     /* 직업 내역 추가하는 아이 키 */
-    private final long child_seq;
+    private final long childSeq;
 }
