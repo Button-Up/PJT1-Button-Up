@@ -9,7 +9,10 @@
         @click="onClickBackBtn(backBtnPath)"
         class="mr-6 back-btn"
       >mdi-arrow-left</v-icon>
-      <v-toolbar-title>
+      <v-toolbar-title v-if="$route.path.includes(`/parent/home/child-info`)">
+        {{$route.params.name}}
+      </v-toolbar-title>
+      <v-toolbar-title v-else>
         {{ pageTitle }}
       </v-toolbar-title>
     </v-app-bar>

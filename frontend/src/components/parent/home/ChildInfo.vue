@@ -37,10 +37,10 @@ export default {
           isDeposit:false,
           amount:"25,000"
         },
-        {
-          isDeposit:true,
-          amount:"15,000"
-        },
+        // {
+        //   isDeposit:false,
+        //   amount:"15,000"
+        // },
       ],
     }
   }
