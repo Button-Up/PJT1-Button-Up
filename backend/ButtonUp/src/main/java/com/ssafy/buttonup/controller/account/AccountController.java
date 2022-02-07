@@ -1,4 +1,4 @@
-package com.ssafy.buttonup.controller;
+package com.ssafy.buttonup.controller.account;
 
 import com.ssafy.buttonup.domain.model.dto.account.request.HistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
