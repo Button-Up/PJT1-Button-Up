@@ -77,4 +77,9 @@ h1 {
 #wallet {
   margin-top: 20px;
 }
+.v-application .rounded-lg {
+  border-radius: 8px !important;
+  margin-left: 25px;
+  margin-right: 25px;
+}
 </style>
