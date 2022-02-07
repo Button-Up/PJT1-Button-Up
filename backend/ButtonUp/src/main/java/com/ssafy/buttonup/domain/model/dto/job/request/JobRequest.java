@@ -5,8 +5,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * 직업 요청 DTO
@@ -17,7 +18,7 @@ import java.io.Serializable;
 @ApiModel(value = "직업 추가 요청 정보")
 @Getter
 @Builder
-public class JobRequest implements Serializable {
+public class JobRequest {
     /* 급여 지급 주기 */
     @ApiModelProperty(value = "급여 지급 주기", required = true, example = "주급")
     private final PayTerm payTerm;
@@ -37,4 +38,9 @@ public class JobRequest implements Serializable {
     /* 부모 키 */
     @ApiModelProperty(value = "부모 키", required = true)
     private final long parentSeq;
+
+    /* 할일 리스트 */
+    @ApiModelProperty(value = "할일 리스트", required = true)
+    @Setter
+    private List<String> ToDoContents;
 }

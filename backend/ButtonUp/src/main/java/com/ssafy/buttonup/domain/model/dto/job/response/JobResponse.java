@@ -11,7 +11,7 @@ import java.io.Serializable;
 @ApiModel(value = "직업 응답 정보")
 @Getter
 @Builder
-public class JobResponse implements Serializable {
+public class JobResponse {
     /* 직업 키 */
     @ApiModelProperty(value = "직업 키", required = true)
     private final long seq;
