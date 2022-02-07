@@ -21,11 +21,11 @@
 
       <!-- 바텀 시트 내부 영역 -->
       <v-sheet
-        height="200px"
+        :height="sheetHeight"
       >
         <slot name="body">
           <div class="pa-6">
-            This is a bottom sheet using the persistent prop
+            This is a bottom sheet
           </div>
         </slot>
       </v-sheet>
@@ -41,6 +41,10 @@
       }
     },
     props: {
+      sheetHeight: {
+        type: String,
+        default: '200px'
+      },
       btnColor: {
         type: String,
         default: null
