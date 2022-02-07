@@ -1,12 +1,11 @@
-package com.ssafy.buttonup.controller;
+package com.ssafy.buttonup.controller.account;
 
 import com.ssafy.buttonup.domain.model.dto.account.request.HistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
 import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryType;
 import com.ssafy.buttonup.domain.service.account.AccountService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import com.ssafy.buttonup.exception.BalanceOverException;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,7 +62,7 @@ public class AccountController {
      */
     @PostMapping("histories/deposit")
     @ApiOperation(value = "입금 내역 추가")
-    public ResponseEntity<Integer> addAccountHistoryForDeposit(@ApiParam(value = "입금 내역 추가 요청 정보", required = true) @RequestBody HistoryRequest request) {
+    public ResponseEntity<Integer> addAccountHistoryForDeposit(@ApiParam(value = "입금 내역 추가 요청 정보", required = true) @RequestBody HistoryRequest request) throws BalanceOverException {
         return new ResponseEntity<>(accountService.insertAccountHistory(request, AccountHistoryType.입금), HttpStatus.OK);
     }
 
@@ -75,7 +74,22 @@ public class AccountController {
      */
     @PostMapping("histories/withdraw")
     @ApiOperation(value = "출금 내역 추가")
-    public ResponseEntity<Integer> addAccountHistoryForWithdraw(@ApiParam(value = "출금 내역 추가 요청 정보", required = true) @RequestBody HistoryRequest request) {
+    @ApiResponses(
+            @ApiResponse(code = 416, message = "잔액 초과")
+    )
+    public ResponseEntity<Integer> addAccountHistoryForWithdraw(@ApiParam(value = "출금 내역 추가 요청 정보", required = true) @RequestBody HistoryRequest request) throws BalanceOverException {
         return new ResponseEntity<>(accountService.insertAccountHistory(request, AccountHistoryType.출금), HttpStatus.OK);
+    }
+
+    /**
+     * 잔액 초과 예외 처리
+     *
+     * @param e
+     * @return 잔액 초과
+     */
+    @ExceptionHandler(BalanceOverException.class)
+    public ResponseEntity<String> balanceOverError(Exception e) {
+        e.printStackTrace();
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE);
     }
 }
