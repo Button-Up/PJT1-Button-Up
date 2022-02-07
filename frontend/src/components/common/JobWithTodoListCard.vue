@@ -24,7 +24,7 @@
       </v-list-item>
       <div class="ml-2 mr-2 mt-4 mb-6">
         <v-list-item v-for="(todo, t) in job.TodoList"  :key="t" class="pa-4" style="display:contents">
-          <todo-list class="pb-1" :todo="todo" :isParent="isParent" :onlyRead="true"></todo-list>
+          <todo-list class="pb-1" :todo="todo" :isParent="isParent" :onlyRead="true" :checkboxOn="checkboxOn"></todo-list>
         </v-list-item>
       </div>
     </v-card>
@@ -39,6 +39,7 @@ export default {
     TodoList, 
   },
   props:{
+    checkboxOn: Boolean,
     job:Object,
     isParent:Boolean
   },

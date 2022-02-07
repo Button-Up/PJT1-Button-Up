@@ -17,13 +17,16 @@
           id="space-between"
       >
         <v-checkbox
+          v-if="checkboxOn"
           v-model="todo.done"
           class="ml-2 pa-0 font-weight-black black--text"
           :color="isParent ? 'parent01': 'child01' "
           :label="todo.task"
           >
         </v-checkbox>
-      
+
+        <div class="ml-2 py-4 text-body-1 black--text">{{ todo.task }}</div>
+        
         <v-btn v-if="(isParent && !onlyRead)"
           icon class="ml-4"
           align="right"
@@ -45,6 +48,7 @@ export default {
     }
   },
   props:{
+    checkboxOn: Boolean,
     todo :Object,
     isParent:Boolean,
     onlyRead:Boolean
