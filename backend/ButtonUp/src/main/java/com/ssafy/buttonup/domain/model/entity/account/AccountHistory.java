@@ -2,7 +2,6 @@ package com.ssafy.buttonup.domain.model.entity.account;
 
 import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
 import com.ssafy.buttonup.domain.model.entity.user.Child;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +21,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "account_histories")
 @Getter
-@Builder
 @DynamicInsert
-@AllArgsConstructor
 @NoArgsConstructor
 public class AccountHistory {
     @Id
@@ -56,6 +53,16 @@ public class AccountHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_child_seq")
     private Child child;
+
+    @Builder
+    public AccountHistory(AccountHistoryType type, AccountHistoryCategory category, String content, int money, int balance, Child child) {
+        this.type = type;
+        this.category = category;
+        this.content = content;
+        this.money = money;
+        this.balance = balance;
+        this.child = child;
+    }
 
     /**
      * AccountHistory Entity를 Response dto로 바꿔주는 메서드

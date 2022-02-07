@@ -1,14 +1,12 @@
 package com.ssafy.buttonup.domain.model.dto.job.request;
 
 import com.ssafy.buttonup.domain.model.entity.job.PayTerm;
-import com.ssafy.buttonup.domain.model.entity.job.ToDo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -20,7 +18,7 @@ import java.util.List;
 @ApiModel(value = "직업 추가 요청 정보")
 @Getter
 @Builder
-public class JobRequest implements Serializable {
+public class JobRequest {
     /* 급여 지급 주기 */
     @ApiModelProperty(value = "급여 지급 주기", required = true, example = "주급")
     private final PayTerm payTerm;
