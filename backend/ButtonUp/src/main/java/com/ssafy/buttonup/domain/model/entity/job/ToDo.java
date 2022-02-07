@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 직업에 대한 할 일 엔티티
@@ -33,4 +35,7 @@ public class ToDo {
     @ManyToOne
     @JoinColumn(name = "fk_job_seq")
     private Job job;
+
+//    @OneToMany(mappedBy = "toDo", cascade = CascadeType.ALL)
+//    private List<ToDoCheck> toDoChecks = new ArrayList<>();
 }
