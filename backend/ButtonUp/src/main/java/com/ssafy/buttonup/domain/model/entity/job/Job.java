@@ -2,7 +2,6 @@ package com.ssafy.buttonup.domain.model.entity.job;
 
 import com.ssafy.buttonup.domain.model.dto.job.response.JobResponse;
 import com.ssafy.buttonup.domain.model.entity.user.Parent;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +18,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "jobs")
 @Getter
-@Builder
 @DynamicInsert
-@AllArgsConstructor
 @NoArgsConstructor
 public class Job {
     @Id
@@ -46,6 +43,15 @@ public class Job {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_parent_seq")
     private Parent parent;
+
+    @Builder
+    public Job(PayTerm payTerm, int pay, String name, JobImage jobImage, Parent parent) {
+        this.payTerm = payTerm;
+        this.pay = pay;
+        this.name = name;
+        this.jobImage = jobImage;
+        this.parent = parent;
+    }
 
     /**
      * Job Entity를 Response dto로 바꿔주는 메서드
