@@ -6,9 +6,11 @@ import com.ssafy.buttonup.domain.model.dto.job.response.JobResponse;
 import com.ssafy.buttonup.domain.model.entity.job.Job;
 import com.ssafy.buttonup.domain.model.entity.job.JobHistory;
 import com.ssafy.buttonup.domain.model.entity.job.JobImage;
+import com.ssafy.buttonup.domain.model.entity.job.ToDo;
 import com.ssafy.buttonup.domain.repository.job.JobHistoryRepository;
 import com.ssafy.buttonup.domain.repository.job.JobImageRepository;
 import com.ssafy.buttonup.domain.repository.job.JobRepository;
+import com.ssafy.buttonup.domain.repository.job.ToDoRepository;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
 import com.ssafy.buttonup.domain.service.common.ImageService;
@@ -33,15 +35,17 @@ public class JobServiceImpl extends ImageService implements JobService {
     private final JobImageRepository imageRepository;
     private final ChildRepository childRepository;
     private final ParentRepository parentRepository;
+    private final ToDoRepository toDoRepository;
 
     @Autowired
     public JobServiceImpl(JobRepository jobRepository, JobHistoryRepository jobHistoryRepository, JobImageRepository imageRepository,
-                          ChildRepository childRepository, ParentRepository parentRepository) {
+                          ChildRepository childRepository, ParentRepository parentRepository, ToDoRepository toDoRepository) {
         this.jobRepository = jobRepository;
         this.jobHistoryRepository = jobHistoryRepository;
         this.imageRepository = imageRepository;
         this.childRepository = childRepository;
         this.parentRepository = parentRepository;
+        this.toDoRepository = toDoRepository;
     }
 
     /**
@@ -115,7 +119,14 @@ public class JobServiceImpl extends ImageService implements JobService {
                 .build();
         jobRepository.save(job);
 
-        // 직업 할일 리스트 추가 - api 따로 요청해서 수행
+        // 직업 할일 리스트 추가
+
+        for(String str: request.getToDoContents()){
+            toDoRepository.save(ToDo.builder()
+                    .content(str)
+                    .job(job)
+                    .build());
+        }
     }
 
     /**

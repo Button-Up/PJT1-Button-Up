@@ -1,12 +1,14 @@
 package com.ssafy.buttonup.domain.model.dto.job.request;
 
 import com.ssafy.buttonup.domain.model.entity.job.PayTerm;
+import com.ssafy.buttonup.domain.model.entity.job.ToDo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 직업 요청 DTO
@@ -37,4 +39,8 @@ public class JobRequest implements Serializable {
     /* 부모 키 */
     @ApiModelProperty(value = "부모 키", required = true)
     private final long parentSeq;
+
+    /* 할일 리스트 */
+    @ApiModelProperty(value = "할일 리스트", required = true)
+    private final List<String> ToDoContents;
 }
