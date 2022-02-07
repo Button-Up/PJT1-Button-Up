@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -42,5 +43,6 @@ public class JobRequest implements Serializable {
 
     /* 할일 리스트 */
     @ApiModelProperty(value = "할일 리스트", required = true)
-    private final List<String> ToDoContents;
+    @Setter
+    private List<String> ToDoContents;
 }
