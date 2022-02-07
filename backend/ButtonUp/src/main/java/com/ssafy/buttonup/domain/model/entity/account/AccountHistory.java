@@ -1,7 +1,7 @@
 package com.ssafy.buttonup.domain.model.entity.account;
 
 import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
-import com.ssafy.buttonup.domain.model.entity.Child;
+import com.ssafy.buttonup.domain.model.entity.user.Child;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.ssafy.buttonup.domain.model.entity.product;
 
-import com.ssafy.buttonup.domain.model.entity.Parent;
+import com.ssafy.buttonup.domain.model.entity.user.Parent;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

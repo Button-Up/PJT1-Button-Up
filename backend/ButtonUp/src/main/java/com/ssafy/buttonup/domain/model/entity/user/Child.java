@@ -1,8 +1,5 @@
-package com.ssafy.buttonup.domain.model.entity;
+package com.ssafy.buttonup.domain.model.entity.user;
 
-import com.ssafy.buttonup.domain.model.entity.account.AccountHistory;
-import com.ssafy.buttonup.domain.model.entity.job.JobHistory;
-import com.ssafy.buttonup.domain.model.entity.job.ToDoCheck;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

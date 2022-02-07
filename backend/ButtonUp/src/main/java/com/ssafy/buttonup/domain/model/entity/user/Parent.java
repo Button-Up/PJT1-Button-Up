@@ -1,4 +1,4 @@
-package com.ssafy.buttonup.domain.model.entity;
+package com.ssafy.buttonup.domain.model.entity.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
