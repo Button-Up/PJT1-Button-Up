@@ -1,4 +1,4 @@
-package com.ssafy.buttonup.domain.model.entity.request;
+package com.ssafy.buttonup.domain.model.entity.product;
 
 /**
  * 상품 타입

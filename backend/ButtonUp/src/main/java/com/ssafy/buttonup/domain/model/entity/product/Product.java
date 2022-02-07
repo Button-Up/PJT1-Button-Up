@@ -1,4 +1,4 @@
-package com.ssafy.buttonup.domain.model.entity.request;
+package com.ssafy.buttonup.domain.model.entity.product;
 
 import com.ssafy.buttonup.domain.model.entity.Parent;
 import com.sun.istack.NotNull;
