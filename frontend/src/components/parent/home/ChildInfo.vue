@@ -19,17 +19,17 @@
     <!-- 아이의 단추 계좌 END -->
     <div>
       <h2>아이의 할 일 진행 상황</h2>
-      <job-card :isParent="true"> </job-card>
+      <job-with-todo-list-card :isParent="true" :job="job"></job-with-todo-list-card>
     </div> 
   </div>
 </template>
 
 <script>
-import JobCard from '../../common/JobCard.vue'
+import JobWithTodoListCard from '../../common/JobWithTodoListCard.vue'
 import ChildAccount from './ChildAccount.vue'
 export default {
   name: 'ChildInfo',
-  components: { JobCard, ChildAccount },
+  components: { JobWithTodoListCard, ChildAccount },
   data(){
     return{
       accounts:[
@@ -42,6 +42,27 @@ export default {
         //   amount:"15,000"
         // },
       ],
+      job:{
+          name:'청소부',
+          image: 'https://cdn.vuetifyjs.com/images/john.jpg',
+          TodoList:[
+          {
+            done:false,
+            task:"투자 가격 업데이트",
+            url:'/parent/activity',
+          },
+          {
+            done:true,
+            task:"투자 가격 업데이트",
+            url:'/parent/userinfo',
+          },
+          {
+            done:true,
+            task:"투자 가격 업데이트",
+            url:'/parent/userinfo',
+          }
+        ]
+        },
     }
   }
 

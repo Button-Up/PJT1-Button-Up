@@ -18,7 +18,7 @@
       >
         <v-checkbox
           v-model="todo.done"
-          class="ml-2 font-weight-black black--text"
+          class="ml-2 pa-0 font-weight-black black--text"
           :color="isParent ? 'parent01': 'child01' "
           :label="todo.task"
           >
