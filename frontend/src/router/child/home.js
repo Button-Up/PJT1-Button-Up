@@ -34,7 +34,10 @@ export default [
       header: BackHeader,
     },
     props: {
-      header: { pageTitle: "예금 거래내역" },
+      header: {
+        pageTitle: "예금 거래내역",
+        bgColor: "child01"
+      },
     },
   },
 

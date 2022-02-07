@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "Money",
+  name: 'AccountHistoryItem',
   props: {
     AccountHistories: Object,
   },
