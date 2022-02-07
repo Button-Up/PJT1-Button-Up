@@ -12,4 +12,4 @@ function apiInstance() {
   return instance;
 }
 
-export { apiInstance, houseInstance };
+export { apiInstance };
