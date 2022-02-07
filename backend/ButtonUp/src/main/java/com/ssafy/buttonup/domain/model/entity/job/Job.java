@@ -1,7 +1,7 @@
 package com.ssafy.buttonup.domain.model.entity.job;
 
 import com.ssafy.buttonup.domain.model.dto.job.response.JobResponse;
-import com.ssafy.buttonup.domain.model.entity.Parent;
+import com.ssafy.buttonup.domain.model.entity.user.Parent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

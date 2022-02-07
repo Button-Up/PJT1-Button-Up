@@ -2,7 +2,7 @@ package com.ssafy.buttonup.domain.service.user;
 
 import com.ssafy.buttonup.domain.model.dto.user.request.JoinRequest;
 import com.ssafy.buttonup.domain.model.dto.user.response.ParentResponse;
-import com.ssafy.buttonup.domain.model.entity.Parent;
+import com.ssafy.buttonup.domain.model.entity.user.Parent;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

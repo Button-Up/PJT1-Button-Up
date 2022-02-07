@@ -1,7 +1,7 @@
 package com.ssafy.buttonup.domain.repository.user;
 
-import com.ssafy.buttonup.domain.model.entity.Child;
-import com.ssafy.buttonup.domain.model.entity.Parent;
+import com.ssafy.buttonup.domain.model.entity.user.Child;
+import com.ssafy.buttonup.domain.model.entity.user.Parent;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

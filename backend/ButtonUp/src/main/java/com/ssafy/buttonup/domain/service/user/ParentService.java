@@ -2,8 +2,6 @@ package com.ssafy.buttonup.domain.service.user;
 
 import com.ssafy.buttonup.domain.model.dto.user.request.JoinRequest;
 import com.ssafy.buttonup.domain.model.dto.user.response.ParentResponse;
-import com.ssafy.buttonup.domain.model.entity.Child;
-import com.ssafy.buttonup.domain.model.entity.Parent;
 import org.springframework.stereotype.Service;
 
 /**
