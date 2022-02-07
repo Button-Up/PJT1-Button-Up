@@ -6,6 +6,7 @@ import com.ssafy.buttonup.domain.model.entity.account.AccountHistory;
 import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryType;
 import com.ssafy.buttonup.domain.repository.account.AccountRepository;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
+import com.ssafy.buttonup.exception.BalanceOverException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,11 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public int getBalanceByChild(long childSeq) {
-        return accountRepository.findTopByChild_SeqOrderByDateDesc(childSeq).getBalance();
+        try {
+            return accountRepository.findTopByChild_SeqOrderByDateDesc(childSeq).getBalance();
+        } catch (NullPointerException e) {
+            return 0;
+        }
     }
 
     /**
@@ -68,7 +73,7 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     @Transactional
-    public int insertAccountHistory(HistoryRequest request, AccountHistoryType type) {
+    public int insertAccountHistory(HistoryRequest request, AccountHistoryType type) throws BalanceOverException {
         AccountHistory.AccountHistoryBuilder builder = AccountHistory.builder();
 
         int balance = getBalanceByChild(request.getChildSeq());
@@ -78,6 +83,9 @@ public class AccountServiceImpl implements AccountService {
                 builder.balance(balance += request.getMoney());
                 break;
             case 출금:
+                if(balance < request.getMoney()) {
+                    throw new BalanceOverException("잔액 초과");
+                }
                 builder.balance(balance -= request.getMoney());
                 break;
         }

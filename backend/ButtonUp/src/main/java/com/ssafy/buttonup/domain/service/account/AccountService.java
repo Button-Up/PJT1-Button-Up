@@ -3,6 +3,7 @@ package com.ssafy.buttonup.domain.service.account;
 import com.ssafy.buttonup.domain.model.dto.account.request.HistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
 import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryType;
+import com.ssafy.buttonup.exception.BalanceOverException;
 
 import java.util.List;
 
@@ -36,5 +37,5 @@ public interface AccountService {
      * @param type 입/출금 구분 값
      * @return 추가 후 잔액
      */
-    int insertAccountHistory(HistoryRequest request, AccountHistoryType type);
+    int insertAccountHistory(HistoryRequest request, AccountHistoryType type) throws BalanceOverException;
 }
