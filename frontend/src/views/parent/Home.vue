@@ -15,7 +15,7 @@
             justify-center
             v-for="(item, i) in items"
             :key="i"
-            @click.native="$router.push('/parent/activity')"
+            @click.native="$router.push('/parent/home/child-info/'+item.name)"
           >
             <child-card-info
               :item="item"

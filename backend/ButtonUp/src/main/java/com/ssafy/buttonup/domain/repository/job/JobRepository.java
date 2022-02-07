@@ -15,8 +15,8 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     /**
      * 부모 키로 직업 리스트 조회
      * 
-     * @param parent_seq 부모 키
+     * @param parentSeq 부모 키
      * @return 직업 리스트
      */
-    List<Job> findByParent_SeqOrderBySeqDesc(long parent_seq);
+    List<Job> findByParent_SeqOrderBySeqDesc(long parentSeq);
 }

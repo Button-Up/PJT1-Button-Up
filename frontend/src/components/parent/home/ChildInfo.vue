@@ -19,7 +19,7 @@
     <!-- 아이의 단추 계좌 END -->
     <div>
       <h2>아이의 할 일 진행 상황</h2>
-      <job-card> </job-card>
+      <job-card :isParent="true"> </job-card>
     </div> 
   </div>
 </template>
@@ -37,10 +37,10 @@ export default {
           isDeposit:false,
           amount:"25,000"
         },
-        {
-          isDeposit:true,
-          amount:"15,000"
-        },
+        // {
+        //   isDeposit:false,
+        //   amount:"15,000"
+        // },
       ],
     }
   }

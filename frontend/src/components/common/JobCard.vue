@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card
+    <v-card 
       class="mx-auto ma-4 pa-1 mb-8"
       max-width="344"
       rounded="xl"
@@ -19,7 +19,7 @@
       </v-list-item>
       <div class="ml-2 mr-2 mt-4 mb-6">
         <v-list-item v-for="(todo, t) in TodoList"  :key="t" class="pa-4" style="display:contents">
-          <todo-list class="pb-1" :todo="todo" :isParent="false"></todo-list>
+          <todo-list class="pb-1" :todo="todo" :isParent="isParent" :onlyRead="true"></todo-list>
         </v-list-item>
       </div>
     </v-card>
@@ -32,6 +32,9 @@ export default {
   name: "JobCard",
   components: { 
     TodoList, 
+  },
+  props:{
+    isParent:Boolean
   },
   data() {
       return {

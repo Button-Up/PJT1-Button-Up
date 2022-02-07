@@ -1,5 +1,6 @@
 package com.ssafy.buttonup.domain.model.entity.account;
 
+import com.ssafy.buttonup.domain.model.dto.account.response.HistoryResponse;
 import com.ssafy.buttonup.domain.model.entity.Child;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,4 +56,21 @@ public class AccountHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_child_seq")
     private Child child;
+
+    /**
+     * AccountHistory Entity를 Response dto로 바꿔주는 메서드
+     *
+     * @param history AccountHistory Entity
+     * @return HistoryResponse
+     */
+    public static HistoryResponse toResponse(AccountHistory history) {
+        return HistoryResponse.builder()
+                .type(history.getType())
+                .category(history.getCategory())
+                .content(history.getContent())
+                .money(history.getMoney())
+                .balance(history.getBalance())
+                .date(history.getDate())
+                .build();
+    }
 }

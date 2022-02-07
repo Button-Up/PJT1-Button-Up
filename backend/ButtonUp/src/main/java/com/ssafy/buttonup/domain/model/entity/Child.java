@@ -1,5 +1,8 @@
 package com.ssafy.buttonup.domain.model.entity;
 
+import com.ssafy.buttonup.domain.model.entity.account.AccountHistory;
+import com.ssafy.buttonup.domain.model.entity.job.JobHistory;
+import com.ssafy.buttonup.domain.model.entity.job.ToDoCheck;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,10 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -55,6 +55,15 @@ public class Child implements UserDetails {
 
     @Column(name = "child_auth")
     private String auth;
+
+//    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
+//    private List<AccountHistory> accountHistories = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
+//    private List<JobHistory> jobHistories = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
+//    private List<ToDoCheck> toDoChecks = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
