@@ -16,9 +16,9 @@ async function parentLogin(formData, success, fail) {
     .catch(fail);
 }
 
-async function parentSelect(parent_seq, success, fail) {
+async function parentDetail(parent_seq, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   await api.get(`/parents/${parent_seq}`).then(success).catch(fail);
 }
 
-export { parentSignup, parentLogin, parentSelect };
+export { parentSignup, parentLogin, parentDetail };
