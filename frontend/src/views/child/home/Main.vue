@@ -6,14 +6,17 @@ modified: 유현수 - 마크업 & 스타일링
 
 <template>
   <div>
+    <!-- 단추 계좌 슬라이드 -->
     <h2 class="mx-6 mt-4">나의 단추 계좌</h2>
     <v-sheet elevation="">
       <v-slide-group class="mt-2 mx-4" center-active>
         <v-slide-item v-for="(item, i) in items" :key="i">
-          <saving-card-info :item="item"></saving-card-info>
+          <MainAccountCard :item="item"></MainAccountCard>
         </v-slide-item>
       </v-slide-group>
     </v-sheet>
+
+    <!-- 오늘 할 일 -->
     <div class="mx-6 mt-6">
       <h2 class="mb-4">오늘 할 일</h2>
       <v-list-item
@@ -29,13 +32,13 @@ modified: 유현수 - 마크업 & 스타일링
 </template>
 
 <script>
-import AccountCard from "@/components/child/home/AccountCard";
+import MainAccountCard from "@/components/child/home/MainAccountCard";
 import TodoList from "@/components/common/TodoList.vue";
 
 export default {
   name: "Home",
   components: {
-    AccountCard,
+    MainAccountCard,
     TodoList
   },
   data() {

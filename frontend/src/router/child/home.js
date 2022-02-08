@@ -7,10 +7,10 @@ import BackHeader from "../../components/common/headers/BackHeader";
 import ChildBottomNav from "../../components/child/BottomNav.vue";
 
 // 홈
-import ChildHome from "../../views/child/Home.vue";
+import ChildHomeMain from "../../views/child/home/Main.vue";
 
 // 예금 적금 컴포넌트
-import ChildAccountHistory from "../../components/child/AccountHistory.vue";
+import ChildAccountHistory from "../../views/child/home/AccountHistory.vue";
 
 
 export default [
@@ -19,7 +19,7 @@ export default [
     path: "/child/home",
     name: "ChildHome",
     components: {
-      default: ChildHome,
+      default: ChildHomeMain,
       header: GreetingHeader,
       footer: ChildBottomNav,
     },
