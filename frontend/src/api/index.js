@@ -1,3 +1,7 @@
+/**
+ * author : 김응철
+ */
+
 import axios from "axios";
 import { API_BASE_URL } from "@/config";
 
@@ -12,4 +16,4 @@ function apiInstance() {
   return instance;
 }
 
-export { apiInstance, houseInstance };
+export { apiInstance };
