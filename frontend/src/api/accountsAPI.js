@@ -1,13 +1,17 @@
+/**
+ * author : 김응철
+ */
+
 import { apiInstance } from "./index.js";
 
 const api = apiInstance();
 
-function getAccountBalance(child_seq, success, fail) {
-  api.get(`/accounts/balance/${child_seq}`).then(success).catch(fail);
+function getAccountBalance(childSeq, success, fail) {
+  api.get(`/accounts/balance/${childSeq}`).then(success).catch(fail);
 }
 
-function getAccountList(child_seq, success, fail) {
-  api.get(`/accounts/histories/${child_seq}`).then(success).catch(fail);
+function getAccountList(childSeq, success, fail) {
+  api.get(`/accounts/histories/${childSeq}`).then(success).catch(fail);
 }
 
 function addAccountDeposit(formData, success, fail) {
@@ -17,7 +21,7 @@ function addAccountDeposit(formData, success, fail) {
     .catch(fail);
 }
 
-function addAccountwirthdraw(formData, success, fail) {
+function addAccountWithdraw(formData, success, fail) {
   api
     .post(`/accounts/histories/withdraw`, JSON.stringify(formData))
     .then(success)
@@ -28,5 +32,5 @@ export {
   getAccountBalance,
   getAccountList,
   addAccountDeposit,
-  addAccountwirthdraw,
+  addAccountWithdraw,
 };

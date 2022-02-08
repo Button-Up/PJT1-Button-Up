@@ -1,3 +1,7 @@
+/**
+ * author : 김응철
+ */
+
 import { apiInstance } from "./index.js";
 
 const api = apiInstance();
@@ -16,9 +20,9 @@ async function parentLogin(formData, success, fail) {
     .catch(fail);
 }
 
-async function parentDetail(parent_seq, success, fail) {
+async function parentDetail(parentSeq, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-  await api.get(`/parents/${parent_seq}`).then(success).catch(fail);
+  await api.get(`/parents/${parentSeq}`).then(success).catch(fail);
 }
 
 export { parentSignup, parentLogin, parentDetail };

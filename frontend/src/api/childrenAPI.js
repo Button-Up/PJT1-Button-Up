@@ -1,3 +1,7 @@
+/**
+ * author : 김응철
+ */
+
 import { apiInstance } from "./index.js";
 
 const api = apiInstance();
@@ -16,14 +20,14 @@ async function childLogin(formData, success, fail) {
     .catch(fail);
 }
 
-async function childDetail(child_seq, success, fail) {
+async function childDetail(childSeq, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-  await api.get(`/children/${child_seq}`).then(success).catch(fail);
+  await api.get(`/children/${childSeq}`).then(success).catch(fail);
 }
 
-async function childrenList(parent_seq, success, fail) {
+async function childrenList(parentSeq, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-  await api.get(`/children/parent/${parent_seq}`).then(success).catch(fail);
+  await api.get(`/children/parent/${parentSeq}`).then(success).catch(fail);
 }
 
 function childConnect(childSeq, success, fail) {

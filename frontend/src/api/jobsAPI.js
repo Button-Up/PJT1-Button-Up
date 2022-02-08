@@ -1,3 +1,7 @@
+/**
+ * author : 김응철
+ */
+
 import { apiInstance } from "./index.js";
 
 const api = apiInstance();
@@ -6,12 +10,12 @@ function addJob(formData, success, fail) {
   api.post(`/jobs`, JSON.stringify(formData)).then(success).catch(fail);
 }
 
-function getJobDetail(job_seq, success, fail) {
-  api.get(`/jobs/${job_seq}`).then(success).catch(fail);
+function getJobDetail(jobSeq, success, fail) {
+  api.get(`/jobs/${jobSeq}`).then(success).catch(fail);
 }
 
-function getChildsJob(job_seq, success, fail) {
-  api.get(`/jobs/children/${job_seq}`).then(success).catch(fail);
+function getChildsJob(jobSeq, success, fail) {
+  api.get(`/jobs/children/${jobSeq}`).then(success).catch(fail);
 }
 
 function modifyJob(formData, success, fail) {
@@ -21,8 +25,8 @@ function modifyJob(formData, success, fail) {
     .catch(fail);
 }
 
-function getJobsList(parent_seq, success, fail) {
-  api.get(`/jobs/children/${parent_seq}`).then(success).catch(fail);
+function getJobsList(parentSeq, success, fail) {
+  api.get(`/jobs/parents/${parentSeq}`).then(success).catch(fail);
 }
 
 export { addJob, getJobDetail, getChildsJob, modifyJob, getJobsList };
