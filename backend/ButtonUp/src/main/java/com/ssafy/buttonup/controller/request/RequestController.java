@@ -29,7 +29,7 @@ public class RequestController {
     private final RequestService requestService;
 
     /**
-     * 환전 요청 내역 추가
+     * 환전 요청 내역 추가 및 입출금 내역 추가
      * 아이가 가지고 있는 단추 이상의 환전을 요청할 경우, 예외 발생
      * @param requestHistoryRequest
      * @throws BalanceOverException
@@ -37,7 +37,7 @@ public class RequestController {
     @ApiResponses(
             @ApiResponse(code = 416, message = "잔액 초과")
     )
-    @ApiOperation(value = "환전 요청 추가", notes = "환전에 대한 요청 내역을 추가합니다.")
+    @ApiOperation(value = "환전 요청 추가", notes = "환전에 대한 요청 내역과 입출금 내역을 추가합니다.")
     @PostMapping("/exchange")
     public void exchange(@ApiParam(value = "환전 요청 정보", required = true) @RequestBody ExchangeRequest requestHistoryRequest) throws BalanceOverException {
         requestService.insertExchange(requestHistoryRequest);
@@ -48,9 +48,6 @@ public class RequestController {
      * @param requestSeq
      * @throws BalanceOverException
      */
-    @ApiResponses(
-            @ApiResponse(code = 416, message = "잔액 초과")
-    )
     @ApiOperation(value = "요청 상태 승인으로 변경", notes = "해당 요청 내역의 상태를 승인으로 변경합니다.")
     @PutMapping("/status/approve")
     public void changeStatusApprove(@ApiParam(value = "요청 내역 키", required = true) @RequestBody long requestSeq) throws BalanceOverException {
@@ -58,14 +55,11 @@ public class RequestController {
     }
 
     /**
-     * 요청 상태를 거절로 변경
+     * 요청 상태를 거절로 변경 및 입출금 내역 추가
      * @param requestSeq
      * @throws BalanceOverException
      */
-    @ApiResponses(
-            @ApiResponse(code = 416, message = "잔액 초과")
-    )
-    @ApiOperation(value = "요청 상태 거절으로 변경", notes = "해당 요청 내역의 상태를 거절으로 변경합니다.")
+    @ApiOperation(value = "요청 상태 거절으로 변경", notes = "해당 요청 내역의 상태를 거절으로 변경하고 입출금 내역을 추가합니다.")
     @PutMapping("/status/reject")
     public void changeStatusReject(@ApiParam(value = "요청 내역 키", required = true) @RequestBody long requestSeq) throws BalanceOverException {
         requestService.changeStatus(requestSeq, RequestHistoryStatus.REJECT);
