@@ -81,15 +81,5 @@ public class AccountController {
         return new ResponseEntity<>(accountService.insertAccountHistory(request, AccountHistoryType.출금), HttpStatus.OK);
     }
 
-    /**
-     * 잔액 초과 예외 처리
-     *
-     * @param e
-     * @return 잔액 초과
-     */
-    @ExceptionHandler(BalanceOverException.class)
-    public ResponseEntity<String> balanceOverError(Exception e) {
-        e.printStackTrace();
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE);
-    }
+
 }
