@@ -9,7 +9,7 @@ modified: 유현수 - 마크업 & 스타일링
     <!-- 단추 계좌 슬라이드 -->
     <h2 class="mx-6 mt-4">나의 단추 계좌</h2>
     <v-sheet elevation="">
-      <v-slide-group class="mt-2 mx-4" center-active>
+      <v-slide-group class="mt-2 mx-4" center-active show-arrows="false">
         <v-slide-item v-for="(item, i) in items" :key="i">
           <MainAccountCard :item="item"></MainAccountCard>
         </v-slide-item>
