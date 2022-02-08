@@ -67,10 +67,10 @@ public class AccountService {
      *
      * @param request 추가할 내역
      * @param type 입/출금 구분 값
-     * @return 추가 후 잔액
+     * @return 추가한 내역
      */
     @Transactional
-    public int insertAccountHistory(HistoryRequest request, AccountHistoryType type) throws BalanceOverException {
+    public HistoryResponse insertAccountHistory(HistoryRequest request, AccountHistoryType type) throws BalanceOverException {
         AccountHistory.AccountHistoryBuilder builder = AccountHistory.builder();
 
         int balance = getBalanceByChild(request.getChildSeq());
@@ -96,6 +96,6 @@ public class AccountService {
 
         accountRepository.save(builder.build());
 
-        return balance;
+        return AccountHistory.toResponse(builder.build());
     }
 }

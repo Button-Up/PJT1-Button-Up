@@ -58,11 +58,11 @@ public class AccountController {
      * 입금 내역 추가
      *
      * @param request 입금 내역
-     * @return 잔액
+     * @return 추가한 내역
      */
     @PostMapping("histories/deposit")
     @ApiOperation(value = "입금 내역 추가")
-    public ResponseEntity<Integer> addAccountHistoryForDeposit(@ApiParam(value = "입금 내역 추가 요청 정보", required = true) @RequestBody HistoryRequest request) throws BalanceOverException {
+    public ResponseEntity<HistoryResponse> addAccountHistoryForDeposit(@ApiParam(value = "입금 내역 추가 요청 정보", required = true) @RequestBody HistoryRequest request) throws BalanceOverException {
         return new ResponseEntity<>(accountService.insertAccountHistory(request, AccountHistoryType.입금), HttpStatus.OK);
     }
 
@@ -70,14 +70,14 @@ public class AccountController {
      * 출금 내역 추가
      *
      * @param request 출금 내역
-     * @return 잔액
+     * @return 추가한 내역
      */
     @PostMapping("histories/withdraw")
     @ApiOperation(value = "출금 내역 추가")
     @ApiResponses(
             @ApiResponse(code = 416, message = "잔액 초과")
     )
-    public ResponseEntity<Integer> addAccountHistoryForWithdraw(@ApiParam(value = "출금 내역 추가 요청 정보", required = true) @RequestBody HistoryRequest request) throws BalanceOverException {
+    public ResponseEntity<HistoryResponse> addAccountHistoryForWithdraw(@ApiParam(value = "출금 내역 추가 요청 정보", required = true) @RequestBody HistoryRequest request) throws BalanceOverException {
         return new ResponseEntity<>(accountService.insertAccountHistory(request, AccountHistoryType.출금), HttpStatus.OK);
     }
 
