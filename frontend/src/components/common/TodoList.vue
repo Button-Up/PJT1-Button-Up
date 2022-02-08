@@ -1,3 +1,10 @@
+<!--
+  author : 정은이
+  
+  modified : 유현수 
+  content : Add v-if checkboxOn
+  
+-->
 <template>
   <div class="ma-2">
     <v-card :disabled="onlyRead"
@@ -25,7 +32,7 @@
           >
         </v-checkbox>
 
-        <div class="ml-2 py-4 text-body-1 black--text">{{ todo.task }}</div>
+        <div v-else class="ml-2 py-4 text-body-1 black--text">{{ todo.task }}</div>
         
         <v-btn v-if="(isParent && !onlyRead)"
           icon class="ml-4"
@@ -48,7 +55,10 @@ export default {
     }
   },
   props:{
-    checkboxOn: Boolean,
+    checkboxOn: {
+      type:Boolean,
+      default:true}
+      ,
     todo :Object,
     isParent:Boolean,
     onlyRead:Boolean
