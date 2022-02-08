@@ -1,3 +1,6 @@
+<!--
+  author : 정은이
+-->
 <template>
   <div class="mx-9 mt-6">
     <div v-if="inTutorial">
