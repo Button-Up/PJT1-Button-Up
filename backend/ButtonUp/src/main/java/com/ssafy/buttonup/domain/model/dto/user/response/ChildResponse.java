@@ -18,9 +18,7 @@ import java.util.Date;
 
 @ApiModel(value="아이 응답 정보")
 @Getter
-@Setter
 @Builder
-@AllArgsConstructor
 public class ChildResponse {
     /* 자녀 키 */
     @ApiModelProperty(value = "아이 키", required = true)

@@ -21,8 +21,6 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name="products")
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class Product {
     @Id
@@ -54,4 +52,15 @@ public class Product {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "fk_parent_seq")
     private Parent parent;
+
+    @Builder
+    public Product(int price, String name, String description, ProductType type, String purchaseLink, String productImage, Parent parent){
+        this.price = price;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.purchaseLink = purchaseLink;
+        this.productImage = productImage;
+        this.parent = parent;
+    }
 }

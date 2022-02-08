@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 직업 요청 DTO
  *
- * @author jiun kim
+ * @author jiun kim,SeungYeon Hwang
  * created on 2022-02-05
  */
 @ApiModel(value = "직업 추가 요청 정보")
