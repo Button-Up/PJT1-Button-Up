@@ -9,44 +9,74 @@
         color="child01"
       ></v-text-field>
       <v-text-field
+        v-model="signupInfo.nickname"
+        label="아이디"
+        required
+        color="child01"
+      ></v-text-field>
+      <v-text-field
         v-model="signupInfo.phone"
         label="전화번호"
         required
         color="child01"
       ></v-text-field>
       <v-text-field
-        v-model="signupInfo.password1"
-        label="비밀번호"
+        v-model="signupInfo.email"
+        label="이메일"
         required
         color="child01"
       ></v-text-field>
       <v-text-field
-        v-model="signupInfo.password2"
+        v-model="signupInfo.password"
+        label="비밀번호"
+        required
+        color="child01"
+        type="password"
+      ></v-text-field>
+      <v-text-field
+        v-model="passwordConfirm"
         label="비밀번호 확인"
         required
         color="child01"
+        type="password"
       ></v-text-field>
       <v-btn
-        to="/child/signup/sync-code"
         block
         color="child01"
         class="font-weight-bold"
+        @click.native="signup"
       >회원가입 완료</v-btn>
     </v-form>
   </div>
 </template>
 
 <script>
+import { childSignup } from '@/api/account.js'
+
 export default {
   name: 'ChildSignup',
   data() {
     return {
       signupInfo: {
+        email: null,
+        nickname: null,
         name: null,
         phone: null,
-        password1: null,
-        password2: null
-      }
+      },
+      passwordConfirm: null
+    }
+  },
+  methods: {
+    signup() {
+      childSignup(this.signupInfo)
+        .then(res => {
+          console.log(res)
+          console.log(this.signupInfo)
+        })
+        .catch(err => {
+          console.log(err)
+          console.log(this.signupInfo)
+        })
     }
   }
 }

@@ -75,9 +75,8 @@ public class JobController {
      */
     @PostMapping
     @ApiOperation(value = "새로운 직업 추가", notes = "새 직업을 등록합니다.")
-    public HttpStatus addJob(@ApiParam(value = "직업 추가 요청 정보", required = true) @RequestBody JobRequest request) {
+    public void addJob(@ApiParam(value = "직업 추가 요청 정보", required = true) @RequestBody JobRequest request) {
         jobService.insertJob(request);
-        return HttpStatus.OK;
     }
 
     /**

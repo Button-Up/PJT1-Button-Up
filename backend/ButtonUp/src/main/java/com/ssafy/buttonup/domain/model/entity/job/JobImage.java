@@ -14,9 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "job_images")
 @Getter
-@Builder
 @DynamicInsert
-@AllArgsConstructor
 @NoArgsConstructor
 public class JobImage {
     @Id
@@ -27,4 +25,9 @@ public class JobImage {
     @NonNull
     @Column(name = "job_image")
     private String path;
+
+    @Builder
+    public JobImage(@NonNull String path) {
+        this.path = path;
+    }
 }

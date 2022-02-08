@@ -1,7 +1,6 @@
 package com.ssafy.buttonup.domain.model.entity.job;
 
 import com.ssafy.buttonup.domain.model.entity.user.Child;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,10 +21,8 @@ import java.util.Date;
 @Entity
 @Table(name = "job_histories")
 @Getter
-@Builder
 @DynamicInsert
 @DynamicUpdate
-@AllArgsConstructor
 @NoArgsConstructor
 public class JobHistory {
     @Id
@@ -50,6 +47,13 @@ public class JobHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_job_seq")
     private Job job;
+
+    @Builder
+    public JobHistory(Date endDate, Child child, Job job) {
+        this.endDate = endDate;
+        this.child = child;
+        this.job = job;
+    }
 
     public void updateRecentJobHistory() {
         this.endDate = new Date();
