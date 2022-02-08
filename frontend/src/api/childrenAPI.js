@@ -6,27 +6,27 @@ import { apiInstance } from "./index.js";
 
 const api = apiInstance();
 
-// 아이 회원가입
-async function childSignup(formData, success, fail) {
-  await api
-    .post(`/children/join`, JSON.stringify(formData))
-    .then(success)
-    .catch(fail);
-}
+// // 부모 회원가입
+// async function parentSignup(formData, success, fail) {
+//   await api
+//     .post(`/parents/join`, JSON.stringify(formData))
+//     .then(success)
+//     .catch(fail);
+// }
 
-// 아이 로그인
-async function childLogin(formData, success, fail) {
-  await api
-    .post(`/children/login`, JSON.stringify(formData))
-    .then(success)
-    .catch(fail);
-}
+// // 부모 로그인
+// async function parentLogin(formData, success, fail) {
+//   await api
+//     .post(`/parents/login`, JSON.stringify(formData))
+//     .then(success)
+//     .catch(fail);
+// }
 
-// 아이 상세조회
-async function childDetail(childSeq, success, fail) {
-  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-  await api.get(`/children/${childSeq}`).then(success).catch(fail);
-}
+// //부모 상세 조회
+// async function parentDetail(parentSeq, success, fail) {
+//   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+//   await api.get(`/parents/${parentSeq}`).then(success).catch(fail);
+// }
 
 // 해당 부모의 아이들을 조회
 async function childrenList(parentSeq, success, fail) {
@@ -42,4 +42,4 @@ function childConnect(childSeq, success, fail) {
     .catch(fail);
 }
 
-export { childSignup, childLogin, childDetail, childConnect, childrenList };
+export { childrenList, childConnect };
