@@ -3,31 +3,31 @@
     <h1>아이 회원가입</h1>
     <v-form>
       <v-text-field
-        v-model="signupInfo.name"
+        v-model="childSignupInfo.name"
         label="이름"
         required
         color="child01"
       ></v-text-field>
       <v-text-field
-        v-model="signupInfo.nickname"
+        v-model="childSignupInfo.nickname"
         label="아이디"
         required
         color="child01"
       ></v-text-field>
       <v-text-field
-        v-model="signupInfo.phone"
+        v-model="childSignupInfo.phone"
         label="전화번호"
         required
         color="child01"
       ></v-text-field>
       <v-text-field
-        v-model="signupInfo.email"
+        v-model="childSignupInfo.email"
         label="이메일"
         required
         color="child01"
       ></v-text-field>
       <v-text-field
-        v-model="signupInfo.password"
+        v-model="childSignupInfo.password"
         label="비밀번호"
         required
         color="child01"
@@ -44,42 +44,47 @@
         block
         color="child01"
         class="font-weight-bold"
-        @click.native="signup"
-      >회원가입 완료</v-btn>
+        @click.native="childSignup"
+        >회원가입 완료</v-btn
+      >
     </v-form>
   </div>
 </template>
 
 <script>
-// import { childSignup } from '@/api/account.js'
+import { signup } from "@/api/userAPI.js";
 
 export default {
-  name: 'ChildSignup',
+  name: "ChildSignup",
   data() {
     return {
-      signupInfo: {
+      isParent: false,
+      childSignupInfo: {
         email: null,
-        nickname: null,
         name: null,
+        nickname: null,
+        password: null,
         phone: null,
       },
-      passwordConfirm: null
-    }
+      passwordConfirm: null,
+    };
   },
-  // methods: {
-  //   signup() {
-  //     childSignup(this.signupInfo)
-  //       .then(res => {
-  //         console.log(res)
-  //       })
-  //       .catch(err => {
-  //         console.log(err)
-  //       })
-  //   }
-  // }
-}
+
+  methods: {
+    childSignup() {
+      signup(this.isParent, this.childSignupInfo)
+        .then((res) => {
+          console.log(res);
+          console.log(this.childSignupInfo);
+          this.$router.push({ name: "Login" });
+        })
+        .catch((err) => {
+          console.log(err);
+          console.log(this.childSignupInfo);
+        });
+    },
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
