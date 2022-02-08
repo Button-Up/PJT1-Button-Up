@@ -73,6 +73,7 @@ public class ParentController {
      */
     
     @PutMapping("/tutorial")
+    @ApiOperation(value = "튜토리얼 단계 수정",notes = "튜토리얼 단계 수정")
     public void updateTutorial(@ApiParam(value = "튜토리얼 단계 수정",readOnly = true) @RequestBody TutorialRequest tutorialRequest){
         tutorialService.updateTutorialStage(tutorialRequest);
     }

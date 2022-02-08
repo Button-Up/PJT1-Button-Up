@@ -44,6 +44,9 @@ public class Job {
     @JoinColumn(name = "fk_parent_seq")
     private Parent parent;
 
+    /*@OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
+    private List<ToDo> toDos = new ArrayList<>();*/
+
     @Builder
     public Job(PayTerm payTerm, int pay, String name, JobImage jobImage, Parent parent) {
         this.payTerm = payTerm;
@@ -60,6 +63,7 @@ public class Job {
      * @return JobResponse
      */
     public static JobResponse ToResponse(Job job) {
+
         return JobResponse.builder()
                 .seq(job.getSeq())
                 .payTerm(job.getPayTerm())

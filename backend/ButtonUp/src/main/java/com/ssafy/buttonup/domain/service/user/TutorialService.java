@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TutorialService {
 
-    private ParentRepository parentRepository;
+    private final ParentRepository parentRepository;
 
     /**
      * 부모 튜토리얼 단계정보 조회
@@ -46,9 +46,11 @@ public class TutorialService {
      * @param tutorialRequest 튜토리얼 정보 Dto
      */
 
+    @Transactional
     public void updateTutorialStage(TutorialRequest tutorialRequest){
         Parent parent = parentRepository.getById(tutorialRequest.getParentSeq());
 
         parent.changeStage(tutorialRequest.getStage());
+        parentRepository.save(parent);
     }
 }

@@ -65,8 +65,15 @@ public class JobService extends ImageService {
         List<Job> jobs = jobRepository.findByParent_SeqOrderBySeqDesc(parentSeq);
         List<JobResponse> list = new ArrayList<>();
         for (Job job : jobs) {
-            list.add(Job.ToResponse(job));
+            List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(job.getSeq());
+            //System.out.println("이거봐이거봐이거봐"+toDos.get(0).getSeq());
+            JobResponse jobResponse = Job.ToResponse(job);
+
+            list.add(jobResponse);
+            System.out.println("이거봐이거봐"+jobResponse.toString());
         }
+        //System.out.println("이거봐이거봐이거봐");
+
         return list;
     }
 
