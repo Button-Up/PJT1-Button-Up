@@ -71,11 +71,9 @@ export default {
       childSignup(this.signupInfo)
         .then(res => {
           console.log(res)
-          console.log(this.signupInfo)
         })
         .catch(err => {
           console.log(err)
-          console.log(this.signupInfo)
         })
     }
   }

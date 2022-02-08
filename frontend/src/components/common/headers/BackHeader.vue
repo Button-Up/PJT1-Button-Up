@@ -2,7 +2,7 @@
   <div>
     <v-app-bar
       dense
-      color="white"
+      :color="bgColor"
       elevation="0"
     >
       <v-icon
@@ -30,6 +30,10 @@ export default {
     backBtnPath: {
       type: String,
       default: ''
+    },
+    bgColor: {
+      props: String,
+      default: 'white'
     }
   },
   methods: {

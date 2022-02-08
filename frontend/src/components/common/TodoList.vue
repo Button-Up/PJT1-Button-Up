@@ -1,8 +1,6 @@
 <!--
   author : 정은이
-  
-  modified : 유현수 
-  content : Add v-if checkboxOn
+  modified : 유현수 - Add v-if checkboxOn
   
 -->
 <template>
