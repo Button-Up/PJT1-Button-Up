@@ -3,15 +3,47 @@
 -->
 <template>
   <div class="mx-9 mt-10">
-    <div class="mb-12"> 
-      <v-row class="align-center justify-center">
-        <v-avatar
-      color="grey"
-      size="200"
-      ></v-avatar>
-      </v-row>
-      
-    </div>
+    <!-- selectedImageIdx는 images list의 인덱스 -->
+    <v-slide-group
+        v-model="selectedImageIdx"
+        class="pa-4"
+        center-active
+        show-arrows
+      >
+        <v-slide-item
+          v-for="(img,index) in images"
+          :key="index"
+          v-slot="{ active, toggle }"
+        >
+          <v-card
+            class="ma-4"
+            height="200"
+            width="200"
+            @click="toggle"
+          >
+          
+            <v-img  
+              class="fill-height" 
+              :src='img.imageUrl'>               
+            </v-img>
+
+            <v-fade-transition>
+              <v-overlay
+                v-if="active"
+                absolute
+                color="parent01"
+              >
+                <v-icon
+                  v-if="active"
+                  color="white"
+                  size="48"
+                  v-text="'mdi-checkbox-marked-circle'"
+                ></v-icon>
+                </v-overlay>
+            </v-fade-transition>
+          </v-card>
+        </v-slide-item>
+      </v-slide-group>
     <v-form>
       <!-- 직업 -->
       <v-list-item cols="12" class="justify-space-between align-baseline  ma-0 pa-0">
@@ -23,7 +55,6 @@
           color="parent01"
         ></v-text-field>
       </v-list-item>
-
       <!-- 급여 -->
       <v-list-item cols="12" class="justify-space-between align-baseline ma-0 pa-0">
         <v-text-field cols="8"
@@ -82,7 +113,14 @@ export default {
         termSalary:null,
         todoLists:[]          
       },
-      passwordConfirm: null
+      passwordConfirm: null,
+      images:[
+        {no:1,imageUrl:"https://cdn.vuetifyjs.com/images/parallax/material.jpg"},
+        {no:2,imageUrl:"https://picsum.photos/id/11/500/300"},
+        {no:3,imageUrl:"https://cdn.vuetifyjs.com/images/parallax/material2.jpg"},
+        {no:4,imageUrl:"https://picsum.photos/350/165?random"},
+      ],
+      selectedImageIdx:0
     }
   },
 }
