@@ -13,15 +13,13 @@ import java.util.List;
 /**
  * 직업에 대한 할 일 엔티티
  *
- * @author jiun kim
+ * @author SeungYeon Hwang
  * created on 2022-02-04
  */
 @Entity
 @Table(name = "todo_list")
 @Getter
-@Builder
 @DynamicInsert
-@AllArgsConstructor
 @NoArgsConstructor
 public class ToDo {
     @Id
@@ -38,4 +36,10 @@ public class ToDo {
 
 //    @OneToMany(mappedBy = "toDo", cascade = CascadeType.ALL)
 //    private List<ToDoCheck> toDoChecks = new ArrayList<>();
+
+    @Builder
+    public ToDo(String content, Job job){
+        this.content=content;
+        this.job=job;
+    }
 }

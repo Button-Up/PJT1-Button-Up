@@ -16,9 +16,7 @@ import lombok.Setter;
 
 @ApiModel(value="부모 응답 정보")
 @Getter
-@Setter
 @Builder
-@AllArgsConstructor
 public class ParentResponse {
     /* 부모 키 */
     @ApiModelProperty(value = "부모 키", required = true)

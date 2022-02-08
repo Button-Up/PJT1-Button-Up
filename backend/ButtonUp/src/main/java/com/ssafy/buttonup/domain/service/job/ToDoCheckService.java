@@ -9,6 +9,7 @@ import com.ssafy.buttonup.domain.repository.job.ToDoCheckRepository;
 import com.ssafy.buttonup.domain.repository.job.ToDoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ToDoCheckService {
 
     private final ToDoCheckRepository toDoCheckRepository;
@@ -35,11 +37,12 @@ public class ToDoCheckService {
      * @return 체크리스트
      */
 
+    @Transactional
     public List<ToDoCheckResponse> getCheckList(long childSeq){
         //현재 직업 가져오기
         JobHistory jobHistory = jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(childSeq);
         //현재 직업의 할일 가져오기
-        List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(jobHistory.getSeq());
+        List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(jobHistory.getJob().getSeq());
 
         List<ToDoCheckResponse> list = new ArrayList<>();
 

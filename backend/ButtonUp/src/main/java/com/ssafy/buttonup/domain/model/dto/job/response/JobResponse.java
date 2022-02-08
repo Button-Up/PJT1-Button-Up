@@ -8,6 +8,13 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
+/**
+ * 직업 응답 DTO
+ *
+ * @author jiun kim
+ * created on 2022-02-06
+ */
+
 @ApiModel(value = "직업 응답 정보")
 @Getter
 @Builder

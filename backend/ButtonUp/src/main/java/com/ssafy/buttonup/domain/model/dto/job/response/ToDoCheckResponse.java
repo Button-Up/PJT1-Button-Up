@@ -8,6 +8,13 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
+/**
+ * 체크리스트 응답 DTO
+ *
+ * @author SeungYeon Hwang
+ * created on 2022-02-08
+ */
+
 @ApiModel(value = "체크리스트 응답 정보")
 @Getter
 @Builder

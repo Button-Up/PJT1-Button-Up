@@ -17,9 +17,10 @@ public interface ToDoCheckRepository extends JpaRepository<ToDoCheck, Long> {
     /**
      * 아이 키와 할일 키로 체크리스트 조회
      *
-     * @param childSeq,todoSeq 아이 키,할일 키
+     * @param childSeq,toDoSeq 아이 키,할일 키
      * @return 체크리스트
      */
 
-    ToDoCheck findByChild_SeqAndToDo_SeqOrderBySeqDesc(long childSeq,long todoSeq);
+    //@Query("select t from ToDoCheck t where t.child.seq = :childSeq and t.toDo.seq= :toDoSeq")
+    ToDoCheck findByChild_SeqAndToDo_SeqOrderBySeqDesc(long childSeq,long toDoSeq);
 }
