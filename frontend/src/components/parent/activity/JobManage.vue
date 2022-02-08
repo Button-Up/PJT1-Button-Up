@@ -22,7 +22,7 @@
       </v-sheet>
 
     <v-btn
-          :to="{ name: 'ParentSignupSyncCodeForm',}"
+          :to="{ name: 'AddJob',}"
           block
           color="parent01"
           class="white--text"

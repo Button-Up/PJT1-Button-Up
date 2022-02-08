@@ -1,3 +1,9 @@
+<!--
+  author : 정은이
+  
+  modified : 유현수 - Add v-if checkboxOn
+  
+-->
 <template>
   <div class="ma-2">
     <v-card :disabled="onlyRead"
@@ -17,13 +23,16 @@
           id="space-between"
       >
         <v-checkbox
+          v-if="checkboxOn"
           v-model="todo.done"
           class="ml-2 pa-0 font-weight-black black--text"
           :color="isParent ? 'parent01': 'child01' "
           :label="todo.task"
           >
         </v-checkbox>
-      
+
+        <div v-else class="ml-2 py-4 text-body-1 black--text">{{ todo.task }}</div>
+        
         <v-btn v-if="(isParent && !onlyRead)"
           icon class="ml-4"
           align="right"
@@ -45,6 +54,10 @@ export default {
     }
   },
   props:{
+    checkboxOn: {
+      type:Boolean,
+      default:true}
+      ,
     todo :Object,
     isParent:Boolean,
     onlyRead:Boolean
