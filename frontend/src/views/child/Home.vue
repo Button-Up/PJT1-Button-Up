@@ -1,3 +1,9 @@
+<!--
+author: 김응철
+
+modified: 유현수 - 마크업 & 스타일링
+-->
+
 <template>
   <div>
     <h2 class="mx-6 mt-4">나의 단추 계좌</h2>
@@ -23,13 +29,13 @@
 </template>
 
 <script>
-import SavingCardInfo from "@/components/child/home/SavingCardInfo";
+import AccountCard from "@/components/child/home/AccountCard";
 import TodoList from "@/components/common/TodoList.vue";
 
 export default {
   name: "Home",
   components: {
-    SavingCardInfo,
+    AccountCard,
     TodoList
   },
   data() {

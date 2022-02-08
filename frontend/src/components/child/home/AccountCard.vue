@@ -19,13 +19,13 @@
 
 <script>
 export default {
-  name: "SavingCardInfo",
+  name: "AccountCard",
   props: {
     item: Object,
   },
   methods: {
     goToPage() {
-      this.$router.push(this.item.isDeposit ? 'saving' : 'installmentsaving');
+      this.$router.push(this.item.isDeposit ? '/child/account-history/deposit' : '/child/account-history/installment');
     },
   },
 };

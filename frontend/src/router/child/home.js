@@ -10,8 +10,8 @@ import ChildBottomNav from "../../components/child/BottomNav.vue";
 import ChildHome from "../../views/child/Home.vue";
 
 // 예금 적금 컴포넌트
-import ChildSaving from "../../components/child/Saving.vue";
-import ChildInstallmentSaving from "../../components/child/InstallmentSaving.vue";
+import ChildAccountHistory from "../../components/child/AccountHistory.vue";
+
 
 export default [
   // 홈
@@ -27,30 +27,39 @@ export default [
 
   // 예금 상세
   {
-    path: "/child/saving",
-    name: "ChildSaving",
+    path: "/child/account-history/deposit",
+    name: "ChildAccountHistoryDeposit",
     components: {
-      default: ChildSaving,
+      default: ChildAccountHistory,
       header: BackHeader,
     },
     props: {
       header: {
         pageTitle: "예금 거래내역",
-        bgColor: "child01"
+        bgColor: "child01",
       },
+      default: {
+        isDeposit: true
+      }
     },
   },
 
   // 적금 상세
   {
-    path: "/child/installmentsaving",
-    name: "ChildInstallmentSaving",
+    path: "/child/account-history/installment",
+    name: "ChildAccountHistoryInstallment",
     components: {
-      default: ChildInstallmentSaving,
+      default: ChildAccountHistory,
       header: BackHeader,
     },
     props: {
-      header: { pageTitle: "적금 상세" },
+      header: {
+        pageTitle: "적금 거래내역",
+        bgColor: "child04"
+      },
+      default: {
+        isDeposit: false
+      }
     },
   },
 ];
