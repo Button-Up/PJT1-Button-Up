@@ -1,3 +1,6 @@
+<!--
+  author : 정은이
+-->
 <template>
   <div class="mx-6 mt-6">
     <!-- 직업 종류 관리 START -->

@@ -1,3 +1,6 @@
+<!--
+  author : 정은이
+-->
 <template>
   <div class="mx-6 mt-6">
     <!-- 아이의 단추 계좌 START -->
@@ -19,7 +22,7 @@
     <!-- 아이의 단추 계좌 END -->
     <div>
       <h2>아이의 할 일 진행 상황</h2>
-      <job-with-todo-list-card :isParent="true" :job="job"></job-with-todo-list-card>
+      <job-with-todo-list-card :isParent="true" :job="job" :checkboxOff="false"></job-with-todo-list-card>
     </div> 
   </div>
 </template>

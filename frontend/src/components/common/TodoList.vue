@@ -1,6 +1,5 @@
 <!--
   author : 정은이
-  
   modified : 유현수 - Add v-if checkboxOn
   
 -->
