@@ -29,7 +29,7 @@ export default [
       footer: ParentBottomNav
     },
     props:{
-      header: { 
+      header: {
         backBtnPath: '/parent/home' 
       }
     }
