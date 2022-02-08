@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,16 +24,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "parents")
 @Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor(force = true)
+@DynamicInsert
+@NoArgsConstructor
 public class Parent implements UserDetails {
     //SpringSecurity는 UserDetails 객체를 통해 권한 정보를 관리하기 때문에 Parent에 UserDetails를 구현하고 추가 정보 재정의 해야함
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "parent_seq") 
-    private final long seq;
+    private Long seq;
 
     @Column(name = "parent_phone")
     private String phone;
@@ -57,6 +57,23 @@ public class Parent implements UserDetails {
 
     @Column(name = "parent_auth")
     private String auth;
+
+    @Column(name = "parent_tutorial_flag")
+    private boolean flag;
+
+    @Column(name = "parent_tutorial_stage")
+    private int stage;
+
+    @Builder
+    public Parent(String phone, String name, String nickname, String password, String email, String image, String auth){
+        this.phone=phone;
+        this.name=name;
+        this.nickname=nickname;
+        this.password=password;
+        this.email=email;
+        this.image=image;
+        this.auth=auth;
+    }
 
 //    @ElementCollection(fetch = FetchType.EAGER)
 //    @Builder.Default
@@ -99,5 +116,9 @@ public class Parent implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    public void changeStage(int stage){
+        this.stage=stage;
     }
 }

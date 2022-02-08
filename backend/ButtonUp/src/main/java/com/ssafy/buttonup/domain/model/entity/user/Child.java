@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,16 +17,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "children")
 @Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor(force = true)
+@DynamicInsert
+@NoArgsConstructor
 public class Child implements UserDetails {
     //SpringSecurity는 UserDeatails 객체를 통해 권한 정보를 관리하기 때문에 Child에 UserDetails를 구현하고 추가 정보 재정의 해야함
     
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "child_seq")
-    private final long seq;
+    private Long seq;
 
     @Column(name = "child_phone")
     private String phone;
@@ -52,6 +52,18 @@ public class Child implements UserDetails {
 
     @Column(name = "child_auth")
     private String auth;
+
+    @Builder
+    public Child(String phone, String nickname, String name, String password, String image, Parent parent, String auth,Date birthDate){
+        this.phone=phone;
+        this.nickname=nickname;
+        this.name=name;
+        this.password=password;
+        this.image=image;
+        this.parent=parent;
+        this.auth=auth;
+        this.birthDate=birthDate;
+    }
 
 //    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
 //    private List<AccountHistory> accountHistories = new ArrayList<>();
