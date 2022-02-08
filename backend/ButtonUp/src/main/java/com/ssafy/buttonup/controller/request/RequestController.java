@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api("요청 관련 기능")
+@Api(tags = "요청 관련 기능")
 @RestController
 @RequestMapping("/requests")
 @RequiredArgsConstructor
@@ -31,7 +31,7 @@ public class RequestController {
         requestService.insertExchange(requestHistoryRequest);
     }
 
-    @PutMapping("/approve")
+    @PutMapping("/status/approve")
     @ApiResponses(
             @ApiResponse(code = 416, message = "잔액 초과")
     )
@@ -39,7 +39,7 @@ public class RequestController {
         requestService.changeStatus(requestSeq, RequestHistoryStatus.APPROVE);
     }
 
-    @PutMapping("/reject")
+    @PutMapping("/status/reject")
     @ApiResponses(
             @ApiResponse(code = 416, message = "잔액 초과")
     )
