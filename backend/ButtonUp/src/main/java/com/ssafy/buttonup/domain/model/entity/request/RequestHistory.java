@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,8 +22,7 @@ import java.util.Date;
 @Entity
 @Table(name="request_histories")
 @Getter
-@Builder
-@AllArgsConstructor
+@DynamicInsert
 @NoArgsConstructor
 public class RequestHistory {
     @Id
@@ -55,4 +55,22 @@ public class RequestHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_child_seq")
     private Child child;
+
+    @Builder
+    public RequestHistory(RequestHistoryType type, RequestHistoryStatus status, int price, Product product, Child child) {
+        this.type = type;
+        this.status = status;
+        this.price = price;
+        this.product = product;
+        this.child = child;
+    }
+
+    /**
+     * 요청 상태 변경 메서드
+     * @param status
+     */
+    public void changeStatus(RequestHistoryStatus status) {
+        this.status = status;
+    }
+
 }
