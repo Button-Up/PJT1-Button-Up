@@ -3,14 +3,8 @@ package com.ssafy.buttonup.domain.service.job;
 import com.ssafy.buttonup.domain.model.dto.job.request.JobHistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.job.request.JobRequest;
 import com.ssafy.buttonup.domain.model.dto.job.response.JobResponse;
-import com.ssafy.buttonup.domain.model.entity.job.Job;
-import com.ssafy.buttonup.domain.model.entity.job.JobHistory;
-import com.ssafy.buttonup.domain.model.entity.job.JobImage;
-import com.ssafy.buttonup.domain.model.entity.job.ToDo;
-import com.ssafy.buttonup.domain.repository.job.JobHistoryRepository;
-import com.ssafy.buttonup.domain.repository.job.JobImageRepository;
-import com.ssafy.buttonup.domain.repository.job.JobRepository;
-import com.ssafy.buttonup.domain.repository.job.ToDoRepository;
+import com.ssafy.buttonup.domain.model.entity.job.*;
+import com.ssafy.buttonup.domain.repository.job.*;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
 import com.ssafy.buttonup.domain.service.common.ImageService;
@@ -36,16 +30,18 @@ public class JobService extends ImageService {
     private final ChildRepository childRepository;
     private final ParentRepository parentRepository;
     private final ToDoRepository toDoRepository;
+    private final ToDoCheckRepository toDoCheckRepository;
 
     @Autowired
     public JobService(JobRepository jobRepository, JobHistoryRepository jobHistoryRepository, JobImageRepository imageRepository,
-                      ChildRepository childRepository, ParentRepository parentRepository, ToDoRepository toDoRepository) {
+                      ChildRepository childRepository, ParentRepository parentRepository, ToDoRepository toDoRepository, ToDoCheckRepository toDoCheckRepository) {
         this.jobRepository = jobRepository;
         this.jobHistoryRepository = jobHistoryRepository;
         this.imageRepository = imageRepository;
         this.childRepository = childRepository;
         this.parentRepository = parentRepository;
         this.toDoRepository = toDoRepository;
+        this.toDoCheckRepository = toDoCheckRepository;
     }
 
     /**
@@ -85,7 +81,7 @@ public class JobService extends ImageService {
     }
 
     /**
-     * 새로운 직업 추가
+     * 새로운 직업 추가(지언) 및 할일 생성(승연)
      *
      * @param request 새 직업 정보
      */
@@ -125,7 +121,7 @@ public class JobService extends ImageService {
     }
 
     /**
-     * 새로운 직업 내역 추가
+     * 새로운 직업 내역 추가(지언) 및 체크리스트 생성(승연)
      *
      * @param request 직업 내역
      * @return 새 직업
@@ -149,6 +145,18 @@ public class JobService extends ImageService {
         jobHistoryRepository.save(newJobHistory);
 
         // TODO: 새로운 직업에 대한 할일 체크리스트 추가하기
+
+        //request에 있는 직업키로 할일 리스트 조회
+        //리스트 돌면서 체크리스트 생성
+        List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(request.getJobSeq());
+
+        for(ToDo toDo : toDos){
+            toDoCheckRepository.save(ToDoCheck.builder()
+                    .flag(false)
+                    .toDo(toDo)
+                    .child(childRepository.getById(request.getChildSeq()))
+                    .build());
+        }
 
         return getJob(request.getJobSeq());
     }
