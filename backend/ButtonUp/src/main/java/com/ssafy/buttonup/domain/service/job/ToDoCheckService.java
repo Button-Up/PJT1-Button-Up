@@ -45,7 +45,7 @@ public class ToDoCheckService {
 
         //체크리스트 가져오고 dto 만들기
         for(ToDo toDo : toDos ) {
-            ToDoCheck toDoCheck = toDoCheckRepository.findByChild_SeqAndToDo_SeqOOrderBySeqDesc(childSeq, toDo.getSeq());
+            ToDoCheck toDoCheck = toDoCheckRepository.findByChild_SeqAndToDo_SeqOrderBySeqDesc(childSeq, toDo.getSeq());
             ToDoCheckResponse toDoCheckResponse = ToDoCheckResponse.builder()
                     .seq(toDoCheck.getSeq())
                     .content(toDo.getContent())

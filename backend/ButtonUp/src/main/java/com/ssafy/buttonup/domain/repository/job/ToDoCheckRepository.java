@@ -21,5 +21,5 @@ public interface ToDoCheckRepository extends JpaRepository<ToDoCheck, Long> {
      * @return 체크리스트
      */
 
-    ToDoCheck findByChild_SeqAndToDo_SeqOOrderBySeqDesc(long childSeq,long todoSeq);
+    ToDoCheck findByChild_SeqAndToDo_SeqOrderBySeqDesc(long childSeq,long todoSeq);
 }
