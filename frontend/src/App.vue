@@ -9,9 +9,12 @@
 <script>
 export default {
   name: "App",
-
   data: () => ({
     //
   }),
 };
 </script>
+
+<style lang="scss">
+  @import "@/assets/scss/style";
+</style>

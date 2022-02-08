@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { childSignup } from '@/api/account.js'
+// import { childSignup } from '@/api/account.js'
 
 export default {
   name: 'ChildSignup',
@@ -66,17 +66,17 @@ export default {
       passwordConfirm: null
     }
   },
-  methods: {
-    signup() {
-      childSignup(this.signupInfo)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  }
+  // methods: {
+  //   signup() {
+  //     childSignup(this.signupInfo)
+  //       .then(res => {
+  //         console.log(res)
+  //       })
+  //       .catch(err => {
+  //         console.log(err)
+  //       })
+  //   }
+  // }
 }
 </script>
 
