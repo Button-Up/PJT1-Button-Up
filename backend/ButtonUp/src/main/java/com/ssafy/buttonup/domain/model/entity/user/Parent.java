@@ -58,9 +58,6 @@ public class Parent implements UserDetails {
     @Column(name = "parent_auth")
     private String auth;
 
-    @Column(name = "parent_tutorial_flag")
-    private boolean flag;
-
     @Column(name = "parent_tutorial_stage")
     private int stage;
 

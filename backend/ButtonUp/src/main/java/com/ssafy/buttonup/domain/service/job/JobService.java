@@ -3,6 +3,7 @@ package com.ssafy.buttonup.domain.service.job;
 import com.ssafy.buttonup.domain.model.dto.job.request.JobHistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.job.request.JobRequest;
 import com.ssafy.buttonup.domain.model.dto.job.response.JobResponse;
+import com.ssafy.buttonup.domain.model.dto.job.response.ToDoResponse;
 import com.ssafy.buttonup.domain.model.entity.job.*;
 import com.ssafy.buttonup.domain.repository.job.*;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
@@ -61,12 +62,28 @@ public class JobService extends ImageService {
      * @param parentSeq 부모 키
      * @return 직업 목록
      */
+
+    @Transactional
     public List<JobResponse> getJobList(long parentSeq) {
         List<Job> jobs = jobRepository.findByParent_SeqOrderBySeqDesc(parentSeq);
         List<JobResponse> list = new ArrayList<>();
+
         for (Job job : jobs) {
-            list.add(Job.ToResponse(job));
+            JobResponse jobResponse = Job.ToResponse(job);
+
+            List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(job.getSeq());
+
+            List<ToDoResponse> toDoResponses = new ArrayList<>();
+            for(ToDo toDo: toDos){
+                toDoResponses.add(ToDoResponse.builder()
+                        .seq(toDo.getSeq())
+                        .content(toDo.getContent())
+                        .build());
+            }
+            jobResponse.setToDos(toDoResponses);
+            list.add(jobResponse);
         }
+
         return list;
     }
 

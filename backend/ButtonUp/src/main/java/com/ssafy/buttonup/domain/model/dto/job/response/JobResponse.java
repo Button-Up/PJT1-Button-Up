@@ -5,8 +5,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 직업 응답 DTO
@@ -18,6 +21,7 @@ import java.io.Serializable;
 @ApiModel(value = "직업 응답 정보")
 @Getter
 @Builder
+@ToString
 public class JobResponse {
     /* 직업 키 */
     @ApiModelProperty(value = "직업 키", required = true)
@@ -38,4 +42,11 @@ public class JobResponse {
     /* 직업 이미지 경로 */
     @ApiModelProperty(value = "직업 이미지 경로")
     private final String jobImagePath;
+
+    /* 직업 할일 리스트 */
+    @ApiModelProperty(value = "할일 리스트", required = true)
+    @Setter
+    private List<ToDoResponse> toDos;
+
+
 }

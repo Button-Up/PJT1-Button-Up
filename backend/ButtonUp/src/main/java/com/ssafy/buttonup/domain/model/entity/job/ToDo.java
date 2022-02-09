@@ -1,12 +1,12 @@
 package com.ssafy.buttonup.domain.model.entity.job;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,7 @@ import java.util.List;
 @Getter
 @DynamicInsert
 @NoArgsConstructor
-public class ToDo {
+public class ToDo{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "todo_seq")
