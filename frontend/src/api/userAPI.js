@@ -9,9 +9,10 @@ const api = apiInstance();
 
 //회원가입
 async function signup(isParent, formData, success, fail) {
+  console.log(isParent, formData);
   await api
     .post(
-      isParent ? "/parent/join" : "/children/join",
+      isParent ? "/parents/join" : "/children/join",
       JSON.stringify(formData)
     )
     .then(success)
@@ -22,7 +23,7 @@ async function signup(isParent, formData, success, fail) {
 async function login(isParent, formData, success, fail) {
   await api
     .post(
-      isParent ? "/parent/login" : "/children/login",
+      isParent ? "/parents/login" : "/children/login",
       JSON.stringify(formData)
     )
     .then(success)
