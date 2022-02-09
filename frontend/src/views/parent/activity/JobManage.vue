@@ -19,7 +19,7 @@
             v-for="(job, j) in jobs"
             :key="j"
           >
-            <job-with-todo-list-card :isParent="true" :job="job"></job-with-todo-list-card>
+            <JobWithTodoListCard :isParent="true" :job="job" :checkboxOn="false"></JobWithTodoListCard>
           </v-slide-item>
         </v-slide-group>
       </v-sheet>
@@ -63,10 +63,8 @@
 
 <script>
 import JobWithTodoListCard from '@/components/common/JobWithTodoListCard.vue';
-// import JobCard from './JobCard.vue'
 export default {
   components: { 
-    // JobCard,
     JobWithTodoListCard
   },
   data() {

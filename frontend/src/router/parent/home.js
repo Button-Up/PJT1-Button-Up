@@ -7,8 +7,8 @@ import BackHeader from '../../components/common/headers/BackHeader'
 import ParentBottomNav from '../../components/parent/BottomNav'
 
 // 페이지
-import ParentHome from '../../views/parent/Home'
-import ChlidInfo from '../../components/parent/home/ChildInfo'
+import ParentHome from '../../views/parent/home/Home'
+import ChlidInfo from '../../views/parent/home/ChildInfo'
 
 export default [
   {
