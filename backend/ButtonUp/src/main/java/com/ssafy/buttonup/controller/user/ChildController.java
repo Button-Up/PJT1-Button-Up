@@ -5,6 +5,7 @@ import com.ssafy.buttonup.domain.model.dto.user.request.ConnectRequest;
 import com.ssafy.buttonup.domain.model.dto.user.request.JoinRequest;
 import com.ssafy.buttonup.domain.model.dto.user.request.LoginRequest;
 import com.ssafy.buttonup.domain.model.dto.user.response.ChildResponse;
+import com.ssafy.buttonup.domain.model.dto.user.response.LoginResponse;
 import com.ssafy.buttonup.domain.model.entity.user.Child;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.service.user.ChildService;
@@ -47,6 +48,7 @@ public class ChildController {
     @PostMapping("/join")
     @ApiOperation(value="아이 회원가입", notes="새로운 아이 회원을 등록합니다.")
     public void join(@ApiParam(value = "회원가입 정보", required = true) @RequestBody JoinRequest joinRequest){
+        System.out.println("여기여기여기"+joinRequest.getName());
         childService.join(joinRequest);
     }
 
@@ -54,12 +56,12 @@ public class ChildController {
      * 아이 로그인
      *
      * @param loginRequest 로그인 정보
-     * @return Jwt Token
+     * @return 로그인 응답 정보
      */
     
     @PostMapping("/login")
     @ApiOperation(value="아이 로그인", notes="아이 닉네입과 비밀번호로 로그인을 해서 JWT 토큰을 받아옵니다.")
-    public String login(@ApiParam(value = "로그인 정보", required = true) @RequestBody LoginRequest loginRequest){
+    public LoginResponse login(@ApiParam(value = "로그인 정보", required = true) @RequestBody LoginRequest loginRequest){
         Child member = childRepository.findByNickname(loginRequest.getNickname())
                 .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
         if(!passwordEncoder.matches(loginRequest.getPassword(),member.getPassword())){
@@ -69,7 +71,15 @@ public class ChildController {
         for(String role:member.getAuth().split(",")){
             roles.add(role);
         }
-        return jwtTokenProvider.createToken(member.getUsername(),roles);
+
+        String token = jwtTokenProvider.createToken(member.getUsername(),roles);
+
+        LoginResponse loginResponse = LoginResponse.builder()
+                .seq(member.getSeq())
+                .token(token)
+                .build();
+
+        return loginResponse;
     }
 
     /**

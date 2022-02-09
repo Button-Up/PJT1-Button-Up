@@ -17,7 +17,7 @@ import java.io.Serializable;
 @ApiModel(value = "할일 응답 정보")
 @Getter
 @Builder
-public class ToDoResponse implements Serializable {
+public class ToDoResponse {
 
     /* 할일 키 */
     @ApiModelProperty(value = "할일 키",required = true)

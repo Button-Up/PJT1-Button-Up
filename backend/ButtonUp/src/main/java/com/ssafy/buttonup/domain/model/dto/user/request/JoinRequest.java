@@ -2,8 +2,10 @@ package com.ssafy.buttonup.domain.model.dto.user.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * 회원가입 DTO
@@ -15,6 +17,8 @@ import lombok.Getter;
 @ApiModel(value="회원가입 요청 정보")
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class JoinRequest {
     /* 이름 */
     @ApiModelProperty(value = "이름", required = true)

@@ -2,8 +2,10 @@ package com.ssafy.buttonup.domain.model.dto.user.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * 로그인 DTO
@@ -15,6 +17,8 @@ import lombok.Getter;
 @ApiModel(value="로그인 요청 정보")
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginRequest {
     /* 닉네임 */
     @ApiModelProperty(value = "닉네임", required = true)
