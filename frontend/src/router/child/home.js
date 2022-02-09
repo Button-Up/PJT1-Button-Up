@@ -23,6 +23,9 @@ export default [
       header: GreetingHeader,
       footer: ChildBottomNav,
     },
+    meta: {
+      isParentPage: false
+    }
   },
 
   // 예금 상세
@@ -42,6 +45,9 @@ export default [
         isDeposit: true
       }
     },
+    meta: {
+      isParentPage: false
+    }
   },
 
   // 적금 상세
@@ -61,5 +67,8 @@ export default [
         isDeposit: false
       }
     },
+    meta: {
+      isParentPage: false
+    }
   },
 ];

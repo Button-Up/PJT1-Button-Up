@@ -24,6 +24,9 @@ export default [
       default: Main,
       header: GreetingHeader,
       footer: ParentBottomNav
+    },
+    meta: {
+      isParentPage: true
     }
   },
   {
@@ -39,6 +42,9 @@ export default [
         pageTitle: '직업관리',
         backBtnPath: '/parent/activity'
       },
+    },
+    meta: {
+      isParentPage: true
     }
   },
   {
@@ -54,6 +60,9 @@ export default [
         pageTitle: '직업추가',
         backBtnPath: '/parent/activity/job'
       },
+    },
+    meta: {
+      isParentPage: true
     }
   },
 ]

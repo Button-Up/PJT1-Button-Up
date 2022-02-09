@@ -22,6 +22,7 @@ export default [
       default: ParentSignup,
       header: BackHeader
     },
+    meta: { isAuthFree: true } ,
     props: {
       header: { pageTitle: '부모님 회원가입' }
     },

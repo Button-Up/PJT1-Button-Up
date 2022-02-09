@@ -17,6 +17,9 @@ export default [
       default: ChildShop,
       header: GreetingHeader,
       footer: ChildBottomNav
+    },
+    meta: {
+      isParentPage: false
     }
   }
 ]
