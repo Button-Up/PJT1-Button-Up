@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import JobWithTodoListCard from '../../common/JobWithTodoListCard.vue';
+import JobWithTodoListCard from '@/components/common/JobWithTodoListCard.vue';
 // import JobCard from './JobCard.vue'
 export default {
   components: { 
