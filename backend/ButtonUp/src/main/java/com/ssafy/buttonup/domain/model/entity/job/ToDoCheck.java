@@ -43,4 +43,8 @@ public class ToDoCheck {
         this.toDo = toDo;
         this.child = child;
     }
+
+    public void changeFlag(boolean flag){
+        this.flag=flag;
+    }
 }
