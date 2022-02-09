@@ -1,3 +1,7 @@
+<!--
+  author: 유현수
+-->
+
 <template>
   <div>
     <div class="mx-9 mt-10">
@@ -27,6 +31,7 @@
           required
           :color="color"
           type="password"
+          @keyup.enter="login"
         ></v-text-field>
 
         <!-- 로그인 btn -->
@@ -35,7 +40,7 @@
           block
           :class="{ 'white--text': isParent }"
           class="font-weight-bold"
-          @click="testLogin"
+          @click="login"
         >
           로그인
         </v-btn>
@@ -46,7 +51,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-// import { login } from "@/api/userAPI.js";
+
 
 export default {
   name: "Login",
@@ -61,22 +66,19 @@ export default {
     };
   },
   computed: {
-    ...mapState("userStore", ["isLogin", "isLoginError"]),
+    ...mapState('userStore', ['isLogin', 'isLoginError']),
   },
   methods: {
-    ...mapActions("userStore", ["vuexUserLogin"]),
+    ...mapActions('userStore', ['vuexLogin', 'vuexGetUserInfo']),
 
-    async testLogin() {
-      const userInfo = {
+    async login() {
+      const loginInfo = {
         isParent: this.isParent,
         credentials: this.credentials
       }
-      await this.vuexUserLogin(userInfo);
-      // let token = sessionStorage.getItem("access-token");
-      // if (this.isLogin) {
-      //   await this.vuexGetUserInfo(token);
-      //   this.$router.push({ name: "Index" });
-      // }
+      await this.vuexLogin(loginInfo);
+      await this.vuexGetUserInfo(loginInfo);
+      this.$router.push(this.isParent ? '/parent/home' : '/child/home')
     },
 
     toggleLoginType() {
