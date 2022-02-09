@@ -63,6 +63,12 @@ public class ToDoCheckService {
         return list;
     }
 
+    /**
+     * 체크 리스트 완료 여부 수정
+     *
+     * @param toDoCheckRequest 체크리스트 요청 Dto
+     */
+
     @Transactional
     public void updateCheckList(ToDoCheckRequest toDoCheckRequest){
         //체크리스트 가져오기
