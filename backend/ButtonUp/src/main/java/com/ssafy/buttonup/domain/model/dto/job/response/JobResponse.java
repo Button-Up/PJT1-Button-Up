@@ -48,5 +48,4 @@ public class JobResponse {
     @Setter
     private List<ToDoResponse> toDos;
 
-
 }
