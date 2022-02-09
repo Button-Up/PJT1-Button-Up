@@ -18,6 +18,9 @@ export default [
       default: ParentHome,
       header: GreetingHeader,
       footer: ParentBottomNav
+    },
+    meta: {
+      isParentPage: true
     }
   },
   {
@@ -32,6 +35,9 @@ export default [
       header: {
         backBtnPath: '/parent/home' 
       }
+    },
+    meta: {
+      isParentPage: true
     }
   },
 ]

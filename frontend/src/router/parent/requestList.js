@@ -21,6 +21,9 @@ export default [
         pageTitle: '환전/결제 요청 내역',
         backBtnPath: '/parent/home'
       },
+    },
+    meta: {
+      isParentPage: true
     }
   }
 ]
