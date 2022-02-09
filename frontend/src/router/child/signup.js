@@ -18,6 +18,10 @@ export default [
       default: ChildSignup,
       header: BackHeader
     },
+    meta: {
+      isAuthFree: true,
+      isParentPage: false,
+    },
     props: {
       header: { pageTitle: '자녀 회원가입'}
     },
