@@ -63,6 +63,7 @@
 
 <script>
 import JobWithTodoListCard from '@/components/common/JobWithTodoListCard.vue';
+import { apiGetJobsList } from "@/api/jobsAPI.js";
 export default {
   components: { 
     JobWithTodoListCard
@@ -94,61 +95,65 @@ export default {
       jobs:[
         {  
           name:'청소부',
-          image: 'https://cdn.vuetifyjs.com/images/john.jpg',
-          pay_term:"주급",
-          salary: 3000,
-          TodoList:[
+          jobImagePath: 'https://cdn.vuetifyjs.com/images/john.jpg',
+          payTerm:"주급",
+          pay: 3000,
+          toDos:[
             {
-              done:false,
-              task:"방 정리 하기",
+              content:"방 정리 하기",
             },
             {
-              done:false,
-              task:"먼지 털기",
+              content:"먼지 털기",
             },
             {
-              done:false,
-              task:"청소기 돌리기",
+              content:"청소기 돌리기",
             }
           ]
         },
         {  
           name:'환경미화원',
-          image: 'https://cdn.vuetifyjs.com/images/john.jpg',
-          salary: 3000,
-          pay_term:"주급",
-          TodoList:[
+          jobImagePath: 'https://cdn.vuetifyjs.com/images/john.jpg',
+          pay: 3000,
+          payTerm:"주급",
+          toDos:[
             {
-              done:false,
-              task:"고양이 화장실 치우기",
+              content:"고양이 화장실 치우기",
             },
             {
-              done:false,
-              task:"음식물 쓰레기 버리기",
+              content:"음식물 쓰레기 버리기",
             },
             {
-              done:false,
-              task:"분리수거 하기",
+              content:"분리수거 하기",
             }
           ]
         },
         { 
           name:'기상청장',
-          image: 'https://cdn.vuetifyjs.com/images/john.jpg',
-          salary: 3000,
-          pay_term:"주급",
-          TodoList:[
+          jobImagePath: 'https://cdn.vuetifyjs.com/images/john.jpg',
+          pay: 3000,
+          payTerm:"주급",
+          toDos:[
             {
-              done:false,
-              task:"환기 시키기",
+              content:"환기 시키기",
             },
             {
-              done:false,
-              task:"날씨 알려주기",
+              content:"날씨 알려주기",
             }
           ] },
       ],
     }
+  },
+  created(){
+    // TODO : param1 parentSeq로 연결하기 
+    // Test : parentSeq = 1
+    apiGetJobsList(1,
+        (response) => {
+            console.log(response.data);
+            this.jobs=response.data;
+        },
+        (error) => {
+          console.log(error);
+        });
   },
   methods:{
     selectJob(event){
