@@ -4,6 +4,7 @@ import Vuex from "vuex";
 import tempAccountStore from "./temp/tempAccountStore";
 import userStore from "./modules/userStore";
 import accountStore from "./modules/accountStore";
+import childrenStore from "./modules/childrenStore";
 
 Vue.use(Vuex);
 
@@ -15,5 +16,6 @@ export default new Vuex.Store({
     tempAccountStore,
     userStore,
     accountStore,
+    childrenStore,
   },
 });
