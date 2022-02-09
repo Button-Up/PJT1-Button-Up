@@ -1,5 +1,6 @@
 package com.ssafy.buttonup.domain.model.dto.request.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ssafy.buttonup.domain.model.entity.request.RequestHistoryStatus;
 import com.ssafy.buttonup.domain.model.entity.request.RequestHistoryType;
 import io.swagger.annotations.ApiModel;
@@ -29,6 +30,7 @@ public class RequestHistoryResponse {
     private RequestHistoryType type;
 
     @ApiModelProperty(value="날짜", required = true)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
 
     @ApiModelProperty(value="요청 상태(INCOMPLETE, REJECT, APPROVE)", required = true)

@@ -4,6 +4,7 @@ import com.ssafy.buttonup.config.security.JwtTokenProvider;
 import com.ssafy.buttonup.domain.model.dto.user.request.JoinRequest;
 import com.ssafy.buttonup.domain.model.dto.user.request.LoginRequest;
 import com.ssafy.buttonup.domain.model.dto.user.request.TutorialRequest;
+import com.ssafy.buttonup.domain.model.dto.user.response.LoginResponse;
 import com.ssafy.buttonup.domain.model.dto.user.response.ParentResponse;
 import com.ssafy.buttonup.domain.model.dto.user.response.TutorialResponse;
 import com.ssafy.buttonup.domain.model.entity.user.Parent;
@@ -83,12 +84,12 @@ public class ParentController {
      * 부모 로그인
      *
      * @param loginRequest 로그인 정보
-     * @return Jwt Token
+     * @return 로그인 응답정보 
      */
     
     @PostMapping("/login")
     @ApiOperation(value="부모 로그인", notes="부모 닉네입과 비밀번호로 로그인을 해서 JWT 토큰을 받아옵니다.")
-    public String login(@ApiParam(value = "부모 로그인 정보", required = true) @RequestBody LoginRequest loginRequest){
+    public LoginResponse login(@ApiParam(value = "부모 로그인 정보", required = true) @RequestBody LoginRequest loginRequest){
         Parent member = parentRepository.findByNickname(loginRequest.getNickname())
                 .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
         if(!passwordEncoder.matches(loginRequest.getPassword(),member.getPassword())){
@@ -98,7 +99,15 @@ public class ParentController {
         for (String role : member.getAuth().split(",")) {
             roles.add(role);
         }
-        return  jwtTokenProvider.createToken(member.getUsername(), roles);
+
+        String token = jwtTokenProvider.createToken(member.getUsername(), roles);
+
+        LoginResponse loginResponse = LoginResponse.builder()
+                .seq(member.getSeq())
+                .token(token)
+                .build();
+
+        return loginResponse;
     }
 
     /**
