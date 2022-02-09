@@ -12,16 +12,16 @@ import BackHeader from '../../components/common/headers/BackHeader'
 import ParentBottomNav from '../../components/parent/BottomNav'
 
 // 페이지
-import ParentActivity from '../../views/parent/Activity'
-import JobManager from '../../components/parent/activity/JobManage'
-import AddJob from '../../views/parent/AddJob.vue'
+import Main from '../../views/parent/activity/Main'
+import JobManager from '../../views/parent/activity/JobManage'
+import AddJob from '../../views/parent/activity/AddJob.vue'
 
 export default [
   {
     path: '/parent/activity',
     name: 'ParentActivity',
     components: {
-      default: ParentActivity,
+      default: Main,
       header: GreetingHeader,
       footer: ParentBottomNav
     }
