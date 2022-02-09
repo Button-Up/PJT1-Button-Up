@@ -2,9 +2,9 @@
   author : 정은이
 -->
 <template>
-  <div class="mx-9 mt-6">
+  <div class="mx-9 mt-6 mb-6">
     <div v-if="inTutorial">
-      <parent-onboard :tutorialStep="tutorialStep"></parent-onboard>
+      <ParentOnboard :tutorialStep="tutorialStep"></ParentOnboard>
     </div>
     <div v-else>
       <h2>아이 정보</h2>
@@ -20,9 +20,9 @@
             :key="i"
             @click.native="$router.push('/parent/home/child-info/'+item.name)"
           >
-            <child-card-info
+            <ChildCardInfo
               :item="item"
-            ></child-card-info>
+            ></ChildCardInfo>
           </v-slide-item>
         </v-slide-group>
       </v-sheet>
@@ -33,7 +33,7 @@
           <p class="caption font-weight-normal">오늘 확인해야 할 항목들이에요</p>
       </div>
       <v-list-item v-for="(todo, t) in TodoList"  :key="t" class="mb-2 pa-2" style="display:contents">
-        <todo-list :todo="todo" :isParent="true"></todo-list>
+        <TodoList :todo="todo" :isParent="true"></TodoList>
       </v-list-item>
     </div>
   </div>
@@ -41,7 +41,7 @@
 <script>
 import ChildCardInfo from '@/components/parent/home/ChildCardInfo'
 import ParentOnboard from '@/components/parent/home/Onboard'
-import TodoList from '../../components/common/TodoList.vue'
+import TodoList from '../../../components/common/TodoList.vue'
 
 import { mapState } from 'vuex'
 

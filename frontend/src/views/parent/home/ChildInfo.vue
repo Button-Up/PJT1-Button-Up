@@ -22,7 +22,7 @@
       </v-row>
       <v-row>
         <v-col v-for="(account, a) in accounts" :key="a" class="mt-2 pa-1 align-center">
-          <child-account :account="account"></child-account>
+          <ChildAccount :account="account"></ChildAccount>
         </v-col>
       </v-row>
       <v-list-item> </v-list-item>
@@ -30,20 +30,19 @@
     <!-- 아이의 단추 계좌 END -->
     <div>
       <h2>아이의 할 일 진행 상황</h2>
-      <job-with-todo-list-card
+      <JobWithTodoListCard
         :isParent="true"
         :job="job"
-        :checkboxOff="false"
-      ></job-with-todo-list-card>
+      ></JobWithTodoListCard>
     </div>
   </div>
 </template>
 
 <script>
 import BottomSheet from "@/components/common/BottomSheet";
-import JobWithTodoListCard from "../../common/JobWithTodoListCard.vue";
-import ChildAccount from "./ChildAccount.vue";
-import Deposit from "./Deposit.vue";
+import JobWithTodoListCard from "../../../components/common/JobWithTodoListCard.vue";
+import ChildAccount from "../../../components/parent/home/ChildAccount.vue";
+import Deposit from "../../../components/parent/home/Deposit.vue";
 
 export default {
   name: "ChildInfo",

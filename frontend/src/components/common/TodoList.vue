@@ -55,8 +55,8 @@ export default {
   props:{
     checkboxOn: {
       type:Boolean,
-      default:true}
-      ,
+      default:true
+    },
     todo :Object,
     isParent:Boolean,
     onlyRead:Boolean
