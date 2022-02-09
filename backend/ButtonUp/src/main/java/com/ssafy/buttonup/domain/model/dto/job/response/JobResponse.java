@@ -43,17 +43,10 @@ public class JobResponse {
     @ApiModelProperty(value = "직업 이미지 경로")
     private final String jobImagePath;
 
-    /* 직업 할일 리스트 *//*
+    /* 직업 할일 리스트 */
     @ApiModelProperty(value = "할일 리스트", required = true)
     @Setter
     private List<ToDoResponse> toDos;
 
-    public class ToDoResponse{
-        private long todoSeq;
-        private String content;
-        public ToDoResponse(long todoSeq, String content){
-            this.todoSeq =todoSeq;
-            this.content=content;
-        }
-    }*/
+
 }
