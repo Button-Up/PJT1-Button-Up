@@ -2,8 +2,10 @@ package com.ssafy.buttonup.domain.model.dto.request.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * 환전 요청 내역 요청 dto
@@ -15,6 +17,8 @@ import lombok.Getter;
 @ApiModel(value = "환전 요청 정보")
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExchangeRequest {
     
     @ApiModelProperty(value="아이 키", required = true)
