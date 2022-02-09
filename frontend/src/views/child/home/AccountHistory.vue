@@ -1,5 +1,7 @@
 <!--
 author: 유현수
+
+modified: 김지언 - 계좌 잔액 표시, 계좌 내역 표시
 -->
 
 <template>
@@ -13,21 +15,15 @@ author: 유현수
     >
       <div>
         <!-- 단추 잔액 -->
-        <h2>{{ balance }} 단추</h2>
+        <h2>{{ getDefaultBalance }} 단추</h2>
 
         <!-- 환전 요청 버튼 & 바텀시트 -->
-        <AccountHistoryBtmSheet
-          :isDeposit="isDeposit"
-        ></AccountHistoryBtmSheet>
+        <AccountHistoryBtmSheet :isDeposit="isDeposit"></AccountHistoryBtmSheet>
       </div>
     </v-sheet>
 
     <!-- 필터 -->
-    <v-row
-      v-if="isDeposit"
-      justify="end"
-      class="mx-0"
-    >
+    <v-row v-if="isDeposit" justify="end" class="mx-0">
       <v-col cols="4">
         <v-select
           :color="accountColor"
@@ -41,61 +37,69 @@ author: 유현수
     <!-- 거래내역 리스트 -->
     <AccountHistoryList
       :isDeposit="isDeposit"
-      :accountHistories="accountHistories"
+      :accountHistories="getAccountList"
     ></AccountHistoryList>
   </div>
 </template>
 
 <script>
-import AccountHistoryBtmSheet from "@/components/child/home/AccountHistoryBtmSheet.vue"
-import AccountHistoryList from "@/components/child/home/AccountHistoryList.vue"
+import AccountHistoryBtmSheet from "@/components/child/home/AccountHistoryBtmSheet.vue";
+import AccountHistoryList from "@/components/child/home/AccountHistoryList.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "AccountHistory",
   components: {
     AccountHistoryBtmSheet,
-    AccountHistoryList
+    AccountHistoryList,
   },
   props: {
     isDeposit: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
       exchangeAmount: null,
       balance: 25000,
-      filterSelect: '전체',
-      historyFilter: [ '전체', '입금', '출금' ],
+      filterSelect: "전체",
+      historyFilter: ["전체", "입금", "출금"],
       accountHistories: [
         {
           balance: 34000,
-          category: '급여',
-          content: '지급 완료',
-          date: '22.02.08',
+          category: "급여",
+          content: "지급 완료",
+          date: "22.02.08",
           money: 30000,
-          type: '입금'
+          type: "입금",
         },
         {
           balance: 4000,
-          category: '환전',
+          category: "환전",
           content: null,
-          date: '22.02.08',
+          date: "22.02.08",
           money: 6000,
-          type: '출금'
+          type: "출금",
         },
       ],
-    }
+    };
   },
   computed: {
+    ...mapGetters("accountStore", ["getDefaultBalance", "getAccountList"]),
+    ...mapGetters("userStore", ["checkUserInfo"]),
     accountColor() {
-      return this.isDeposit ? 'child01' : 'child04'
-    }
-  }
+      return this.isDeposit ? "child01" : "child04";
+    },
+  },
+  mounted() {
+    this.$store.dispatch("accountStore/vuexUpdateDefaultBalance", this.checkUserInfo.seq);
+    this.$store.dispatch("accountStore/vuexFetchAccountHistory", this.checkUserInfo.seq);
+  },
+  methods: {
+    ...mapActions({ accountStore: ["vuexUpdateDefaultBalance", "vuexFetchAccountHistory"] }),
+  },
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -2,6 +2,7 @@
 author: 김응철
 
 modified: 유현수 - 마크업 & 스타일링
+modified: 김지언 - 예금 계좌 잔액 표시
 -->
 
 <template>
@@ -10,8 +11,23 @@ modified: 유현수 - 마크업 & 스타일링
     <h2 class="mx-6 mt-4">나의 단추 계좌</h2>
     <v-sheet elevation="">
       <v-slide-group class="mt-2 mx-4" center-active show-arrows="false">
-        <v-slide-item v-for="(item, i) in items" :key="i">
-          <MainAccountCard :item="item"></MainAccountCard>
+        <v-slide-item>
+          <MainAccountCard
+            :item="{
+              isDeposit: true,
+              balance: this.getDefaultBalance,
+            }"
+          ></MainAccountCard>
+        </v-slide-item>
+
+        <!-- 적금 계좌 -->
+        <v-slide-item>
+          <MainAccountCard
+            :item="{
+              isDeposit: false,
+              balance: 6000,
+            }"
+          ></MainAccountCard>
         </v-slide-item>
       </v-slide-group>
     </v-sheet>
@@ -34,25 +50,16 @@ modified: 유현수 - 마크업 & 스타일링
 <script>
 import MainAccountCard from "@/components/child/home/MainAccountCard";
 import TodoList from "@/components/common/TodoList.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Home",
   components: {
     MainAccountCard,
-    TodoList
+    TodoList,
   },
   data() {
     return {
-      items: [
-        {
-          isDeposit: true,
-          balance: 40000
-        },
-        {
-          isDeposit: false,
-          balance: 6000
-        },
-      ],
       TodoList: [
         {
           done: false,
@@ -74,9 +81,20 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters("accountStore", ["getDefaultBalance"]),
+    ...mapGetters("userStore", ["checkUserInfo"]),
+  },
+  mounted() {
+    // this.$nextTick(function () {
+    this.$store.dispatch("accountStore/vuexUpdateDefaultBalance", this.checkUserInfo.seq);
+    // this.items[0].balance = this.getDefaultBalance;
+    // });
+  },
+  methods: {
+    ...mapActions({ accountStore: ["updateDefaultBalance", "vuexFetchAccountHistory"] }),
+  },
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
