@@ -1,6 +1,6 @@
-import jwt_decode from "jwt-decode";
 import { login } from "@/api/userAPI.js";
-import { userInfo } from "@/api/userAPI.js";
+// import jwt_decode from "jwt-decode";
+// import { getUserInfo } from "@/api/userAPI.js";
 
 const userStore = {
   namespaced: true,
@@ -27,35 +27,37 @@ const userStore = {
     },
   },
   actions: {
-    async userLogin({ commit }, user) {
-      await login(user, (res) => {
-        if (res.data.message === "success") {
-          let token = res.data["access-token"];
-          commit("SET_IS_LOGIN", true);
-          commit("SET_IS_LOGIN_ERROR", false);
-          sessionStorage.setItem("access-token", token);
-        } else {
-          commit("SET_IS_LOGIN", false);
-          commit("SET_IS_LOGIN_ERROR", true);
-        }
-      });
-    },
-    getUserInfo({ commit }, token) {
-      let decode_token = jwt_decode(token);
-      userInfo(
-        decode_token.userSeq,
+    async vuexUserLogin({ commit }, userInfo) {
+      await login(userInfo.isParent, userInfo.credentials,
         (res) => {
-          if (response.data.message === "success") {
-            commit("SET_USER_INFO", res.data.userInfo);
-          } else {
-            console.log("유저 정보 없음!!");
-          }
+          let token = res.data;
+          commit("SET_IS_LOGIN", true);
+          sessionStorage.setItem("access-token", token);
+          console.log('로그인 성공!')
         },
         (err) => {
-          console.log(err);
-        }
-      );
+          console.log(err)
+          commit("SET_IS_LOGIN_ERROR", true)
+          console.log('로그인 실패!')
+        });
     },
+    // vuexGetUserInfo(context, token) {
+    //   let decodeToken = jwt_decode(token);
+    //   console.log(decodeToken)
+    //   getUserInfo(
+    //     decodeToken.userSeq,
+    //     (res) => {
+    //       if (response.data.message === "success") {
+    //         commit("SET_USER_INFO", res.data.userInfo);
+    //       } else {
+    //         console.log("유저 정보 없음!!");
+    //       }
+    //     },
+    //     (err) => {
+    //       console.log(err);
+    //     }
+    //   );
+    // },
   },
 };
 
