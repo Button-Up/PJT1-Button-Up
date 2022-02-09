@@ -1,12 +1,15 @@
 package com.ssafy.buttonup.domain.service.job;
 
+import com.ssafy.buttonup.domain.model.dto.job.request.ToDoCheckRequest;
 import com.ssafy.buttonup.domain.model.dto.job.response.ToDoCheckResponse;
 import com.ssafy.buttonup.domain.model.entity.job.JobHistory;
 import com.ssafy.buttonup.domain.model.entity.job.ToDo;
 import com.ssafy.buttonup.domain.model.entity.job.ToDoCheck;
+import com.ssafy.buttonup.domain.model.entity.user.Child;
 import com.ssafy.buttonup.domain.repository.job.JobHistoryRepository;
 import com.ssafy.buttonup.domain.repository.job.ToDoCheckRepository;
 import com.ssafy.buttonup.domain.repository.job.ToDoRepository;
+import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +32,7 @@ public class ToDoCheckService {
     private final ToDoCheckRepository toDoCheckRepository;
     private final JobHistoryRepository jobHistoryRepository;
     private final ToDoRepository toDoRepository;
+    private final ChildRepository childRepository;
 
     /**
      * 체크 리스트 조회
@@ -57,5 +61,20 @@ public class ToDoCheckService {
             list.add(toDoCheckResponse);
         }
         return list;
+    }
+
+    /**
+     * 체크 리스트 완료 여부 수정
+     *
+     * @param toDoCheckRequest 체크리스트 요청 Dto
+     */
+
+    @Transactional
+    public void updateCheckList(ToDoCheckRequest toDoCheckRequest){
+        //체크리스트 가져오기
+        ToDoCheck toDoCheck = toDoCheckRepository.getById(toDoCheckRequest.getCheckListSeq());
+
+        toDoCheck.changeFlag(toDoCheckRequest.isFlag());
+        toDoCheckRepository.save(toDoCheck);
     }
 }

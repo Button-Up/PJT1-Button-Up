@@ -5,7 +5,7 @@ import createPersistedState from 'vuex-persistedstate'
 import userStore from './modules/userStore'
 import accountStore from './modules/accountStore'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
