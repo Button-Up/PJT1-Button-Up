@@ -48,7 +48,8 @@
 </template>
 
 <script>
-import { signup } from "@/api/userAPI.js";
+import { apiSignup } from "@/api/userAPI.js";
+
 export default {
   name: "ParentSignupForm",
   data() {
@@ -66,7 +67,7 @@ export default {
   },
   methods: {
     parentSignup() {
-      signup(this.isParent, this.parentSignupInfo)
+      apiSignup(this.isParent, this.parentSignupInfo)
         .then((res) => {
           console.log(res);
           console.log(this.parentSignupInfo);
