@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { signup } from "@/api/userAPI.js";
+import { apiSignup } from "@/api/userAPI.js";
 
 export default {
   name: "ChildSignupForm",
@@ -72,7 +72,7 @@ export default {
 
   methods: {
     childSignup() {
-      signup(this.isParent, this.childSignupInfo)
+      apiSignup(this.isParent, this.childSignupInfo)
         .then((res) => {
           console.log(res);
           console.log(this.childSignupInfo);

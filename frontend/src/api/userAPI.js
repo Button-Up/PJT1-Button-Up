@@ -8,8 +8,7 @@ import { apiInstance } from "./index.js";
 const api = apiInstance();
 
 //회원가입
-async function signup(isParent, formData, success, fail) {
-  console.log(isParent, formData);
+async function apiSignup(isParent, formData, success, fail) {
   await api
     .post(
       isParent ? "/parents/join" : "/children/join",
@@ -20,7 +19,7 @@ async function signup(isParent, formData, success, fail) {
 }
 
 //로그인
-async function login(isParent, formData, success, fail) {
+async function apiLogin(isParent, formData, success, fail) {
   await api
     .post(
       isParent ? "/parents/login" : "/children/login",
@@ -31,12 +30,12 @@ async function login(isParent, formData, success, fail) {
 }
 
 //상세조회
-async function getUserInfo(isParent, userSeq, success, fail) {
+async function apiGetUserInfo(isParent, userSeq, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
   await api
-    .get(isParent ? `/parent/${userSeq}` : `/children/${userSeq}`)
+    .get(isParent ? `/parents/${userSeq}` : `/children/${userSeq}`)
     .then(success)
     .catch(fail);
 }
 
-export { signup, login, getUserInfo };
+export { apiSignup, apiLogin, apiGetUserInfo };
