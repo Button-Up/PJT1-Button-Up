@@ -48,7 +48,6 @@ public class ChildController {
     @PostMapping("/join")
     @ApiOperation(value="아이 회원가입", notes="새로운 아이 회원을 등록합니다.")
     public void join(@ApiParam(value = "회원가입 정보", required = true) @RequestBody JoinRequest joinRequest){
-        System.out.println("여기여기여기"+joinRequest.getName());
         childService.join(joinRequest);
     }
 
