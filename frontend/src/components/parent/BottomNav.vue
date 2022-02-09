@@ -1,8 +1,8 @@
 <template>
   <v-bottom-navigation
+    app
     color="parent01"
     grow
-    fixed
   >
     <v-btn :exact="true" to="/parent/home" height="100%" style="background-color: #ffffff">
       <v-icon>mdi-home</v-icon>

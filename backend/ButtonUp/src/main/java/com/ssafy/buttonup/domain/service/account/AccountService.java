@@ -7,10 +7,12 @@ import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryType;
 import com.ssafy.buttonup.domain.repository.account.AccountRepository;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.exception.BalanceOverException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +24,12 @@ import java.util.List;
  */
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class AccountService {
     private final AccountRepository accountRepository;
     private final ChildRepository childRepository;
+    private final EntityManager entityManager;
 
-    @Autowired
-    public AccountService(AccountRepository accountRepository, ChildRepository childRepository) {
-        this.accountRepository = accountRepository;
-        this.childRepository = childRepository;
-    }
 
     /**
      * 자녀 입출금 내역에서 가장 최근 잔액 조회
@@ -67,10 +66,10 @@ public class AccountService {
      *
      * @param request 추가할 내역
      * @param type 입/출금 구분 값
-     * @return 추가 후 잔액
+     * @return 추가한 내역
      */
     @Transactional
-    public int insertAccountHistory(HistoryRequest request, AccountHistoryType type) throws BalanceOverException {
+    public HistoryResponse insertAccountHistory(HistoryRequest request, AccountHistoryType type) throws BalanceOverException {
         AccountHistory.AccountHistoryBuilder builder = AccountHistory.builder();
 
         int balance = getBalanceByChild(request.getChildSeq());
@@ -87,15 +86,17 @@ public class AccountService {
                 break;
         }
 
-        builder.category(request.getCategory())
+        AccountHistory accountHistory = builder.category(request.getCategory())
                 .type(type)
                 .category(request.getCategory())
                 .content(request.getContent())
                 .money(request.getMoney())
-                .child(childRepository.getById(request.getChildSeq()));
+                .child(childRepository.getById(request.getChildSeq())).build();
 
-        accountRepository.save(builder.build());
+        accountRepository.save(accountHistory);
+        entityManager.refresh(entityManager.merge(accountHistory));
 
-        return balance;
+
+        return accountHistory.toResponse(accountHistory);
     }
 }

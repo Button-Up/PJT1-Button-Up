@@ -28,18 +28,35 @@ const api = apiInstance();
 //   await api.get(`/parents/${parentSeq}`).then(success).catch(fail);
 // }
 
-// 해당 부모의 아이들을 조회
-async function childrenList(parentSeq, success, fail) {
-  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-  await api.get(`/children/parent/${parentSeq}`).then(success).catch(fail);
-}
-
-// 회원가입시 아이와 부모 연결
-function childConnect(childSeq, success, fail) {
-  api
-    .put(`/children/connect`, JSON.stringify(childSeq))
+//회원가입
+async function signup(isParent, formData, success, fail) {
+  await api
+    .post(
+      isParent ? "/parent/join" : "/children/join",
+      JSON.stringify(formData)
+    )
     .then(success)
     .catch(fail);
 }
 
-export { childrenList, childConnect };
+//로그인
+async function login(isParent, formData, success, fail) {
+  await api
+    .post(
+      isParent ? "/parent/login" : "/children/login",
+      JSON.stringify(formData)
+    )
+    .then(success)
+    .catch(fail);
+}
+
+//상세조회
+async function userInfo(isParent, userSeq, success, fail) {
+  api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+  await api
+    .get(isParent ? `/parent/${userSeq}` : `/children/${userSeq}`)
+    .then(success)
+    .catch(fail);
+}
+
+export { signup, login, userInfo };
