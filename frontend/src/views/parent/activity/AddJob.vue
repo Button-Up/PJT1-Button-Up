@@ -102,6 +102,8 @@
 
 <script>
 import { apiAddJob } from '@/api/jobsAPI.js';
+import { mapGetters } from 'vuex';
+
 export default {
   components: {},
   name: 'AddJob',
@@ -110,7 +112,7 @@ export default {
       newJob: {
         jobImageSeq: 0,
         name: 'd',
-        parentSeq: 5,
+        parentSeq: null,
         pay: null,
         payTerm: null,
         toDoContents: [''],
@@ -125,6 +127,9 @@ export default {
       selectedImageIdx: 0,
     };
   },
+  computed: {
+    ...mapGetters('userStore', ['checkUserInfo']),
+  },
   methods: {
     addTodo() {
       if (this.newJob.toDoContents.length < 3) {
@@ -137,6 +142,7 @@ export default {
       }
     },
     clickAddJob() {
+      this.newJob.parentSeq = this.checkUserInfo.seq;
       var param = this.newJob;
       console.log(param);
       apiAddJob(

@@ -160,10 +160,8 @@ export default {
     };
   },
   created() {
-    // TODO : param1 parentSeq로 연결하기
-    // Test : parentSeq = 1
     apiGetJobsList(
-      1,
+      this.checkUserInfo.seq,
       (response) => {
         console.log(response.data);
         this.jobs = response.data;
@@ -175,10 +173,7 @@ export default {
   },
   computed: {
     ...mapGetters('parentStore', ['childrenInfo']),
-    // ...mapGetters('userStore', ['check']),
-    // getChildren() {
-    //   return this.children = this.children;
-    // }
+    ...mapGetters('userStore', ['checkUserInfo']),
   },
   methods: {
     selectJob(event) {
@@ -188,8 +183,6 @@ export default {
       console.log('childreninfo');
       console.log(child);
       console.log(child.job.name);
-      // console.log(child);
-      // console.log(1);
       var param = {
         childSeq: child.seq,
         jobSeq: child.job.seq,
