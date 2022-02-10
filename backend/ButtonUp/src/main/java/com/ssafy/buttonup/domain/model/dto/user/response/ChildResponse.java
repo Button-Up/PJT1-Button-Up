@@ -36,11 +36,11 @@ public class ChildResponse {
     @ApiModelProperty(value = "아이 생년월일", required = true)
     private Date birthDate;
 
-    /* 비밀번호 */
-    @ApiModelProperty(value = "아이 비밀번호", required = true)
-    private String password;
-
     /* 이미지 경로 */
     @ApiModelProperty(value = "아이 프로필 경로", required = true)
     private String image;
+
+    /* 연결된 부모 키*/
+    @ApiModelProperty(value = "연결된 부모키", required = true)
+    private long parentSeq;
 }
