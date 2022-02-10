@@ -55,14 +55,22 @@ public class ChildService {
      */
     public ChildResponse findBySeq(long childSeq) {
         Child child = childRepository.getById(childSeq);
+        long num = 0;
+
+        if(child.getParent()==null){
+            num=-1;
+        }else{
+            num=child.getParent().getSeq();
+        }
+
         ChildResponse childResponse = ChildResponse.builder()
                 .seq(child.getSeq())
                 .phone(child.getPhone())
                 .name(child.getName())
                 .birthDate(child.getBirthDate())
-                .password(child.getPassword())
                 .image(child.getImage())
                 .build();
+        childResponse.setParentSeq(num);
         return childResponse;
     }
 
@@ -82,7 +90,6 @@ public class ChildService {
                     .phone(child.getPhone())
                     .name(child.getName())
                     .birthDate(child.getBirthDate())
-                    .password(child.getPassword())
                     .image(child.getImage())
                     .build();
             childrenResponse.add(childResponse);
@@ -97,8 +104,10 @@ public class ChildService {
 
     @Transactional
     public void connectWithParent(ConnectRequest connectRequest) {
-        Child child = childRepository.getById(connectRequest.getChildSeq());
-        Parent parent = parentRepository.getById(connectRequest.getParentSeq());
+        Child child = childRepository.findByNickname(connectRequest.getNickname())
+                        .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
+        Parent parent = parentRepository.findByNickname(connectRequest.getParentNickname())
+                .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 nickname입니다"));
 
         child.connectParent(parent);
         childRepository.save(child);

@@ -91,14 +91,14 @@
             </template>
           </bottom-sheet>
         </v-list-item-action>
-      </v-list-item>
+      </v-list-item> -->
 
-      <v-divider></v-divider> -->
+      <v-divider></v-divider>
 
       <v-subheader>처리 완료 요청</v-subheader>
 
       <!-- 환전 요청 -->
-      <v-list-item v-for="(request, idx) in inactiveRequeests" :key="idx">
+      <v-list-item v-for="(request, idx) in inactiveRequeests" :key="`o-${idx}`">
         <v-list-item-avatar>
           <v-icon class="parent03 lighten-1" disabled> mdi-hand-coin </v-icon>
         </v-list-item-avatar>
@@ -281,14 +281,26 @@ export default {
       });
     },
     changeStatusApprove(requestSeq) {
-      modifyRequestStatusApprove(requestSeq, () => {
-        this.getList();
-      });
+      modifyRequestStatusApprove(
+        requestSeq,
+        () => {
+          this.getList();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     },
     changeStatusReject(requestSeq) {
-      modifyRequestStatusReject(requestSeq, () => {
-        this.getList();
-      });
+      modifyRequestStatusReject(
+        requestSeq,
+        () => {
+          this.getList();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     },
   },
 };

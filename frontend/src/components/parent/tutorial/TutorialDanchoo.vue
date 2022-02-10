@@ -3,7 +3,11 @@
     <v-row class="fill-height flex-column">
       <!-- 프로그레스 바 -->
       <v-col class="flex-grow-0">
-        <v-progress-linear :value="($route.params.id / 3) * 100" color="parent01" round="6"></v-progress-linear>
+        <v-progress-linear
+          :value="($route.params.id / 3) * 100"
+          color="parent01"
+          round="6"
+        ></v-progress-linear>
       </v-col>
 
       <!-- 페이지 1 -->
@@ -73,7 +77,7 @@
               block
               color="parent01"
               class="white--text"
-              @click.native="[addTutorialStep(), $router.push('/parent/home')]"
+              @click.native="[putTutorialStage(), $router.push('/parent/home')]"
               >잘 이해했어요!</v-btn
             >
           </v-col>
@@ -84,12 +88,23 @@
 </template>
 
 <script>
-//import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "TutorialDanchoo",
+  computed: {
+    ...mapGetters("userStore", ["checkUserInfo"]),
+  },
   methods: {
-    //...mapActions('tempAccountStore', ['addTutorialStep'])
+    ...mapActions("parentStore", ["vuexPutTutorialStage", "vuexGetTutorialStage"]),
+    async putTutorialStage() {
+      const tutorialInfo = {
+        parentSeq: this.checkUserInfo.seq,
+        stage: 1,
+      };
+      await this.vuexPutTutorialStage(tutorialInfo);
+      await this.vuexGetTutorialStage(this.checkUserInfo.seq);
+    },
   },
 };
 </script>
