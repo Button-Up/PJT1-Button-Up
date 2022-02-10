@@ -52,7 +52,6 @@
 <script>
 import { mapState, mapActions } from "vuex";
 
-
 export default {
   name: "Login",
   data() {
@@ -66,19 +65,19 @@ export default {
     };
   },
   computed: {
-    ...mapState('userStore', ['isLogin', 'isLoginError']),
+    ...mapState("userStore", ["isLogin", "isLoginError"]),
   },
   methods: {
-    ...mapActions('userStore', ['vuexLogin', 'vuexGetUserInfo']),
+    ...mapActions("userStore", ["vuexLogin", "vuexGetUserInfo"]),
 
     async login() {
       const loginInfo = {
         isParent: this.isParent,
-        credentials: this.credentials
-      }
+        credentials: this.credentials,
+      };
       await this.vuexLogin(loginInfo);
       await this.vuexGetUserInfo(loginInfo);
-      this.$router.push(this.isParent ? '/parent/home' : '/child/home')
+      this.$router.push(this.isParent ? "/parent/home" : "/child/home");
     },
 
     toggleLoginType() {
