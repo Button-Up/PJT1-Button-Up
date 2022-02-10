@@ -38,7 +38,7 @@
     <div></div>
     <div>
       <v-divider></v-divider>
-      <template v-for="(child, c) in children" class="ma-0 pa-0">
+      <template v-for="(child, c) in childrenInfo" class="ma-0 pa-0">
         <v-list-item v-bind:key="c" class="justify-space-between align-baseline" cols="12">
           <v-col cols="3">
             <v-list-item-title cols="3" v-html="child.name"></v-list-item-title>
@@ -77,6 +77,8 @@
 <script>
 import JobWithTodoListCard from '@/components/common/JobWithTodoListCard.vue';
 import { apiGetJobsList, apiModifyJob } from '@/api/jobsAPI.js';
+import { mapGetters } from 'vuex';
+
 export default {
   components: {
     JobWithTodoListCard,
@@ -171,17 +173,25 @@ export default {
       }
     );
   },
+  computed: {
+    ...mapGetters('parentStore', ['childrenInfo']),
+    // ...mapGetters('userStore', ['check']),
+    // getChildren() {
+    //   return this.children = this.children;
+    // }
+  },
   methods: {
     selectJob(event) {
       console.log(event.name);
     },
     setChildJob(child) {
-      // console.log(child);
+      console.log('childreninfo');
+      console.log(child);
       console.log(child.job.name);
       // console.log(child);
       // console.log(1);
       var param = {
-        childSeq: 2,
+        childSeq: child.seq,
         jobSeq: child.job.seq,
       };
       apiModifyJob(

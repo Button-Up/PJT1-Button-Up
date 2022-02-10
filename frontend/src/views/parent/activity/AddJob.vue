@@ -110,8 +110,8 @@ export default {
       newJob: {
         jobImageSeq: 0,
         name: 'd',
-        parentSeq: 0,
-        pay: 300,
+        parentSeq: 5,
+        pay: null,
         payTerm: null,
         toDoContents: [''],
       },
