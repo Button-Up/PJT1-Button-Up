@@ -1,43 +1,44 @@
 // ----------------- 부모 홈 페이지 라우팅 -------------------------
 // 헤더 컴포넌트
-import GreetingHeader from '../../components/common/headers/GreetingHeader'
-import BackHeader from '../../components/common/headers/BackHeader'
+import GreetingHeader from "../../components/common/headers/GreetingHeader";
+import BackHeader from "../../components/common/headers/BackHeader";
 
 // 바텀 네비게이션
-import ParentBottomNav from '../../components/parent/BottomNav'
+import ParentBottomNav from "../../components/parent/BottomNav";
 
 // 페이지
-import ParentHome from '../../views/parent/home/Home'
-import ChlidInfo from '../../views/parent/home/ChildInfo'
+import ParentHome from "../../views/parent/home/Home";
+import ChlidInfo from "../../views/parent/home/ChildInfo";
 
 export default [
   {
-    path: '/parent/home',
-    name: 'ParentHome',
+    path: "/parent/home",
+    name: "ParentHome",
     components: {
       default: ParentHome,
       header: GreetingHeader,
-      footer: ParentBottomNav
+      footer: ParentBottomNav,
     },
     meta: {
-      isParentPage: true
-    }
+      isParentPage: true,
+    },
   },
   {
-    path: '/parent/home/child-info/:name',
-    name: 'ChlidInfo',
+    path: "/parent/home/child-info",
+    name: "ChlidInfo",
     components: {
       default: ChlidInfo,
       header: BackHeader,
-      footer: ParentBottomNav
+      footer: ParentBottomNav,
     },
-    props:{
+    props: {
       header: {
-        backBtnPath: '/parent/home' 
-      }
+        backBtnPath: "/parent/home",
+      },
+      default: true,
     },
     meta: {
-      isParentPage: true
-    }
+      isParentPage: true,
+    },
   },
-]
+];
