@@ -77,7 +77,7 @@
               block
               color="parent01"
               class="white--text"
-              @click.native="[vuexPutTutorialStage(), $router.push('/parent/home')]"
+              @click.native="[putTutorialStage(), $router.push('/parent/home')]"
               >잘 이해했어요!</v-btn
             >
           </v-col>
@@ -103,7 +103,7 @@ export default {
         stage: 1,
       };
       await this.vuexPutTutorialStage(tutorialInfo);
-      await this.vuexGetTutorialStage(this.checkUserInfo);
+      await this.vuexGetTutorialStage(this.checkUserInfo.seq);
     },
   },
 };

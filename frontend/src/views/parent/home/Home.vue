@@ -6,7 +6,7 @@
 <template>
   <div class="mx-9 mt-6 mb-6">
     <div v-if="checkInTutorial">
-      <ParentOnboard :checkTutorialStage="checkTutorialStage"></ParentOnboard>
+      <ParentTutorial :checkTutorialStage="checkTutorialStage"></ParentTutorial>
     </div>
     <div v-else>
       <div>
@@ -55,7 +55,7 @@
 </template>
 <script>
 import ChildCardInfo from "@/components/parent/home/ChildCardInfo";
-import ParentOnboard from "@/components/parent/home/Onboard";
+import ParentTutorial from "@/components/parent/home/Tutorial";
 import TodoList from "../../../components/common/TodoList.vue";
 import { mapGetters } from "vuex";
 
@@ -63,7 +63,7 @@ export default {
   name: "Home",
   components: {
     ChildCardInfo,
-    ParentOnboard,
+    ParentTutorial,
     TodoList,
   },
   data() {

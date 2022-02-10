@@ -48,16 +48,16 @@ const parentStore = {
         }
       );
     },
-    async vuexPutTutorialStage({ dispatch }, tutorialInfo) {
+    async vuexPutTutorialStage(context, tutorialInfo) {
       await apiPutTutorialStep(
         tutorialInfo,
         (res) => {
           console.log(res);
           console.log("튜토리얼 단계 수정 완료");
-          dispatch("vuexGetTutorialStep");
         },
         (err) => {
           console.log(err);
+          console.log(tutorialInfo);
         }
       );
     },

@@ -77,15 +77,16 @@
 
 <script>
 export default {
-  data() {
-    return {
-      tutorialStep: this.checkTutorialStage + 1,
-    };
-  },
+  name: "ParentTutorial",
   props: {
     checkTutorialStage: {
       type: Number,
       default: 0,
+    },
+  },
+  computed: {
+    tutorialStep() {
+      return this.checkTutorialStage + 1;
     },
   },
 };
