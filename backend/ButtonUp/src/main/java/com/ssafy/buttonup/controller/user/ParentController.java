@@ -89,25 +89,33 @@ public class ParentController {
     
     @PostMapping("/login")
     @ApiOperation(value="부모 로그인", notes="부모 닉네입과 비밀번호로 로그인을 해서 JWT 토큰을 받아옵니다.")
-    public LoginResponse login(@ApiParam(value = "부모 로그인 정보", required = true) @RequestBody LoginRequest loginRequest){
-        Parent member = parentRepository.findByNickname(loginRequest.getNickname())
-                .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
-        if(!passwordEncoder.matches(loginRequest.getPassword(),member.getPassword())){
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+    public ResponseEntity<LoginResponse> login(@ApiParam(value = "부모 로그인 정보", required = true) @RequestBody LoginRequest loginRequest){
+
+        LoginResponse loginResponse = null;
+
+        try{
+            Parent member = parentRepository.findByNickname(loginRequest.getNickname())
+                    .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
+            if(!passwordEncoder.matches(loginRequest.getPassword(),member.getPassword())){
+                throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+            }
+            List<String> roles = new ArrayList<>();
+            for (String role : member.getAuth().split(",")) {
+                roles.add(role);
+            }
+
+            String token = jwtTokenProvider.createToken(member.getUsername(), roles);
+
+            loginResponse = LoginResponse.builder()
+                    .seq(member.getSeq())
+                    .token(token)
+                    .build();
+
+        }catch (IllegalArgumentException i){
+            return new ResponseEntity<>(loginResponse,HttpStatus.UNAUTHORIZED);
         }
-        List<String> roles = new ArrayList<>();
-        for (String role : member.getAuth().split(",")) {
-            roles.add(role);
-        }
 
-        String token = jwtTokenProvider.createToken(member.getUsername(), roles);
-
-        LoginResponse loginResponse = LoginResponse.builder()
-                .seq(member.getSeq())
-                .token(token)
-                .build();
-
-        return loginResponse;
+        return new ResponseEntity<>(loginResponse,HttpStatus.OK);
     }
 
     /**

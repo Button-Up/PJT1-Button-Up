@@ -8,6 +8,8 @@ import com.ssafy.buttonup.domain.model.entity.user.Parent;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,14 +104,19 @@ public class ChildService {
      * @param connectRequest
      */
 
-    @Transactional
-    public void connectWithParent(ConnectRequest connectRequest) {
-        Child child = childRepository.findByNickname(connectRequest.getNickname())
-                        .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
-        Parent parent = parentRepository.findByNickname(connectRequest.getParentNickname())
-                .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 nickname입니다"));
+    @Transactional(rollbackFor = Exception.class)
+    public boolean connectWithParent(ConnectRequest connectRequest) {
+        try{
+            Child child = childRepository.findByNickname(connectRequest.getNickname())
+                    .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
+            Parent parent = parentRepository.findByNickname(connectRequest.getParentNickname())
+                    .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 nickname입니다"));
 
-        child.connectParent(parent);
-        childRepository.save(child);
+            child.connectParent(parent);
+            childRepository.save(child);
+            return true;
+        }catch (IllegalArgumentException i){
+            return false;
+        }
     }
 }
