@@ -98,7 +98,8 @@ public class ChildService {
     public void connectWithParent(ConnectRequest connectRequest) {
         Child child = childRepository.findByNickname(connectRequest.getNickname())
                         .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
-        Parent parent = parentRepository.getById(connectRequest.getParentSeq());
+        Parent parent = parentRepository.findByNickname(connectRequest.getNickname())
+                .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 nickname입니다"));
 
         child.connectParent(parent);
         childRepository.save(child);
