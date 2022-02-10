@@ -156,8 +156,6 @@
 import BottomSheet from "@/components/common/BottomSheet";
 import { getRequestList, modifyRequestStatusApprove, modifyRequestStatusReject } from "@/api/requestAPI.js";
 import { mapGetters, mapActions } from "vuex";
-const userStore = "userStore";
-const childrenStore = "childrenStore";
 // addExchangeRequest,
 // modifyRequestStatusApprove,
 // modifyRequestStatusReject,
@@ -215,8 +213,8 @@ export default {
     this.getList();
   },
   computed: {
-    ...mapGetters(userStore, ["checkUserInfo"]),
-    ...mapGetters(childrenStore, ["childrenInfo"]),
+    ...mapGetters("userStore", ["checkUserInfo"]),
+    ...mapGetters("childrenStore", ["childrenInfo"]),
     activeRequests() {
       return this.requestList.filter((request) => {
         return request.status === "미완료";
@@ -239,7 +237,7 @@ export default {
     // },
   },
   methods: {
-    ...mapActions(childrenStore, ["vuexGetChildren"]),
+    ...mapActions("childrenStore", ["vuexGetChildren"]),
     getList() {
       this.requestList = [];
       this.childrenInfo.forEach((child) => {
