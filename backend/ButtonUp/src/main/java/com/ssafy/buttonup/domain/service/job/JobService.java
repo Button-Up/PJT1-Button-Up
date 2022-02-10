@@ -94,7 +94,22 @@ public class JobService extends ImageService {
      * @return 직업
      */
     public JobResponse getJob(long jobSeq) {
-        return Job.ToResponse(jobRepository.getById(jobSeq));
+
+        Job job = jobRepository.getById(jobSeq);
+        JobResponse jobResponse = Job.ToResponse(job);
+
+        List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(job.getSeq());
+
+        List<ToDoResponse> toDoResponses = new ArrayList<>();
+        for(ToDo toDo: toDos){
+            toDoResponses.add(ToDoResponse.builder()
+                    .seq(toDo.getSeq())
+                    .content(toDo.getContent())
+                    .build());
+        }
+        jobResponse.setToDos(toDoResponses);
+
+        return jobResponse;
     }
 
     /**
@@ -164,9 +179,9 @@ public class JobService extends ImageService {
         // TODO: 새로운 직업에 대한 할일 체크리스트 추가하기
 
         //request에 있는 직업키로 할일 리스트 조회
-        //리스트 돌면서 체크리스트 생성
         List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(request.getJobSeq());
 
+        //리스트 돌면서 체크리스트 생성
         for(ToDo toDo : toDos){
             toDoCheckRepository.save(ToDoCheck.builder()
                     .flag(false)

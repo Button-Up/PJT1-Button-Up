@@ -39,7 +39,11 @@
           required
           color="parent01"
         ></v-text-field>
-        <v-btn to="/parent/home" block color="parent01" class="white--text"
+        <v-btn
+          block
+          color="parent01"
+          class="white--text"
+          @click.native="parentSignup"
           >회원가입 완료</v-btn
         >
       </v-form>
@@ -48,7 +52,8 @@
 </template>
 
 <script>
-import { signup } from "@/api/userAPI.js";
+import { apiSignup } from "@/api/userAPI.js";
+
 export default {
   name: "ParentSignupForm",
   data() {
@@ -66,7 +71,7 @@ export default {
   },
   methods: {
     parentSignup() {
-      signup(this.isParent, this.parentSignupInfo)
+      apiSignup(this.isParent, this.parentSignupInfo)
         .then((res) => {
           console.log(res);
           console.log(this.parentSignupInfo);

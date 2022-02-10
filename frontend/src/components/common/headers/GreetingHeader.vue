@@ -27,7 +27,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'IndexHeader',
   computed: {
-    ...mapState('tempAccountStore', ['userInfo']),
+    ...mapState('userStore', ['userInfo']),
     userName() {
       return this.userInfo.name
     }
