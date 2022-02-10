@@ -1,5 +1,6 @@
 <!--
   author: 유현수
+  modified : 우정연 - 아이 리스트 가져와서 vuex 저장
 -->
 
 <template>
@@ -50,8 +51,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-
+import { mapGetters, mapState, mapActions } from "vuex";
 
 export default {
   name: "Login",
@@ -66,19 +66,22 @@ export default {
     };
   },
   computed: {
-    ...mapState('userStore', ['isLogin', 'isLoginError']),
+    ...mapGetters("userStore", ["checkUserInfo"]),
+    ...mapState("userStore", ["isLogin", "isLoginError"]),
   },
   methods: {
-    ...mapActions('userStore', ['vuexLogin', 'vuexGetUserInfo']),
+    ...mapActions("userStore", ["vuexLogin", "vuexGetUserInfo"]),
+    ...mapActions("parentStore", ["vuexGetChildren"]),
 
     async login() {
       const loginInfo = {
         isParent: this.isParent,
-        credentials: this.credentials
-      }
+        credentials: this.credentials,
+      };
       await this.vuexLogin(loginInfo);
       await this.vuexGetUserInfo(loginInfo);
-      this.$router.push(this.isParent ? '/parent/home' : '/child/home')
+      await this.vuexGetChildren(this.checkUserInfo.seq);
+      this.$router.push(this.isParent ? "/parent/home" : "/child/home");
     },
 
     toggleLoginType() {
