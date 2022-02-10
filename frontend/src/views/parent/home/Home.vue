@@ -1,12 +1,15 @@
 <!--
   author : 정은이
+
+  modified: 김지언 - 자녀 리스트 불러오는 api 연결
 -->
 <template>
   <div class="mx-9 mt-6 mb-6">
-    <div v-if="inTutorial">
+    <!-- <div v-if="inTutorial">
       <ParentOnboard :tutorialStep="tutorialStep"></ParentOnboard>
-    </div>
-    <div v-else>
+    </div> -->
+    <!-- <div v-else> -->
+    <div>
       <h2>아이 정보</h2>
       <v-sheet class="mx-auto" elevation="" max-width="1200">
         <v-slide-group class="pa-1" center-active>
@@ -16,104 +19,70 @@
           -->
           <v-slide-item
             justify-center
-            v-for="(item, i) in items"
-            :key="i"
-            @click.native="$router.push('/parent/home/child-info/'+item.name)"
+            v-for="(item, idx) in childrenInfo"
+            :key="idx"
+            @click.native="$router.push({ name: 'ChlidInfo', params: { child: item } })"
           >
-            <ChildCardInfo
-              :item="item"
-            ></ChildCardInfo>
+            <ChildCardInfo :item="item"></ChildCardInfo>
           </v-slide-item>
         </v-slide-group>
       </v-sheet>
 
       <!-- 부모의 할일 -->
       <div class="mt-2">
-          <h2>확인해주세요!</h2>
-          <p class="caption font-weight-normal">오늘 확인해야 할 항목들이에요</p>
+        <h2>확인해주세요!</h2>
+        <p class="caption font-weight-normal">오늘 확인해야 할 항목들이에요</p>
       </div>
-      <v-list-item v-for="(todo, t) in TodoList"  :key="t" class="mb-2 pa-2" style="display:contents">
+      <v-list-item
+        v-for="(todo, t) in TodoList"
+        :key="t"
+        class="mb-2 pa-2"
+        style="display: contents"
+      >
         <TodoList :todo="todo" :isParent="true"></TodoList>
       </v-list-item>
     </div>
   </div>
 </template>
 <script>
-import ChildCardInfo from '@/components/parent/home/ChildCardInfo'
-import ParentOnboard from '@/components/parent/home/Onboard'
-import TodoList from '../../../components/common/TodoList.vue'
+import ChildCardInfo from "@/components/parent/home/ChildCardInfo";
+//import ParentOnboard from "@/components/parent/home/Onboard";
+import TodoList from "../../../components/common/TodoList.vue";
+import { mapGetters } from "vuex";
 
-import { mapState } from 'vuex'
+//import { mapState } from "vuex";
 
 export default {
   name: "Home",
-  components: { 
+  components: {
     ChildCardInfo,
-    ParentOnboard,
-    TodoList
+    //ParentOnboard,
+    TodoList,
   },
   data() {
     return {
-      items: [
+      TodoList: [
         {
-          name: "정은이",
-          danchuAmount: "32,000 단추",
-          progressValue: 30,
-          progressAmount: "1/3",
+          done: false,
+          task: "환전/결제 요청 확인",
+          url: "/parent/request-list",
         },
         {
-          name: "김응철",
-          danchuAmount: "14,000 단추",
-          progressValue: 60,
-          progressAmount: "2/3",
+          done: true,
+          task: "투자 가격 업데이트",
+          url: "/parent/userinfo",
         },
         {
-          name: "유현수",
-          danchuAmount: "14,000 단추",
-          progressValue: 60,
-          progressAmount: "2/3",
+          done: true,
+          task: "투자 가격 업데이트",
+          url: "/parent/userinfo",
         },
-        {
-          name: "정은이",
-          danchuAmount: "32,000 단추",
-          progressValue: 30,
-          progressAmount: "1/3",
-        },
-        {
-          name: "김응철",
-          danchuAmount: "14,000 단추",
-          progressValue: 60,
-          progressAmount: "2/3",
-        },
-        {
-          name: "유현수",
-          danchuAmount: "14,000 단추",
-          progressValue: 60,
-          progressAmount: "2/3",
-        },
-        
       ],
-      TodoList:[
-        {
-          done:false,
-          task:"환전/결제 요청 확인",
-          url:'/parent/request-list',
-        },
-        {
-          done:true,
-          task:"투자 가격 업데이트",
-          url:'/parent/userinfo',
-        },
-        {
-          done:true,
-          task:"투자 가격 업데이트",
-          url:'/parent/userinfo',
-        }
-      ]
     };
   },
   computed: {
-    ...mapState('tempAccountStore', ['inTutorial', 'tutorialStep']),
+    //...mapState('tempAccountStore', ['inTutorial', 'tutorialStep']),
+    ...mapGetters("parentStore", ["childrenInfo"]),
   },
 };
 </script>

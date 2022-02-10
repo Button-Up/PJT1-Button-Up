@@ -1,16 +1,9 @@
 <template>
   <div>
-    <v-app-bar
-      dense
-      :color="bgColor"
-      elevation="0"
-    >
-      <v-icon
-        @click="onClickBackBtn(backBtnPath)"
-        class="mr-6 back-btn"
-      >mdi-arrow-left</v-icon>
+    <v-app-bar dense :color="bgColor" elevation="0">
+      <v-icon @click="onClickBackBtn(backBtnPath)" class="mr-6 back-btn">mdi-arrow-left</v-icon>
       <v-toolbar-title v-if="$route.path.includes(`/parent/home/child-info`)">
-        {{$route.params.name}}
+        {{ $route.params.child.name }}
       </v-toolbar-title>
       <v-toolbar-title v-else>
         {{ pageTitle }}
@@ -21,35 +14,35 @@
 
 <script>
 export default {
-  name: 'BackHeader',
+  name: "BackHeader",
   props: {
     pageTitle: {
       type: String,
-      default: ''
+      default: "",
     },
     backBtnPath: {
       type: String,
-      default: ''
+      default: "",
     },
     bgColor: {
       props: String,
-      default: 'white'
-    }
+      default: "white",
+    },
   },
   methods: {
     onClickBackBtn(path) {
       if (path) {
-        this.$router.push(path)
+        this.$router.push(path);
       } else {
-        this.$router.go(-1)
+        this.$router.go(-1);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .back-btn {
-    cursor: pointer;
-  }
+.back-btn {
+  cursor: pointer;
+}
 </style>
