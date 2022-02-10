@@ -55,14 +55,22 @@ public class ChildService {
      */
     public ChildResponse findBySeq(long childSeq) {
         Child child = childRepository.getById(childSeq);
+        long num = 0;
+
+        if(child.getParent()==null){
+            num=-1;
+        }else{
+            num=child.getParent().getSeq();
+        }
+
         ChildResponse childResponse = ChildResponse.builder()
                 .seq(child.getSeq())
                 .phone(child.getPhone())
                 .name(child.getName())
                 .birthDate(child.getBirthDate())
                 .image(child.getImage())
-                .parentSeq(child.getParent().getSeq())
                 .build();
+        childResponse.setParentSeq(num);
         return childResponse;
     }
 
