@@ -1,9 +1,20 @@
+<!--
+  author: 유현수
+
+  직업 관리 페이지로 이동만 해도 튜토리얼 단계가 1 올라가게 되어 있습니다.
+  직업을 생성해야 튜토리얼 단계가 올라가도록 수정 필요
+-->
+
 <template>
   <v-container class="fill-height">
     <v-row class="fill-height flex-column">
       <!-- 프로그레스 바 -->
       <v-col class="flex-grow-0">
-        <v-progress-linear :value="($route.params.id / 2) * 100" color="parent01" round="6"></v-progress-linear>
+        <v-progress-linear
+          :value="($route.params.id / 2) * 100"
+          color="parent01"
+          round="6"
+        ></v-progress-linear>
       </v-col>
 
       <!-- 페이지 1 -->
@@ -41,12 +52,20 @@
       <v-col class="flex-grow-0">
         <v-row dense>
           <v-col v-if="$route.params.id != 1">
-            <v-btn block color="parent01" class="white--text" :to="`/parent/tutorial/job/${-1 + +$route.params.id}`"
+            <v-btn
+              block
+              color="parent01"
+              class="white--text"
+              :to="`/parent/tutorial/job/${-1 + +$route.params.id}`"
               >이전</v-btn
             >
           </v-col>
           <v-col v-if="$route.params.id != 2">
-            <v-btn block color="parent01" class="white--text" :to="`/parent/tutorial/job/${1 + +$route.params.id}`"
+            <v-btn
+              block
+              color="parent01"
+              class="white--text"
+              :to="`/parent/tutorial/job/${1 + +$route.params.id}`"
               >다음</v-btn
             >
           </v-col>
@@ -55,7 +74,7 @@
               block
               color="parent01"
               class="white--text"
-              @click.native="[addTutorialStep(), $router.push('/parent/activity')]"
+              @click.native="[putTutorialStage(), $router.push('/parent/activity/job')]"
               >직업 만들러 가기</v-btn
             >
           </v-col>
@@ -66,12 +85,23 @@
 </template>
 
 <script>
-//import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "TutorialJob",
+  computed: {
+    ...mapGetters("userStore", ["checkUserInfo"]),
+  },
   methods: {
-    //...mapActions('tempAccountStore', ['addTutorialStep'])
+    ...mapActions("parentStore", ["vuexPutTutorialStage", "vuexGetTutorialStage"]),
+    async putTutorialStage() {
+      const tutorialInfo = {
+        parentSeq: this.checkUserInfo.seq,
+        stage: 2,
+      };
+      await this.vuexPutTutorialStage(tutorialInfo);
+      await this.vuexGetTutorialStage(this.checkUserInfo.seq);
+    },
   },
 };
 </script>

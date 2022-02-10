@@ -7,7 +7,7 @@
     <v-toolbar color="parent02" class="font-weight-bold" :elevation="0"> 입금하기 </v-toolbar>
     <v-subheader>입금할 단추 개수를 입력해주세요.</v-subheader>
     <v-form class="mx-4">
-      <v-text-field label="단추" suffix="개" color="parent01" :value="money"></v-text-field>
+      <v-text-field label="단추" suffix="개" color="parent01" v-model="money"></v-text-field>
     </v-form>
     <v-card-actions>
       <v-btn block color="parent01" outlined rounded text @click="addAccount"> 입금 </v-btn>
@@ -24,8 +24,6 @@ export default {
   },
   data() {
     return {
-      category: null,
-      content: null,
       money: null,
     };
   },
@@ -34,8 +32,6 @@ export default {
     addAccount() {
       this.$store.dispatch("accountStore/vuexAddAccountHistoryDeposit", {
         childSeq: this.childSeq,
-        category: this.category,
-        content: this.content,
         money: this.money,
       });
       this.money = null;

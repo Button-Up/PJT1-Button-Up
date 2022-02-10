@@ -3,7 +3,11 @@
     <v-row class="fill-height flex-column">
       <!-- 프로그레스 바 -->
       <v-col class="flex-grow-0">
-        <v-progress-linear :value="($route.params.id / 2) * 100" color="parent01" round="6"></v-progress-linear>
+        <v-progress-linear
+          :value="($route.params.id / 2) * 100"
+          color="parent01"
+          round="6"
+        ></v-progress-linear>
       </v-col>
 
       <!-- 페이지 1 -->
@@ -43,12 +47,20 @@
       <v-col class="flex-grow-0">
         <v-row dense>
           <v-col v-if="$route.params.id != 1">
-            <v-btn block color="parent01" class="white--text" :to="`/parent/tutorial/stock/${-1 + +$route.params.id}`"
+            <v-btn
+              block
+              color="parent01"
+              class="white--text"
+              :to="`/parent/tutorial/stock/${-1 + +$route.params.id}`"
               >이전</v-btn
             >
           </v-col>
           <v-col v-if="$route.params.id != 2">
-            <v-btn block color="parent01" class="white--text" :to="`/parent/tutorial/stock/${1 + +$route.params.id}`"
+            <v-btn
+              block
+              color="parent01"
+              class="white--text"
+              :to="`/parent/tutorial/stock/${1 + +$route.params.id}`"
               >다음</v-btn
             >
           </v-col>
@@ -57,7 +69,7 @@
               block
               color="parent01"
               class="white--text"
-              @click.native="[endTutorial(), $router.push('/parent/activity')]"
+              @click.native="[putTutorialStage(), $router.push('/parent/activity')]"
               >투자 활동 살펴보기</v-btn
             >
           </v-col>
@@ -68,12 +80,23 @@
 </template>
 
 <script>
-//import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "TutorialStock",
+  computed: {
+    ...mapGetters("userStore", ["checkUserInfo"]),
+  },
   methods: {
-    //...mapActions('tempAccountStore', ['endTutorial'])
+    ...mapActions("parentStore", ["vuexPutTutorialStage", "vuexGetTutorialStage"]),
+    async putTutorialStage() {
+      const tutorialInfo = {
+        parentSeq: this.checkUserInfo.seq,
+        stage: 3,
+      };
+      await this.vuexPutTutorialStage(tutorialInfo);
+      await this.vuexGetTutorialStage(this.checkUserInfo.seq);
+    },
   },
 };
 </script>

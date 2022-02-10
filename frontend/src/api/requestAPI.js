@@ -24,12 +24,13 @@ function addExchangeRequest(formData, success, fail) {
 
 // 요청 상태 승인으로 변경
 function modifyRequestStatusApprove(requestSeq, success, fail) {
-  api.put(`/requests/status/approve`, { requestSeq }).then(success).catch(fail);
+  api.put(`/requests/status/approve`, { request_seq: requestSeq }).then(success).catch(fail);
 }
 
 // 요청 상태 거절로 변경
 function modifyRequestStatusReject(requestSeq, success, fail) {
-  api.put(`/requests/status/reject`, { requestSeq }).then(success).catch(fail);
+  console.log(requestSeq);
+  api.put(`/requests/status/reject`, { request_seq: requestSeq }).then(success).catch(fail);
 }
 
 export {

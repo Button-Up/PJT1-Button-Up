@@ -47,8 +47,8 @@ const userStore = {
         (res) => {
           commit("SET_USER_SEQ", res.data.seq);
           commit("SET_IS_PARENT", loginInfo.isParent);
-          dispatch("vuexCheckJWT");
           sessionStorage.setItem("access-token", res.data.token);
+          dispatch("vuexCheckJWT");
           console.log("로그인 성공!");
         },
         (err) => {
@@ -71,10 +71,12 @@ const userStore = {
         }
       );
     },
-    vuexCheckJWT({ commit }) {
+    vuexCheckJWT({ commit, state }) {
       const JWT = sessionStorage.getItem("access-token");
+      console.log(JWT);
       JWT ? commit("SET_IS_LOGIN", true) : commit("SET_IS_LOGIN", false);
       console.log("check jwt");
+      console.log(`isLogin: ${state.isLogin}`);
     },
   },
 };

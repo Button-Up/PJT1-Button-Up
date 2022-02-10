@@ -34,10 +34,6 @@ public class ParentResponse {
     @ApiModelProperty(value = "부모 닉네임", required = true)
     private String nickName;
 
-    /* 비밀번호 */
-    @ApiModelProperty(value = "부모 비밀번호", required = true)
-    private String password;
-
     /* 이메일 */
     @ApiModelProperty(value = "부모 이메일", required = true)
     private String email;

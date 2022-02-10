@@ -82,7 +82,7 @@ export default {
   methods: {
     ...mapActions("userStore", ["vuexLogin", "vuexGetUserInfo"]),
 
-    ...mapActions("parentStore", ["vuexGetChildren"]),
+    ...mapActions("parentStore", ["vuexGetChildren", "vuexGetTutorialStage"]),
 
     async login() {
       const loginInfo = {
@@ -99,6 +99,7 @@ export default {
       if (this.checkIsLogin) {
         if (this.isParent) {
           await this.vuexGetChildren(this.checkUserInfo.seq);
+          await this.vuexGetTutorialStage(this.checkUserInfo.seq);
         }
         this.$router.push(this.isParent ? "/parent/home" : "/child/home");
       } else {
