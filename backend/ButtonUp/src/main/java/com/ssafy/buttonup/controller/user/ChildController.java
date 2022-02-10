@@ -60,25 +60,32 @@ public class ChildController {
     
     @PostMapping("/login")
     @ApiOperation(value="아이 로그인", notes="아이 닉네입과 비밀번호로 로그인을 해서 JWT 토큰을 받아옵니다.")
-    public LoginResponse login(@ApiParam(value = "로그인 정보", required = true) @RequestBody LoginRequest loginRequest){
-        Child member = childRepository.findByNickname(loginRequest.getNickname())
-                .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
-        if(!passwordEncoder.matches(loginRequest.getPassword(),member.getPassword())){
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+    public ResponseEntity<LoginResponse> login(@ApiParam(value = "로그인 정보", required = true) @RequestBody LoginRequest loginRequest){
+
+        LoginResponse loginResponse = null;
+
+        try{
+            Child member = childRepository.findByNickname(loginRequest.getNickname())
+                    .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
+            if(!passwordEncoder.matches(loginRequest.getPassword(),member.getPassword())){
+                throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+            }
+            List<String> roles = new ArrayList<>();
+            for(String role:member.getAuth().split(",")){
+                roles.add(role);
+            }
+
+            String token = jwtTokenProvider.createToken(member.getUsername(),roles);
+
+            loginResponse = LoginResponse.builder()
+                    .seq(member.getSeq())
+                    .token(token)
+                    .build();
+
+        } catch (IllegalArgumentException i){
+            return new ResponseEntity<>(loginResponse, HttpStatus.UNAUTHORIZED);
         }
-        List<String> roles = new ArrayList<>();
-        for(String role:member.getAuth().split(",")){
-            roles.add(role);
-        }
-
-        String token = jwtTokenProvider.createToken(member.getUsername(),roles);
-
-        LoginResponse loginResponse = LoginResponse.builder()
-                .seq(member.getSeq())
-                .token(token)
-                .build();
-
-        return loginResponse;
+        return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 
     /**
@@ -115,7 +122,11 @@ public class ChildController {
 
     @PutMapping("/connect")
     @ApiOperation(value="아이와 부모 연결", notes="아이를 부모의 자녀로 등록합니다.")
-    public void connectWithParent(@ApiParam(value = "아이와 부모 키", required = true) @RequestBody ConnectRequest connectRequest) {
-        childService.connectWithParent(connectRequest);
+    public ResponseEntity<String> connectWithParent(@ApiParam(value = "아이와 부모 키", required = true) @RequestBody ConnectRequest connectRequest) {
+
+        if(childService.connectWithParent(connectRequest)){
+            return new ResponseEntity<String>("SUCESS",HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("가입되지 않은 닉네임입니다.",HttpStatus.UNAUTHORIZED);
     }
 }
