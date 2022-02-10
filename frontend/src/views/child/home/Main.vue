@@ -7,47 +7,51 @@ modified: 김지언 - 예금 계좌 잔액 표시
 
 <template>
   <div>
-    <!-- 단추 계좌 슬라이드 -->
-    <h2 class="mx-6 mt-4">나의 단추 계좌</h2>
-    <v-sheet elevation="">
-      <v-slide-group class="mt-2 mx-4" center-active>
-        <v-slide-item>
-          <MainAccountCard
-            :item="{
-              isDeposit: true,
-              balance: this.getDefaultBalance,
-            }"
-          ></MainAccountCard>
-        </v-slide-item>
+    <NotSync v-if="checkNotSync"></NotSync>
+    <div v-else>
+      <!-- 단추 계좌 슬라이드 -->
+      <h2 class="mx-6 mt-4">나의 단추 계좌</h2>
+      <v-sheet elevation="">
+        <v-slide-group class="mt-2 mx-4" center-active>
+          <v-slide-item>
+            <MainAccountCard
+              :item="{
+                isDeposit: true,
+                balance: this.getDefaultBalance,
+              }"
+            ></MainAccountCard>
+          </v-slide-item>
 
-        <!-- 적금 계좌 -->
-        <v-slide-item>
-          <MainAccountCard
-            :item="{
-              isDeposit: false,
-              balance: 6000,
-            }"
-          ></MainAccountCard>
-        </v-slide-item>
-      </v-slide-group>
-    </v-sheet>
+          <!-- 적금 계좌 -->
+          <v-slide-item>
+            <MainAccountCard
+              :item="{
+                isDeposit: false,
+                balance: 6000,
+              }"
+            ></MainAccountCard>
+          </v-slide-item>
+        </v-slide-group>
+      </v-sheet>
 
-    <!-- 오늘 할 일 -->
-    <div class="mx-6 mt-6">
-      <h2 class="mb-4">오늘 할 일</h2>
-      <v-list-item
-        v-for="(todo, t) in TodoList"
-        :key="t"
-        class="mb-2 py-2"
-        style="display: contents"
-      >
-        <todo-list :todo="todo" :isParent="false"></todo-list>
-      </v-list-item>
+      <!-- 오늘 할 일 -->
+      <div class="mx-6 mt-6">
+        <h2 class="mb-4">오늘 할 일</h2>
+        <v-list-item
+          v-for="(todo, t) in TodoList"
+          :key="t"
+          class="mb-2 py-2"
+          style="display: contents"
+        >
+          <todo-list :todo="todo" :isParent="false"></todo-list>
+        </v-list-item>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import NotSync from "@/components/child/NotSync";
 import MainAccountCard from "@/components/child/home/MainAccountCard";
 import TodoList from "@/components/common/TodoList.vue";
 import { mapActions, mapGetters } from "vuex";
@@ -55,6 +59,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Home",
   components: {
+    NotSync,
     MainAccountCard,
     TodoList,
   },
@@ -83,7 +88,7 @@ export default {
   },
   computed: {
     ...mapGetters("accountStore", ["getDefaultBalance"]),
-    ...mapGetters("userStore", ["checkUserInfo"]),
+    ...mapGetters("userStore", ["checkUserInfo", "checkNotSync"]),
   },
   mounted() {
     // this.$nextTick(function () {
