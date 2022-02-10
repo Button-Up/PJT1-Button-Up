@@ -36,10 +36,7 @@ async function childrenList(parentSeq, success, fail) {
 
 // 회원가입시 아이와 부모 연결
 function childConnect(childSeq, success, fail) {
-  api
-    .put(`/children/connect`, JSON.stringify(childSeq))
-    .then(success)
-    .catch(fail);
+  api.put(`/children/connect`, JSON.stringify(childSeq)).then(success).catch(fail);
 }
 
 export { childrenList, childConnect };

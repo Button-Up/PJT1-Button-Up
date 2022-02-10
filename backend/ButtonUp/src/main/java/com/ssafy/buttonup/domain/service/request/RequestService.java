@@ -45,8 +45,8 @@ public class RequestService {
         Child child = childRepository.getById(childSeq);
         int price = request.getPrice();
 
-        RequestHistoryType type = RequestHistoryType.EXCHANGE;
-        RequestHistoryStatus status = RequestHistoryStatus.INCOMPLETE;
+        RequestHistoryType type = RequestHistoryType.환전;
+        RequestHistoryStatus status = RequestHistoryStatus.미완료;
         RequestHistory requestHistory = RequestHistory.builder()
                 .type(type)
                 .status(status)
@@ -80,7 +80,7 @@ public class RequestService {
         requestHistory.changeStatus(status);
         requestHistoryRepository.save(requestHistory);
 
-        if(status.equals(RequestHistoryStatus.REJECT)) {        // 거절인 경우, 입출금 내역에 입금이 추가되어야 함
+        if(status.equals(RequestHistoryStatus.거절)) {        // 거절인 경우, 입출금 내역에 입금이 추가되어야 함
             AccountHistoryCategory category = AccountHistoryCategory.환전;
             AccountHistoryType accountHistoryType = AccountHistoryType.입금;
             final String content = "환전 거절";

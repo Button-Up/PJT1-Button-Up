@@ -3,35 +3,41 @@
     <v-list subheader two-line>
       <v-subheader>대기 중인 요청</v-subheader>
       <!-- 환전 요청 -->
-      <v-list-item v-for="(request, idx) in requestList" :key="idx">
+      <v-list-item v-for="(request, idx) in activeRequests" :key="idx">
         <v-list-item-avatar>
           <v-icon class="parent01 lighten-1" dark> mdi-hand-coin </v-icon>
         </v-list-item-avatar>
-
         <v-list-item-content>
-          <v-list-item-title v-text="request.childName"></v-list-item-title>
-          <v-list-item-subtitle v-text="`${request.amount}원`"></v-list-item-subtitle>
+          <v-list-item-title>{{ request.childName }}의 {{ request.type }} 요청</v-list-item-title>
+          <v-list-item-subtitle v-text="`${request.price}원`"></v-list-item-subtitle>
         </v-list-item-content>
-
         <v-list-item-action>
-          <v-list-item-action-text v-text="request.requestedTime"></v-list-item-action-text>
+          <v-list-item-action-text v-text="request.date"></v-list-item-action-text>
           <!-- 바텀 시트 버튼 -->
           <bottom-sheet sheetHeight="320px" :isIcon="true" iconName="mdi-arrow-right">
             <template v-slot:body>
               <v-card class="rounded-0" :elevation="0">
                 <v-toolbar color="parent01" dark :elevation="0"> 환전 요청 - {{ request.childName }} </v-toolbar>
-                <v-subheader>{{ request.requestedTime }}</v-subheader>
+                <v-subheader>{{ request.date }}</v-subheader>
                 <div class="mx-4">
-                  <div class="text-h4 font-weight-bold">{{ request.amount }}원</div>
+                  <div class="text-h4 font-weight-bold">{{ request.price }}원</div>
                   <div class="text-subtitle-1 my-2">환전 방법</div>
                   <div class="text-body-2 mb-4">
-                    <div>1. {{ request.amount }}원을 현금으로 지급해주세요.</div>
+                    <div>1. {{ request.price }}원을 현금으로 지급해주세요.</div>
                     <div>2. '현금 지급 완료' 버튼을 눌러주세요.</div>
-                    <div>3. 자녀의 단추 계좌에서 5000 단추가 차감됩니다.</div>
+                    <div>3. 자녀의 단추 계좌에서 {{ request.price }} 단추가 차감됩니다.</div>
                   </div>
                   <v-row dense>
-                    <v-col><v-btn block color="parent01" class="white--text">현금 지급 완료</v-btn></v-col>
-                    <v-col><v-btn block color="parent03">환전 요청 거절</v-btn></v-col>
+                    <v-col
+                      ><v-btn block color="parent01" class="white--text" @click="changeStatusApprove(request.seq)"
+                        >현금 지급 완료</v-btn
+                      ></v-col
+                    >
+                    <v-col
+                      ><v-btn block color="parent03" @click="changeStatusReject(request.seq)"
+                        >환전 요청 거절</v-btn
+                      ></v-col
+                    >
                   </v-row>
                 </div>
               </v-card>
@@ -40,7 +46,7 @@
         </v-list-item-action>
       </v-list-item>
 
-      <!-- 구매 요청 -->
+      <!-- 구매 요청
       <v-list-item v-for="(buyRequest, idx) in activeBuyRequests" :key="idx">
         <v-list-item-avatar>
           <v-icon class="parent02 lighten-1" color="black"> mdi-basket </v-icon>
@@ -77,34 +83,32 @@
         </v-list-item-action>
       </v-list-item>
 
-      <v-divider></v-divider>
+      <v-divider></v-divider> -->
 
       <v-subheader>처리 완료 요청</v-subheader>
 
       <!-- 환전 요청 -->
-      <v-list-item v-for="(exchangeRequest, idx) in inactiveExchangeRequeests" :key="idx">
+      <v-list-item v-for="(request, idx) in inactiveRequeests" :key="idx">
         <v-list-item-avatar>
           <v-icon class="parent03 lighten-1" disabled> mdi-hand-coin </v-icon>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title v-text="exchangeRequest.childName"></v-list-item-title>
-          <v-list-item-subtitle v-text="`${exchangeRequest.amount}원`"></v-list-item-subtitle>
+          <v-list-item-title v-text="request.childName"></v-list-item-title>
+          <v-list-item-subtitle v-text="`${request.price}원`"></v-list-item-subtitle>
         </v-list-item-content>
 
         <v-list-item-action>
-          <v-list-item-action-text v-text="exchangeRequest.requestedTime"></v-list-item-action-text>
+          <v-list-item-action-text v-text="request.date"></v-list-item-action-text>
           <bottom-sheet sheetHeight="200px" :isIcon="true" iconName="mdi-information" btnColor="grey lighten-1">
             <template v-slot:body>
               <v-card class="rounded-0" :elevation="0">
-                <v-toolbar color="parent01" dark :elevation="0">
-                  환전 요청 - {{ exchangeRequest.childName }}
-                </v-toolbar>
-                <v-subheader>{{ exchangeRequest.requestedTime }}</v-subheader>
+                <v-toolbar color="parent01" dark :elevation="0"> 환전 요청 - {{ request.childName }} </v-toolbar>
+                <v-subheader>{{ request.date }}</v-subheader>
                 <div class="mx-4">
-                  <div class="text-h4 font-weight-bold">{{ exchangeRequest.amount }}원</div>
+                  <div class="text-h4 font-weight-bold">{{ request.price }}원</div>
                   <div class="text-subtitle-1 my-2">
-                    {{ exchangeRequest.status === "approved" ? "환전 완료" : "환전 요청 거절" }}
+                    {{ request.status }}
                   </div>
                 </div>
               </v-card>
@@ -113,7 +117,7 @@
         </v-list-item-action>
       </v-list-item>
 
-      <!-- 구매 요청 -->
+      <!-- 구매 요청
       <v-list-item v-for="(buyRequest, idx) in inactiveBuyRequests" :key="idx">
         <v-list-item-avatar>
           <v-icon class="parent03 lighten-1" disabled> mdi-basket </v-icon>
@@ -143,14 +147,14 @@
             </template>
           </bottom-sheet>
         </v-list-item-action>
-      </v-list-item>
+      </v-list-item> -->
     </v-list>
   </div>
 </template>
 
 <script>
 import BottomSheet from "@/components/common/BottomSheet";
-import { getRequestList } from "@/api/requestAPI.js";
+import { getRequestList, modifyRequestStatusApprove, modifyRequestStatusReject } from "@/api/requestAPI.js";
 import { mapGetters, mapActions } from "vuex";
 const userStore = "userStore";
 const childrenStore = "childrenStore";
@@ -207,22 +211,20 @@ export default {
     // getRequestList(this.checkUserInfo.seq, ({ data }) => {
     //   this.requestList = data;
     // });
-    getRequestList(1, ({ data }) => {
-      this.requestList = data;
-    });
-    this.vuexGetChildren(this.checkUserInfo.seq);
-    console.log("dddd" + this.childrenInfo);
+    //this.vuexGetChildren(this.checkUserInfo.seq);
+    this.getList();
   },
   computed: {
-    ...mapGetters(userStore, ["checkUserInfo"], childrenStore, ["childrenInfo"]),
-    activeExchangeRequests() {
+    ...mapGetters(userStore, ["checkUserInfo"]),
+    ...mapGetters(childrenStore, ["childrenInfo"]),
+    activeRequests() {
       return this.requestList.filter((request) => {
-        return request.status === "INCOMPLETE";
+        return request.status === "미완료";
       });
     },
-    inactiveExchangeRequeests() {
+    inactiveRequeests() {
       return this.requestList.filter((request) => {
-        return request.status !== "INCOMPLETE";
+        return request.status !== "미완료";
       });
     },
     // activeBuyRequests() {
@@ -238,6 +240,37 @@ export default {
   },
   methods: {
     ...mapActions(childrenStore, ["vuexGetChildren"]),
+    getList() {
+      this.requestList = [];
+      this.childrenInfo.forEach((child) => {
+        getRequestList(child.seq, ({ data }) => {
+          for (let i = 0; i < data.length; i++) {
+            // 자식키, 이름 넣어줌
+            data[i].childSeq = child.seq;
+            data[i].childName = child.name;
+          }
+          this.requestList = [...this.requestList, ...data]; // 배열 합침
+
+          this.requestList.sort((a, b) => {
+            // 배열 정렬
+            if (a.date > b.date) return -1;
+            else if (a.date < b.date) return 1;
+            else return 0;
+          });
+          console.log(data);
+        });
+      });
+    },
+    changeStatusApprove(requestSeq) {
+      modifyRequestStatusApprove(requestSeq, () => {
+        this.getList();
+      });
+    },
+    changeStatusReject(requestSeq) {
+      modifyRequestStatusReject(requestSeq, () => {
+        this.getList();
+      });
+    },
   },
 };
 </script>

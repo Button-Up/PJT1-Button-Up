@@ -18,6 +18,9 @@ export default [
       default: ChildActivity,
       header: GreetingHeader,
       footer: ChildBottomNav
+    },
+    meta: {
+      isParentPage: false
     }
   },
 ]

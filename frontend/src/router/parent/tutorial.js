@@ -24,6 +24,9 @@ export default [
         backBtnPath: '/parent/home'
       }
     },
+    meta: {
+      isParentPage: true
+    },
     children: [
       {
         path: ':id',
@@ -43,6 +46,9 @@ export default [
         backBtnPath: '/parent/home'
       }
     },
+    meta: {
+      isParentPage: true
+    },
     children: [
       {
         path: ':id',
@@ -58,6 +64,9 @@ export default [
     },
     props: {
       header: { pageTitle: '아이들을 위한 모의투자' }
+    },
+    meta: {
+      isParentPage: true
     },
     children: [
       {

@@ -1,6 +1,6 @@
-import { childrenList } from "@/api/userAPI.js";
+import { childrenList } from "@/api/childrenAPI.js";
 
-const childStore = {
+const childrenStore = {
   namespaced: true,
   state: {
     children: [],
@@ -24,4 +24,4 @@ const childStore = {
   },
 };
 
-export default childStore;
+export default childrenStore;

@@ -17,6 +17,9 @@ export default [
       default: ParentUserInfo,
       header: GreetingHeader,
       footer: ParentBottomNav
+    },
+    meta: {
+      isParentPage: true
     }
   },
 ]

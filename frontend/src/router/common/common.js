@@ -7,6 +7,7 @@ import Login from '../../views/common/Login'
 import IndexHeader from '../../components/common/headers/IndexHeader'
 import GreetingHeader from '../../components/common/headers/GreetingHeader'
 
+
 export default [
   {
     path: '/',
@@ -14,7 +15,8 @@ export default [
     components: {
       default: Index,
       header: IndexHeader
-    }
+    },
+    meta: { isAuthFree: true },
   },
   {
     path: '/login',
@@ -22,6 +24,7 @@ export default [
     components: {
       default: Login,
       header: GreetingHeader
-    }
+    },
+    meta: { isAuthFree: true },
   },
 ]
