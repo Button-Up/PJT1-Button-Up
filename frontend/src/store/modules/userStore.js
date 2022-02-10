@@ -4,7 +4,7 @@ import { apiGetUserInfo } from "../../api/userAPI";
 const userStore = {
   namespaced: true,
   state: {
-    isLogin: sessionStorage.getItem("access-token") ? true : false,
+    isLogin: false,
     isParent: null,
     isLoginError: false,
     userInfo: null,
@@ -25,6 +25,9 @@ const userStore = {
     SET_IS_PARENT: (state, isParent) => {
       state.isParent = isParent;
     },
+    SET_IS_LOGIN: (state, isLogin) => {
+      state.isLogin = isLogin;
+    },
     SET_IS_LOGIN_ERROR: (state, isLoginError) => {
       state.isLoginError = isLoginError;
     },
@@ -37,13 +40,14 @@ const userStore = {
     },
   },
   actions: {
-    async vuexLogin({ commit }, loginInfo) {
+    async vuexLogin({ commit, dispatch }, loginInfo) {
       await apiLogin(
         loginInfo.isParent,
         loginInfo.credentials,
         (res) => {
           commit("SET_USER_SEQ", res.data.seq);
           commit("SET_IS_PARENT", loginInfo.isParent);
+          dispatch("vuexCheckJWT");
           sessionStorage.setItem("access-token", res.data.token);
           console.log("로그인 성공!");
         },
@@ -66,6 +70,11 @@ const userStore = {
           console.log(err);
         }
       );
+    },
+    vuexCheckJWT({ commit }) {
+      const JWT = sessionStorage.getItem("access-token");
+      JWT ? commit("SET_IS_LOGIN", true) : commit("SET_IS_LOGIN", false);
+      console.log("check jwt");
     },
   },
 };
