@@ -53,7 +53,6 @@ public class ParentService {
                 .phone(parent.getPhone())
                 .name(parent.getName())
                 .nickName(parent.getNickname())
-                .password(parent.getPassword())
                 .email(parent.getEmail())
                 .image(parent.getImage())
                 .build();

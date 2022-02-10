@@ -16,11 +16,11 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 public class ConnectRequest {
-    /* 연결하고자 하는 부모 키 */
-    @ApiModelProperty(value = "부모 키", required = true)
-    private long parentSeq;
+    /* 연결하고자 하는 부모 아이디 */
+    @ApiModelProperty(value = "부모 아이디", required = true)
+    private String parentNickname;
 
-    /* 연결하고자 하는 자녀 키 */
-    @ApiModelProperty(value = "자녀 키", required = true)
-    private long childSeq;
+    /* 연결하고자 하는 자녀 아이디 */
+    @ApiModelProperty(value = "자녀 아이디", required = true)
+    private String nickname;
 }
