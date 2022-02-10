@@ -3,10 +3,11 @@
 -->
 <template>
   <div class="mx-9 mt-6 mb-6">
-    <div v-if="inTutorial">
+    <!-- <div v-if="inTutorial">
       <ParentOnboard :tutorialStep="tutorialStep"></ParentOnboard>
-    </div>
-    <div v-else>
+    </div> -->
+    <!-- <div v-else> -->
+    <div>
       <h2>아이 정보</h2>
       <v-sheet class="mx-auto" elevation="" max-width="1200">
         <v-slide-group class="pa-1" center-active>
@@ -18,39 +19,37 @@
             justify-center
             v-for="(item, i) in items"
             :key="i"
-            @click.native="$router.push('/parent/home/child-info/'+item.name)"
+            @click.native="$router.push('/parent/home/child-info/' + item.name)"
           >
-            <ChildCardInfo
-              :item="item"
-            ></ChildCardInfo>
+            <ChildCardInfo :item="item"></ChildCardInfo>
           </v-slide-item>
         </v-slide-group>
       </v-sheet>
 
       <!-- 부모의 할일 -->
       <div class="mt-2">
-          <h2>확인해주세요!</h2>
-          <p class="caption font-weight-normal">오늘 확인해야 할 항목들이에요</p>
+        <h2>확인해주세요!</h2>
+        <p class="caption font-weight-normal">오늘 확인해야 할 항목들이에요</p>
       </div>
-      <v-list-item v-for="(todo, t) in TodoList"  :key="t" class="mb-2 pa-2" style="display:contents">
+      <v-list-item v-for="(todo, t) in TodoList" :key="t" class="mb-2 pa-2" style="display: contents">
         <TodoList :todo="todo" :isParent="true"></TodoList>
       </v-list-item>
     </div>
   </div>
 </template>
 <script>
-import ChildCardInfo from '@/components/parent/home/ChildCardInfo'
-import ParentOnboard from '@/components/parent/home/Onboard'
-import TodoList from '../../../components/common/TodoList.vue'
+import ChildCardInfo from "@/components/parent/home/ChildCardInfo";
+//import ParentOnboard from "@/components/parent/home/Onboard";
+import TodoList from "../../../components/common/TodoList.vue";
 
-import { mapState } from 'vuex'
+//import { mapState } from "vuex";
 
 export default {
   name: "Home",
-  components: { 
+  components: {
     ChildCardInfo,
-    ParentOnboard,
-    TodoList
+    //ParentOnboard,
+    TodoList,
   },
   data() {
     return {
@@ -91,29 +90,28 @@ export default {
           progressValue: 60,
           progressAmount: "2/3",
         },
-        
       ],
-      TodoList:[
+      TodoList: [
         {
-          done:false,
-          task:"환전/결제 요청 확인",
-          url:'/parent/request-list',
+          done: false,
+          task: "환전/결제 요청 확인",
+          url: "/parent/request-list",
         },
         {
-          done:true,
-          task:"투자 가격 업데이트",
-          url:'/parent/userinfo',
+          done: true,
+          task: "투자 가격 업데이트",
+          url: "/parent/userinfo",
         },
         {
-          done:true,
-          task:"투자 가격 업데이트",
-          url:'/parent/userinfo',
-        }
-      ]
+          done: true,
+          task: "투자 가격 업데이트",
+          url: "/parent/userinfo",
+        },
+      ],
     };
   },
   computed: {
-    ...mapState('tempAccountStore', ['inTutorial', 'tutorialStep']),
+    //...mapState('tempAccountStore', ['inTutorial', 'tutorialStep']),
   },
 };
 </script>
