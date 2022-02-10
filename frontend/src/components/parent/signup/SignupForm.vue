@@ -40,7 +40,6 @@
           color="parent01"
         ></v-text-field>
         <v-btn
-          to="/parent/home"
           block
           color="parent01"
           class="white--text"
