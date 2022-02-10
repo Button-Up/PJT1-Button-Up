@@ -159,7 +159,7 @@ public class JobService extends ImageService {
      * @return 새 직업
      */
     @Transactional
-    public JobResponse insertJobHistory(JobHistoryRequest request) {
+    public JobResponse insertJobHistory(JobHistoryRequest request) {        //직업 키,. 아이 키
         // 기존 직업 내역 업데이트
         JobHistory jobHistory = jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(request.getChildSeq());
 
