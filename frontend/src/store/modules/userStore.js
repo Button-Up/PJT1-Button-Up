@@ -20,6 +20,9 @@ const userStore = {
     checkIsParent: function (state) {
       return state.isParent;
     },
+    checkNotSync: function (state) {
+      return state.userInfo.parentSeq === -1 ? true : false;
+    },
   },
   mutations: {
     SET_IS_PARENT: (state, isParent) => {
