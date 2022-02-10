@@ -1,3 +1,7 @@
+<!--
+  modified : 우정연 - 요청 내역 API 연결 
+-->
+
 <template>
   <div>
     <v-list subheader two-line>
@@ -17,7 +21,9 @@
           <bottom-sheet sheetHeight="320px" :isIcon="true" iconName="mdi-arrow-right">
             <template v-slot:body>
               <v-card class="rounded-0" :elevation="0">
-                <v-toolbar color="parent01" dark :elevation="0"> 환전 요청 - {{ request.childName }} </v-toolbar>
+                <v-toolbar color="parent01" dark :elevation="0">
+                  환전 요청 - {{ request.childName }}
+                </v-toolbar>
                 <v-subheader>{{ request.date }}</v-subheader>
                 <div class="mx-4">
                   <div class="text-h4 font-weight-bold">{{ request.price }}원</div>
@@ -29,7 +35,11 @@
                   </div>
                   <v-row dense>
                     <v-col
-                      ><v-btn block color="parent01" class="white--text" @click="changeStatusApprove(request.seq)"
+                      ><v-btn
+                        block
+                        color="parent01"
+                        class="white--text"
+                        @click="changeStatusApprove(request.seq)"
                         >현금 지급 완료</v-btn
                       ></v-col
                     >
@@ -100,10 +110,17 @@
 
         <v-list-item-action>
           <v-list-item-action-text v-text="request.date"></v-list-item-action-text>
-          <bottom-sheet sheetHeight="200px" :isIcon="true" iconName="mdi-information" btnColor="grey lighten-1">
+          <bottom-sheet
+            sheetHeight="200px"
+            :isIcon="true"
+            iconName="mdi-information"
+            btnColor="grey lighten-1"
+          >
             <template v-slot:body>
               <v-card class="rounded-0" :elevation="0">
-                <v-toolbar color="parent01" dark :elevation="0"> 환전 요청 - {{ request.childName }} </v-toolbar>
+                <v-toolbar color="parent01" dark :elevation="0">
+                  환전 요청 - {{ request.childName }}
+                </v-toolbar>
                 <v-subheader>{{ request.date }}</v-subheader>
                 <div class="mx-4">
                   <div class="text-h4 font-weight-bold">{{ request.price }}원</div>
@@ -154,7 +171,11 @@
 
 <script>
 import BottomSheet from "@/components/common/BottomSheet";
-import { getRequestList, modifyRequestStatusApprove, modifyRequestStatusReject } from "@/api/requestAPI.js";
+import {
+  getRequestList,
+  modifyRequestStatusApprove,
+  modifyRequestStatusReject,
+} from "@/api/requestAPI.js";
 import { mapGetters, mapActions } from "vuex";
 // addExchangeRequest,
 // modifyRequestStatusApprove,
@@ -214,7 +235,7 @@ export default {
   },
   computed: {
     ...mapGetters("userStore", ["checkUserInfo"]),
-    ...mapGetters("childrenStore", ["childrenInfo"]),
+    ...mapGetters("parentStore", ["childrenInfo"]),
     activeRequests() {
       return this.requestList.filter((request) => {
         return request.status === "미완료";
@@ -237,7 +258,7 @@ export default {
     // },
   },
   methods: {
-    ...mapActions("childrenStore", ["vuexGetChildren"]),
+    ...mapActions("parentStore", ["vuexGetChildren"]),
     getList() {
       this.requestList = [];
       this.childrenInfo.forEach((child) => {

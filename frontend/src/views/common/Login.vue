@@ -1,5 +1,6 @@
 <!--
   author: 유현수
+  modified : 우정연 - 아이 리스트 가져와서 vuex 저장
 -->
 
 <template>
@@ -17,7 +18,12 @@
       <!-- 로그인 폼 -->
       <v-form>
         <!-- 휴대폰번호 input -->
-        <v-text-field v-model="credentials.nickname" label="닉네임" required :color="color"></v-text-field>
+        <v-text-field
+          v-model="credentials.nickname"
+          label="닉네임"
+          required
+          :color="color"
+        ></v-text-field>
 
         <!-- 비밀번호 input -->
         <v-text-field
@@ -30,7 +36,13 @@
         ></v-text-field>
 
         <!-- 로그인 btn -->
-        <v-btn :color="color" block :class="{ 'white--text': isParent }" class="font-weight-bold" @click="login">
+        <v-btn
+          :color="color"
+          block
+          :class="{ 'white--text': isParent }"
+          class="font-weight-bold"
+          @click="login"
+        >
           로그인
         </v-btn>
       </v-form>
@@ -59,7 +71,7 @@ export default {
   },
   methods: {
     ...mapActions("userStore", ["vuexLogin", "vuexGetUserInfo"]),
-    ...mapActions("childrenStore", ["vuexGetChildren"]),
+    ...mapActions("parentStore", ["vuexGetChildren"]),
 
     async login() {
       const loginInfo = {

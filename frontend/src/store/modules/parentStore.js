@@ -1,6 +1,11 @@
+/**
+ * @author Jeongyeon Woo
+ * created on 2022-02-10
+ */
+
 import { childrenList } from "@/api/childrenAPI.js";
 
-const childrenStore = {
+const parentStore = {
   namespaced: true,
   state: {
     children: [],
@@ -24,4 +29,4 @@ const childrenStore = {
   },
 };
 
-export default childrenStore;
+export default parentStore;

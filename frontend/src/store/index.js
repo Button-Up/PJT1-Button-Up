@@ -4,7 +4,7 @@ import createPersistedState from "vuex-persistedstate";
 
 import userStore from "./modules/userStore";
 import accountStore from "./modules/accountStore";
-import childrenStore from "./modules/childrenStore";
+import parentStore from "./modules/parentStore";
 
 Vue.use(Vuex);
 
@@ -12,7 +12,7 @@ export default new Vuex.Store({
   modules: {
     userStore,
     accountStore,
-    childrenStore,
+    parentStore,
   },
   plugins: [createPersistedState()],
 });

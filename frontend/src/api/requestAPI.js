@@ -1,5 +1,6 @@
 /**
- * author : 우정연
+ * @author Jeongyeon Woo
+ * created on 2022-02-09
  */
 
 import { apiInstance } from "./index.js";
@@ -31,4 +32,10 @@ function modifyRequestStatusReject(requestSeq, success, fail) {
   api.put(`/requests/status/reject`, { requestSeq }).then(success).catch(fail);
 }
 
-export { getRequest, getRequestList, addExchangeRequest, modifyRequestStatusApprove, modifyRequestStatusReject };
+export {
+  getRequest,
+  getRequestList,
+  addExchangeRequest,
+  modifyRequestStatusApprove,
+  modifyRequestStatusReject,
+};
