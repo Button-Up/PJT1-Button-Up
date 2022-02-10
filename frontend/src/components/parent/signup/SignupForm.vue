@@ -39,7 +39,11 @@
           required
           color="parent01"
         ></v-text-field>
-        <v-btn to="/parent/home" block color="parent01" class="white--text"
+        <v-btn
+          block
+          color="parent01"
+          class="white--text"
+          @click.native="parentSignup"
           >회원가입 완료</v-btn
         >
       </v-form>

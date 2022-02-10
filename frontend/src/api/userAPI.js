@@ -11,7 +11,7 @@ const api = apiInstance();
 async function apiSignup(isParent, formData, success, fail) {
   await api
     .post(
-      isParent ? "/parent/join" : "/children/join",
+      isParent ? "/parents/join" : "/children/join",
       JSON.stringify(formData)
     )
     .then(success)
