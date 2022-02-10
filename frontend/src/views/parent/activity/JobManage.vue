@@ -76,7 +76,7 @@
 
 <script>
 import JobWithTodoListCard from '@/components/common/JobWithTodoListCard.vue';
-import { apiGetJobsList, apiModifyJob } from '@/api/jobsAPI.js';
+import { apiGetJobsList, apiModifyJob, apiGetChildsJob } from '@/api/jobsAPI.js';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -85,28 +85,6 @@ export default {
   },
   data() {
     return {
-      children: [
-        {
-          name: '김응철',
-          job: { name: '직업 설정', seq: null },
-        },
-        {
-          name: '우정연',
-          job: { name: '직업 설정', seq: null },
-        },
-        {
-          name: '유현수',
-          job: { name: '직업 설정', seq: null },
-        },
-        {
-          name: '황승연',
-          job: { name: '직업 설정', seq: null },
-        },
-        {
-          name: '김지언',
-          job: { name: '직업 설정', seq: null },
-        },
-      ],
       jobs: [
         {
           name: '청소부',
@@ -160,6 +138,8 @@ export default {
     };
   },
   created() {
+    console.log(this.childrenInfo);
+    console.log(this.childrenInfo + '여기는 created의 childrenInfo다');
     apiGetJobsList(
       this.checkUserInfo.seq,
       (response) => {
@@ -170,12 +150,31 @@ export default {
         console.log(error);
       }
     );
+    this.initChildJob();
   },
   computed: {
     ...mapGetters('parentStore', ['childrenInfo']),
     ...mapGetters('userStore', ['checkUserInfo']),
   },
   methods: {
+    initChildJob() {
+      for (const child of this.childrenInfo) {
+        apiGetChildsJob(
+          child.seq,
+          (response) => {
+            console.log(response.data);
+            for (let i = 0; i < this.childrenInfo.length; i++) {
+              if (child.seq == this.childrenInfo[i].seq) {
+                this.checkUserInfo[i].job = response.data;
+              }
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+    },
     selectJob(event) {
       console.log(event.name);
     },

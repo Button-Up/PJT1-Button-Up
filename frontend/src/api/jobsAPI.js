@@ -3,7 +3,7 @@
  * modified : 정은이 - Rename , 2022-02-09 17:15
  */
 
-import { apiInstance } from "./index.js";
+import { apiInstance } from './index.js';
 
 const api = apiInstance();
 
@@ -18,16 +18,13 @@ function apiGetJobDetail(jobSeq, success, fail) {
 }
 
 // 아이의 현재 직업 정보 조회
-function apiGetChildsJob(jobSeq, success, fail) {
-  api.get(`/jobs/children/${jobSeq}`).then(success).catch(fail);
+function apiGetChildsJob(childSeq, success, fail) {
+  api.get(`/jobs/children/${childSeq}`).then(success).catch(fail);
 }
 
 // 아이의 직업 내역 추가
 function apiModifyJob(formData, success, fail) {
-  api
-    .post(`/jobs/histories`, JSON.stringify(formData))
-    .then(success)
-    .catch(fail);
+  api.post(`/jobs/histories`, JSON.stringify(formData)).then(success).catch(fail);
 }
 
 // 직업 목록 조회
