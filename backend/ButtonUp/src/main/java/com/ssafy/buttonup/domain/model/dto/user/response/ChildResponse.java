@@ -42,5 +42,6 @@ public class ChildResponse {
 
     /* 연결된 부모 키*/
     @ApiModelProperty(value = "연결된 부모키", required = true)
+    @Setter
     private long parentSeq;
 }
