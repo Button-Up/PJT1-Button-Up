@@ -55,7 +55,7 @@
 import { apiSignup } from "@/api/userAPI.js";
 
 export default {
-  name: "ChildSignup",
+  name: "ChildSignupForm",
   data() {
     return {
       isParent: false,
