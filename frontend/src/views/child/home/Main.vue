@@ -10,7 +10,7 @@ modified: 김지언 - 예금 계좌 잔액 표시
     <!-- 단추 계좌 슬라이드 -->
     <h2 class="mx-6 mt-4">나의 단추 계좌</h2>
     <v-sheet elevation="">
-      <v-slide-group class="mt-2 mx-4" center-active show-arrows="false">
+      <v-slide-group class="mt-2 mx-4" center-active>
         <v-slide-item>
           <MainAccountCard
             :item="{
