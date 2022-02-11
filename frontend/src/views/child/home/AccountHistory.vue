@@ -85,7 +85,17 @@ export default {
         //   type: "출금",
         // },
       ],
+      filter: "전체",
     };
+  },
+  watch: {
+    getAccountList: {
+      handler: function () {
+        this.accountHistories = this.getAccountList;
+        this.sortByFilter();
+      },
+      deep: true,
+    },
   },
   computed: {
     ...mapGetters("accountStore", ["getDefaultBalance", "getAccountList"]),
@@ -103,8 +113,15 @@ export default {
     ...mapActions({ accountStore: ["vuexUpdateDefaultBalance", "vuexFetchAccountHistory"] }),
     // 필터 적용(전체, 입금, 출금)
     onChange(event) {
-      if (event === "전체") this.accountHistories = this.getAccountList;
-      else this.accountHistories = this.getAccountList.filter((account) => account.type === event);
+      this.filter = event;
+      this.sortByFilter();
+    },
+    sortByFilter() {
+      if (this.filter === "전체") this.accountHistories = this.getAccountList;
+      else
+        this.accountHistories = this.getAccountList.filter(
+          (account) => account.type === this.filter
+        );
     },
   },
 };

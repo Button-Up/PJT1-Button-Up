@@ -49,7 +49,13 @@
           로그인
         </v-btn>
         <!-- 회원가입 btn -->
-        <v-btn :color="color" outlined block class="font-weight-bold mt-2">
+        <v-btn
+          :to="isParent ? '/parent/signup' : '/child/signup'"
+          :color="color"
+          outlined
+          block
+          class="font-weight-bold mt-2"
+        >
           {{ isParent ? "부모님 회원가입" : "자녀 회원가입" }}
         </v-btn>
       </v-form>
