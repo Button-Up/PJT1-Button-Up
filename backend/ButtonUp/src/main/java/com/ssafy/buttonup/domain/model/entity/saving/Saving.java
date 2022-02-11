@@ -31,7 +31,7 @@ public class Saving {
     @Column(name="saving_seq")
     private Long seq;
 
-    @Enumerated(EnumType.STRING)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "saving_start_date")
     private Date date;
 
