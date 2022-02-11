@@ -57,17 +57,17 @@ export default {
       TodoList: [
         {
           done: false,
-          task: "환전/결제 요청 확인",
+          content: "환전/결제 요청 확인",
           url: "/parent/request-list",
         },
         {
           done: true,
-          task: "투자 가격 업데이트",
+          content: "투자 가격 업데이트",
           url: "/parent/userinfo",
         },
         {
           done: true,
-          task: "투자 가격 업데이트",
+          content: "투자 가격 업데이트",
           url: "/parent/userinfo",
         },
       ],
