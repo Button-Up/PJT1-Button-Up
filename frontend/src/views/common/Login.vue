@@ -87,6 +87,7 @@ export default {
   },
   methods: {
     ...mapActions("userStore", ["vuexLogin", "vuexGetUserInfo"]),
+
     ...mapActions("parentStore", ["vuexGetChildren", "vuexGetTutorialStage"]),
 
     async login() {
@@ -94,10 +95,12 @@ export default {
         isParent: this.isParent,
         credentials: this.credentials,
       };
+
       // vuex에 jwt 저장
       await this.vuexLogin(loginInfo);
       // vuex에 유저 정보 저장
       await this.vuexGetUserInfo(loginInfo);
+
       // 부모 유저라면 vuex에 아이 목록 저장
       if (this.checkIsLogin) {
         if (this.isParent) {

@@ -13,11 +13,15 @@
         </p>
 
         <div class="signup-container">
-          <v-btn to="/parent/signup" block elevation="0" class="signup-btn__parent font-weight-bold"
+          <v-btn
+            to="/parent/signup/notice1"
+            block
+            elevation="0"
+            class="signup-btn__parent font-weight-bold"
             >부모님 회원 시작하기</v-btn
           >
           <v-btn
-            to="/child/signup"
+            to="/child/signup/form"
             block
             outlined
             elevation="0"
