@@ -7,5 +7,5 @@ package com.ssafy.buttonup.domain.model.entity.account;
  * created on 2022-02-02
  */
 public enum AccountHistoryCategory {
-    급여, 퀴즈, 환전, 주식, 적금, 단추샵
+    입금, 급여, 퀴즈, 환전, 주식, 적금, 단추샵
 }

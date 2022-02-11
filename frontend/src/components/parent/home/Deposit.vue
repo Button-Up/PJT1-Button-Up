@@ -31,7 +31,9 @@ export default {
     ...mapActions({ accountStore: ["vuexAddAccountHistoryDeposit"] }),
     addAccount() {
       this.$store.dispatch("accountStore/vuexAddAccountHistoryDeposit", {
+        category: "입금",
         childSeq: this.childSeq,
+        content: "입금 완료",
         money: this.money,
       });
       this.money = null;
