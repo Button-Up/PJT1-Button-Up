@@ -38,7 +38,7 @@
     <div></div>
     <div>
       <v-divider></v-divider>
-      <template v-for="(child, c) in childrenInfo" class="ma-0 pa-0">
+      <template v-for="(child, c) in children" class="ma-0 pa-0">
         <v-list-item v-bind:key="c" class="justify-space-between align-baseline" cols="12">
           <v-col cols="3">
             <v-list-item-title cols="3" v-html="child.name"></v-list-item-title>
@@ -85,56 +85,7 @@ export default {
   },
   data() {
     return {
-      jobs: [
-        {
-          name: '청소부',
-          jobImagePath: 'https://cdn.vuetifyjs.com/images/john.jpg',
-          payTerm: '주급',
-          pay: 3000,
-          toDos: [
-            {
-              content: '방 정리 하기',
-            },
-            {
-              content: '먼지 털기',
-            },
-            {
-              content: '청소기 돌리기',
-            },
-          ],
-        },
-        {
-          name: '환경미화원',
-          jobImagePath: 'https://cdn.vuetifyjs.com/images/john.jpg',
-          pay: 3000,
-          payTerm: '주급',
-          toDos: [
-            {
-              content: '고양이 화장실 치우기',
-            },
-            {
-              content: '음식물 쓰레기 버리기',
-            },
-            {
-              content: '분리수거 하기',
-            },
-          ],
-        },
-        {
-          name: '기상청장',
-          jobImagePath: 'https://cdn.vuetifyjs.com/images/john.jpg',
-          pay: 3000,
-          payTerm: '주급',
-          toDos: [
-            {
-              content: '환기 시키기',
-            },
-            {
-              content: '날씨 알려주기',
-            },
-          ],
-        },
-      ],
+      jobs: [],
     };
   },
   created() {
@@ -150,31 +101,32 @@ export default {
         console.log(error);
       }
     );
-    this.initChildJob();
   },
   computed: {
     ...mapGetters('parentStore', ['childrenInfo']),
     ...mapGetters('userStore', ['checkUserInfo']),
-  },
-  methods: {
-    initChildJob() {
-      for (const child of this.childrenInfo) {
+    children: function () {
+      var children = [];
+      for (const c of this.childrenInfo) {
         apiGetChildsJob(
-          child.seq,
+          c.seq,
           (response) => {
+            var child = c;
             console.log(response.data);
-            for (let i = 0; i < this.childrenInfo.length; i++) {
-              if (child.seq == this.childrenInfo[i].seq) {
-                this.checkUserInfo[i].job = response.data;
-              }
-            }
+            child.job = response.data;
+            children.push(child);
           },
           (error) => {
             console.log(error);
           }
         );
       }
+      console.log('computed');
+      console.log(children);
+      return children;
     },
+  },
+  methods: {
     selectJob(event) {
       console.log(event.name);
     },
