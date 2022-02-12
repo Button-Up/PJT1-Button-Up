@@ -49,7 +49,13 @@
           로그인
         </v-btn>
         <!-- 회원가입 btn -->
-        <v-btn :color="color" outlined block class="font-weight-bold mt-2">
+        <v-btn
+          :to="isParent ? '/parent/signup' : '/child/signup'"
+          :color="color"
+          outlined
+          block
+          class="font-weight-bold mt-2"
+        >
           {{ isParent ? "부모님 회원가입" : "자녀 회원가입" }}
         </v-btn>
       </v-form>
@@ -81,6 +87,7 @@ export default {
   },
   methods: {
     ...mapActions("userStore", ["vuexLogin", "vuexGetUserInfo"]),
+
     ...mapActions("parentStore", ["vuexGetChildren", "vuexGetTutorialStage"]),
 
     async login() {
@@ -88,10 +95,12 @@ export default {
         isParent: this.isParent,
         credentials: this.credentials,
       };
+
       // vuex에 jwt 저장
       await this.vuexLogin(loginInfo);
       // vuex에 유저 정보 저장
       await this.vuexGetUserInfo(loginInfo);
+
       // 부모 유저라면 vuex에 아이 목록 저장
       if (this.checkIsLogin) {
         if (this.isParent) {
