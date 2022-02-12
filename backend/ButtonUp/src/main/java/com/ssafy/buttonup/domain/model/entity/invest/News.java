@@ -1,4 +1,4 @@
-package com.ssafy.buttonup.domain.model.entity.stock;
+package com.ssafy.buttonup.domain.model.entity.invest;
 
 import com.ssafy.buttonup.domain.model.entity.user.Parent;
 import lombok.Getter;

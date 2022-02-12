@@ -1,7 +1,7 @@
-package com.ssafy.buttonup.domain.model.entity.stock;
+package com.ssafy.buttonup.domain.model.entity.invest;
 
 import com.ssafy.buttonup.domain.model.entity.user.Child;
-import io.micrometer.core.annotation.Counted;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -36,4 +36,12 @@ public class StockStatus {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_child_seq")
     private Child child;
+
+    @Builder
+    public StockStatus(int count, double averagePrice, Stock stock, Child child) {
+        this.count = count;
+        this.averagePrice = averagePrice;
+        this.stock = stock;
+        this.child = child;
+    }
 }

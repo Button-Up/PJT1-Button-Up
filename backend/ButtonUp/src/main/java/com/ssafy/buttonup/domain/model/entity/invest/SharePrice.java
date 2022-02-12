@@ -1,7 +1,9 @@
-package com.ssafy.buttonup.domain.model.entity.stock;
+package com.ssafy.buttonup.domain.model.entity.invest;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,6 +24,7 @@ public class SharePrice {
     @Column(name = "share_price_seq")
     private Long seq;
 
+    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "share_price_date")
     private Date date;
@@ -32,4 +35,10 @@ public class SharePrice {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_stock_seq")
     private Stock stock;
+
+    @Builder
+    public SharePrice(int price, Stock stock) {
+        this.price = price;
+        this.stock = stock;
+    }
 }

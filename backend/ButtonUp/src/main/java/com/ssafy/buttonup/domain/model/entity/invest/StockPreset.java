@@ -1,5 +1,6 @@
-package com.ssafy.buttonup.domain.model.entity.stock;
+package com.ssafy.buttonup.domain.model.entity.invest;
 
+import com.ssafy.buttonup.domain.model.dto.invest.response.StockPresetResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,4 +27,17 @@ public class StockPreset {
 
     @Column(name = "stock_preset_unit")
     private String unit;
+
+    /**
+     * StockPreset Entity를 Response dto로 바꿔주는 메서드
+     *
+     * @return StockPresetResponse
+     */
+    public StockPresetResponse toResponse() {
+        return StockPresetResponse.builder()
+                .seq(this.seq)
+                .name(this.name)
+                .unit(this.unit)
+                .build();
+    }
 }

@@ -1,8 +1,11 @@
-package com.ssafy.buttonup.domain.model.entity.stock;
+package com.ssafy.buttonup.domain.model.entity.invest;
 
+import com.ssafy.buttonup.domain.model.dto.invest.response.StockResponse;
 import com.ssafy.buttonup.domain.model.entity.user.Parent;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,6 +29,7 @@ public class Stock {
     @Column(name = "stock_target")
     private String target;
 
+    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "stock_start_date")
     private Date startDate;
@@ -37,4 +41,11 @@ public class Stock {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_parent_seq")
     private Parent parent;
+
+    @Builder
+    public Stock(String target, StockPreset stockPreset, Parent parent) {
+        this.target = target;
+        this.stockPreset = stockPreset;
+        this.parent = parent;
+    }
 }
