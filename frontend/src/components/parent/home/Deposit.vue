@@ -1,6 +1,7 @@
 <!--
   author: Jiun Kim
   created on 2022-02-08
+  modified : 우정연 - 입금시 type, content 추가
 -->
 <template>
   <v-card class="rounded-0" :elevation="0">
