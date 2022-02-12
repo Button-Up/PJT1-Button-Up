@@ -43,7 +43,7 @@
 import ChildCardInfo from "@/components/parent/home/ChildCardInfo";
 import ParentTutorial from "@/components/parent/home/Tutorial";
 import TodoList from "../../../components/common/TodoList.vue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Home",
@@ -74,7 +74,14 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("userStore", ["checkUserInfo"]),
     ...mapGetters("parentStore", ["childrenInfo", "checkInTutorial", "checkTutorialStage"]),
+  },
+  methods: {
+    ...mapActions("parentStore", ["vuexGetTutorialStage"]),
+  },
+  async mounted() {
+    await this.vuexGetTutorialStage(this.checkUserInfo.seq);
   },
 };
 </script>
