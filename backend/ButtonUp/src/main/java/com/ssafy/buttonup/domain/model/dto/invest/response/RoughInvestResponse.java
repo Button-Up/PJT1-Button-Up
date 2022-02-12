@@ -14,9 +14,9 @@ import lombok.Getter;
 @ApiModel(value = "투자 목록 응답 정보")
 @Getter
 @Builder
-public class RoughStockResponse {
-    /* 주식 키 */
-    @ApiModelProperty(value = "주식 키", required = true)
+public class RoughInvestResponse {
+    /* 종목 키 */
+    @ApiModelProperty(value = "종목 키", required = true)
     private final long seq;
 
     /* 투자명 = 타켓명 + 프리셋명 ex) 엄마 몸무게 */

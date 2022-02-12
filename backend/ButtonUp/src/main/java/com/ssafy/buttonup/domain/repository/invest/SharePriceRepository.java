@@ -4,7 +4,7 @@ import com.ssafy.buttonup.domain.model.entity.invest.SharePrice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * 주식 시세(주가) 레포지토리
+ * 투자 시세(주가) 레포지토리
  *
  * @author Jiun Kim
  * created on 2022-02-12

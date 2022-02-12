@@ -8,40 +8,40 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * 주식 현황 엔티티
+ * 투자 현황 엔티티
  *
  * @author Jiun Kim
  * created on 2022-02-11
  */
 @Entity
-@Table(name = "stock_statuses")
+@Table(name = "investment_statuses")
 @Getter
 @NoArgsConstructor
-public class StockStatus {
+public class InvestStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "stock_status_seq")
+    @Column(name = "investment_status_seq")
     private Long seq;
 
-    @Column(name = "stock_status_count")
+    @Column(name = "investment_status_count")
     private int count;
 
-    @Column(name = "stock_status_average_price")
+    @Column(name = "investment_status_average_price")
     private double averagePrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_stock_seq")
-    private Stock stock;
+    @JoinColumn(name = "fk_investment_seq")
+    private Investment investment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_child_seq")
     private Child child;
 
     @Builder
-    public StockStatus(int count, double averagePrice, Stock stock, Child child) {
+    public InvestStatus(int count, double averagePrice, Investment investment, Child child) {
         this.count = count;
         this.averagePrice = averagePrice;
-        this.stock = stock;
+        this.investment = investment;
         this.child = child;
     }
 }
