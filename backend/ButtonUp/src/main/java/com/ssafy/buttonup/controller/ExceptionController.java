@@ -1,7 +1,7 @@
 package com.ssafy.buttonup.controller;
 
 import com.ssafy.buttonup.exception.BalanceOverException;
-import com.ssafy.buttonup.exception.ExistStockException;
+import com.ssafy.buttonup.exception.ExistInvestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,8 +33,8 @@ public class ExceptionController {
      * @param e 예외
      * @return 이미 존재하는 종목
      */
-    @ExceptionHandler(ExistStockException.class)
-    public ResponseEntity<String> ExistStockError(Exception e){
+    @ExceptionHandler(ExistInvestException.class)
+    public ResponseEntity<String> ExistInvestError(Exception e){
 //        e.printStackTrace();
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }

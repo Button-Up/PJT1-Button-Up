@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * 주식 주가 엔티티
+ * 투자 주가 엔티티
  *
  * @author Jiun Kim
  * created on 2022-02-11
@@ -33,12 +33,12 @@ public class SharePrice {
     private int price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_stock_seq")
-    private Stock stock;
+    @JoinColumn(name = "fk_investment_seq")
+    private Investment investment;
 
     @Builder
-    public SharePrice(int price, Stock stock) {
+    public SharePrice(int price, Investment investment) {
         this.price = price;
-        this.stock = stock;
+        this.investment = investment;
     }
 }

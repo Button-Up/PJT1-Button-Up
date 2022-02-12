@@ -1,40 +1,40 @@
 package com.ssafy.buttonup.domain.model.entity.invest;
 
-import com.ssafy.buttonup.domain.model.dto.invest.response.StockPresetResponse;
+import com.ssafy.buttonup.domain.model.dto.invest.response.InvestPresetResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 /**
- * 주식 프리셋 엔티티
+ * 투자 프리셋 엔티티
  *
  * @author Jiun Kim
  * created on 2022-02-11
  */
 @Entity
-@Table(name = "stock_presets")
+@Table(name = "investment_presets")
 @Getter
 @NoArgsConstructor
-public class StockPreset {
+public class InvestPreset {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "stock_preset_seq")
+    @Column(name = "investment_preset_seq")
     private Long seq;
 
-    @Column(name = "stock_preset_name")
+    @Column(name = "investment_preset_name")
     private String name;
 
-    @Column(name = "stock_preset_unit")
+    @Column(name = "investment_preset_unit")
     private String unit;
 
     /**
-     * StockPreset Entity를 Response dto로 바꿔주는 메서드
+     * InvestPreset Entity를 Response dto로 바꿔주는 메서드
      *
-     * @return StockPresetResponse
+     * @return InvestPresetResponse
      */
-    public StockPresetResponse toResponse() {
-        return StockPresetResponse.builder()
+    public InvestPresetResponse toResponse() {
+        return InvestPresetResponse.builder()
                 .seq(this.seq)
                 .name(this.name)
                 .unit(this.unit)
