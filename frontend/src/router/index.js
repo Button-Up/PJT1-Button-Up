@@ -5,7 +5,6 @@ import VueRouter from "vue-router";
 import common from "./common/common.js";
 
 // 부모 라우트 모듈
-import parentSignup from "./parent/signup";
 import parentHome from "./parent/home";
 import parentActivity from "./parent/activity";
 import parentUserInfo from "./parent/userInfo";
@@ -13,9 +12,9 @@ import parentTutorial from "./parent/tutorial";
 import parentRequestList from "./parent/requestList";
 
 // 자녀 라우트 모듈
-import childSignup from "./child/signup";
 import childHome from "./child/home";
 import childActivity from "./child/activity";
+import childUserInfo from "./child/userInfo";
 import childShop from "./child/shop";
 
 // vuex store
@@ -25,15 +24,14 @@ Vue.use(VueRouter);
 
 const routes = [
   ...common,
-  ...parentSignup,
   ...parentHome,
   ...parentActivity,
   ...parentUserInfo,
   ...parentTutorial,
   ...parentRequestList,
-  ...childSignup,
   ...childHome,
   ...childActivity,
+  ...childUserInfo,
   ...childShop,
 ];
 

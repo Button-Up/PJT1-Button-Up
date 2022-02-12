@@ -61,7 +61,7 @@ modified: 우정연 - 환전 요청 api 연결, 환전할 단추 개수 입력�
 <script>
 import BottomSheet from "@/components/common/BottomSheet.vue";
 import { addExchangeRequest } from "@/api/requestAPI";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "AccountHistoryBtmSheet",
@@ -97,6 +97,8 @@ export default {
           formData,
           () => {
             console.log("성공!");
+            this.$store.dispatch("accountStore/vuexUpdateDefaultBalance", this.checkUserInfo.seq);
+            this.$store.dispatch("accountStore/vuexFetchAccountHistory", this.checkUserInfo.seq);
             // 입출금 내역 갱신하는 부분 필요할 듯
           },
           (err) => {
@@ -107,6 +109,7 @@ export default {
         );
       }
     },
+    ...mapActions({ accountStore: ["vuexUpdateDefaultBalance", "vuexFetchAccountHistory"] }),
   },
 };
 </script>

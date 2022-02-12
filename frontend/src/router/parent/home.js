@@ -4,7 +4,7 @@ import GreetingHeader from "../../components/common/headers/GreetingHeader";
 import BackHeader from "../../components/common/headers/BackHeader";
 
 // 바텀 네비게이션
-import ParentBottomNav from "../../components/parent/BottomNav";
+import BottomNav from "../../components/common/BottomNav";
 
 // 페이지
 import ParentHome from "../../views/parent/home/Home";
@@ -17,7 +17,7 @@ export default [
     components: {
       default: ParentHome,
       header: GreetingHeader,
-      footer: ParentBottomNav,
+      footer: BottomNav,
     },
     meta: {
       isParentPage: true,
@@ -29,7 +29,7 @@ export default [
     components: {
       default: ChlidInfo,
       header: BackHeader,
-      footer: ParentBottomNav,
+      footer: BottomNav,
     },
     props: {
       header: {

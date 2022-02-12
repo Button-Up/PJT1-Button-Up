@@ -43,7 +43,7 @@
 import ChildCardInfo from "@/components/parent/home/ChildCardInfo";
 import ParentTutorial from "@/components/parent/home/Tutorial";
 import TodoList from "../../../components/common/TodoList.vue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Home",
@@ -57,24 +57,31 @@ export default {
       TodoList: [
         {
           done: false,
-          task: "환전/결제 요청 확인",
+          content: "환전/결제 요청 확인",
           url: "/parent/request-list",
         },
         {
           done: true,
-          task: "투자 가격 업데이트",
+          content: "투자 가격 업데이트",
           url: "/parent/userinfo",
         },
         {
           done: true,
-          task: "투자 가격 업데이트",
+          content: "투자 가격 업데이트",
           url: "/parent/userinfo",
         },
       ],
     };
   },
   computed: {
+    ...mapGetters("userStore", ["checkUserInfo"]),
     ...mapGetters("parentStore", ["childrenInfo", "checkInTutorial", "checkTutorialStage"]),
+  },
+  methods: {
+    ...mapActions("parentStore", ["vuexGetTutorialStage"]),
+  },
+  async mounted() {
+    await this.vuexGetTutorialStage(this.checkUserInfo.seq);
   },
 };
 </script>

@@ -13,7 +13,8 @@
         <v-progress-linear
           :value="($route.params.id / 2) * 100"
           color="parent01"
-          round="6"
+          :rounded="true"
+          height="6"
         ></v-progress-linear>
       </v-col>
 
@@ -97,7 +98,7 @@ export default {
     async putTutorialStage() {
       const tutorialInfo = {
         parentSeq: this.checkUserInfo.seq,
-        stage: 2,
+        stage: 3,
       };
       await this.vuexPutTutorialStage(tutorialInfo);
       await this.vuexGetTutorialStage(this.checkUserInfo.seq);

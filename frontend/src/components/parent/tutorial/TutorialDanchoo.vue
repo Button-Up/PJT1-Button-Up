@@ -1,3 +1,7 @@
+<!--
+  author: 유현수
+-->
+
 <template>
   <v-container class="fill-height">
     <v-row class="fill-height flex-column">
@@ -6,7 +10,8 @@
         <v-progress-linear
           :value="($route.params.id / 3) * 100"
           color="parent01"
-          round="6"
+          :rounded="true"
+          height="6"
         ></v-progress-linear>
       </v-col>
 
@@ -103,7 +108,6 @@ export default {
         stage: 1,
       };
       await this.vuexPutTutorialStage(tutorialInfo);
-      await this.vuexGetTutorialStage(this.checkUserInfo.seq);
     },
   },
 };
