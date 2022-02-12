@@ -14,6 +14,7 @@ import parentRequestList from "./parent/requestList";
 // 자녀 라우트 모듈
 import childHome from "./child/home";
 import childActivity from "./child/activity";
+import childUserInfo from "./child/userInfo";
 import childShop from "./child/shop";
 
 // vuex store
@@ -30,6 +31,7 @@ const routes = [
   ...parentRequestList,
   ...childHome,
   ...childActivity,
+  ...childUserInfo,
   ...childShop,
 ];
 

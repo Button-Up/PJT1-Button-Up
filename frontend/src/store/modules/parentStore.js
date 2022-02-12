@@ -20,7 +20,7 @@ const parentStore = {
       return state.tutorialStage;
     },
     checkInTutorial: function (state) {
-      return state.tutorialStage < 3 ? true : false;
+      return state.tutorialStage < 4 ? true : false;
     },
   },
   mutations: {

@@ -4,14 +4,12 @@ import GreetingHeader from "../../components/common/headers/GreetingHeader.vue";
 import BackHeader from "../../components/common/headers/BackHeader";
 
 // 바텀 네비게이션
-import ChildBottomNav from "../../components/child/BottomNav.vue";
-
+import BottomNav from "../../components/common/BottomNav";
 // 홈
 import ChildHomeMain from "../../views/child/home/Main.vue";
 
 // 예금 적금 컴포넌트
 import ChildAccountHistory from "../../views/child/home/AccountHistory.vue";
-
 
 export default [
   // 홈
@@ -21,11 +19,16 @@ export default [
     components: {
       default: ChildHomeMain,
       header: GreetingHeader,
-      footer: ChildBottomNav,
+      footer: BottomNav,
+    },
+    props: {
+      footer: {
+        isParent: false,
+      },
     },
     meta: {
-      isParentPage: false
-    }
+      isParentPage: false,
+    },
   },
 
   // 예금 상세
@@ -42,12 +45,12 @@ export default [
         bgColor: "child01",
       },
       default: {
-        isDeposit: true
-      }
+        isDeposit: true,
+      },
     },
     meta: {
-      isParentPage: false
-    }
+      isParentPage: false,
+    },
   },
 
   // 적금 상세
@@ -61,14 +64,14 @@ export default [
     props: {
       header: {
         pageTitle: "적금 거래내역",
-        bgColor: "child04"
+        bgColor: "child04",
       },
       default: {
-        isDeposit: false
-      }
+        isDeposit: false,
+      },
     },
     meta: {
-      isParentPage: false
-    }
+      isParentPage: false,
+    },
   },
 ];
