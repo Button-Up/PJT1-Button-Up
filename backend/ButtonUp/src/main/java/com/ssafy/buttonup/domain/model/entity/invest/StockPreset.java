@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class StockPreset {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "stock_seq")
+    @Column(name = "stock_preset_seq")
     private Long seq;
 
     @Column(name = "stock_preset_name")

@@ -20,7 +20,7 @@ public class StockPresetResponse {
     private final long seq;
 
     /* 프리셋명 */
-    @ApiModelProperty(value = "투자명", required = true)
+    @ApiModelProperty(value = "투자 분류명", required = true, example = "몸무게")
     private final String name;
 
     /* 프리셋 단위 */

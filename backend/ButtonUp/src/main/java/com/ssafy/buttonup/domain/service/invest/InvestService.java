@@ -2,18 +2,20 @@ package com.ssafy.buttonup.domain.service.invest;
 
 import com.ssafy.buttonup.domain.model.dto.invest.request.StockRequest;
 import com.ssafy.buttonup.domain.model.dto.invest.response.StockPresetResponse;
-import com.ssafy.buttonup.domain.model.dto.invest.response.StockResponse;
+import com.ssafy.buttonup.domain.model.dto.invest.response.RoughStockResponse;
 import com.ssafy.buttonup.domain.model.entity.invest.SharePrice;
 import com.ssafy.buttonup.domain.model.entity.invest.Stock;
 import com.ssafy.buttonup.domain.model.entity.invest.StockPreset;
 import com.ssafy.buttonup.domain.model.entity.invest.StockStatus;
 import com.ssafy.buttonup.domain.model.entity.user.Child;
+import com.ssafy.buttonup.domain.model.entity.user.Parent;
 import com.ssafy.buttonup.domain.repository.invest.SharePriceRepository;
 import com.ssafy.buttonup.domain.repository.invest.StockPresetRepository;
 import com.ssafy.buttonup.domain.repository.invest.StockRepository;
 import com.ssafy.buttonup.domain.repository.invest.StockStatusRepository;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
+import com.ssafy.buttonup.exception.ExistStockException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,44 +61,52 @@ public class InvestService {
      * @param request 추가할 주식 정보
      */
     @Transactional
-    public void insertStock(StockRequest request) {
-        // 주식 등록
-        Stock stock = stockRepository.save(Stock.builder()
-                .target(request.getTarget())
-                .stockPreset(presetRepository.getById(request.getStockPresetSeq()))
-                .parent(parentRepository.getById(request.getParentSeq()))
-                .build());
+    public void insertStock(StockRequest request) throws ExistStockException {
+        Parent parent = parentRepository.getById(request.getParentSeq());
+        StockPreset preset = presetRepository.getById(request.getStockPresetSeq());
 
-        // 시세 추가
-        priceRepository.save(SharePrice.builder()
-                .price(request.getPrice())
-                .stock(stock)
-                .build());
-
-        // 모든 자녀에 대한 주식 현황 추가
-        List<Child> children = childRepository.findByParentOrderByBirthDateAsc(stock.getParent());
-        for (Child child :
-                children) {
-            statusRepository.save(StockStatus.builder()
-                    .count(0)
-                    .averagePrice(0)
-                    .stock(stock)
-                    .child(child)
+        // 이미 존재하는 주식인지 확인
+        Stock exist = stockRepository.findByTargetAndStockPresetAndParent(request.getTarget(), preset, parent);
+        if(exist == null) {
+            // 주식 등록
+            Stock stock = stockRepository.save(Stock.builder()
+                    .target(request.getTarget())
+                    .stockPreset(preset)
+                    .parent(parent)
                     .build());
-        }
+
+            // 시세 추가
+            priceRepository.save(SharePrice.builder()
+                    .price(request.getPrice())
+                    .stock(stock)
+                    .build());
+
+            // 모든 자녀에 대한 주식 현황 추가
+            List<Child> children = childRepository.findByParentOrderByBirthDateAsc(stock.getParent());
+            for (Child child :
+                    children) {
+                statusRepository.save(StockStatus.builder()
+                        .count(0)
+                        .averagePrice(0)
+                        .stock(stock)
+                        .child(child)
+                        .build());
+            }
+        } else throw new ExistStockException("이미 존재하는 종목");
+
     }
 
     /**
      * @param parentSeq 부모 키
      * @return 주식 목록
      */
-    public List<StockResponse> getAllStockForParent(long parentSeq) {
+    public List<RoughStockResponse> getAllStockForParent(long parentSeq) {
         List<Stock> stocks = stockRepository.findByParent_Seq(parentSeq);
-        List<StockResponse> responses = new ArrayList<>();
+        List<RoughStockResponse> responses = new ArrayList<>();
         for (Stock stock :
                 stocks) {
-            responses.add(stock.toResponse());
+            responses.add(stock.toRoughStockResponse());
         }
-        return null;
+        return responses;
     }
 }

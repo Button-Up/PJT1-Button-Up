@@ -1,6 +1,6 @@
 package com.ssafy.buttonup.domain.model.entity.invest;
 
-import com.ssafy.buttonup.domain.model.dto.invest.response.StockResponse;
+import com.ssafy.buttonup.domain.model.dto.invest.response.RoughStockResponse;
 import com.ssafy.buttonup.domain.model.entity.user.Parent;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,5 +47,18 @@ public class Stock {
         this.target = target;
         this.stockPreset = stockPreset;
         this.parent = parent;
+    }
+
+    /**
+     * Stock Entity를 RoughStockResponse Dto로 번환
+     *
+     * @return RoughStockResponse
+     */
+    public RoughStockResponse toRoughStockResponse() {
+        return RoughStockResponse.builder()
+                .seq(this.seq)
+                .name(this.target + " " + stockPreset.getName())
+                .build();
+
     }
 }
