@@ -38,6 +38,7 @@ export default [
     components: {
       default: ChildAccountHistory,
       header: BackHeader,
+      footer: BottomNav,
     },
     props: {
       header: {
@@ -46,6 +47,9 @@ export default [
       },
       default: {
         isDeposit: true,
+      },
+      footer: {
+        isParent: false,
       },
     },
     meta: {
@@ -60,6 +64,7 @@ export default [
     components: {
       default: ChildAccountHistory,
       header: BackHeader,
+      footer: BottomNav,
     },
     props: {
       header: {
@@ -68,6 +73,9 @@ export default [
       },
       default: {
         isDeposit: false,
+      },
+      footer: {
+        isParent: false,
       },
     },
     meta: {
