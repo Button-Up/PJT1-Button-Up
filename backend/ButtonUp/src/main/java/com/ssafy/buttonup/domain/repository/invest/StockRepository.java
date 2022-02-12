@@ -22,5 +22,12 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
      */
     List<Stock> findByParent_Seq(long parentSeq);
 
+    /**
+     * 동일한 주식 종목이 있는지 조회
+     * @param target 종목 타겟
+     * @param preset 종목 프리셋
+     * @param parent 종목을 생성한 부모
+     * @return 주식
+     */
     Stock findByTargetAndStockPresetAndParent(String target, StockPreset preset, Parent parent);
 }

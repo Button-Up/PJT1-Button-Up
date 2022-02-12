@@ -59,6 +59,5 @@ public class Stock {
                 .seq(this.seq)
                 .name(this.target + " " + stockPreset.getName())
                 .build();
-
     }
 }

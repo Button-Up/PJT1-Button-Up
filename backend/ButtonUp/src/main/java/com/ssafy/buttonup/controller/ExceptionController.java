@@ -7,6 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * 예외 처리 컨트롤러
+ * 
+ * @author Jiun Kim
+ * created on 2022-02-07
+ */
 @RestControllerAdvice
 public class ExceptionController {
     /**
