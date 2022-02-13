@@ -75,7 +75,7 @@ public class InvestController {
      */
     @GetMapping("{investment_seq}/{child_seq}")
     @ApiOperation(value = "자녀별 투자 종목별 현황 조회")
-    public ResponseEntity<InvestStatusResponse> viewInvestDetail(@PathVariable("investment_seq") long investSeq, @PathVariable("child_seq") long childSeq) {
+    public ResponseEntity<InvestStatusResponse> viewInvestDetail(@ApiParam(value = "투자 키", required = true) @PathVariable("investment_seq") long investSeq, @ApiParam(value = "자녀 키", required = true) @PathVariable("child_seq") long childSeq) {
         return new ResponseEntity<>(investService.getInvest(investSeq, childSeq), HttpStatus.OK);
     }
 
@@ -86,7 +86,7 @@ public class InvestController {
      */
     @PutMapping
     @ApiOperation(value = "투자 현황 업데이트", notes = "자녀가 종목 매수/매도 시 업데이트")
-    public void changeInvestStatus(@RequestBody InvestStatusRequest request) throws BalanceOverException {
+    public void changeInvestStatus(@ApiParam(value = "매수/매도한 정보", required = true) @RequestBody InvestStatusRequest request) throws BalanceOverException {
         investService.updateInvestStatus(request);
     }
 }

@@ -22,7 +22,6 @@ import java.util.List;
 @Table(name = "investment_statuses")
 @Getter
 @NoArgsConstructor
-@ToString
 public class InvestStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,7 +74,7 @@ public class InvestStatus {
      */
     public void buyOrSellInvest(int count, int price) throws BalanceOverException {
         double totalPrice = this.averagePrice * this.count;
-        if(this.count < count)
+        if(this.count + count < 0)
             throw new BalanceOverException("매도 가능 개수 초과");
         this.count += count;
 

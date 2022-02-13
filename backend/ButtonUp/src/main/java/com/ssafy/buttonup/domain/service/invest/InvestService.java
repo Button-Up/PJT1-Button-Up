@@ -1,26 +1,19 @@
 package com.ssafy.buttonup.domain.service.invest;
 
 import com.ssafy.buttonup.domain.model.dto.invest.request.InvestRequest;
-import com.ssafy.buttonup.domain.model.dto.invest.request.InvestStatusRequest;
 import com.ssafy.buttonup.domain.model.dto.invest.response.InvestPresetResponse;
-import com.ssafy.buttonup.domain.model.dto.invest.response.InvestStatusResponse;
 import com.ssafy.buttonup.domain.model.dto.invest.response.RoughInvestResponse;
-import com.ssafy.buttonup.domain.model.dto.invest.response.SharePriceResponse;
-import com.ssafy.buttonup.domain.model.entity.invest.SharePrice;
 import com.ssafy.buttonup.domain.model.entity.invest.Investment;
 import com.ssafy.buttonup.domain.model.entity.invest.InvestPreset;
-import com.ssafy.buttonup.domain.model.entity.invest.InvestStatus;
 import com.ssafy.buttonup.domain.model.entity.user.Child;
 import com.ssafy.buttonup.domain.model.entity.user.Parent;
+import com.ssafy.buttonup.domain.repository.invest.InvestStatusRepository;
 import com.ssafy.buttonup.domain.repository.invest.SharePriceRepository;
 import com.ssafy.buttonup.domain.repository.invest.InvestPresetRepository;
 import com.ssafy.buttonup.domain.repository.invest.InvestRepository;
-import com.ssafy.buttonup.domain.repository.invest.InvestStatusRepository;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
-import com.ssafy.buttonup.exception.BalanceOverException;
 import com.ssafy.buttonup.exception.ExistInvestException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,14 +28,19 @@ import java.util.List;
  */
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor
-public class InvestService {
+public class InvestService extends InvestStatusService {
     private final InvestRepository investRepository;
-    private final SharePriceRepository priceRepository;
-    private final InvestStatusRepository statusRepository;
     private final InvestPresetRepository presetRepository;
     private final ParentRepository parentRepository;
     private final ChildRepository childRepository;
+
+    public InvestService(SharePriceRepository priceRepository, InvestRepository investRepository, InvestStatusRepository statusRepository, InvestRepository investRepository1, InvestPresetRepository presetRepository, ParentRepository parentRepository, ChildRepository childRepository) {
+        super(priceRepository, investRepository, statusRepository);
+        this.investRepository = investRepository1;
+        this.presetRepository = presetRepository;
+        this.parentRepository = parentRepository;
+        this.childRepository = childRepository;
+    }
 
     /**
      * 프리셋 목록 조회
@@ -80,21 +78,13 @@ public class InvestService {
                     .build());
 
             // 시세 추가
-            priceRepository.save(SharePrice.builder()
-                    .price(request.getPrice())
-                    .investment(investment)
-                    .build());
+            insertPrice(request.getPrice(), investment);
 
             // 모든 자녀에 대한 투자 현황 추가
             List<Child> children = childRepository.findByParentOrderByBirthDateAsc(investment.getParent());
             for (Child child :
                     children) {
-                statusRepository.save(InvestStatus.builder()
-                        .count(0)
-                        .averagePrice(0)
-                        .investment(investment)
-                        .child(child)
-                        .build());
+                insertInvestStatusByChild(investment, child);
             }
         } else throw new ExistInvestException("이미 존재하는 종목");
 
@@ -114,37 +104,5 @@ public class InvestService {
             responses.add(investment.toRoughInvestResponse());
         }
         return responses;
-    }
-
-    /**
-     * 투자 종목별 현황 조회
-     *
-     * @param investSeq 투자 키
-     * @param childSeq  자녀 키
-     * @return 자녀별 해당 투자 상세 정보
-     */
-    public InvestStatusResponse getInvest(long investSeq, long childSeq) {
-        // 종목의 가격 데이터 조회
-        List<SharePrice> sharePrices = priceRepository.findByInvestment_Seq(investSeq);
-        List<SharePriceResponse> prices = new ArrayList<>();
-        for (SharePrice price :
-                sharePrices) {
-            prices.add(price.toResponse());
-        }
-
-        // 가격 데이터와 같이 response로 변환
-        return statusRepository.findByInvestment_SeqAndChild_Seq(investSeq, childSeq).toInvestStatusResponse(prices);
-    }
-
-    /**
-     * 투자 현황 수정
-     *
-     * @param request 투자 현황 업데이트 요청 정보
-     */
-    @Transactional
-    public void updateInvestStatus(InvestStatusRequest request) throws BalanceOverException {
-        InvestStatus status = statusRepository.getById(request.getSeq());
-        status.buyOrSellInvest(request.getCount(), request.getPrice());
-        statusRepository.save(status);
     }
 }
