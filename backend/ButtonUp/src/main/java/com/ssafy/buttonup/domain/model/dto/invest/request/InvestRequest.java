@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StockRequest {
+public class InvestRequest {
     /* 투자 항목의 대상 */
     @ApiModelProperty(value = "투자 항목 대상 이름", required = true, example = "어머니")
     private String target;
@@ -29,7 +29,7 @@ public class StockRequest {
 
     /* 투자 프리셋 키 */
     @ApiModelProperty(value = "투자 프리셋 키", required = true)
-    private long stockPresetSeq;
+    private long investPresetSeq;
 
     /* 부모 키 */
     @ApiModelProperty(value = "부모 키", required = true)

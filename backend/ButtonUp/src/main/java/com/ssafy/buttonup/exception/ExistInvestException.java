@@ -6,8 +6,8 @@ package com.ssafy.buttonup.exception;
  * @author Jiun Kim
  * created on 2022-02-12
  */
-public class ExistStockException extends Exception {
-    public ExistStockException(String message) {
+public class ExistInvestException extends Exception {
+    public ExistInvestException(String message) {
         super(message);
     }
 }
