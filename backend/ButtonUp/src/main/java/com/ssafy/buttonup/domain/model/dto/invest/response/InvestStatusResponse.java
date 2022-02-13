@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -18,8 +17,8 @@ import java.util.List;
 @Getter
 @Builder
 public class InvestStatusResponse {
-    /* 종목 키 */
-    @ApiModelProperty(value = "종목 키", required = true)
+    /* 투자 현황 키 */
+    @ApiModelProperty(value = "투자 현황 키", required = true)
     private final long seq;
 
     /* 종목명 */
@@ -39,7 +38,6 @@ public class InvestStatusResponse {
     private final double averagePrice;
 
     /* 종목 주가 변화 데이터*/
-//    @Setter
     @ApiModelProperty(value = "종목 주가 변화", required = true)
     private final List<SharePriceResponse> prices;
 }

@@ -6,6 +6,7 @@ import com.ssafy.buttonup.domain.model.dto.invest.response.InvestPresetResponse;
 import com.ssafy.buttonup.domain.model.dto.invest.response.RoughInvestResponse;
 import com.ssafy.buttonup.domain.model.dto.invest.response.InvestStatusResponse;
 import com.ssafy.buttonup.domain.service.invest.InvestService;
+import com.ssafy.buttonup.exception.BalanceOverException;
 import com.ssafy.buttonup.exception.ExistInvestException;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
@@ -73,6 +74,7 @@ public class InvestController {
      * @return 종목 현황 정보
      */
     @GetMapping("{investment_seq}/{child_seq}")
+    @ApiOperation(value = "자녀별 투자 종목별 현황 조회")
     public ResponseEntity<InvestStatusResponse> viewInvestDetail(@PathVariable("investment_seq") long investSeq, @PathVariable("child_seq") long childSeq) {
         return new ResponseEntity<>(investService.getInvest(investSeq, childSeq), HttpStatus.OK);
     }
@@ -83,7 +85,8 @@ public class InvestController {
      * @param request 업데이트 정보
      */
     @PutMapping
-    public void changeInvestStatus(@RequestBody InvestStatusRequest request) {
+    @ApiOperation(value = "투자 현황 업데이트", notes = "자녀가 종목 매수/매도 시 업데이트")
+    public void changeInvestStatus(@RequestBody InvestStatusRequest request) throws BalanceOverException {
         investService.updateInvestStatus(request);
     }
 }

@@ -3,9 +3,11 @@ package com.ssafy.buttonup.domain.model.entity.invest;
 import com.ssafy.buttonup.domain.model.dto.invest.response.InvestStatusResponse;
 import com.ssafy.buttonup.domain.model.dto.invest.response.SharePriceResponse;
 import com.ssafy.buttonup.domain.model.entity.user.Child;
+import com.ssafy.buttonup.exception.BalanceOverException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 @Table(name = "investment_statuses")
 @Getter
 @NoArgsConstructor
+@ToString
 public class InvestStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,8 +73,10 @@ public class InvestStatus {
      * @param count 매수/매도 개수
      * @param price 매수/매도 시 가격
      */
-    public void buyOrSellInvest(int count, int price) {
+    public void buyOrSellInvest(int count, int price) throws BalanceOverException {
         double totalPrice = this.averagePrice * this.count;
+        if(this.count < count)
+            throw new BalanceOverException("매도 가능 개수 초과");
         this.count += count;
 
         if (count > 0) { // 매수

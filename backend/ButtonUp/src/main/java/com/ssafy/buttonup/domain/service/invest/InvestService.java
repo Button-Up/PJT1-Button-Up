@@ -18,6 +18,7 @@ import com.ssafy.buttonup.domain.repository.invest.InvestRepository;
 import com.ssafy.buttonup.domain.repository.invest.InvestStatusRepository;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
+import com.ssafy.buttonup.exception.BalanceOverException;
 import com.ssafy.buttonup.exception.ExistInvestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -140,7 +141,8 @@ public class InvestService {
      *
      * @param request 투자 현황 업데이트 요청 정보
      */
-    public void updateInvestStatus(InvestStatusRequest request) {
+    @Transactional
+    public void updateInvestStatus(InvestStatusRequest request) throws BalanceOverException {
         InvestStatus status = statusRepository.getById(request.getSeq());
         status.buyOrSellInvest(request.getCount(), request.getPrice());
         statusRepository.save(status);
