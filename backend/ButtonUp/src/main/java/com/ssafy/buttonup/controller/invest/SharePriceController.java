@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Api(tags = "투자 가격(시세) 관련 기능")
 @RestController
-@RequestMapping("share-price")
+@RequestMapping("share-prices")
 @RequiredArgsConstructor
 public class SharePriceController {
     private final SharePriceService sharePriceService;
