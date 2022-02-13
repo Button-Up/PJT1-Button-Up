@@ -19,7 +19,7 @@ import java.util.List;
  * @author Jiun Kim
  * created on 2022-02-14
  */
-@Api(tags = "시세(투자 가격) 관련 기능")
+@Api(tags = "투자 가격(시세) 관련 기능")
 @RestController
 @RequestMapping("share-price")
 @RequiredArgsConstructor
