@@ -17,7 +17,7 @@
       customColor="child02"
       title="적금 통장 개설"
       subtitle="월 이자 n% 적금, 3분만에 간편하게 개설하기"
-      @click.native="$router.push('/child/activity/saving')"
+      @click.native="$router.push('/child/activity/saving/1')"
     ></CardMenu>
     <br />
     <CardMenu

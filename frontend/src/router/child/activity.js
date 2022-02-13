@@ -83,7 +83,7 @@ export default [
     },
   },
   {
-    path: "/child/activity/saving",
+    path: "/child/activity/saving/:id",
     name: "ChildSaving",
     components: {
       default: ChildSaving,
@@ -93,6 +93,7 @@ export default [
     props: {
       header: {
         pageTitle: "적금 통장 개설",
+        backBtnPath: "/child/activity",
       },
       footer: {
         isParent: false,
