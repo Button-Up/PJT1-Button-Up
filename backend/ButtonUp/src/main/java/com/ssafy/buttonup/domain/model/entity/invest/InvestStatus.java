@@ -47,7 +47,7 @@ public class InvestStatus {
         this.investment = investment;
         this.child = child;
     }
-    
+
     /**
      * InvestStatus Entity를 InvestStatusResponse Dto로 번환
      *
@@ -62,5 +62,24 @@ public class InvestStatus {
                 .averagePrice(averagePrice)
                 .prices(prices)
                 .build();
+    }
+
+    /**
+     * 종목 매수/매도 시 평가, 매수 가격 업데이트
+     *
+     * @param count 매수/매도 개수
+     * @param price 매수/매도 시 가격
+     */
+    public void buyOrSellInvest(int count, int price) {
+        double totalPrice = this.averagePrice * this.count;
+        this.count += count;
+
+        if (count > 0) { // 매수
+            totalPrice += count * price;
+        } else { //매도
+            totalPrice -= count * price;
+        }
+
+        this.averagePrice = totalPrice / this.count;
     }
 }

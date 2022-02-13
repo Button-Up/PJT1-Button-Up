@@ -130,16 +130,19 @@ public class InvestService {
                 sharePrices) {
             prices.add(price.toResponse());
         }
-        
+
         // 가격 데이터와 같이 response로 변환
         return statusRepository.findByInvestment_SeqAndChild_Seq(investSeq, childSeq).toInvestStatusResponse(prices);
     }
 
     /**
      * 투자 현황 수정
-     * 
+     *
      * @param request 투자 현황 업데이트 요청 정보
      */
     public void updateInvestStatus(InvestStatusRequest request) {
+        InvestStatus status = statusRepository.getById(request.getSeq());
+        status.buyOrSellInvest(request.getCount(), request.getPrice());
+        statusRepository.save(status);
     }
 }
