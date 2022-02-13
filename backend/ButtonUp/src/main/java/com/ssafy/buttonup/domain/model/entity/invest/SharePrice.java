@@ -1,5 +1,7 @@
 package com.ssafy.buttonup.domain.model.entity.invest;
 
+import com.ssafy.buttonup.domain.model.dto.invest.response.InvestStatusResponse;
+import com.ssafy.buttonup.domain.model.dto.invest.response.SharePriceResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 투자 주가 엔티티
@@ -40,5 +43,17 @@ public class SharePrice {
     public SharePrice(int price, Investment investment) {
         this.price = price;
         this.investment = investment;
+    }
+
+    /**
+     * SharePrice Entity를 SharePriceResponse Dto로 번환
+     *
+     * @return SharePriceResponse
+     */
+    public SharePriceResponse toResponse() {
+        return SharePriceResponse.builder()
+                .date(date)
+                .price(price)
+                .build();
     }
 }
