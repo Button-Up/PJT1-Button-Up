@@ -1,11 +1,16 @@
 package com.ssafy.buttonup.domain.model.entity.invest;
 
+import com.ssafy.buttonup.domain.model.dto.invest.response.InvestStatusResponse;
+import com.ssafy.buttonup.domain.model.dto.invest.response.SharePriceResponse;
 import com.ssafy.buttonup.domain.model.entity.user.Child;
+import com.ssafy.buttonup.exception.BalanceOverException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * 투자 현황 엔티티
@@ -43,5 +48,42 @@ public class InvestStatus {
         this.averagePrice = averagePrice;
         this.investment = investment;
         this.child = child;
+    }
+
+    /**
+     * InvestStatus Entity를 InvestStatusResponse Dto로 번환
+     *
+     * @return InvestStatusResponse
+     */
+    public InvestStatusResponse toInvestStatusResponse(List<SharePriceResponse> prices) {
+        return InvestStatusResponse.builder()
+                .seq(seq)
+                .name(investment.getTarget() + " " + investment.getInvestPreset().getName())
+                .unit(investment.getInvestPreset().getUnit())
+                .count(count)
+                .averagePrice(averagePrice)
+                .prices(prices)
+                .build();
+    }
+
+    /**
+     * 종목 매수/매도 시 평가, 매수 가격 업데이트
+     *
+     * @param count 매수/매도 개수
+     * @param price 매수/매도 시 가격
+     */
+    public void buyOrSellInvest(int count, int price) throws BalanceOverException {
+        double totalPrice = this.averagePrice * this.count;
+        if(this.count + count < 0)
+            throw new BalanceOverException("매도 가능 개수 초과");
+        this.count += count;
+
+        if (count > 0) { // 매수
+            totalPrice += count * price;
+        } else { //매도
+            totalPrice -= count * price;
+        }
+
+        this.averagePrice = totalPrice / this.count;
     }
 }
