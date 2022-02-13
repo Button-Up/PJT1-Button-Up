@@ -1,8 +1,11 @@
 package com.ssafy.buttonup.domain.service.invest;
 
 import com.ssafy.buttonup.domain.model.dto.invest.request.InvestRequest;
+import com.ssafy.buttonup.domain.model.dto.invest.request.InvestStatusRequest;
 import com.ssafy.buttonup.domain.model.dto.invest.response.InvestPresetResponse;
+import com.ssafy.buttonup.domain.model.dto.invest.response.InvestStatusResponse;
 import com.ssafy.buttonup.domain.model.dto.invest.response.RoughInvestResponse;
+import com.ssafy.buttonup.domain.model.dto.invest.response.SharePriceResponse;
 import com.ssafy.buttonup.domain.model.entity.invest.SharePrice;
 import com.ssafy.buttonup.domain.model.entity.invest.Investment;
 import com.ssafy.buttonup.domain.model.entity.invest.InvestPreset;
@@ -67,7 +70,7 @@ public class InvestService {
 
         // 이미 존재하는 종목인지 확인
         Investment exist = investRepository.findByTargetAndInvestPresetAndParent(request.getTarget(), preset, parent);
-        if(exist == null) {
+        if (exist == null) {
             // 새 투자 종목 등록
             Investment investment = investRepository.save(Investment.builder()
                     .target(request.getTarget())
@@ -97,6 +100,8 @@ public class InvestService {
     }
 
     /**
+     * 부모 키로 모든 투자 목록 조회
+     *
      * @param parentSeq 부모 키
      * @return 투자 목록
      */
@@ -108,5 +113,33 @@ public class InvestService {
             responses.add(investment.toRoughInvestResponse());
         }
         return responses;
+    }
+
+    /**
+     * 투자 종목별 현황 조회
+     *
+     * @param investSeq 투자 키
+     * @param childSeq  자녀 키
+     * @return 자녀별 해당 투자 상세 정보
+     */
+    public InvestStatusResponse getInvest(long investSeq, long childSeq) {
+        // 종목의 가격 데이터 조회
+        List<SharePrice> sharePrices = priceRepository.findByInvestment_Seq(investSeq);
+        List<SharePriceResponse> prices = new ArrayList<>();
+        for (SharePrice price :
+                sharePrices) {
+            prices.add(price.toResponse());
+        }
+        
+        // 가격 데이터와 같이 response로 변환
+        return statusRepository.findByInvestment_SeqAndChild_Seq(investSeq, childSeq).toInvestStatusResponse(prices);
+    }
+
+    /**
+     * 투자 현황 수정
+     * 
+     * @param request 투자 현황 업데이트 요청 정보
+     */
+    public void updateInvestStatus(InvestStatusRequest request) {
     }
 }

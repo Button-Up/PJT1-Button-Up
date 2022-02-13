@@ -56,8 +56,8 @@ public class Investment {
      */
     public RoughInvestResponse toRoughInvestResponse() {
         return RoughInvestResponse.builder()
-                .seq(this.seq)
-                .name(this.target + " " + investPreset.getName())
+                .seq(seq)
+                .name(target + " " + investPreset.getName())
                 .build();
     }
 }

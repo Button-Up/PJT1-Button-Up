@@ -1,9 +1,10 @@
 package com.ssafy.buttonup.controller.invest;
 
 import com.ssafy.buttonup.domain.model.dto.invest.request.InvestRequest;
+import com.ssafy.buttonup.domain.model.dto.invest.request.InvestStatusRequest;
 import com.ssafy.buttonup.domain.model.dto.invest.response.InvestPresetResponse;
 import com.ssafy.buttonup.domain.model.dto.invest.response.RoughInvestResponse;
-import com.ssafy.buttonup.domain.model.dto.invest.response.InvestmentResponse;
+import com.ssafy.buttonup.domain.model.dto.invest.response.InvestStatusResponse;
 import com.ssafy.buttonup.domain.service.invest.InvestService;
 import com.ssafy.buttonup.exception.ExistInvestException;
 import io.swagger.annotations.*;
@@ -64,4 +65,25 @@ public class InvestController {
         return new ResponseEntity<>(investService.getAllInvestForParent(parentSeq), HttpStatus.OK);
     }
 
+    /**
+     * 자녀별 투자 종목별 현황 조회
+     *
+     * @param investSeq 투자 키
+     * @param childSeq  자녀 키
+     * @return 종목 현황 정보
+     */
+    @GetMapping("{investment_seq}/{child_seq}")
+    public ResponseEntity<InvestStatusResponse> viewInvestDetail(@PathVariable("investment_seq") long investSeq, @PathVariable("child_seq") long childSeq) {
+        return new ResponseEntity<>(investService.getInvest(investSeq, childSeq), HttpStatus.OK);
+    }
+
+    /**
+     * 투자 현황 업데이트
+     *
+     * @param request 업데이트 정보
+     */
+    @PutMapping
+    public void changeInvestStatus(@RequestBody InvestStatusRequest request) {
+        investService.updateInvestStatus(request);
+    }
 }
