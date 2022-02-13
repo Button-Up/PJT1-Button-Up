@@ -11,6 +11,7 @@ import ChildActivity from "../../views/child/Activity/Main.vue";
 
 // 경제 개념 사전 컴포넌트
 import ChildStudy from "../../views/child/Activity/Study.vue";
+import ChildStudyDetail from "../../views/child/Activity/StudyDetail.vue";
 
 // 적금 컴포넌트
 import ChildSaving from "../../views/child/Activity/Saving.vue";
@@ -37,7 +38,7 @@ export default [
     },
   },
 
-  // 예금 상세
+  // 경제 공부방
   {
     path: "/child/activity/study",
     name: "ChildStudy",
@@ -48,7 +49,30 @@ export default [
     },
     props: {
       header: {
-        pageTitle: "경제 개념 사전",
+        pageTitle: "경제 공부방",
+        backBtnPath: "/child/activity",
+      },
+      footer: {
+        isParent: false,
+      },
+    },
+    meta: {
+      isParentPage: false,
+    },
+  },
+  // 경제 개념 상세
+  {
+    path: "/child/activity/study/:topicSeq/:postSeq",
+    name: "ChildStudyDetail",
+    components: {
+      default: ChildStudyDetail,
+      header: BackHeader,
+      footer: BottomNav,
+    },
+    props: {
+      header: {
+        pageTitle: "경제 개념 상세",
+        backBtnPath: "/child/activity/study",
       },
       footer: {
         isParent: false,
