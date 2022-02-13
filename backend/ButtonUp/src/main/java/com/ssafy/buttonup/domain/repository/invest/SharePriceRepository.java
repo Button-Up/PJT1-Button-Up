@@ -1,6 +1,5 @@
 package com.ssafy.buttonup.domain.repository.invest;
 
-import com.ssafy.buttonup.domain.model.entity.invest.Investment;
 import com.ssafy.buttonup.domain.model.entity.invest.SharePrice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -19,5 +18,5 @@ public interface SharePriceRepository extends JpaRepository<SharePrice, Long> {
      * @param investSeq 투자 종목 키
      * @return 시세 목록
      */
-    List<SharePrice> findByInvestment_Seq(long investSeq);
+    List<SharePrice> findByInvestment_SeqOrderByDateDesc(long investSeq);
 }

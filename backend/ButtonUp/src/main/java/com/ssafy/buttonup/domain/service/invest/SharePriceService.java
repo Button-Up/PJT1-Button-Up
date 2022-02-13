@@ -32,7 +32,7 @@ public class SharePriceService {
      * @return 투자 가격 목록
      */
     public List<SharePriceResponse> getPricesForInvest(long investSeq) {
-        List<SharePrice> sharePrices = priceRepository.findByInvestment_Seq(investSeq);
+        List<SharePrice> sharePrices = priceRepository.findByInvestment_SeqOrderByDateDesc(investSeq);
         List<SharePriceResponse> responses = new ArrayList<>();
         for (SharePrice price :
                 sharePrices) {
