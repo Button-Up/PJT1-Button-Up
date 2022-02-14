@@ -67,6 +67,7 @@
       title="오늘의 뉴스 보기"
       subtitle="뉴스를 통해 투자하기 위한 정보를 얻어보자!"
       customHeight="120px"
+      @click.native="$router.push('/child/activity/invest/news')"
     ></card-menu>
   </v-container>
 </template>
