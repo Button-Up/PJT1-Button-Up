@@ -9,6 +9,7 @@ import com.ssafy.buttonup.domain.repository.job.*;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
 import com.ssafy.buttonup.domain.service.common.ImageService;
+import com.ssafy.buttonup.exception.NullJobException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,8 +52,12 @@ public class JobService extends ImageService {
      * @param childSeq 아이 키
      * @return 직업
      */
-    public JobResponse getChildJob(long childSeq) {
-        return Job.ToResponse(jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(childSeq).getJob());
+    public JobResponse getChildJob(long childSeq) throws NullJobException {
+        try {
+            return Job.ToResponse(jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(childSeq).getJob());
+        }catch (NullPointerException e){
+            throw new NullJobException("직업 없음");
+        }
     }
 
 
