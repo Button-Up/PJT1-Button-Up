@@ -39,7 +39,7 @@
       color="parent01"
     ></v-text-field>
 
-    <v-btn block color="parent01" class="white--text mt-4">뉴스 보내기</v-btn>
+    <v-btn block color="parent01" class="white--text mt-4" @click="submitNews">뉴스 보내기</v-btn>
   </div>
 </template>
 
@@ -95,6 +95,16 @@ export default {
   methods: {
     getInvest() {
       this.$store.dispatch('investStore/vuexUpdateInvestList', this.checkUserInfo.seq);
+    },
+    submitNews() {
+      console.log(this.news);
+      var param = {
+        content: this.news,
+        parentSeq: this.checkUserInfo.seq,
+      };
+      console.log(param);
+      this.$store.dispatch('investStore/vuexAddNews', param);
+      this.news = '';
     },
   },
 };
