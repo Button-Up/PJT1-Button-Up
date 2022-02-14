@@ -8,5 +8,5 @@ package com.ssafy.buttonup.domain.model.entity.economy;
  */
 
 public enum QuizType {
-    정답, 오답
+    OX, 초성
 }
