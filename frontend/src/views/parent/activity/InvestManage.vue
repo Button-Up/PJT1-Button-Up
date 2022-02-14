@@ -22,6 +22,24 @@
     >
       <TodoList :todo="todo" :isParent="true"></TodoList>
     </v-list-item>
+
+    <div class="mt-8">
+      <h2>오늘의 투자 뉴스</h2>
+      <p class="caption font-weight-normal">
+        아이가 정보를 바탕으로 투자할 수 있도록 뉴스를 전달해보세요!
+      </p>
+    </div>
+
+    <v-text-field
+      cols="8"
+      v-model="news"
+      hide-details
+      label="ex) 오늘 저녁에 치킨을 먹을거에요"
+      required
+      color="parent01"
+    ></v-text-field>
+
+    <v-btn block color="parent01" class="white--text mt-4">뉴스 보내기</v-btn>
   </div>
 </template>
 
@@ -36,6 +54,7 @@ export default {
   },
   data() {
     return {
+      news: '',
       TodoList: [
         {
           done: true,
