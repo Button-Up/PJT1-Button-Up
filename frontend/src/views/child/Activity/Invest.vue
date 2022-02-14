@@ -59,16 +59,16 @@
     </v-row>
 
     <!-- 오늘의 뉴스 버튼 카드 -->
-    <card-menu
+    <CardMenu
       class="mt-4"
       iconName="mdi-information"
       customColor="child02"
-      iconSize="40px"
+      iconSize="36px"
       title="오늘의 뉴스 보기"
-      subtitle="뉴스를 통해 투자하기 위한 정보를 얻어보자!"
+      subtitle="부모님이 보낸 투자 정보, 확인해볼까요?"
       customHeight="120px"
       @click.native="$router.push('/child/activity/invest/news')"
-    ></card-menu>
+    ></CardMenu>
   </v-container>
 </template>
 
