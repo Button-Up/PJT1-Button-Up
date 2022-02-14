@@ -16,17 +16,17 @@ import java.util.List;
 /**
  * 경제 공부방 관련 컨트롤러
  *
- * @author eunee Chung
+ * @author Eunee Chung
  * created on 2022-02-12
  */
 @Api(tags = "경제 공부방 관련 기능")
 @RestController
-@RequestMapping("economy")
+@RequestMapping
 @RequiredArgsConstructor
 public class EconomyController {
     private final EconomyService economyService;
 
-    @GetMapping("/topic")
+    @GetMapping("economy-topics")
     @ApiOperation(value = "경제 주제 조회", notes = "")
     public ResponseEntity<List<String>> getEconomyTopic(){
         return new ResponseEntity<>(economyService.getEconomyTopic(), HttpStatus.OK);
