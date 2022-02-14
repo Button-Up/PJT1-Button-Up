@@ -18,23 +18,12 @@ function getAccountList(childSeq, success, fail) {
 
 // 입금 내역 추가
 function addAccountDeposit(formData, success, fail) {
-  api
-    .post(`/accounts/histories/deposit`, JSON.stringify(formData))
-    .then(success)
-    .catch(fail);
+  api.post(`/accounts/histories/deposit`, JSON.stringify(formData)).then(success).catch(fail);
 }
 
 // 출금 내역 추가
 function addAccountWithdraw(formData, success, fail) {
-  api
-    .post(`/accounts/histories/withdraw`, JSON.stringify(formData))
-    .then(success)
-    .catch(fail);
+  api.post(`/accounts/histories/withdraw`, JSON.stringify(formData)).then(success).catch(fail);
 }
 
-export {
-  getAccountBalance,
-  getAccountList,
-  addAccountDeposit,
-  addAccountWithdraw,
-};
+export { getAccountBalance, getAccountList, addAccountDeposit, addAccountWithdraw };

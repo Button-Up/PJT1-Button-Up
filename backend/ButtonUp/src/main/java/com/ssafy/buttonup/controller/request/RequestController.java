@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 요청 내역 관련 기능
@@ -50,8 +51,8 @@ public class RequestController {
      */
     @ApiOperation(value = "요청 상태 승인으로 변경", notes = "해당 요청 내역의 상태를 승인으로 변경합니다.")
     @PutMapping("/status/approve")
-    public void changeStatusApprove(@ApiParam(value = "요청 내역 키", required = true) @RequestBody long requestSeq) throws BalanceOverException {
-        requestService.changeStatus(requestSeq, RequestHistoryStatus.APPROVE);
+    public void changeStatusApprove(@ApiParam(value = "요청 내역 키", required = true) @RequestBody Map<String, Integer> map) throws BalanceOverException {
+        requestService.changeStatus(map.get("request_seq"), RequestHistoryStatus.승인);
     }
 
     /**
@@ -61,8 +62,8 @@ public class RequestController {
      */
     @ApiOperation(value = "요청 상태 거절으로 변경", notes = "해당 요청 내역의 상태를 거절으로 변경하고 입출금 내역을 추가합니다.")
     @PutMapping("/status/reject")
-    public void changeStatusReject(@ApiParam(value = "요청 내역 키", required = true) @RequestBody long requestSeq) throws BalanceOverException {
-        requestService.changeStatus(requestSeq, RequestHistoryStatus.REJECT);
+    public void changeStatusReject(@ApiParam(value = "요청 내역 키", required = true) @RequestBody Map<String, Integer> map) throws BalanceOverException {
+        requestService.changeStatus(map.get("request_seq"), RequestHistoryStatus.거절);
     }
 
     /**

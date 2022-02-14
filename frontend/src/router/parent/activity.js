@@ -1,59 +1,106 @@
 /*
-* author : 유현수
-* modified : 정은이 - JobManager , AddJob
-*/
+ * author : 유현수
+ * modified : 정은이 - JobManager , AddJob
+ */
 
 // ----------------- 부모 활동관리 페이지 라우팅 -------------------------
 // 헤더 컴포넌트
-import GreetingHeader from '../../components/common/headers/GreetingHeader'
-import BackHeader from '../../components/common/headers/BackHeader'
+import GreetingHeader from "../../components/common/headers/GreetingHeader";
+import BackHeader from "../../components/common/headers/BackHeader";
 
 //바텀 네비게이션
-import ParentBottomNav from '../../components/parent/BottomNav'
+import BottomNav from "../../components/common/BottomNav";
 
 // 페이지
-import ParentActivity from '../../views/parent/Activity'
-import JobManager from '../../components/parent/activity/JobManage'
-import AddJob from '../../views/parent/AddJob.vue'
+import Main from "../../views/parent/activity/Main";
+import JobManager from "../../views/parent/activity/JobManage";
+import AddJob from "../../views/parent/activity/AddJob.vue";
+import InvestManage from "../../views/parent/activity/InvestManage.vue";
+import NewInvest from "../../views/parent/activity/NewInvest.vue";
 
 export default [
   {
-    path: '/parent/activity',
-    name: 'ParentActivity',
+    path: "/parent/activity",
+    name: "ParentActivity",
     components: {
-      default: ParentActivity,
+      default: Main,
       header: GreetingHeader,
-      footer: ParentBottomNav
-    }
+      footer: BottomNav,
+    },
+    meta: {
+      isParentPage: true,
+    },
   },
   {
-    path: '/parent/activity/job',
-    name: 'JobManager',
+    path: "/parent/activity/job",
+    name: "JobManager",
     components: {
       default: JobManager,
       header: BackHeader,
-      footer: ParentBottomNav
+      footer: BottomNav,
     },
     props: {
       header: {
-        pageTitle: '직업관리',
-        backBtnPath: '/parent/activity'
+        pageTitle: "직업관리",
+        backBtnPath: "/parent/activity",
       },
-    }
+    },
+    meta: {
+      isParentPage: true,
+    },
   },
   {
-    path: '/parent/activity/job/add',
-    name: 'AddJob',
+    path: "/parent/activity/job/add",
+    name: "AddJob",
     components: {
       default: AddJob,
       header: BackHeader,
-      footer: ParentBottomNav
+      footer: BottomNav,
     },
     props: {
       header: {
-        pageTitle: '직업추가',
-        backBtnPath: '/parent/activity/job'
+        pageTitle: "직업추가",
+        backBtnPath: "/parent/activity/job",
       },
-    }
+    },
+    meta: {
+      isParentPage: true,
+    },
   },
-]
+  {
+    path: "/parent/activity/invest",
+    name: "Investment",
+    components: {
+      default: InvestManage,
+      header: BackHeader,
+      footer: BottomNav,
+    },
+    props: {
+      header: {
+        pageTitle: "투자 활동 관리",
+        backBtnPath: "/parent/activity",
+      },
+    },
+    meta: {
+      isParentPage: true,
+    },
+  },
+  {
+    path: "/parent/activity/invest/new",
+    name: "NewInvestment",
+    components: {
+      default: NewInvest,
+      header: BackHeader,
+      footer: BottomNav,
+    },
+    props: {
+      header: {
+        pageTitle: "투자 활동 관리",
+        backBtnPath: "/parent/activity",
+      },
+    },
+    meta: {
+      isParentPage: true,
+    },
+  },
+];

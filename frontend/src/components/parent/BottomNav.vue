@@ -1,10 +1,5 @@
 <template>
-  <v-bottom-navigation
-    app
-    color="parent01"
-    grow
-    fixed
-  >
+  <v-bottom-navigation app color="parent01" grow>
     <v-btn :exact="true" to="/parent/home" height="100%" style="background-color: #ffffff">
       <v-icon>mdi-home</v-icon>
     </v-btn>
@@ -21,10 +16,8 @@
 
 <script>
 export default {
-  name: 'ParentBottomNav',
-}
+  name: "ParentBottomNav",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

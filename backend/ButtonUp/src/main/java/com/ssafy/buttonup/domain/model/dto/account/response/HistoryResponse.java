@@ -1,5 +1,6 @@
 package com.ssafy.buttonup.domain.model.dto.account.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryCategory;
 import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryType;
 import io.swagger.annotations.ApiModel;
@@ -41,5 +42,6 @@ public class HistoryResponse {
     
     /* 거래 일시 */
     @ApiModelProperty(value = "거래 일시", required = true)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final Date date;
 }

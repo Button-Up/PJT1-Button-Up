@@ -8,6 +8,8 @@ import com.ssafy.buttonup.domain.model.entity.user.Parent;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,14 +57,22 @@ public class ChildService {
      */
     public ChildResponse findBySeq(long childSeq) {
         Child child = childRepository.getById(childSeq);
+        long num = 0;
+
+        if(child.getParent()==null){
+            num=-1;
+        }else{
+            num=child.getParent().getSeq();
+        }
+
         ChildResponse childResponse = ChildResponse.builder()
                 .seq(child.getSeq())
                 .phone(child.getPhone())
                 .name(child.getName())
                 .birthDate(child.getBirthDate())
-                .password(child.getPassword())
                 .image(child.getImage())
                 .build();
+        childResponse.setParentSeq(num);
         return childResponse;
     }
 
@@ -82,7 +92,6 @@ public class ChildService {
                     .phone(child.getPhone())
                     .name(child.getName())
                     .birthDate(child.getBirthDate())
-                    .password(child.getPassword())
                     .image(child.getImage())
                     .build();
             childrenResponse.add(childResponse);
@@ -95,12 +104,19 @@ public class ChildService {
      * @param connectRequest
      */
 
-    @Transactional
-    public void connectWithParent(ConnectRequest connectRequest) {
-        Child child = childRepository.getById(connectRequest.getChildSeq());
-        Parent parent = parentRepository.getById(connectRequest.getParentSeq());
+    @Transactional(rollbackFor = Exception.class)
+    public boolean connectWithParent(ConnectRequest connectRequest) {
+        try{
+            Child child = childRepository.findByNickname(connectRequest.getNickname())
+                    .orElseThrow(()->new IllegalArgumentException("가입되지 않은 nickname입니다."));
+            Parent parent = parentRepository.findByNickname(connectRequest.getParentNickname())
+                    .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 nickname입니다"));
 
-        child.connectParent(parent);
-        childRepository.save(child);
+            child.connectParent(parent);
+            childRepository.save(child);
+            return true;
+        }catch (IllegalArgumentException i){
+            return false;
+        }
     }
 }

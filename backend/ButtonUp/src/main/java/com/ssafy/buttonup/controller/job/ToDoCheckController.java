@@ -1,16 +1,15 @@
 package com.ssafy.buttonup.controller.job;
 
+import com.ssafy.buttonup.domain.model.dto.job.request.ToDoCheckRequest;
 import com.ssafy.buttonup.domain.model.dto.job.response.ToDoCheckResponse;
 import com.ssafy.buttonup.domain.service.job.ToDoCheckService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,5 +39,16 @@ public class ToDoCheckController {
             "현재 직업키로 할일 리스트를 가져온후에 각각의 할 일 키와 아이키로 체크리스트 가져옴")
     public ResponseEntity<List<ToDoCheckResponse>> viewCheckList(@PathVariable("child_seq") long childSeq){
         return new ResponseEntity<>(toDoCheckService.getCheckList(childSeq), HttpStatus.OK);
+    }
+
+    /**
+     * 체크리스트 완료 여부 수정
+     *
+     * @param toDoCheckRequest 체크리스트 요청 Dto
+     */
+    @PutMapping("/flag")
+    @ApiOperation(value = "체크리스트 완료 여부 수정", notes = "완료여부를 받아서 체크리스트 완료 여부 수정")
+    public void updateCheckList(@ApiParam(value = "체크리스트 완료 여부 수정",readOnly = true) @RequestBody ToDoCheckRequest toDoCheckRequest){
+        toDoCheckService.updateCheckList(toDoCheckRequest);
     }
 }

@@ -3,11 +3,13 @@ package com.ssafy.buttonup.domain.service.job;
 import com.ssafy.buttonup.domain.model.dto.job.request.JobHistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.job.request.JobRequest;
 import com.ssafy.buttonup.domain.model.dto.job.response.JobResponse;
+import com.ssafy.buttonup.domain.model.dto.job.response.ToDoResponse;
 import com.ssafy.buttonup.domain.model.entity.job.*;
 import com.ssafy.buttonup.domain.repository.job.*;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
 import com.ssafy.buttonup.domain.service.common.ImageService;
+import com.ssafy.buttonup.exception.NullJobException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,8 +52,12 @@ public class JobService extends ImageService {
      * @param childSeq 아이 키
      * @return 직업
      */
-    public JobResponse getChildJob(long childSeq) {
-        return Job.ToResponse(jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(childSeq).getJob());
+    public JobResponse getChildJob(long childSeq) throws NullJobException {
+        try {
+            return Job.ToResponse(jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(childSeq).getJob());
+        }catch (NullPointerException e){
+            throw new NullJobException("직업 없음");
+        }
     }
 
 
@@ -61,12 +67,28 @@ public class JobService extends ImageService {
      * @param parentSeq 부모 키
      * @return 직업 목록
      */
+
+    @Transactional
     public List<JobResponse> getJobList(long parentSeq) {
         List<Job> jobs = jobRepository.findByParent_SeqOrderBySeqDesc(parentSeq);
         List<JobResponse> list = new ArrayList<>();
+
         for (Job job : jobs) {
-            list.add(Job.ToResponse(job));
+            JobResponse jobResponse = Job.ToResponse(job);
+
+            List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(job.getSeq());
+
+            List<ToDoResponse> toDoResponses = new ArrayList<>();
+            for(ToDo toDo: toDos){
+                toDoResponses.add(ToDoResponse.builder()
+                        .seq(toDo.getSeq())
+                        .content(toDo.getContent())
+                        .build());
+            }
+            jobResponse.setToDos(toDoResponses);
+            list.add(jobResponse);
         }
+
         return list;
     }
 
@@ -77,7 +99,22 @@ public class JobService extends ImageService {
      * @return 직업
      */
     public JobResponse getJob(long jobSeq) {
-        return Job.ToResponse(jobRepository.getById(jobSeq));
+
+        Job job = jobRepository.getById(jobSeq);
+        JobResponse jobResponse = Job.ToResponse(job);
+
+        List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(job.getSeq());
+
+        List<ToDoResponse> toDoResponses = new ArrayList<>();
+        for(ToDo toDo: toDos){
+            toDoResponses.add(ToDoResponse.builder()
+                    .seq(toDo.getSeq())
+                    .content(toDo.getContent())
+                    .build());
+        }
+        jobResponse.setToDos(toDoResponses);
+
+        return jobResponse;
     }
 
     /**
@@ -147,9 +184,16 @@ public class JobService extends ImageService {
         // TODO: 새로운 직업에 대한 할일 체크리스트 추가하기
 
         //request에 있는 직업키로 할일 리스트 조회
-        //리스트 돌면서 체크리스트 생성
         List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(request.getJobSeq());
 
+        for(ToDo toDo:toDos){
+            ToDoCheck toDoCheck = toDoCheckRepository.findByChild_SeqAndToDo_SeqOrderBySeqDesc(request.getChildSeq(), toDo.getSeq());
+            if(toDoCheck!=null){
+                return getJob(request.getJobSeq());
+            }
+        }
+
+        //리스트 돌면서 체크리스트 생성
         for(ToDo toDo : toDos){
             toDoCheckRepository.save(ToDoCheck.builder()
                     .flag(false)

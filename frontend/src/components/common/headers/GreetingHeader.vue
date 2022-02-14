@@ -1,14 +1,8 @@
 <template>
   <div>
-    <v-app-bar
-      dense
-      color="white"
-      elevation="0"
-    >
+    <v-app-bar dense :color="bgColor" elevation="0">
       <div v-if="userInfo">
-        <v-toolbar-title>
-          {{ userName }}님 안녕하세요 :D
-        </v-toolbar-title>
+        <v-toolbar-title> {{ userName }}님 안녕하세요 :D </v-toolbar-title>
       </div>
       <div v-else>
         <v-toolbar-title>
@@ -22,15 +16,21 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
-  name: 'IndexHeader',
+  name: "IndexHeader",
+  props: {
+    bgColor: {
+      type: String,
+      default: "white",
+    },
+  },
   computed: {
-    ...mapState('tempAccountStore', ['userInfo']),
+    ...mapState("userStore", ["userInfo"]),
     userName() {
-      return this.userInfo.name
-    }
-  }
-}
+      return this.userInfo.name;
+    },
+  },
+};
 </script>

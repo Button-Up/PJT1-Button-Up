@@ -4,9 +4,8 @@ import com.ssafy.buttonup.domain.model.dto.job.request.JobHistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.job.request.JobRequest;
 import com.ssafy.buttonup.domain.model.dto.job.response.JobResponse;
 import com.ssafy.buttonup.domain.service.job.JobService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import com.ssafy.buttonup.exception.NullJobException;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +50,10 @@ public class JobController {
      */
     @GetMapping("children/{child_seq}")
     @ApiOperation(value = "아이의 현재 직업 정보 조회", notes = "자녀 키로 현재 직업을 조회합니다.")
-    public ResponseEntity<JobResponse> viewChildJob(@ApiParam(value = "자녀 키", required = true, example = "1") @PathVariable("child_seq") long childSeq) {
+    @ApiResponses(
+            @ApiResponse(code = 204, message = "직업 없음")
+    )
+    public ResponseEntity<JobResponse> viewChildJob(@ApiParam(value = "자녀 키", required = true, example = "1") @PathVariable("child_seq") long childSeq) throws NullJobException {
         return new ResponseEntity<>(jobService.getChildJob(childSeq), HttpStatus.OK);
     }
 
@@ -71,7 +73,6 @@ public class JobController {
      * 새 직업 등록
      *
      * @param request 직업 등록 DTO
-     * @return 성공여부
      */
     @PostMapping
     @ApiOperation(value = "새로운 직업 추가", notes = "새 직업을 등록합니다.")
