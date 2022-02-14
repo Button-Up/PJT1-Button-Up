@@ -181,6 +181,13 @@ public class JobService extends ImageService {
         //request에 있는 직업키로 할일 리스트 조회
         List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(request.getJobSeq());
 
+        for(ToDo toDo:toDos){
+            ToDoCheck toDoCheck = toDoCheckRepository.findByChild_SeqAndToDo_SeqOrderBySeqDesc(request.getChildSeq(), toDo.getSeq());
+            if(toDoCheck!=null){
+                return getJob(request.getJobSeq());
+            }
+        }
+
         //리스트 돌면서 체크리스트 생성
         for(ToDo toDo : toDos){
             toDoCheckRepository.save(ToDoCheck.builder()
