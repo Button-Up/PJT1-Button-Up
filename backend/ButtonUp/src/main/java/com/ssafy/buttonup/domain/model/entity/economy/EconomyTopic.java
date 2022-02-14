@@ -16,11 +16,12 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "economy_topic")
+@Table(name = "economy_topics")
 @Getter
 @DynamicInsert
 @NoArgsConstructor
-public class EconomyTopic {
+public class
+EconomyTopic {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
