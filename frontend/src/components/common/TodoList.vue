@@ -13,7 +13,7 @@
       :color="todo.done ? (isParent ? 'parent04 ' : 'child03') : 'white'"
     >
       <v-container class="pa-2" width="200" fluid>
-        <v-row v-if="!isParent" align="center" class="mx-0" id="space-between" @click="clickEvent">
+        <v-row align="center" class="mx-0" id="space-between" @click="clickEvent">
           <v-checkbox
             v-if="!isParent"
             v-model="todo.flag"
