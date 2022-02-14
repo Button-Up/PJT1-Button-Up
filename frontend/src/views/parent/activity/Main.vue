@@ -17,6 +17,9 @@
       customColor="parent02"
       title="투자 활동 관리"
       subtitle=""
+      @click.native="
+        $router.push('/parent/activity/invest' + (getInvestList.length === 0 ? '/new' : ''))
+      "
     ></CardMenu>
     <br />
     <CardMenu
@@ -30,11 +33,22 @@
 
 <script>
 import CardMenu from "@/components/common/CardMenu";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Activity",
   components: {
     CardMenu,
+  },
+  computed: {
+    ...mapGetters("investStore", ["getInvestList"]),
+    ...mapGetters("userStore", ["checkUserInfo"]),
+  },
+  mounted() {
+    this.vuexUpdateNewsList(this.checkUserInfo.seq);
+  },
+  methods: {
+    ...mapActions("investStore", ["vuexUpdateNewsList"]),
   },
 };
 </script>

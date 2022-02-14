@@ -27,11 +27,22 @@ export default {
     return {
       topicList: [
         {
+          topicSeq: 4,
+          imagePath: "/512/639/639365",
+          title: "화폐란?",
+          isFirstTry: true,
+          quizTotal: 0,
+          quizScore: 0,
+        },
+        {
           topicSeq: 0,
           imagePath: "/512/686/686379",
           title: "재화와 서비스",
+          // 퀴즈 처음 푸는지
           isFirstTry: true,
+          // 퀴즈 총 문항 수
           quizTotal: 0,
+          // 퀴즈 맞은 개수
           quizScore: 0,
         },
         {
@@ -51,9 +62,17 @@ export default {
           quizScore: 2,
         },
         {
+          topicSeq: 5,
+          imagePath: "/512/3061/3061341",
+          title: "기업과 주식",
+          isFirstTry: true,
+          quizTotal: 0,
+          quizScore: 0,
+        },
+        {
           topicSeq: 3,
           imagePath: "/512/5501/5501360",
-          title: "주식과 투자",
+          title: "투자의 기초",
           isFirstTry: true,
           quizTotal: 0,
           quizScore: 0,

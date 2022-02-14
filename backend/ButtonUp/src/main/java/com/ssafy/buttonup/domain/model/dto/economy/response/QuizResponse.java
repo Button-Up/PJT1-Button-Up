@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 경제 주제별 퀴즈 조회 응답 DTO
  *
- * @author eunee chung
+ * @author Eunee Chung
  * created on 2022-02-14
  */
 

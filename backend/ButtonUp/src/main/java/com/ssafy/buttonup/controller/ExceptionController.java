@@ -2,6 +2,7 @@ package com.ssafy.buttonup.controller;
 
 import com.ssafy.buttonup.exception.BalanceOverException;
 import com.ssafy.buttonup.exception.ExistInvestException;
+import com.ssafy.buttonup.exception.NullJobException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,8 +35,20 @@ public class ExceptionController {
      * @return 이미 존재하는 종목
      */
     @ExceptionHandler(ExistInvestException.class)
-    public ResponseEntity<String> ExistInvestError(Exception e){
+    public ResponseEntity<String> existInvestError(Exception e){
 //        e.printStackTrace();
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * 자녀가 직업이 없을 때에 대한 예외 처리
+     *
+     * @param e 예외
+     * @return 이미 존재하는 종목
+     */
+    @ExceptionHandler(NullJobException.class)
+    public ResponseEntity<String> notExistJobError(Exception e){
+//        e.printStackTrace();
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NO_CONTENT);
     }
 }

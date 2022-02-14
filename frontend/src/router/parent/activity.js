@@ -15,6 +15,8 @@ import BottomNav from "../../components/common/BottomNav";
 import Main from "../../views/parent/activity/Main";
 import JobManager from "../../views/parent/activity/JobManage";
 import AddJob from "../../views/parent/activity/AddJob.vue";
+import InvestManage from "../../views/parent/activity/InvestManage.vue";
+import NewInvest from "../../views/parent/activity/NewInvest.vue";
 
 export default [
   {
@@ -59,6 +61,42 @@ export default [
       header: {
         pageTitle: "직업추가",
         backBtnPath: "/parent/activity/job",
+      },
+    },
+    meta: {
+      isParentPage: true,
+    },
+  },
+  {
+    path: "/parent/activity/invest",
+    name: "Investment",
+    components: {
+      default: InvestManage,
+      header: BackHeader,
+      footer: BottomNav,
+    },
+    props: {
+      header: {
+        pageTitle: "투자 활동 관리",
+        backBtnPath: "/parent/activity",
+      },
+    },
+    meta: {
+      isParentPage: true,
+    },
+  },
+  {
+    path: "/parent/activity/invest/new",
+    name: "NewInvestment",
+    components: {
+      default: NewInvest,
+      header: BackHeader,
+      footer: BottomNav,
+    },
+    props: {
+      header: {
+        pageTitle: "투자 활동 관리",
+        backBtnPath: "/parent/activity",
       },
     },
     meta: {
