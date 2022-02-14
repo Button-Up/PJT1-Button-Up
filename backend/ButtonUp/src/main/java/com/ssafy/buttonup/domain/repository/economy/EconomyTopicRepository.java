@@ -21,4 +21,12 @@ public interface EconomyTopicRepository extends JpaRepository<EconomyTopic, Long
      */
 
     List<EconomyTopic> findAll();
+
+    /**
+     * 경제 주제 리스트 조회
+     *
+     * @return 경제 주제 리스트
+     */
+
+    EconomyTopic findByName(String name);
 }

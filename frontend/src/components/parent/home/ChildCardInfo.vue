@@ -16,10 +16,10 @@
         <v-list-item two-line>
           <v-list-item-content class="pa-2 mb-1">
             <v-list-item-title class="font-weight-black text-h5 justify-start ma-2 pa-0">
-              {{item.name}}
+              {{ item.name }}
             </v-list-item-title>
             <v-list-item-subtitle class="justify-start ma-0 pa-0">
-              {{item.danchuAmount}}
+              {{ item.danchuAmount }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -32,36 +32,60 @@
           color="parent01"
           class="justify-center mb-4"
         >
-          {{ item.progressAmount }}완료
+          {{ doneCheckList.length }}/{{ checkList.length }} 완료
         </v-progress-circular>
       </div>
-  </v-card>
+    </v-card>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'ChildCardInfo',
-    data() {
-      return {
-        interval: {},
-        value: 0,
-      };
+import { apiGetCheckListRow } from "@/api/checkListAPI.js";
+
+export default {
+  name: "ChildCardInfo",
+  data() {
+    return {
+      interval: {},
+      value: 0,
+      checkList: [],
+    };
+  },
+  props: {
+    item: Object,
+  },
+  beforeDestroy() {
+    clearInterval(this.interval);
+  },
+  created() {
+    apiGetCheckListRow(
+      this.item.seq,
+      (response) => {
+        this.checkList = response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  },
+  computed: {
+    doneCheckList() {
+      return this.checkList.filter((val) => {
+        return val.flag === true;
+      });
     },
-    props: {
-      item: Object,
-    },
-    beforeDestroy() {
-      clearInterval(this.interval);
-    },
-    mounted() {
+  },
+  mounted() {
     this.interval = setInterval(() => {
+      if (this.checkList.length == 0) {
+        return;
+      }
       // console.log(this.value);
-      if (this.value == this.item.progressValue) {
-        return (this.value = this.item.progressValue);
+      if (this.value == parseInt((this.doneCheckList.length / this.checkList.length) * 100)) {
+        return (this.value = parseInt((this.doneCheckList.length / this.checkList.length) * 100));
       }
       this.value += 1;
     }, 50);
-    },
-  }
+  },
+};
 </script>
