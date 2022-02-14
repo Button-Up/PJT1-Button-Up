@@ -36,6 +36,33 @@ modified: 우정연 - 계좌 내역 정렬 적용
       </v-col>
     </v-row>
 
+    <!-- 적금 만기일 그래프 -->
+    <v-sheet v-if="!isDeposit">
+      <div class="pa-5">
+        <h3>적금 만기까지 {{ calcDDay }}일!</h3>
+        <v-progress-linear
+          class="mt-4"
+          color="child04"
+          rounded
+          height="6"
+          :value="calcProgress"
+        ></v-progress-linear>
+        <div class="d-flex justify-space-between mt-1">
+          <div>{{ savingInfo.startDate }}</div>
+          <div>{{ savingInfo.endDate }}</div>
+        </div>
+        <div v-if="getDefaultBalance">
+          <v-divider class="my-3"></v-divider>
+          <div class="d-flex justify-space-between">
+            <div>만기 시 이자</div>
+            <div class="red--text font-weight-bold">
+              + {{ Math.ceil(getDefaultBalance * 0.05) }} 단추
+            </div>
+          </div>
+        </div>
+      </div>
+    </v-sheet>
+
     <!-- 거래내역 리스트 -->
     <AccountHistoryList
       :isDeposit="isDeposit"
@@ -67,25 +94,13 @@ export default {
       balance: 25000,
       filterSelect: "전체",
       historyFilter: ["전체", "입금", "출금"],
-      accountHistories: [
-        // {
-        //   balance: 34000,
-        //   category: "급여",
-        //   content: "지급 완료",
-        //   date: "22.02.08",
-        //   money: 30000,
-        //   type: "입금",
-        // },
-        // {
-        //   balance: 4000,
-        //   category: "환전",
-        //   content: null,
-        //   date: "22.02.08",
-        //   money: 6000,
-        //   type: "출금",
-        // },
-      ],
+      accountHistories: [],
       filter: "전체",
+      // 적금 정보
+      savingInfo: {
+        startDate: "2022-02-14",
+        endDate: "2022-05-15",
+      },
     };
   },
   watch: {
@@ -102,6 +117,17 @@ export default {
     ...mapGetters("userStore", ["checkUserInfo"]),
     accountColor() {
       return this.isDeposit ? "child01" : "child04";
+    },
+    // 적금 만기일까지 남은 날짜
+    calcDDay() {
+      const startDate = new Date(this.savingInfo.startDate);
+      const endDate = new Date(this.savingInfo.endDate);
+      const dateDiff = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
+      return dateDiff;
+    },
+    // 오늘 기준 적금 만기일까지 진행 상황
+    calcProgress() {
+      return ((90 - this.calcDDay) / 90) * 100;
     },
   },
   mounted() {
