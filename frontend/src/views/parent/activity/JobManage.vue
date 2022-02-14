@@ -118,6 +118,9 @@ export default {
           },
           (error) => {
             console.log(error);
+            var child = c;
+            child.job = null;
+            children.push(child);
           }
         );
       }
