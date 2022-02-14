@@ -2,11 +2,11 @@
   author : 우정연
 -->
 <template>
-  <div>
-    <h2 class="mx-6 mt-4">오늘자 뉴스</h2>
-    <news-list :newsList="todayNews"></news-list>
-    <h2 class="mx-6 mt-4">지난 뉴스</h2>
-    <news-list :newsList="lastNewsList"></news-list>
+  <div class="mx-6">
+    <h2 class="my-4">오늘자 뉴스</h2>
+    <NewsList :newsList="todayNews"></NewsList>
+    <h2 class="mt-10 mb-4">지난 뉴스</h2>
+    <NewsList :newsList="lastNewsList"></NewsList>
   </div>
 </template>
 
