@@ -86,6 +86,7 @@ export default {
   data() {
     return {
       jobs: [],
+      children: [],
     };
   },
   created() {
@@ -101,33 +102,11 @@ export default {
         console.log(error);
       }
     );
+    this.getJobchildren();
   },
   computed: {
     ...mapGetters('parentStore', ['childrenInfo']),
     ...mapGetters('userStore', ['checkUserInfo']),
-    children: function () {
-      var children = [];
-      for (const c of this.childrenInfo) {
-        apiGetChildsJob(
-          c.seq,
-          (response) => {
-            var child = c;
-            console.log(response.data);
-            child.job = response.data;
-            children.push(child);
-          },
-          (error) => {
-            console.log(error);
-            var child = c;
-            child.job = null;
-            children.push(child);
-          }
-        );
-      }
-      console.log('computed');
-      console.log(children);
-      return children;
-    },
   },
   methods: {
     selectJob(event) {
@@ -151,6 +130,28 @@ export default {
           console.log(error);
         }
       );
+    },
+    async getJobchildren() {
+      for (const c of this.childrenInfo) {
+        await apiGetChildsJob(
+          c.seq,
+          (response) => {
+            var child = c;
+            console.log(response.data);
+            child.job = response.data;
+            this.children.push(child);
+          },
+          (error) => {
+            console.log(error);
+            var child = c;
+            child.job = null;
+            this.children.push(child);
+          }
+        );
+      }
+      console.log('computed');
+      console.log(this.children);
+      // return children;
     },
   },
 };
