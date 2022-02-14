@@ -9,7 +9,14 @@
       <!-- 바텀 시트 on/off 버튼 -->
       <template v-slot:activator="{ on, attrs }">
         <slot name="activatorBtn">
-          <v-btn :color="btnColor" :class="btnClass" :icon="isIcon" v-bind="attrs" v-on="on">
+          <v-btn
+            :color="btnColor"
+            :class="btnClass"
+            :icon="isIcon"
+            v-bind="attrs"
+            v-on="on"
+            :block="isBlockBtn"
+          >
             <v-icon v-if="isIcon">{{ iconName }}</v-icon>
             {{ btnName }}
           </v-btn>
@@ -37,6 +44,10 @@ export default {
     sheetHeight: {
       type: String,
       default: "fit-content",
+    },
+    isBlockBtn: {
+      type: Boolean,
+      default: false,
     },
     btnColor: {
       type: String,

@@ -58,6 +58,7 @@ export default {
     return {
       postList: [
         {
+          // 포스트 순서
           postSeq: 1,
           title: "title1",
           content: "content",
