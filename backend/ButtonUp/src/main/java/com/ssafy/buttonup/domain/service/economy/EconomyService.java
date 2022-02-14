@@ -1,6 +1,9 @@
 package com.ssafy.buttonup.domain.service.economy;
 
+import com.ssafy.buttonup.domain.model.dto.economy.response.PostResponse;
+import com.ssafy.buttonup.domain.model.entity.economy.EconomyPost;
 import com.ssafy.buttonup.domain.model.entity.economy.EconomyTopic;
+import com.ssafy.buttonup.domain.repository.economy.EconomyPostRepository;
 import com.ssafy.buttonup.domain.repository.economy.EconomyTopicRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EconomyService {
     private final EconomyTopicRepository economyTopicRepository;
+    private final EconomyPostRepository economyPostRepository;
 
     /**
      * 경제 공부방 주제 조회
@@ -32,9 +36,25 @@ public class EconomyService {
         List<EconomyTopic> economyTopics = economyTopicRepository.findAll();
         List<String> responses = new ArrayList<>();
 
-
         for(EconomyTopic economyTopic : economyTopics){
             responses.add(economyTopic.getName());
+        }
+        return responses;
+    }
+
+    /**
+     * 경제 공부방 주제별 내용 조회
+     *
+     * @param topicName 경제 주제 이름
+     * @return 경제 내용 List<String>
+     */
+
+    public List<PostResponse> getEconomyPost(String topicName){
+        long topicSeq = economyTopicRepository.findByName(topicName).getSeq();
+        List<EconomyPost> economyPosts = economyPostRepository.findByTopic_SeqOrderByOrder(topicSeq);
+        List<PostResponse> responses = new ArrayList<>();
+        for(EconomyPost e: economyPosts){
+            responses.add(e.toResponse());
         }
         return responses;
     }

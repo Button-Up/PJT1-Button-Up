@@ -1,5 +1,6 @@
 package com.ssafy.buttonup.domain.model.entity.economy;
 
+import com.ssafy.buttonup.domain.model.dto.economy.response.PostResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -42,4 +43,19 @@ public class EconomyPost {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="fk_economy_topic_seq")
     private EconomyTopic topic;
+
+    /**
+     * EconomyPost Entity를 PostResponse Dto로 번환
+     *
+     * @return PostResponse
+     */
+    public PostResponse toResponse(){
+       return PostResponse.builder()
+                .seq(seq)
+                .title(title)
+                .image(image)
+                .content(content)
+                .order(order)
+               .build();
+    }
 }
