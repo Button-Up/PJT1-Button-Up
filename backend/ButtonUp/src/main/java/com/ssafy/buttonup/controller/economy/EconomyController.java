@@ -36,10 +36,10 @@ public class EconomyController {
         return new ResponseEntity<>(economyService.getEconomyTopic(), HttpStatus.OK);
     }
 
-    @GetMapping("economy-posts/{topic_name}")
+    @GetMapping("economy-posts/{topic_seq}")
     @ApiOperation(value = "경제 주제별 내용 조회")
-    public ResponseEntity<List<PostResponse>> getContentOfTopic(@ApiParam(value = "경제 주제 이름",required = true)@PathVariable("topic_name") String topicName){
-        return new ResponseEntity<>(economyService.getEconomyPost(topicName),HttpStatus.OK);
+    public ResponseEntity<List<PostResponse>> getContentOfTopic(@ApiParam(value = "경제 주제 이름",required = true)@PathVariable("topic_seq") long topicSeq){
+        return new ResponseEntity<>(economyService.getEconomyPost(topicSeq),HttpStatus.OK);
 
     }
 }

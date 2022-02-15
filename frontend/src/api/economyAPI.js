@@ -12,8 +12,8 @@ function apiGetEconomyTopic(success, fail) {
 }
 
 //경제 주제별 내용 조회
-function apiGetContentOfTopic(topicName, success, fail) {
-  api.get(`/economy-posts/${topicName}`).then(success).catch(fail);
+function apiGetContentOfTopic(topicSeq, success, fail) {
+  api.get(`/economy-posts/${topicSeq}`).then(success).catch(fail);
 }
 
 export { apiGetEconomyTopic, apiGetContentOfTopic };
