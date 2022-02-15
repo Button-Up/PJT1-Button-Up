@@ -40,20 +40,35 @@
     ></v-text-field>
 
     <v-btn block color="parent01" class="white--text mt-4" @click="submitNews">뉴스 보내기</v-btn>
+    <v-btn color="`child01`" block @click.native="dialog = !dialog" class="font-weight-bold">
+      잘 이해했어요!
+    </v-btn>
+    <Modal
+      :visible.sync="dialog"
+      :isParent="true"
+      :title="`정말 삭제하시겠어요?`"
+      :content="`투자 종목이 삭제됩니다`"
+      :positiveAction="clicYesBtn"
+      :textPositiveBtn="`삭제하기`"
+      :textNegativeBtn="`취소`"
+    ></Modal>
   </div>
 </template>
 
 <script>
 import TodoList from '../../../components/common/TodoList.vue';
+import Modal from '../../../components/common/Modal.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'InvestManage',
   components: {
     TodoList,
+    Modal,
   },
   data() {
     return {
+      dialog: false,
       news: '',
       TodoList: [
         {
@@ -105,6 +120,12 @@ export default {
       console.log(param);
       this.$store.dispatch('investStore/vuexAddNews', param);
       this.news = '';
+    },
+    clicYesBtn() {
+      console.log('yes 버튼 눌렀다');
+    },
+    setDialog(value) {
+      this.dialog = value;
     },
   },
 };
