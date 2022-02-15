@@ -8,7 +8,7 @@
           small
           :color="`parent01`"
           class="white--text"
-          @click="$router.push('/parent/activity/job')"
+          @click="$router.push('/parent/activity/invest/new/1')"
           >추가하기</v-btn
         >
       </v-row>
@@ -54,6 +54,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       news: '',
       TodoList: [
         {
@@ -105,6 +106,12 @@ export default {
       console.log(param);
       this.$store.dispatch('investStore/vuexAddNews', param);
       this.news = '';
+    },
+    clicYesBtn() {
+      console.log('yes 버튼 눌렀다');
+    },
+    setDialog(value) {
+      this.dialog = value;
     },
   },
 };
