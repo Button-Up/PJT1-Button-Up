@@ -1,7 +1,7 @@
 <!--
   author : 정은이
   modified : 유현수 - Add v-if checkboxOn
-  modified : 우정연 - 아이 체크리스트 수정되도록
+  modified : 우정연 - 아이 체크리스트 수정되도록, 부모쪽 체크리스트 안보이도록 수정
 -->
 <template>
   <div class="ma-2">
@@ -13,9 +13,9 @@
       :color="todo.done ? (isParent ? 'parent04 ' : 'child03') : 'white'"
     >
       <v-container class="pa-2" width="200" fluid>
-        <v-row align="center" class="mx-0" id="space-between">
+        <v-row align="center" class="mx-0" id="space-between" @click="clickEvent">
           <v-checkbox
-            v-if="checkboxOn"
+            v-if="!isParent || (onlyRead && isParent)"
             v-model="todo.flag"
             class="ml-2 pa-0 font-weight-black black--text"
             :color="isParent ? 'parent01' : 'child01'"
@@ -26,14 +26,7 @@
 
           <div v-else class="ml-2 py-4 text-body-1 black--text">{{ todo.content }}</div>
 
-          <v-btn
-            v-if="isParent && !onlyRead"
-            icon
-            class="ml-4"
-            align="right"
-            color="black"
-            @click="goToPage"
-          >
+          <v-btn v-if="isParent && !onlyRead" icon class="ml-4" align="right" color="black">
             <v-icon>mdi-chevron-right</v-icon>
           </v-btn>
         </v-row>
@@ -59,8 +52,10 @@ export default {
     onlyRead: Boolean,
   },
   methods: {
-    goToPage: function () {
-      this.$router.push(this.todo.url);
+    clickEvent: function () {
+      if (this.isParent) {
+        this.$router.push(this.todo.url);
+      }
     },
     putCheckListRow() {
       let toDoCheckRequest = {

@@ -19,32 +19,30 @@
       </v-col>
 
       <!-- 페이지 1 -->
-      <v-col v-if="$route.params.id == 1">
-        <v-card class="fill-height text-center">
-          <div class="py-6">
-            <h1 class="text-h5 font-weight-bold">직업이란?</h1>
+      <v-col v-if="$route.params.id == 1" class="flex-shrink-1">
+        <v-card class="fill-height text-center d-flex flex-column justify-center">
+          <div class="d-flex flex-column align-center">
+            <h1 class="text-h5 font-weight-bold">직업과 보상</h1>
             <p class="pt-4">
-              가정에서 아이에게 정해주는 역할입니다. <br />
-              아이는 주어진 책임을 다한 보상으로 <br />
-              용돈(단추)을 받게 됩니다.
+              아이는 청소, 식물 가꾸기 등 가사에 참여하고 <br />
+              보상으로 단추를 받아요. <br />
             </p>
+            <v-img :src="svg1" alt="" width="300px" height="300px"></v-img>
           </div>
         </v-card>
       </v-col>
 
       <!-- 페이지 2 -->
-      <v-col v-else-if="$route.params.id == 2">
-        <v-card class="fill-height text-center">
-          <div class="py-6">
-            <h1 class="text-h5 font-weight-bold">왜 직업이 필요할까요?</h1>
+      <v-col v-else class="flex-shrink-1">
+        <v-card class="fill-height text-center d-flex flex-column justify-center">
+          <div class="d-flex flex-column align-center">
+            <h1 class="text-h5 font-weight-bold">직업과 활동 정하기</h1>
             <p class="pt-4">
-              무언가 시킬 때마다 용돈을 주다보면 <br />
-              ‘이거 하면 얼마 줄거야?’하는 질문이 <br />
-              쉽게 돌아옵니다. <br /><br />
-              주어진 역할과 책임을 다 할 때, <br />
-              약속한 보상이 돌아온다는 것을 <br />
-              익힐 수 있도록 해주세요. <br />
+              아이가 어떤 활동을 할지, <br />
+              직업 이름은 무엇으로 할지 설정할 수 있어요. <br />
+              아이와 함께 논의해서 정해보세요!
             </p>
+            <v-img :src="img1" alt="" width="190px" height="310px"></v-img>
           </div>
         </v-card>
       </v-col>
@@ -90,6 +88,12 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "TutorialJob",
+  data() {
+    return {
+      svg1: require("../../../assets/svg/child-work.svg"),
+      img1: require("../../../assets/image/mockup-parent-job-crop.png"),
+    };
+  },
   computed: {
     ...mapGetters("userStore", ["checkUserInfo"]),
   },

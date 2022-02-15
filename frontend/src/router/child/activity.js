@@ -18,6 +18,7 @@ import ChildSaving from "../../views/child/Activity/Saving.vue";
 
 // 투자 컴포넌트
 import ChildInvest from "../../views/child/Activity/Invest.vue";
+import ChildNews from "../../views/child/Activity/News.vue";
 
 export default [
   {
@@ -114,6 +115,28 @@ export default [
     props: {
       header: {
         pageTitle: "투자",
+        backBtnPath: "/child/activity",
+      },
+      footer: {
+        isParent: false,
+      },
+    },
+    meta: {
+      isParentPage: false,
+    },
+  },
+  {
+    path: "/child/activity/invest/news",
+    name: "ChildNews",
+    components: {
+      default: ChildNews,
+      header: BackHeader,
+      footer: BottomNav,
+    },
+    props: {
+      header: {
+        pageTitle: "오늘의 투자 뉴스",
+        backBtnPath: "/child/activity/invest",
       },
       footer: {
         isParent: false,
