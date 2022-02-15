@@ -17,7 +17,7 @@ import lombok.Getter;
 @Builder
 public class PostResponse {
     
-    @ApiModelProperty(value = "경제 사전 상세 페이지 키 ", required = true)
+    @ApiModelProperty(value = "경제 사전 상세 페이지 키 ",    required = true)
     private  Long seq;
 
     @ApiModelProperty(value = "경제 사전 상세 페이지 제목", required = true)
