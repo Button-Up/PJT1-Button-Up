@@ -17,6 +17,7 @@
 
 <script>
 import StudyCard from "@/components/child/activity/StudyCard";
+import { apiGetEconomyTopic } from "@/api/economyAPI.js";
 
 export default {
   name: "ChildStudy",
@@ -27,16 +28,16 @@ export default {
     return {
       topicList: [
         {
-          topicSeq: 4,
-          imagePath: "/512/639/639365",
+          topicSeq: 0,
+          imagePath: "/512/3061/3061341",
           title: "화폐란?",
           isFirstTry: true,
           quizTotal: 0,
           quizScore: 0,
         },
         {
-          topicSeq: 0,
-          imagePath: "/512/686/686379",
+          topicSeq: 1,
+          imagePath: "/512/1138/1138038",
           title: "재화와 서비스",
           // 퀴즈 처음 푸는지
           isFirstTry: true,
@@ -46,32 +47,32 @@ export default {
           quizScore: 0,
         },
         {
-          topicSeq: 1,
-          imagePath: "/512/1138/1138038",
+          topicSeq: 2,
+          imagePath: "/512/2474/2474455",
           title: "은행이란?",
           isFirstTry: false,
           quizTotal: 4,
           quizScore: 3,
         },
         {
-          topicSeq: 2,
-          imagePath: "/512/2474/2474455",
+          topicSeq: 3,
+          imagePath: "/512/686/686379",
           title: "적금이란?",
           isFirstTry: false,
           quizTotal: 4,
           quizScore: 2,
         },
         {
-          topicSeq: 5,
-          imagePath: "/512/3061/3061341",
+          topicSeq: 4,
+          imagePath: "/512/5501/5501360",
           title: "기업과 주식",
           isFirstTry: true,
           quizTotal: 0,
           quizScore: 0,
         },
         {
-          topicSeq: 3,
-          imagePath: "/512/5501/5501360",
+          topicSeq: 5,
+          imagePath: "/512/639/639365",
           title: "투자의 기초",
           isFirstTry: true,
           quizTotal: 0,
@@ -79,6 +80,20 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    apiGetEconomyTopic(
+      (response) => {
+        const arr = response.data;
+
+        for (let i = 0; i < arr.length; i++) {
+          this.topicList[i].title = arr.get(i);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
 };
 </script>

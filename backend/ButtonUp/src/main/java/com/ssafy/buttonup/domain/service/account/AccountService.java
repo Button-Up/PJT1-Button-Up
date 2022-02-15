@@ -86,7 +86,8 @@ public class AccountService {
                 break;
         }
 
-        AccountHistory accountHistory = builder.category(request.getCategory())
+        AccountHistory accountHistory = builder
+                .category(request.getCategory())
                 .type(type)
                 .category(request.getCategory())
                 .content(request.getContent())
