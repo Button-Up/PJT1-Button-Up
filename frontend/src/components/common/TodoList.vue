@@ -15,7 +15,7 @@
       <v-container class="pa-2" width="200" fluid>
         <v-row align="center" class="mx-0" id="space-between" @click="clickEvent">
           <v-checkbox
-            v-if="!isParent"
+            v-if="!isParent || (onlyRead && isParent)"
             v-model="todo.flag"
             class="ml-2 pa-0 font-weight-black black--text"
             :color="isParent ? 'parent01' : 'child01'"

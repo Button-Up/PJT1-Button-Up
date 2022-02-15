@@ -77,9 +77,9 @@ export default {
     return {
       model: null,
       growingSvg: require("../../assets/svg/growing.svg"),
-      mockupImg1: require("../../assets/image/mockup-1.png"),
-      mockupImg2: require("../../assets/image/mockup-2.png"),
-      mockupImg3: require("../../assets/image/mockup-3.png"),
+      mockupImg1: require("../../assets/image/mockup-child-home.png"),
+      mockupImg2: require("../../assets/image/mockup-child-invest.png"),
+      mockupImg3: require("../../assets/image/mockup-child-study.png"),
     };
   },
 };

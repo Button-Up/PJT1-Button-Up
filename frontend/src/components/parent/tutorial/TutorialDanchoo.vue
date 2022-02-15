@@ -16,42 +16,46 @@
       </v-col>
 
       <!-- 페이지 1 -->
-      <v-col v-if="$route.params.id == 1">
-        <v-card class="fill-height text-center">
-          <div class="py-6">
+      <v-col v-if="$route.params.id == 1" class="flex-shrink-1">
+        <v-card class="fill-height text-center d-flex justify-center align-center">
+          <div class="d-flex flex-column align-center">
             <h1 class="text-h5 font-weight-bold">아이가 사용할 화폐 단추!</h1>
             <p class="pt-4">
-              첫단추에서는 '단추'라는 화폐를 사용해 <br />
-              용돈을 지급합니다.
+              첫단추에서는 '단추'라는 화폐를 사용해요. <br />
+              아이는 앞으로 용돈 대신 아래 보이는 <br />
+              단추 계좌에 단추를 입금받게 될거에요.
             </p>
+            <v-img :src="mockupImg1" alt="" max-width="190px" />
           </div>
         </v-card>
       </v-col>
 
       <!-- 페이지 2 -->
-      <v-col v-else-if="$route.params.id == 2">
-        <v-card class="fill-height text-center">
-          <div class="py-6">
-            <h1 class="text-h5 font-weight-bold">용돈으로 환전 가능한 '단추'</h1>
+      <v-col v-else-if="$route.params.id == 2" class="flex-shrink-1">
+        <v-card class="fill-height text-center d-flex justify-center align-center">
+          <div class="d-flex flex-column align-center">
+            <h1 class="text-h5 font-weight-bold">단추로 경험하는 적금과 투자</h1>
             <p class="pt-4">
-              아이는 부모님께 '환전 요청'을 할 수 있습니다. <br />
-              아이가 요청한 금액만큼 <br />
-              단추를 현금으로 교환해주세요.
+              아이는 단추를 활용해 <br />
+              적금과 투자를 경험할 수 있어요. <br />
+              현금이 아니니 더욱 안전하겠죠?
             </p>
+            <v-img :src="mockupImg2" alt="" max-width="190px" />
           </div>
         </v-card>
       </v-col>
 
       <!-- 페이지 3 -->
-      <v-col v-else>
-        <v-card class="fill-height text-center">
-          <div class="py-6">
-            <h1 class="text-h5 font-weight-bold">다양하게 소비할 수 있는 '단추'</h1>
+      <v-col v-else class="flex-shrink-1">
+        <v-card class="fill-height text-center d-flex justify-center align-center">
+          <div class="d-flex flex-column align-center">
+            <h1 class="text-h5 font-weight-bold">용돈으로 환전 가능한 '단추'</h1>
             <p class="pt-4">
-              아이는 단추를 소비해 소원권을 구매하거나 <br />
-              사고 싶었던 물건을 골라 <br />
-              '구매 요청'을 보낼 수 있습니다.
+              현금이 필요할 땐 환전이 가능해요. <br />
+              아이가 환전을 요청하면 <br />
+              단추를 현금으로 교환해주세요.
             </p>
+            <v-img :src="mockupImg3" alt="" max-width="190px" />
           </div>
         </v-card>
       </v-col>
@@ -97,6 +101,13 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "TutorialDanchoo",
+  data() {
+    return {
+      mockupImg1: require("../../../assets/image/mockup-child-home-crop.png"),
+      mockupImg2: require("../../../assets/image/mockup-child-invest-crop.png"),
+      mockupImg3: require("../../../assets/image/mockup-parent-exchange-crop.png"),
+    };
+  },
   computed: {
     ...mapGetters("userStore", ["checkUserInfo"]),
   },

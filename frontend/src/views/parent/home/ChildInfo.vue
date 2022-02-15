@@ -30,7 +30,7 @@
     <!-- 아이의 단추 계좌 END -->
     <div>
       <h2>아이의 할 일 진행 상황</h2>
-      <JobWithTodoListCard :isParent="true" :job="job"></JobWithTodoListCard>
+      <JobWithTodoListCard :isParent="true" :job="job" :child="child"></JobWithTodoListCard>
     </div>
   </div>
 </template>
@@ -41,6 +41,7 @@ import JobWithTodoListCard from "../../../components/common/JobWithTodoListCard.
 import ChildAccount from "../../../components/parent/home/ChildAccount.vue";
 import Deposit from "../../../components/parent/home/Deposit.vue";
 import { mapGetters } from "vuex";
+import { apiGetChildsJob } from "@/api/jobsAPI.js";
 
 export default {
   name: "ChildInfo",
@@ -50,28 +51,40 @@ export default {
   },
   data() {
     return {
-      job: {
-        name: "청소부",
-        image: "https://cdn.vuetifyjs.com/images/john.jpg",
-        TodoList: [
-          {
-            done: false,
-            task: "투자 가격 업데이트",
-            url: "/parent/activity",
-          },
-          {
-            done: true,
-            task: "투자 가격 업데이트",
-            url: "/parent/userinfo",
-          },
-          {
-            done: true,
-            task: "투자 가격 업데이트",
-            url: "/parent/userinfo",
-          },
-        ],
-      },
+      // job: {
+      //   name: "청소부",
+      //   image: "https://cdn.vuetifyjs.com/images/john.jpg",
+      //   TodoList: [
+      //     {
+      //       done: false,
+      //       task: "투자 가격 업데이트",
+      //       url: "/parent/activity",
+      //     },
+      //     {
+      //       done: true,
+      //       task: "투자 가격 업데이트",
+      //       url: "/parent/userinfo",
+      //     },
+      //     {
+      //       done: true,
+      //       task: "투자 가격 업데이트",
+      //       url: "/parent/userinfo",
+      //     },
+      //   ],
+      // },
+      job: {},
     };
+  },
+  created() {
+    apiGetChildsJob(
+      this.child.seq,
+      (response) => {
+        this.job = response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
   computed: {
     ...mapGetters("accountStore", ["getDefaultBalance"]),
