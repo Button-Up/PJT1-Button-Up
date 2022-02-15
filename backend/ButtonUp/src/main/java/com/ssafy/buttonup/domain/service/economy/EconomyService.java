@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,6 +36,8 @@ public class EconomyService {
     public List<String> getEconomyTopic(){
         List<EconomyTopic> economyTopics = economyTopicRepository.findAll();
         List<String> responses = new ArrayList<>();
+
+        Collections.sort(responses);
 
         for(EconomyTopic economyTopic : economyTopics){
             responses.add(economyTopic.getName());
