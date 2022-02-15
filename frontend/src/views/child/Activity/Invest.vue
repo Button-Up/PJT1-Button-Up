@@ -7,7 +7,9 @@
       <v-col class="d-flex flex-grow-0 flex-shrink-1" cols="8">
         <v-select
           v-model="selected"
-          :items="investNameList"
+          :items="investInfo"
+          item-value="seq"
+          item-text="name"
           class="font-weight-bold text-h5"
           align="center"
           flat
@@ -47,6 +49,7 @@
           :isBuy="true"
           :price="investInfo[selectedIdx].today_price"
           :name="investInfo[selectedIdx].target + ` ` + investInfo[selectedIdx].name"
+          :seq="investInfo[selectedIdx].seq"
         ></InvestBtmSheet
       ></v-col>
       <v-col
@@ -54,6 +57,7 @@
           :isBuy="false"
           :price="investInfo[selectedIdx].today_price"
           :name="investInfo[selectedIdx].target + ` ` + investInfo[selectedIdx].name"
+          :seq="investInfo[selectedIdx].seq"
         ></InvestBtmSheet
       ></v-col>
     </v-row>
@@ -77,9 +81,14 @@ import InvestGraph from "@/components/child/activity/InvestGraph";
 import InvestTable from "@/components/child/activity/InvestTable";
 import InvestBtmSheet from "@/components/child/activity/InvestBtmSheet";
 import CardMenu from "@/components/common/CardMenu";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: { InvestGraph, InvestTable, InvestBtmSheet, CardMenu },
   created() {
+    this.vuexGetInvestList(this.checkUserInfo.parentSeq);
+    this.getInvestList.forEach((invest) => {
+      this.vuexGetInvestStatus(invest.seq);
+    });
     this.selected = this.investNameList[0];
     this.selectedIdx = 0;
   },
@@ -105,6 +114,7 @@ export default {
           change_price: -50,
           count: 5,
           average_price: 500,
+          seq: 1,
         },
         {
           target: "엄마",
@@ -120,11 +130,22 @@ export default {
           change_price: 1,
           count: 5,
           average_price: 6,
+          seq: 2,
         },
       ],
     };
   },
-  method: {},
+  computed: {
+    ...mapGetters("investStore", ["getInvestList", "getInvestment", "getPriceList"]),
+    ...mapGetters("userStore", ["checkUserInfo"]),
+  },
+  method: {
+    ...mapActions("investStore", [
+      "vuexUpdateInvestStatus",
+      "vuexGetInvestStatus",
+      "vuexGetInvestList",
+    ]),
+  },
 };
 </script>
 

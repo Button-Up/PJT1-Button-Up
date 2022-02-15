@@ -74,14 +74,27 @@
 
 <script>
 import BottomSheet from "@/components/common/BottomSheet.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
     BottomSheet,
   },
   computed: {
+    ...mapGetters("userStore", ["checkUserInfo"]),
     totalPrice: function () {
       return this.investAmount * this.price;
+    },
+  },
+  method: {
+    ...mapActions("investStore", ["vuexUpdateInvestStatus"]),
+    requestExchange() {
+      let info = {
+        count: this.isBuy ? this.investAmount : -this.investAmount,
+        price: this.price,
+        seq: this.investStatusSeq,
+      };
+      this.vuexUpdateInvestStatus(info, this.investSeq, this.checkUserInfo.seq);
     },
   },
   data() {
@@ -99,6 +112,12 @@ export default {
     },
     name: {
       type: String,
+    },
+    investStatusSeq: {
+      type: Number,
+    },
+    investSeq: {
+      type: Number,
     },
   },
 };

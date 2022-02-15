@@ -26,6 +26,7 @@ const investStore = {
   getters: {
     getPresetList: (state) => state.presetList,
     getInvestList: (state) => state.investList,
+    getInvestment: (state) => state.investment,
     getPriceList: (state) => state.priceList,
     getNewsList: (state) => state.newsList,
   },
@@ -101,7 +102,7 @@ const investStore = {
      * @param {*} param0
      * @param {*} parentSeq 부모 키
      */
-    async vuexUpdateInvestList({ commit }, parentSeq) {
+    async vuexGetInvestList({ commit }, parentSeq) {
       await apiGetAllInvest(parentSeq, (resp) => {
         commit("SET_INVEST_LIST", resp.data);
       });
