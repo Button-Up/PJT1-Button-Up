@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 직업 요청 DTO
  *
- * @author jiun kim,SeungYeon Hwang
+ * @author Jiun Kim,SeungYeon Hwang
  * created on 2022-02-05
  */
 @ApiModel(value = "직업 추가 요청 정보")
@@ -32,8 +32,8 @@ public class JobRequest {
     private String name;
 
     /* 이미지 키 */
-    @ApiModelProperty(value = "이미지 키")
-    private long jobImageSeq;
+    @ApiModelProperty(value = "이미지 경로")
+    private String jobImagePath;
     
     /* 부모 키 */
     @ApiModelProperty(value = "부모 키", required = true)

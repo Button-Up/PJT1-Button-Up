@@ -59,7 +59,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 p {
   font-size: 20px;
   font-weight: bold;
