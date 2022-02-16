@@ -9,6 +9,7 @@ import BottomNav from "../../components/common/BottomNav";
 // 페이지
 import ParentHome from "../../views/parent/home/Home";
 import ChlidInfo from "../../views/parent/home/ChildInfo";
+import InvestManage from "../../views/parent/activity/InvestManage.vue";
 
 export default [
   {
@@ -36,6 +37,24 @@ export default [
         backBtnPath: "/parent/home",
       },
       default: true,
+    },
+    meta: {
+      isParentPage: true,
+    },
+  },
+  {
+    path: "/parent/todo/invest",
+    name: "TodoInvest",
+    components: {
+      default: InvestManage,
+      header: BackHeader,
+      footer: BottomNav,
+    },
+    props: {
+      header: {
+        pageTitle: "투자 활동 관리",
+        backBtnPath: "/parent/home",
+      },
     },
     meta: {
       isParentPage: true,

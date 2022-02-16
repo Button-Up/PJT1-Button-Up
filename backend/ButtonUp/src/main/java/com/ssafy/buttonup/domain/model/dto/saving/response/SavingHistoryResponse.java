@@ -14,10 +14,10 @@ public class SavingHistoryResponse {
 
     /* 입금한 날짜 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date savingDate;
+    private Date date;
 
     /* 내용 */
-    private String content;
+    private String catetory;
 
     /* 입금한 금액 */
     private int money;
