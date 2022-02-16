@@ -18,7 +18,11 @@
       </thead>
       <tbody>
         <tr>
-          <td v-for="item in desserts" :key="item.name" class="text-center">{{ item }}</td>
+          <td class="text-center">{{ nowPrice }}</td>
+          <td class="text-center">{{ count }}</td>
+          <td class="text-center">{{ avaragePrice }}</td>
+          <td class="text-center">{{ profit }}</td>
+          <td class="text-center">{{ Math.round(profitRate) }}%</td>
         </tr>
       </tbody>
     </template>
@@ -30,8 +34,34 @@ export default {
   data() {
     return {
       headers: ["현재 가격", "보유 주식 수", "평균 가격", "손익", "수익률"],
-      desserts: [11, 22, 33, 44, 55],
     };
+  },
+  computed: {
+    profit() {
+      return this.nowPrice * this.count - this.avaragePrice * this.count;
+    },
+    profitRate() {
+      if (this.count == 0) return 0;
+      else
+        return (
+          ((this.nowPrice * this.count - this.avaragePrice * this.count) * 100) /
+          (this.avaragePrice * this.count)
+        );
+    },
+  },
+  props: {
+    nowPrice: {
+      type: Number,
+      default: 0,
+    },
+    count: {
+      type: Number,
+      default: 0,
+    },
+    avaragePrice: {
+      type: Number,
+      default: 0,
+    },
   },
 };
 </script>

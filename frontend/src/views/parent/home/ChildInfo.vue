@@ -21,8 +21,9 @@
         </BottomSheet>
       </v-row>
       <v-row>
-        <v-col class="mt-2 pa-1 align-center">
-          <ChildAccount :isDeposit="true" :amount="this.getDefaultBalance"></ChildAccount>
+        <v-col v-for="(account, a) in accounts" :key="a" class="mt-2 pa-1 align-center">
+          <!-- <ChildAccount :account="account"></ChildAccount> -->
+          <ChildAccount :isDeposit="account.isDeposit" :amount="account.amount"></ChildAccount>
         </v-col>
       </v-row>
       <v-list-item> </v-list-item>
@@ -36,42 +37,22 @@
 </template>
 
 <script>
-import BottomSheet from "@/components/common/BottomSheet";
-import JobWithTodoListCard from "../../../components/common/JobWithTodoListCard.vue";
-import ChildAccount from "../../../components/parent/home/ChildAccount.vue";
-import Deposit from "../../../components/parent/home/Deposit.vue";
-import { mapGetters } from "vuex";
-import { apiGetChildsJob } from "@/api/jobsAPI.js";
+import BottomSheet from '@/components/common/BottomSheet';
+import JobWithTodoListCard from '../../../components/common/JobWithTodoListCard.vue';
+import ChildAccount from '../../../components/parent/home/ChildAccount.vue';
+import Deposit from '../../../components/parent/home/Deposit.vue';
+import { mapGetters } from 'vuex';
+import { apiGetChildsJob } from '@/api/jobsAPI.js';
+import { apiGetSavingsBalance } from '@/api/savingsAPI.js';
 
 export default {
-  name: "ChildInfo",
+  name: 'ChildInfo',
   components: { BottomSheet, JobWithTodoListCard, ChildAccount, Deposit },
   props: {
     child: Object,
   },
   data() {
     return {
-      // job: {
-      //   name: "청소부",
-      //   image: "https://cdn.vuetifyjs.com/images/john.jpg",
-      //   TodoList: [
-      //     {
-      //       done: false,
-      //       task: "투자 가격 업데이트",
-      //       url: "/parent/activity",
-      //     },
-      //     {
-      //       done: true,
-      //       task: "투자 가격 업데이트",
-      //       url: "/parent/userinfo",
-      //     },
-      //     {
-      //       done: true,
-      //       task: "투자 가격 업데이트",
-      //       url: "/parent/userinfo",
-      //     },
-      //   ],
-      // },
       job: {},
     };
   },
@@ -85,12 +66,43 @@ export default {
         console.log(error);
       }
     );
+    this.getSaving();
   },
   computed: {
-    ...mapGetters("accountStore", ["getDefaultBalance"]),
+    ...mapGetters('accountStore', ['getDefaultBalance']),
+
+    accounts() {
+      var accounts = [];
+      accounts.push({
+        isDeposit: true,
+        amount: this.getDefaultBalance,
+      });
+      return accounts;
+    },
   },
   mounted() {
-    this.$store.dispatch("accountStore/vuexUpdateDefaultBalance", this.child.seq);
+    this.$store.dispatch('accountStore/vuexUpdateDefaultBalance', this.child.seq);
+  },
+  methods: {
+    getSaving() {
+      apiGetSavingsBalance(
+        this.child.seq,
+        (response) => {
+          console.log(response);
+          var savingAccount = response.data;
+          if (savingAccount.stateType) {
+            var saving = {
+              isDeposit: false,
+              amount: response.data.balance,
+            };
+            this.accounts.push(saving);
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
   },
 };
 </script>

@@ -19,7 +19,7 @@
         <v-card class="fill-height d-flex flex-column justify-center">
           <div class="px-6 pb-16">
             <h2>{{ postList[$route.params.seq - 1].title }}</h2>
-            <p>{{ postList[$route.params.seq - 1].content }}</p>
+            <v-subheader class="ps-0">{{ postList[$route.params.seq - 1].content }}</v-subheader>
 
             <SelectInput v-if="$route.params.seq == 1" @setPreset="setPreset"> </SelectInput>
             <PriceInput v-else :preset="selectPreset" @setPrice="setPrice"></PriceInput>
@@ -101,7 +101,7 @@ export default {
     ...mapGetters("userStore", ["checkUserInfo"]),
   },
   methods: {
-    ...mapActions("investStore", ["vuexAddNewInvest", "vuexUpdateInvestList"]),
+    ...mapActions("investStore", ["vuexAddNewInvest", "vuexGetInvestList"]),
     setPreset(preset, target) {
       this.selectPreset = preset;
       this.target = target;
@@ -117,7 +117,7 @@ export default {
         price: this.price,
         target: this.target,
       });
-      this.vuexUpdateInvestList(this.checkUserInfo.seq);
+      this.vuexGetInvestList(this.checkUserInfo.seq);
     },
   },
 };

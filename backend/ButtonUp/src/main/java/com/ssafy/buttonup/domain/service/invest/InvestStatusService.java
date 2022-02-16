@@ -1,13 +1,17 @@
 package com.ssafy.buttonup.domain.service.invest;
 
+import com.ssafy.buttonup.domain.model.dto.account.request.HistoryRequest;
 import com.ssafy.buttonup.domain.model.dto.invest.request.InvestStatusRequest;
 import com.ssafy.buttonup.domain.model.dto.invest.response.InvestStatusResponse;
+import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryCategory;
+import com.ssafy.buttonup.domain.model.entity.account.AccountHistoryType;
 import com.ssafy.buttonup.domain.model.entity.invest.InvestStatus;
 import com.ssafy.buttonup.domain.model.entity.invest.Investment;
 import com.ssafy.buttonup.domain.model.entity.user.Child;
 import com.ssafy.buttonup.domain.repository.invest.InvestRepository;
 import com.ssafy.buttonup.domain.repository.invest.InvestStatusRepository;
 import com.ssafy.buttonup.domain.repository.invest.SharePriceRepository;
+import com.ssafy.buttonup.domain.service.account.AccountService;
 import com.ssafy.buttonup.exception.BalanceOverException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,10 +26,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class InvestStatusService extends SharePriceService {
     private final InvestStatusRepository statusRepository;
+    public final AccountService accountService;
 
-    public InvestStatusService(SharePriceRepository priceRepository, InvestRepository investRepository, InvestStatusRepository statusRepository) {
+    public InvestStatusService(SharePriceRepository priceRepository, InvestRepository investRepository, InvestStatusRepository statusRepository, AccountService accountService) {
         super(priceRepository, investRepository);
         this.statusRepository = statusRepository;
+        this.accountService = accountService;
     }
 
 
@@ -51,6 +57,21 @@ public class InvestStatusService extends SharePriceService {
         InvestStatus status = statusRepository.getById(request.getSeq());
         status.buyOrSellInvest(request.getCount(), request.getPrice());
         statusRepository.save(status);
+
+        AccountHistoryCategory category = AccountHistoryCategory.투자;
+        AccountHistoryType accountHistoryType = AccountHistoryType.출금;
+        String content = "매수";
+        if(request.getCount() < 0) {
+            content = "매도";
+            accountHistoryType = AccountHistoryType.입금;
+        }
+        HistoryRequest historyRequest = HistoryRequest.builder()
+                .category(category)
+                .content(content)
+                .money(request.getPrice())
+                .childSeq(status.getChild().getSeq())
+                .build();
+        accountService.insertAccountHistory(historyRequest, accountHistoryType);       // 입출금 내역 추가(출금)
     }
 
     /**

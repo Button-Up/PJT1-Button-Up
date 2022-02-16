@@ -21,6 +21,7 @@
             :isParent="true"
             :job="job"
             :checkboxOn="false"
+            :doList="job.toDos"
           ></JobWithTodoListCard>
         </v-slide-item>
       </v-slide-group>
@@ -70,6 +71,16 @@
         </v-list-item>
       </template>
       <v-divider></v-divider>
+
+      <v-snackbar v-model="snackbar" :timeout="timeout" color="parent01" text bottom class="mb-16">
+        <strong> {{ text }}</strong>
+
+        <template v-slot:action="{ attrs }">
+          <v-btn color="parent01" text v-bind="attrs" @click="snackbar = false">
+            <v-icon dark> mdi-close </v-icon></v-btn
+          >
+        </template>
+      </v-snackbar>
     </div>
   </div>
 </template>
@@ -85,6 +96,9 @@ export default {
   },
   data() {
     return {
+      snackbar: false,
+      text: '아이의 직업이 설정되었습니다',
+      timeout: 2000,
       jobs: [],
       children: [],
     };
@@ -125,6 +139,8 @@ export default {
         (response) => {
           console.log(response.data);
           console.log('성공');
+          this.snackbar = true;
+          this.text = child.name + '의 직업은 ' + response.data.name + '입니다. ';
         },
         (error) => {
           console.log(error);

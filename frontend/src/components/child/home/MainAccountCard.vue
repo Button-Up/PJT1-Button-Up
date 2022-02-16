@@ -13,7 +13,7 @@ author: 유현수
       @click="goToPage"
     >
       <div class="text-center">
-        <div>예금</div>
+        <div>{{ item.isDeposit ? "예금" : "적금" }}</div>
         <h1 class="text-h4 black--text font-weight-bold my-1">{{ this.item.balance }}</h1>
         <div>단추</div>
       </div>
@@ -29,7 +29,11 @@ export default {
   },
   methods: {
     goToPage() {
-      this.$router.push(this.item.isDeposit ? '/child/account-history/deposit' : '/child/account-history/installment');
+      this.$router.push(
+        this.item.isDeposit
+          ? "/child/account-history/deposit"
+          : "/child/account-history/installment"
+      );
     },
   },
 };
