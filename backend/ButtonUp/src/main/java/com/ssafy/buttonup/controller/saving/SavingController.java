@@ -64,7 +64,7 @@ public class SavingController {
     }
 
     /**
-     * 적금 잔액 조회
+     * 적금 잔액 & 상태 타입 조회
      *
      * @param childSeq
      * @return

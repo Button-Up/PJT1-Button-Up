@@ -111,18 +111,28 @@ public class SavingService {
      */
     public SavingBalanceResponse getSavingBalance(long childSeq) {
         Saving savingSeq = savingRepository.findTopByChild_SeqOrderByDateDesc(childSeq);
-        SavingHistory recentHistory = savingHistoryRepository.findTopBySaving_SeqOrderByDateDesc(savingSeq.getSeq());
+        if(savingSeq == null){
+            SavingBalanceResponse savingBalanceResponse = SavingBalanceResponse.builder()
+                    .StateType(false)
+                    .balance(-1)
+                    .build();
 
-        if(savingSeq.isStateTypeFlag() == false){
-            recentHistory.setBalance(-1);
+            return savingBalanceResponse;
+        }else{
+            SavingHistory recentHistory = savingHistoryRepository.findTopBySaving_SeqOrderByDateDesc(savingSeq.getSeq());
+
+            if(savingSeq.isStateTypeFlag() == false){
+                recentHistory.setBalance(-1);
+            }
+
+            SavingBalanceResponse savingBalanceResponse = SavingBalanceResponse.builder()
+                    .StateType(savingSeq.isStateTypeFlag())
+                    .balance(recentHistory.getBalance())
+                    .build();
+
+            return savingBalanceResponse;
         }
 
-        SavingBalanceResponse savingBalanceResponse = SavingBalanceResponse.builder()
-                .StateType(savingSeq.isStateTypeFlag())
-                .balance(recentHistory.getBalance())
-                .build();
-
-        return savingBalanceResponse;
     }
 
     /**
