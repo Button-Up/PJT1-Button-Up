@@ -12,7 +12,7 @@ import javax.persistence.*;
 /**
  * 직업 엔티티
  *
- * @author jiun kim
+ * @author Jiun Kim
  * created on 2022-02-04
  */
 @Entity
@@ -36,40 +36,35 @@ public class Job {
     @Column(name = "job_name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_job_image_seq")
-    private JobImage jobImage;
+    @Column(name = "job_image_path")
+    private String jobImagePath;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_parent_seq")
     private Parent parent;
 
-    /*@OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
-    private List<ToDo> toDos = new ArrayList<>();*/
-
     @Builder
-    public Job(PayTerm payTerm, int pay, String name, JobImage jobImage, Parent parent) {
+    public Job(PayTerm payTerm, int pay, String name, String jobImagePath, Parent parent) {
         this.payTerm = payTerm;
         this.pay = pay;
         this.name = name;
-        this.jobImage = jobImage;
+        this.jobImagePath = jobImagePath;
         this.parent = parent;
     }
 
     /**
      * Job Entity를 Response dto로 바꿔주는 메서드
      *
-     * @param job Job Entity
      * @return JobResponse
      */
-    public static JobResponse ToResponse(Job job) {
-
+    public JobResponse ToResponse() {
         return JobResponse.builder()
-                .seq(job.getSeq())
-                .payTerm(job.getPayTerm())
-                .pay(job.getPay())
-                .name(job.getName())
-                .jobImagePath(checkImageIsNull(job.getJobImage()))
+                .seq(seq)
+                .payTerm(payTerm)
+                .pay(pay)
+                .name(name)
+//                .jobImagePath(checkImageIsNull(jobImage))
+                .jobImagePath(jobImagePath)
                 .build();
     }
 

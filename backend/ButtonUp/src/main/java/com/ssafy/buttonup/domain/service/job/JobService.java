@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 직업 관련 서비스 구현체
  *
- * @author jiun kim
+ * @author Jiun Kim
  * created on 2022-02-06
  */
 @Service
@@ -54,8 +54,8 @@ public class JobService extends ImageService {
      */
     public JobResponse getChildJob(long childSeq) throws NullJobException {
         try {
-            return Job.ToResponse(jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(childSeq).getJob());
-        }catch (NullPointerException e){
+            return jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(childSeq).getJob().ToResponse();
+        } catch (NullPointerException e) {
             throw new NullJobException("직업 없음");
         }
     }
@@ -74,12 +74,12 @@ public class JobService extends ImageService {
         List<JobResponse> list = new ArrayList<>();
 
         for (Job job : jobs) {
-            JobResponse jobResponse = Job.ToResponse(job);
+            JobResponse jobResponse = job.ToResponse();
 
             List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(job.getSeq());
 
             List<ToDoResponse> toDoResponses = new ArrayList<>();
-            for(ToDo toDo: toDos){
+            for (ToDo toDo : toDos) {
                 toDoResponses.add(ToDoResponse.builder()
                         .seq(toDo.getSeq())
                         .content(toDo.getContent())
@@ -101,12 +101,12 @@ public class JobService extends ImageService {
     public JobResponse getJob(long jobSeq) {
 
         Job job = jobRepository.getById(jobSeq);
-        JobResponse jobResponse = Job.ToResponse(job);
+        JobResponse jobResponse = job.ToResponse();
 
         List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(job.getSeq());
 
         List<ToDoResponse> toDoResponses = new ArrayList<>();
-        for(ToDo toDo: toDos){
+        for (ToDo toDo : toDos) {
             toDoResponses.add(ToDoResponse.builder()
                     .seq(toDo.getSeq())
                     .content(toDo.getContent())
@@ -135,21 +135,22 @@ public class JobService extends ImageService {
             e.printStackTrace();
         }*/
 
-        long jobImageSeq = request.getJobImageSeq();
-        JobImage jobImage = jobImageSeq == 0 ? null : imageRepository.getById(jobImageSeq);
+//        long jobImageSeq = request.getJobImageSeq();
+//        JobImage jobImage = jobImageSeq == 0 ? null : imageRepository.getById(jobImageSeq);
 
         // 직업 추가
         Job job = Job.builder()
                 .payTerm(request.getPayTerm())
                 .pay(request.getPay())
                 .name(request.getName())
-                .jobImage(jobImage)
+//                .jobImage(jobImage)
+                .jobImagePath(request.getJobImagePath())
                 .parent(parentRepository.getById(request.getParentSeq()))
                 .build();
         jobRepository.save(job);
 
         // 직업 할일 리스트 추가
-        for(String str: request.getToDoContents()){
+        for (String str : request.getToDoContents()) {
             toDoRepository.save(ToDo.builder()
                     .content(str)
                     .job(job)
@@ -181,20 +182,18 @@ public class JobService extends ImageService {
                 .build();
         jobHistoryRepository.save(newJobHistory);
 
-        // TODO: 새로운 직업에 대한 할일 체크리스트 추가하기
-
         //request에 있는 직업키로 할일 리스트 조회
         List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(request.getJobSeq());
 
-        for(ToDo toDo:toDos){
+        for (ToDo toDo : toDos) {
             ToDoCheck toDoCheck = toDoCheckRepository.findByChild_SeqAndToDo_SeqOrderBySeqDesc(request.getChildSeq(), toDo.getSeq());
-            if(toDoCheck!=null){
+            if (toDoCheck != null) {
                 return getJob(request.getJobSeq());
             }
         }
 
         //리스트 돌면서 체크리스트 생성
-        for(ToDo toDo : toDos){
+        for (ToDo toDo : toDos) {
             toDoCheckRepository.save(ToDoCheck.builder()
                     .flag(false)
                     .toDo(toDo)
