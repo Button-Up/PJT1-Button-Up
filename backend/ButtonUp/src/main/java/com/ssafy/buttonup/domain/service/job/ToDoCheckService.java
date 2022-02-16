@@ -43,12 +43,29 @@ public class ToDoCheckService {
 
     @Transactional
     public List<ToDoCheckResponse> getCheckList(long childSeq){
-        //현재 직업 가져오기
-        JobHistory jobHistory = jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(childSeq);
-        //현재 직업의 할일 가져오기
-        List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(jobHistory.getJob().getSeq());
 
         List<ToDoCheckResponse> list = new ArrayList<>();
+
+        //현재 직업 가져오기
+        JobHistory jobHistory = jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(childSeq);
+        if(jobHistory==null){
+            ToDoCheckResponse toDoCheckResponse = ToDoCheckResponse.builder()
+                    .seq(-1)
+                    .content("직업을 먼저 설정해주세요!")
+                    .build();
+            list.add(toDoCheckResponse);
+            return list;
+        }
+        //현재 직업의 할일 가져오기
+        List<ToDo> toDos = toDoRepository.findByJob_SeqOrderBySeqDesc(jobHistory.getJob().getSeq());
+        if(jobHistory==null){
+            ToDoCheckResponse toDoCheckResponse = ToDoCheckResponse.builder()
+                    .seq(-1)
+                    .content("할일이 없네요ㅠㅠ 직업에서 할일을 추가해주세요!")
+                    .build();
+            list.add(toDoCheckResponse);
+            return list;
+        }
 
         //체크리스트 가져오고 dto 만들기
         for(ToDo toDo : toDos ) {
