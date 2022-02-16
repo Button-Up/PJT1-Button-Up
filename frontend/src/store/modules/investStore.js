@@ -19,7 +19,7 @@ const investStore = {
   state: {
     presetList: [], // 프리셋 리스트
     investList: [], // 투자 목록
-    investment: null, // 투자 디테일
+    investment: [], // 투자 디테일
     priceList: [], //가격 목록
     newsList: [], // 뉴스 목록
     isWritedNews: false, // 오늘의 뉴스 등록 여부
@@ -28,6 +28,7 @@ const investStore = {
   getters: {
     getPresetList: (state) => state.presetList,
     getInvestList: (state) => state.investList,
+    getInvestment: (state) => state.investment,
     getPriceList: (state) => state.priceList,
     getNewsList: (state) => state.newsList,
     getIsWritedNews: (state) => state.isWritedNews,
@@ -100,10 +101,14 @@ const investStore = {
      * @param {*} investSeq 투자 종목 키
      * @param {*} childSeq 자녀 키
      */
-    async vuexGetInvestStatus({ commit }, investSeq, childSeq) {
-      await apiGetInvestStatusByChild(investSeq, childSeq, (resp) => {
-        commit("SET_INVESTMENT", resp.data);
+    async vuexGetInvestStatus({ commit }, data) {
+      let investInfoList = [];
+      await data.investSeqArr.forEach((investSeq) => {
+        apiGetInvestStatusByChild(investSeq, data.childSeq, (resp) => {
+          investInfoList.push(resp.data);
+        });
       });
+      commit("SET_INVESTMENT", investInfoList);
     },
     /**
      * 투자 목록 불러오기
@@ -111,7 +116,7 @@ const investStore = {
      * @param {*} param0
      * @param {*} parentSeq 부모 키
      */
-    async vuexUpdateInvestList({ commit }, parentSeq) {
+    async vuexGetInvestList({ commit }, parentSeq) {
       await apiGetAllInvest(parentSeq, (resp) => {
         commit("SET_INVEST_LIST", resp.data);
       });

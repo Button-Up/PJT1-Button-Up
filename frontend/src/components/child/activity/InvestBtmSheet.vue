@@ -74,6 +74,7 @@
 
 <script>
 import BottomSheet from "@/components/common/BottomSheet.vue";
+import { apiPutInvestStatus } from "@/api/investAPI";
 
 export default {
   components: {
@@ -82,6 +83,20 @@ export default {
   computed: {
     totalPrice: function () {
       return this.investAmount * this.price;
+    },
+  },
+  methods: {
+    requestExchange() {
+      let info = {
+        count: this.isBuy ? this.investAmount : -this.investAmount,
+        price: this.price,
+        seq: this.investStatusSeq,
+      };
+      console.log(info);
+      apiPutInvestStatus(info, (resp) => {
+        console.log(resp);
+        //this.$emit("getData", this.investStatusSeq);
+      });
     },
   },
   data() {
@@ -99,6 +114,9 @@ export default {
     },
     name: {
       type: String,
+    },
+    investStatusSeq: {
+      type: Number,
     },
   },
 };
