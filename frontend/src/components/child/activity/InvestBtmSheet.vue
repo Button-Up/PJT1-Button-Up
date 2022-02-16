@@ -95,7 +95,7 @@ export default {
       console.log(info);
       apiPutInvestStatus(info, (resp) => {
         console.log(resp);
-        //this.$emit("getData", this.investStatusSeq);
+        this.$emit("getData", this.investStatusSeq);
       });
     },
   },
