@@ -1,7 +1,13 @@
 <template>
   <div>
     <!-- 파트 1 -->
-    <v-sheet width="100%" height="880px" color="#3dbf69" class="d-flex justify-center align-center">
+    <v-sheet
+      width="100%"
+      height="880px"
+      color="#3dbf69"
+      class="d-flex justify-center align-center"
+      id="header"
+    >
       <div class="text-center white--text">
         <h1>
           우리 아이 경제 교육 <span class="yellow--text">첫단추</span> <br />
@@ -65,6 +71,13 @@
           경제 공부방에서 퀴즈로 배울 수 있어요
         </p>
         <v-img :src="mockupImg3" max-width="260px" class="mt-6"></v-img>
+        <div>
+          <v-fab-transition
+            ><v-btn bottom right fixed fab dark small @click="$vuetify.goTo('#header')">
+              <v-icon>fas fa-angle-double-up</v-icon></v-btn
+            ></v-fab-transition
+          >
+        </div>
       </div>
     </v-sheet>
   </div>
@@ -81,6 +94,18 @@ export default {
       mockupImg2: require("../../assets/image/mockup-child-invest.png"),
       mockupImg3: require("../../assets/image/mockup-child-study.png"),
     };
+  },
+  methods: {
+    handleScroll() {
+      this.btnShow = window.scrollY > 400;
+    },
+  },
+
+  beforeMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>
