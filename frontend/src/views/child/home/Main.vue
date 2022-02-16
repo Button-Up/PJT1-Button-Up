@@ -24,11 +24,11 @@ modified: 우정연 - 아이 체크리스트 조회 및 직업 조회
           </v-slide-item>
 
           <!-- 적금 계좌 -->
-          <v-slide-item>
+          <v-slide-item v-if="stateType">
             <MainAccountCard
               :item="{
                 isDeposit: false,
-                balance: 6000,
+                balance: this.savingBalance,
               }"
             ></MainAccountCard>
           </v-slide-item>
@@ -62,6 +62,7 @@ import MainAccountCard from "@/components/child/home/MainAccountCard";
 import TodoList from "@/components/common/TodoList.vue";
 import { apiGetCheckListRow } from "@/api/checkListAPI";
 import { apiGetChildsJob } from "@/api/jobsAPI";
+import { apiGetSavingsBalance } from "@/api/savingsAPI.js";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -75,11 +76,14 @@ export default {
     return {
       todoList: [],
       job: {},
+      stateType: false,
+      savingBalance: 0,
     };
   },
   created() {
     this.getList();
     this.getChildJob();
+    this.getSavingsBalance();
   },
   computed: {
     ...mapGetters("accountStore", ["getDefaultBalance"]),
@@ -103,6 +107,12 @@ export default {
     getChildJob() {
       apiGetChildsJob(this.checkUserInfo.seq, ({ data }) => {
         this.job = data;
+      });
+    },
+    getSavingsBalance() {
+      apiGetSavingsBalance(this.checkUserInfo.seq, ({ data }) => {
+        this.savingBalance = data.balance;
+        this.stateType = data.stateType;
       });
     },
   },
