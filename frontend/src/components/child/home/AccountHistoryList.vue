@@ -10,7 +10,9 @@ author: 유현수
       <v-list-item :key="`item-${idx}`" three-line>
         <div>
           <div class="d-flex align-center">
-            <span class="mr-2 gray--text">{{ accountHistory.category }}</span>
+            <span class="mr-2 gray--text">{{
+              isDeposit ? accountHistory.category : accountHistory.catetory
+            }}</span>
             <span v-if="isDeposit" class="text-caption">{{ accountHistory.content }}</span>
           </div>
           <v-list-item-subtitle>{{ accountHistory.date }}</v-list-item-subtitle>
