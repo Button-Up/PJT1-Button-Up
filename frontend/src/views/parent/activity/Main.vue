@@ -18,7 +18,7 @@
       title="투자 활동 관리"
       subtitle=""
       @click.native="
-        $router.push('/parent/activity/invest' + (getInvestList.length === 0 ? '/new' : ''))
+        $router.push('/parent/activity/invest' + (getInvestList.length === 0 ? '/new/1' : ''))
       "
     ></CardMenu>
     <br />

@@ -52,6 +52,8 @@
 </template>
 
 <script>
+import { apiGetContentOfTopic } from "@/api/economyAPI.js";
+
 export default {
   name: "StudyDetail",
   data() {
@@ -84,6 +86,17 @@ export default {
         },
       ],
     };
+  },
+  created() {
+    apiGetContentOfTopic(
+      this.$route.params.topicSeq,
+      (response) => {
+        this.postList = response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
 };
 </script>

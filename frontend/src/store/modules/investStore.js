@@ -8,7 +8,7 @@ import {
   apiPutInvestStatus,
   apiGetInvestStatusByChild,
   apiGetAllInvest,
-  apiPostNewPrice,
+  // apiPostNewPrice,
   apiGetSharePrice,
   apiPostNews,
   apiGetAllNew,
@@ -23,6 +23,7 @@ const investStore = {
     priceList: [], //가격 목록
     newsList: [], // 뉴스 목록
     isWritedNews: false, // 오늘의 뉴스 등록 여부
+    isNewInvest: false, // 오늘의 뉴스 등록 여부
   },
   getters: {
     getPresetList: (state) => state.presetList,
@@ -51,6 +52,9 @@ const investStore = {
     SET_IS_WRITED_NEWS(state, payload) {
       state.isWritedNews = payload;
     },
+    SET_IS_NEW_INVEST(state, payload) {
+      state.isNewInvest = payload;
+    },
   },
   actions: {
     /**
@@ -69,11 +73,12 @@ const investStore = {
      * @param {*} param0
      * @param {*} invest 새 투자
      */
-    async vuexAddNewInvest(invest) {
+    async vuexAddNewInvest({ commit }, invest) {
       await apiPostNewInvest(invest, (resp) => {
         console.log(resp, "투자 등록 완료");
+        commit("SET_IS_NEW_INVEST", true);
         // 투자 목록 다시 업데이트
-        this.vuexUpdateInvestList(invest.parentSeq);
+        // this.vuexUpdateInvestList(invest.parentSeq);
       });
     },
     /**
@@ -82,11 +87,11 @@ const investStore = {
      * @param {*} param0
      * @param {*} status 투자 현황
      */
-    async vuexUpdateInvestStatus(status, investSeq, childSeq) {
+    async vuexUpdateInvestStatus(status) {
       await apiPutInvestStatus(status, (resp) => {
         console.log(resp, "현황 업데이트 완료");
         // 현황 다시 불러오기
-        this.vuexGetInvestStatus(investSeq, childSeq);
+        // this.vuexGetInvestStatus(investSeq, childSeq);
       });
     },
     /**
@@ -121,12 +126,12 @@ const investStore = {
      *
      * @param {*} priceInfo 가격 정보
      */
-    async vuexAddPrice(priceInfo) {
-      await apiPostNewPrice(priceInfo, (resp) => {
-        console.log(resp, "새로운 가격 정보 추가 완료");
-        this.vuexGetPriceList(priceInfo.investSeq);
-      });
-    },
+    // async vuexAddPrice(priceInfo) {
+    //   await apiPostNewPrice(priceInfo, (resp) => {
+    //     console.log(resp, "새로운 가격 정보 추가 완료");
+    //     // this.vuexGetPriceList(priceInfo.investSeq);
+    //   });
+    // },
     /**
      * 투자 종목별 시세 목록 조회
      * @param {*} param0
