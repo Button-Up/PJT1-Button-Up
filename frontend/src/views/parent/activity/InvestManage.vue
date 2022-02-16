@@ -40,6 +40,15 @@
     ></v-text-field>
 
     <v-btn block color="parent01" class="white--text mt-4" @click="submitNews">뉴스 보내기</v-btn>
+    <v-snackbar v-model="snackbar" :timeout="timeout" color="parent01" text bottom class="mb-16">
+      <strong> {{ text }}</strong>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="parent01" text v-bind="attrs" @click="snackbar = false">
+          <v-icon dark> mdi-close </v-icon></v-btn
+        >
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -56,23 +65,9 @@ export default {
     return {
       dialog: false,
       news: '',
-      TodoList: [
-        {
-          done: true,
-          content: '환전/결제 요청 확인',
-          url: '/parent/request-list',
-        },
-        {
-          done: true,
-          content: '투자 가격 업데이트',
-          url: '/parent/userinfo',
-        },
-        {
-          done: true,
-          content: '투자 가격 업데이트',
-          url: '/parent/userinfo',
-        },
-      ],
+      snackbar: false,
+      text: '오늘의 투자 뉴스가 전송되었습니다.',
+      timeout: 2000,
     };
   },
   mounted() {
@@ -87,7 +82,7 @@ export default {
         convertInvest.push({
           done: true,
           content: investItem.name,
-          url: '/parent/activity/job',
+          url: '/parent/activity/invest/' + investItem.seq,
         });
       }
       return convertInvest;
@@ -106,6 +101,7 @@ export default {
       console.log(param);
       this.$store.dispatch('investStore/vuexAddNews', param);
       this.news = '';
+      this.snackbar = true;
     },
     clicYesBtn() {
       console.log('yes 버튼 눌렀다');
