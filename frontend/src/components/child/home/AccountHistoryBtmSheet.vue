@@ -9,6 +9,7 @@ modified: 우정연 - 환전 요청 api 연결, 환전할 단추 개수 입력�
     :btnName="isDeposit ? '환전 요청하기' : '적금 해지하기'"
     btnClass="font-weight-bold mt-3"
     sheetHeight="280px"
+    customBtnWidth="120px"
   >
     <template v-slot:body>
       <v-card class="rounded-0" :elevation="0">
@@ -49,7 +50,11 @@ modified: 우정연 - 환전 요청 api 연결, 환전할 단추 개수 입력�
             block
             :color="isDeposit ? 'child01' : 'child04'"
             class="font-weight-bold"
-            @click="requestExchange()"
+            @click="
+              isDeposit
+                ? requestExchange()
+                : vuexCloseSaving(checkUserInfo.seq).then($router.push('/child/home'))
+            "
             >{{ isDeposit ? "환전 요청하기" : "적금 해지하기" }}</v-btn
           >
         </div>
@@ -83,6 +88,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions("savingStore", ["vuexCloseSaving"]),
     requestExchange() {
       if (this.isDeposit) {
         if (this.exchangeAmount <= 0 || this.exchangeAmount == null) {

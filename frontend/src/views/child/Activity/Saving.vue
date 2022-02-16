@@ -24,7 +24,7 @@
           >
             <h2>자유적립식적금 상품안내</h2>
             <v-img
-              src="https://cdn-icons.flaticon.com/png/512/3897/premium/3897455.png?token=exp=1644760271~hmac=d8daa8c39c0a66a1cc38cf01b39485bd"
+              src="https://cdn-icons-png.flaticon.com/512/4221/4221591.png"
               alt=""
               class="my-10"
               max-height="130px"
@@ -104,12 +104,7 @@
                   <v-card-text>적금 통장을 개설하시겠어요?</v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn
-                      color="child01"
-                      elevation="0"
-                      @click="dialog = false"
-                      to="/child/account-history/installment"
-                    >
+                    <v-btn color="child01" elevation="0" @click="[openSavings(), (dialog = false)]">
                       예
                     </v-btn>
                     <v-btn
@@ -132,12 +127,26 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "ChildSaving",
   data() {
     return {
       dialog: false,
     };
+  },
+  computed: {
+    ...mapGetters("userStore", ["checkUserInfo"]),
+  },
+  methods: {
+    ...mapActions("savingStore", ["vuexPostOpenSavings"]),
+    openSavings() {
+      this.vuexPostOpenSavings(this.checkUserInfo.seq).then(() => {
+        alert("적금 개설이 완료되었습니다.");
+        this.$router.push("/child/home");
+      });
+    },
   },
 };
 </script>

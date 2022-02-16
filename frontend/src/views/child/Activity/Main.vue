@@ -13,13 +13,14 @@
     ></CardMenu>
     <br />
     <CardMenu
+      v-if="!getSavingStatus"
       iconName="mdi-account-cash"
       customColor="child02"
       title="적금 통장 개설"
       subtitle="월 이자 n% 적금, 3분만에 간편하게 개설하기"
       @click.native="$router.push('/child/activity/saving/1')"
     ></CardMenu>
-    <br />
+    <br v-if="!getSavingStatus" />
     <CardMenu
       iconName="mdi-chart-areaspline-variant"
       customColor="child02"
@@ -32,11 +33,15 @@
 
 <script>
 import CardMenu from "@/components/common/CardMenu";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Activity",
   components: {
     CardMenu,
+  },
+  computed: {
+    ...mapGetters("savingStore", ["getSavingStatus"]),
   },
 };
 </script>
