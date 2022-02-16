@@ -4,7 +4,7 @@
   modified : 우정연 - 아이 체크리스트 수정되도록, 부모쪽 체크리스트 안보이도록 수정
 -->
 <template>
-  <div class="ma-2">
+  <div class="my-2 mx-0">
     <v-card
       :disabled="onlyRead"
       class="px-0"
