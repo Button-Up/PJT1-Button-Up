@@ -28,6 +28,9 @@ const savingStore = {
     getAccountHistory(state) {
       return state.accountHistory;
     },
+    getSavingAccountDetail(state) {
+      return state.savingAccountDetail;
+    },
   },
   mutations: {
     SET_SAVING_BALANCE(state, balance) {
@@ -45,7 +48,6 @@ const savingStore = {
       await apiGetSavingsBalance(
         childSeq,
         (res) => {
-          console.log(res.data);
           commit("SET_SAVING_BALANCE", res.data.balance);
           commit("SET_IS_SAVING_EXIST", res.data.stateType);
         },
@@ -57,9 +59,10 @@ const savingStore = {
     async vuexCloseSaving({ commit }, childSeq) {
       await apiCloseSavings(
         childSeq,
-        (res) => {
-          console.log(res.data);
+        () => {
+          console.log("적금 해지 완료!");
           commit("SET_IS_SAVING_EXIST", false);
+          alert("적금이 해지되었습니다.");
         },
         (err) => {
           console.log(err);
@@ -68,7 +71,6 @@ const savingStore = {
     },
     async vuexGetSavingDetails({ commit }, childSeq) {
       await apiGetSavingsDetails(childSeq, (res) => {
-        console.log(res.data);
         commit("SET_SAVING_ACCOUNT_DETAIL", res.data);
       });
     },
