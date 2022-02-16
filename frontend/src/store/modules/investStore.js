@@ -4,7 +4,7 @@
  */
 import {
   apiGetAllInvestPreset,
-  apiPostNewInvest,
+  // apiPostNewInvest,
   apiPutInvestStatus,
   apiGetInvestStatusByChild,
   apiGetAllInvest,
@@ -23,7 +23,7 @@ const investStore = {
     priceList: [], //가격 목록
     newsList: [], // 뉴스 목록
     isWritedNews: false, // 오늘의 뉴스 등록 여부
-    isNewInvest: false, // 오늘의 뉴스 등록 여부
+    // isNewInvest: false, // 오늘의 뉴스 등록 여부
   },
   getters: {
     getPresetList: (state) => state.presetList,
@@ -52,9 +52,9 @@ const investStore = {
     SET_IS_WRITED_NEWS(state, payload) {
       state.isWritedNews = payload;
     },
-    SET_IS_NEW_INVEST(state, payload) {
-      state.isNewInvest = payload;
-    },
+    // SET_IS_NEW_INVEST(state, payload) {
+    //   state.isNewInvest = payload;
+    // },
   },
   actions: {
     /**
@@ -73,14 +73,14 @@ const investStore = {
      * @param {*} param0
      * @param {*} invest 새 투자
      */
-    async vuexAddNewInvest({ commit }, invest) {
-      await apiPostNewInvest(invest, (resp) => {
-        console.log(resp, "투자 등록 완료");
-        commit("SET_IS_NEW_INVEST", true);
-        // 투자 목록 다시 업데이트
-        // this.vuexUpdateInvestList(invest.parentSeq);
-      });
-    },
+    // async vuexAddNewInvest({ commit }, invest) {
+    //   await apiPostNewInvest(invest, (resp) => {
+    //     console.log(resp, "투자 등록 완료");
+    //     commit("SET_IS_NEW_INVEST", true);
+    //     // 투자 목록 다시 업데이트
+    //     // this.vuexUpdateInvestList(invest.parentSeq);
+    //   });
+    // },
     /**
      * 투자 현황 업데이트
      *

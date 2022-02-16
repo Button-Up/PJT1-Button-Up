@@ -5,24 +5,24 @@
 
 // ----------------- 부모 활동관리 페이지 라우팅 -------------------------
 // 헤더 컴포넌트
-import GreetingHeader from '../../components/common/headers/GreetingHeader';
-import BackHeader from '../../components/common/headers/BackHeader';
+import GreetingHeader from "../../components/common/headers/GreetingHeader";
+import BackHeader from "../../components/common/headers/BackHeader";
 
 //바텀 네비게이션
-import BottomNav from '../../components/common/BottomNav';
+import BottomNav from "../../components/common/BottomNav";
 
 // 페이지
-import Main from '../../views/parent/activity/Main';
-import JobManager from '../../views/parent/activity/JobManage';
-import AddJob from '../../views/parent/activity/AddJob.vue';
-import InvestManage from '../../views/parent/activity/InvestManage.vue';
-import NewInvest from '../../views/parent/activity/NewInvest.vue';
-import InvestDetail from '../../views/parent/activity/InvestDetail.vue';
+import Main from "../../views/parent/activity/Main";
+import JobManager from "../../views/parent/activity/JobManage";
+import AddJob from "../../views/parent/activity/AddJob.vue";
+import InvestManage from "../../views/parent/activity/InvestManage.vue";
+import NewInvest from "../../views/parent/activity/NewInvest.vue";
+import InvestDetail from "../../views/parent/activity/InvestDetail.vue";
 
 export default [
   {
-    path: '/parent/activity',
-    name: 'ParentActivity',
+    path: "/parent/activity",
+    name: "ParentActivity",
     components: {
       default: Main,
       header: GreetingHeader,
@@ -33,8 +33,8 @@ export default [
     },
   },
   {
-    path: '/parent/activity/job',
-    name: 'JobManager',
+    path: "/parent/activity/job",
+    name: "JobManager",
     components: {
       default: JobManager,
       header: BackHeader,
@@ -42,8 +42,8 @@ export default [
     },
     props: {
       header: {
-        pageTitle: '직업관리',
-        backBtnPath: '/parent/activity',
+        pageTitle: "직업관리",
+        backBtnPath: "/parent/activity",
       },
     },
     meta: {
@@ -51,8 +51,8 @@ export default [
     },
   },
   {
-    path: '/parent/activity/job/add',
-    name: 'AddJob',
+    path: "/parent/activity/job/add",
+    name: "AddJob",
     components: {
       default: AddJob,
       header: BackHeader,
@@ -60,8 +60,8 @@ export default [
     },
     props: {
       header: {
-        pageTitle: '직업추가',
-        backBtnPath: '/parent/activity/job',
+        pageTitle: "직업추가",
+        backBtnPath: "/parent/activity/job",
       },
     },
     meta: {
@@ -69,8 +69,8 @@ export default [
     },
   },
   {
-    path: '/parent/activity/invest',
-    name: 'InvestMain',
+    path: "/parent/activity/invest",
+    name: "InvestMain",
     components: {
       default: InvestManage,
       header: BackHeader,
@@ -78,8 +78,8 @@ export default [
     },
     props: {
       header: {
-        pageTitle: '투자 활동 관리',
-        backBtnPath: '/parent/activity',
+        pageTitle: "투자 활동 관리",
+        backBtnPath: "/parent/activity",
       },
     },
     meta: {
@@ -87,8 +87,8 @@ export default [
     },
   },
   {
-    path: '/parent/activity/invest/new/:seq',
-    name: 'NewInvestment',
+    path: "/parent/activity/invest/new/:seq",
+    name: "NewInvestment",
     components: {
       default: NewInvest,
       header: BackHeader,
@@ -96,8 +96,8 @@ export default [
     },
     props: {
       header: {
-        pageTitle: '투자 활동 관리',
-        backBtnPath: '/parent/activity',
+        pageTitle: "투자 활동 관리",
+        backBtnPath: "/parent/activity",
       },
       default: true,
     },
@@ -106,8 +106,8 @@ export default [
     },
   },
   {
-    path: '/parent/activity/invest/:seq',
-    name: 'Investment',
+    path: "/parent/activity/invest/:seq",
+    name: "Investment",
     components: {
       default: InvestDetail,
       header: BackHeader,
@@ -115,8 +115,8 @@ export default [
     },
     props: {
       header: {
-        pageTitle: '투자 활동 상세',
-        backBtnPath: '/parent/activity/invest',
+        pageTitle: "투자 활동 상세",
+        backBtnPath: "/parent/activity/invest",
       },
       default: true,
     },

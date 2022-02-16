@@ -21,8 +21,19 @@
             <h2>{{ postList[$route.params.seq - 1].title }}</h2>
             <v-subheader class="ps-0">{{ postList[$route.params.seq - 1].content }}</v-subheader>
 
-            <SelectInput v-if="$route.params.seq == 1" @setPreset="setPreset"> </SelectInput>
-            <PriceInput v-else :preset="selectPreset" @setPrice="setPrice"></PriceInput>
+            <SelectInput
+              :target="target"
+              :selectPreset="selectPreset"
+              v-if="$route.params.seq == 1"
+              @setPreset="setPreset"
+            >
+            </SelectInput>
+            <PriceInput
+              v-else
+              :selectPreset="selectPreset"
+              :savedPrice="price"
+              @setPrice="setPrice"
+            ></PriceInput>
           </div>
         </v-card>
       </v-col>
@@ -42,6 +53,7 @@
           <v-col v-if="$route.params.seq != postList.length">
             <v-btn
               block
+              :disabled="!!target && selectPreset != null ? false : true"
               color="parent01"
               class="font-weight-bold white--text"
               :to="`/parent/activity/invest/new/${1 + +$route.params.seq}`"
@@ -51,6 +63,7 @@
           <v-col v-else>
             <v-btn
               block
+              :disabled="!!price && /^[0-9]*$/.test(price) ? false : true"
               color="parent02"
               class="font-weight-bold"
               @click.native="setInvest"
@@ -67,6 +80,7 @@
 <script>
 import SelectInput from "@/components/parent/activity/NewInvest/selectInput.vue";
 import PriceInput from "@/components/parent/activity/NewInvest/priceInput.vue";
+import { apiPostNewInvest } from "@/api/investAPI.js";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -99,25 +113,34 @@ export default {
   },
   computed: {
     ...mapGetters("userStore", ["checkUserInfo"]),
+    ...mapGetters("investStore", ["getInvestList"]),
   },
   methods: {
     ...mapActions("investStore", ["vuexAddNewInvest", "vuexGetInvestList"]),
     setPreset(preset, target) {
+      // console.log(preset, target);
       this.selectPreset = preset;
       this.target = target;
+      // console.log(this.selectPreset, this.target);
     },
     setPrice(value) {
       this.price = value;
       // console.log(this.price);
     },
     setInvest() {
-      this.vuexAddNewInvest({
-        investPresetSeq: this.selectPreset.seq,
-        parentSeq: this.checkUserInfo.seq,
-        price: this.price,
-        target: this.target,
-      });
-      this.vuexGetInvestList(this.checkUserInfo.seq);
+      apiPostNewInvest(
+        {
+          investPresetSeq: this.selectPreset.seq,
+          parentSeq: this.checkUserInfo.seq,
+          price: this.price,
+          target: this.target,
+        },
+        (resp) => {
+          console.log(resp, "투자 등록 완료");
+          // 투자 목록 다시 업데이트
+          this.vuexGetInvestList(this.checkUserInfo.seq);
+        }
+      );
     },
   },
 };
