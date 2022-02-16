@@ -7,7 +7,7 @@
     <v-slide-group v-model="selectedImageIdx" class="pa-0 ma-0" center-active>
       <v-slide-item v-for="(img, index) in images" :key="index" v-slot="{ active, toggle }">
         <v-card class="ma-4" height="180" width="180" @click="toggle">
-          <v-img class="fill-height" :src="img.imageUrl"> </v-img>
+          <v-img class="fill-height" :src="img"> </v-img>
 
           <v-fade-transition>
             <v-overlay v-if="active" absolute color="parent01">
@@ -142,6 +142,7 @@ export default {
       dialog: false,
       newJob: {
         jobImageSeq: 0,
+        jobImagePath: '',
         name: null,
         parentSeq: null,
         pay: null,
@@ -150,10 +151,18 @@ export default {
       },
       passwordConfirm: null,
       images: [
-        { no: 1, imageUrl: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg' },
-        { no: 2, imageUrl: 'https://picsum.photos/id/11/500/300' },
-        { no: 3, imageUrl: 'https://cdn.vuetifyjs.com/images/parallax/material2.jpg' },
-        { no: 4, imageUrl: 'https://picsum.photos/350/165?random' },
+        'https://cdn-icons-png.flaticon.com/512/3461/3461602.png',
+        'https://cdn-icons-png.flaticon.com/512/4605/4605529.png',
+        'https://cdn-icons-png.flaticon.com/512/1983/1983164.png',
+        'https://cdn-icons-png.flaticon.com/512/1995/1995539.png',
+        'https://cdn-icons-png.flaticon.com/512/3598/3598055.png',
+        'https://cdn-icons-png.flaticon.com/512/3048/3048404.png',
+        'https://cdn-icons-png.flaticon.com/512/6618/6618581.png',
+        'https://cdn-icons-png.flaticon.com/512/2451/2451319.png',
+        'https://cdn-icons-png.flaticon.com/512/2302/2302164.png',
+        'https://cdn-icons-png.flaticon.com/512/3255/3255797.png',
+        'https://cdn-icons-png.flaticon.com/512/1810/1810006.png',
+        'https://cdn-icons-png.flaticon.com/512/1809/1809376.png',
       ],
       selectedImageIdx: 0,
     };
@@ -174,6 +183,8 @@ export default {
     },
     clickAddJob() {
       this.newJob.parentSeq = this.checkUserInfo.seq;
+      this.newJob.jobImagePath = this.images[this.selectedImageIdx];
+      console.log(this.images[this.selectedImageIdx]);
       var param = this.newJob;
       console.log(param);
       apiAddJob(
