@@ -63,6 +63,7 @@ public class InvestStatusService extends SharePriceService {
         String content = "매수";
         if(request.getCount() < 0) {
             content = "매도";
+            accountHistoryType = AccountHistoryType.입금;
         }
         HistoryRequest historyRequest = HistoryRequest.builder()
                 .category(category)
