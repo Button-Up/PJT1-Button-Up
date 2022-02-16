@@ -12,14 +12,14 @@ import {
   apiGetSharePrice,
   apiPostNews,
   apiGetAllNew,
-} from '@/api/investAPI.js';
+} from "@/api/investAPI.js";
 
 const investStore = {
   namespaced: true,
   state: {
     presetList: [], // 프리셋 리스트
     investList: [], // 투자 목록
-    investment: null, // 투자 디테일
+    investment: [], // 투자 디테일
     priceList: [], //가격 목록
     newsList: [], // 뉴스 목록
     isWritedNews: false, // 오늘의 뉴스 등록 여부
@@ -60,7 +60,7 @@ const investStore = {
      */
     async vuexUpdatePreset({ commit }) {
       await apiGetAllInvestPreset((resp) => {
-        commit('SET_PRESET_LIST', resp.data);
+        commit("SET_PRESET_LIST", resp.data);
       });
     },
     /**
@@ -71,7 +71,7 @@ const investStore = {
      */
     async vuexAddNewInvest(invest) {
       await apiPostNewInvest(invest, (resp) => {
-        console.log(resp, '투자 등록 완료');
+        console.log(resp, "투자 등록 완료");
         // 투자 목록 다시 업데이트
         this.vuexUpdateInvestList(invest.parentSeq);
       });
@@ -84,7 +84,7 @@ const investStore = {
      */
     async vuexUpdateInvestStatus(status, investSeq, childSeq) {
       await apiPutInvestStatus(status, (resp) => {
-        console.log(resp, '현황 업데이트 완료');
+        console.log(resp, "현황 업데이트 완료");
         // 현황 다시 불러오기
         this.vuexGetInvestStatus(investSeq, childSeq);
       });
@@ -96,10 +96,14 @@ const investStore = {
      * @param {*} investSeq 투자 종목 키
      * @param {*} childSeq 자녀 키
      */
-    async vuexGetInvestStatus({ commit }, investSeq, childSeq) {
-      await apiGetInvestStatusByChild(investSeq, childSeq, (resp) => {
-        commit('SET_INVESTMENT', resp.data);
+    async vuexGetInvestStatus({ commit }, data) {
+      let investInfoList = [];
+      await data.investSeqArr.forEach((investSeq) => {
+        apiGetInvestStatusByChild(investSeq, data.childSeq, (resp) => {
+          investInfoList.push(resp.data);
+        });
       });
+      commit("SET_INVESTMENT", investInfoList);
     },
     /**
      * 투자 목록 불러오기
@@ -109,7 +113,7 @@ const investStore = {
      */
     async vuexGetInvestList({ commit }, parentSeq) {
       await apiGetAllInvest(parentSeq, (resp) => {
-        commit('SET_INVEST_LIST', resp.data);
+        commit("SET_INVEST_LIST", resp.data);
       });
     },
     /**
@@ -119,7 +123,7 @@ const investStore = {
      */
     async vuexAddPrice(priceInfo) {
       await apiPostNewPrice(priceInfo, (resp) => {
-        console.log(resp, '새로운 가격 정보 추가 완료');
+        console.log(resp, "새로운 가격 정보 추가 완료");
         this.vuexGetPriceList(priceInfo.investSeq);
       });
     },
@@ -130,7 +134,7 @@ const investStore = {
      */
     async vuexGetPriceList({ commit }, investSeq) {
       await apiGetSharePrice(investSeq, (resp) => {
-        commit('SET_PRICE_LIST', resp.data);
+        commit("SET_PRICE_LIST", resp.data);
       });
     },
     /**
@@ -141,7 +145,7 @@ const investStore = {
      */
     async vuexUpdateNewsList({ commit }, parentSeq) {
       await apiGetAllNew(parentSeq, (resp) => {
-        commit('SET_NEWS_LIST', resp.data);
+        commit("SET_NEWS_LIST", resp.data);
       });
     },
     /**
@@ -152,8 +156,8 @@ const investStore = {
     async vuexAddNews({ commit }, news) {
       console.log(news);
       await apiPostNews(news, (resp) => {
-        commit('SET_IS_WRITED_NEWS', true);
-        console.log(resp, '뉴스 등록 완료');
+        commit("SET_IS_WRITED_NEWS", true);
+        console.log(resp, "뉴스 등록 완료");
         // 뉴스 다시 업데이트
         // this.vuexUpdateNewsList({ commit }, news.parentSeq);
       });

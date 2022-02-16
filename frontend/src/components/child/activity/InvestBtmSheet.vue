@@ -74,27 +74,29 @@
 
 <script>
 import BottomSheet from "@/components/common/BottomSheet.vue";
-import { mapActions, mapGetters } from "vuex";
+import { apiPutInvestStatus } from "@/api/investAPI";
 
 export default {
   components: {
     BottomSheet,
   },
   computed: {
-    ...mapGetters("userStore", ["checkUserInfo"]),
     totalPrice: function () {
       return this.investAmount * this.price;
     },
   },
-  method: {
-    ...mapActions("investStore", ["vuexUpdateInvestStatus"]),
+  methods: {
     requestExchange() {
       let info = {
         count: this.isBuy ? this.investAmount : -this.investAmount,
         price: this.price,
         seq: this.investStatusSeq,
       };
-      this.vuexUpdateInvestStatus(info, this.investSeq, this.checkUserInfo.seq);
+      console.log(info);
+      apiPutInvestStatus(info, (resp) => {
+        console.log(resp);
+        //this.$emit("getData", this.investStatusSeq);
+      });
     },
   },
   data() {
@@ -114,9 +116,6 @@ export default {
       type: String,
     },
     investStatusSeq: {
-      type: Number,
-    },
-    investSeq: {
       type: Number,
     },
   },
