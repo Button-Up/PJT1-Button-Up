@@ -3,8 +3,8 @@
 -->
 <template>
   <v-container>
-    <v-row>
-      <v-col class="d-flex flex-grow-0 flex-shrink-1" cols="8">
+    <v-row class="ma-0">
+      <v-col class="d-flex flex-grow-0 flex-shrink-1 px-0" cols="8">
         <h2 class="font-weight-bold" align="center">{{ selected.name }}</h2>
       </v-col>
       <v-col text-right class="flex-grow-1 flex-shrink-0 mt-1 mr-3" align="center" justify="end"
@@ -28,13 +28,13 @@
 
     <!-- 그래프 -->
     <invest-graph :prices="getPriceList"></invest-graph>
-    <br />
+    <!-- <br /> -->
 
-    <div class="px-0 pb-16">
+    <div class="px-0 pt-5">
       <h3>가격 업데이트</h3>
-      <p>매일 가격을 업데이트 해주세요!</p>
-      <v-card class="fill-height d-flex flex-column justify-center px-2">
-        <v-list-item class="justify-space-between align-baseline px-0" cols="12">
+      <div class="px-0 align-start body-2 mb-3">매일 가격을 업데이트 해주세요!</div>
+      <v-card class="fill-height d-flex flex-column justify-center px-4 py-2">
+        <v-list-item class="justify-space-between align-center px-0" cols="12">
           <v-text-field
             cols="5"
             v-model="price"
@@ -47,7 +47,7 @@
           ></v-text-field>
 
           <v-col cols="2" class="pl-2">{{ unit }}</v-col>
-          <v-col>
+          <v-col class="pr-0">
             <div class="text-center">
               <v-btn
                 block
@@ -69,8 +69,8 @@
                 {{ text }}
 
                 <template v-slot:action="{ attrs }">
-                  <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
-                    <v-icon>close</v-icon>
+                  <v-btn color="parent01" text v-bind="attrs" @click="snackbar = false">
+                    <v-icon>mdi-close</v-icon>
                   </v-btn>
                 </template>
               </v-snackbar>
@@ -89,7 +89,7 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: { InvestGraph },
-  mounted() {
+  created() {
     this.$store.dispatch("investStore/vuexGetPriceList", this.$route.params.seq);
     console.log(this.getPriceList);
     for (let i = 0; i < this.getInvestList.length; i++) {
@@ -105,6 +105,8 @@ export default {
         // console.log(this.selected);
       }
     }
+  },
+  updated() {
     if (this.getPriceList.length > 1) {
       if (this.getPriceList[0].price > this.getPriceList[1].price) {
         this.color = "red--text";
@@ -137,9 +139,8 @@ export default {
   //     console.log(this.getPriceList);
   //   },
   methods: {
-    ...mapActions("investStore", ["vuexUpdateInvestStatus", "vuexGetPriceList"]),
+    ...mapActions("investStore", ["vuexGetInvestStatus", "vuexGetPriceList"]),
     updatePrice() {
-      console.log("lkdjladkjdskjlgsd");
       apiPostNewPrice(
         {
           investSeq: this.selected.seq,

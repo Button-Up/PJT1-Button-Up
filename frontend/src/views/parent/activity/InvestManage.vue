@@ -53,20 +53,20 @@
 </template>
 
 <script>
-import TodoList from '../../../components/common/TodoList.vue';
-import { mapGetters } from 'vuex';
+import TodoList from "../../../components/common/TodoList.vue";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'InvestManage',
+  name: "InvestManage",
   components: {
     TodoList,
   },
   data() {
     return {
       dialog: false,
-      news: '',
+      news: "",
       snackbar: false,
-      text: '오늘의 투자 뉴스가 전송되었습니다.',
+      text: "오늘의 투자 뉴스가 전송되었습니다.",
       timeout: 2000,
     };
   },
@@ -74,15 +74,15 @@ export default {
     this.getInvest();
   },
   computed: {
-    ...mapGetters('investStore', ['getInvestList']),
-    ...mapGetters('userStore', ['checkUserInfo']),
+    ...mapGetters("investStore", ["getInvestList"]),
+    ...mapGetters("userStore", ["checkUserInfo"]),
     convertToFitToDoComponents() {
       var convertInvest = [];
       for (const investItem of this.getInvestList) {
         convertInvest.push({
           done: true,
           content: investItem.name,
-          url: '/parent/activity/invest/' + investItem.seq,
+          url: "/parent/activity/invest/" + investItem.seq,
         });
       }
       return convertInvest;
@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     getInvest() {
-      this.$store.dispatch('investStore/vuexUpdateInvestList', this.checkUserInfo.seq);
+      this.$store.dispatch("investStore/vuexGetInvestList", this.checkUserInfo.seq);
     },
     submitNews() {
       console.log(this.news);
@@ -99,12 +99,12 @@ export default {
         parentSeq: this.checkUserInfo.seq,
       };
       console.log(param);
-      this.$store.dispatch('investStore/vuexAddNews', param);
-      this.news = '';
+      this.$store.dispatch("investStore/vuexAddNews", param);
+      this.news = "";
       this.snackbar = true;
     },
     clicYesBtn() {
-      console.log('yes 버튼 눌렀다');
+      console.log("yes 버튼 눌렀다");
     },
     setDialog(value) {
       this.dialog = value;
