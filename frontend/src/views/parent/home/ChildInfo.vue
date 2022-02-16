@@ -31,22 +31,28 @@
     <!-- 아이의 단추 계좌 END -->
     <div>
       <h2>아이의 할 일 진행 상황</h2>
-      <JobWithTodoListCard :isParent="true" :job="job" :child="child"></JobWithTodoListCard>
+      <JobWithTodoListCard
+        :isParent="true"
+        :doList="doList"
+        :job="job"
+        :child="child"
+      ></JobWithTodoListCard>
     </div>
   </div>
 </template>
 
 <script>
-import BottomSheet from '@/components/common/BottomSheet';
-import JobWithTodoListCard from '../../../components/common/JobWithTodoListCard.vue';
-import ChildAccount from '../../../components/parent/home/ChildAccount.vue';
-import Deposit from '../../../components/parent/home/Deposit.vue';
-import { mapGetters } from 'vuex';
-import { apiGetChildsJob } from '@/api/jobsAPI.js';
-import { apiGetSavingsBalance } from '@/api/savingsAPI.js';
+import BottomSheet from "@/components/common/BottomSheet";
+import JobWithTodoListCard from "../../../components/common/JobWithTodoListCard.vue";
+import ChildAccount from "../../../components/parent/home/ChildAccount.vue";
+import Deposit from "../../../components/parent/home/Deposit.vue";
+import { mapGetters } from "vuex";
+import { apiGetChildsJob } from "@/api/jobsAPI.js";
+import { apiGetSavingsBalance } from "@/api/savingsAPI.js";
+import { apiGetCheckListRow } from "@/api/checkListAPI.js";
 
 export default {
-  name: 'ChildInfo',
+  name: "ChildInfo",
   components: { BottomSheet, JobWithTodoListCard, ChildAccount, Deposit },
   props: {
     child: Object,
@@ -54,6 +60,7 @@ export default {
   data() {
     return {
       job: {},
+      doList: [],
     };
   },
   created() {
@@ -67,9 +74,18 @@ export default {
       }
     );
     this.getSaving();
+    apiGetCheckListRow(
+      this.child.seq,
+      (response) => {
+        this.doList = response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
   computed: {
-    ...mapGetters('accountStore', ['getDefaultBalance']),
+    ...mapGetters("accountStore", ["getDefaultBalance"]),
 
     accounts() {
       var accounts = [];
@@ -81,7 +97,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('accountStore/vuexUpdateDefaultBalance', this.child.seq);
+    this.$store.dispatch("accountStore/vuexUpdateDefaultBalance", this.child.seq);
   },
   methods: {
     getSaving() {

@@ -16,6 +16,7 @@
             v-bind="attrs"
             v-on="on"
             :block="isBlockBtn"
+            :width="customBtnWidth"
           >
             <v-icon v-if="isIcon">{{ iconName }}</v-icon>
             {{ btnName }}
@@ -48,6 +49,10 @@ export default {
     isBlockBtn: {
       type: Boolean,
       default: false,
+    },
+    customBtnWidth: {
+      type: String,
+      default: null,
     },
     btnColor: {
       type: String,
