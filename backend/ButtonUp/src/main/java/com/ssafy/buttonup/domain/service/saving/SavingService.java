@@ -54,7 +54,7 @@ public class SavingService {
                 .saving(saving)
                 .money(0)
                 .balance(0)
-                .content("개설")
+                .catetory("개설")
                 .build());
     }
 
@@ -104,7 +104,7 @@ public class SavingService {
     }
 
     /**
-     * 적금 잔액 조회
+     * 적금 상태 및 잔액 조회
      *
      * @param childSeq
      * @return
@@ -147,7 +147,7 @@ public class SavingService {
 
         SavingHistory savingHistory = SavingHistory.builder()
                 .money(request.getTransferAmount())
-                .content("입금")
+                .catetory("입금")
                 .balance(request.getTransferAmount() + recentHistory.getBalance())
                 .saving(savingSeq)
                 .build();

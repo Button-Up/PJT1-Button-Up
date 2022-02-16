@@ -149,6 +149,7 @@ export default {
         parentSeq: this.checkUserInfo.seq,
         stage: 2,
       };
+      alert("자녀 계정 연동이 완료되었습니다.");
       await this.vuexPutTutorialStage(tutorialInfo);
       this.$router.push("/parent/home");
     },

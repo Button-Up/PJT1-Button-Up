@@ -176,7 +176,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .v-select__selections {
   line-height: 30px;
 }
