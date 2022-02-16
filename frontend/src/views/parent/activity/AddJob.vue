@@ -22,15 +22,16 @@
         </v-card>
       </v-slide-item>
     </v-slide-group>
-    <v-form>
+
+    <v-form v-model="isValidate">
       <!-- 직업 -->
       <v-list-item cols="12" class="justify-space-between align-baseline ma-0 pa-0">
         <v-text-field
           cols="8"
           v-model="newJob.name"
-          hide-details
           label="직업명"
           required
+          :rules="checkValid.name"
           color="parent01"
         ></v-text-field>
       </v-list-item>
@@ -41,7 +42,7 @@
             v-model="newJob.pay"
             label="급여"
             required
-            hide-details
+            :rules="checkValid.pay"
             color="parent01"
           ></v-text-field>
         </v-col>
@@ -69,6 +70,7 @@
 
       <!-- 할일 추가 -->
       <v-list-item
+        required
         v-for="(todo, t) in newJob.toDoContents"
         :key="t"
         cols="12"
@@ -80,6 +82,7 @@
           v-model="newJob.toDoContents[t]"
           label="할일 추가"
           required
+          :rules="checkValid.todo"
           color="parent01"
         ></v-text-field>
         <v-col cols="1" class="ml-2 pa-0">
@@ -95,7 +98,15 @@
       </v-list-item>
 
       <!-- 직업 생성 submit -->
-      <v-btn @click="clickAddJob" block color="parent01" class="white--text mt-4">직업 생성 </v-btn>
+      <v-btn
+        :disabled="!isValidate"
+        @click="clickAddJob"
+        block
+        color="parent01"
+        class="white--text mt-4"
+        >직업 생성
+      </v-btn>
+
       <modal
         :visible.sync="dialog"
         :isParent="true"
@@ -119,10 +130,19 @@ export default {
   name: 'AddJob',
   data() {
     return {
+      isValidate: true,
+      checkValid: {
+        name: [(v) => !!v || '직업의 이름을 입력해주세요.'],
+        pay: [
+          (v) => !!v || '월급을 입력해주세요',
+          (v) => /^[0-9]*$/.test(v) || '급여는 숫자만 입력 가능합니다.',
+        ],
+        todo: [(v) => !!v || '할일을 입력해주세요.'],
+      },
       dialog: false,
       newJob: {
         jobImageSeq: 0,
-        name: 'd',
+        name: null,
         parentSeq: null,
         pay: null,
         payTerm: null,
