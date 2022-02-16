@@ -5,16 +5,7 @@
   <v-container>
     <v-row>
       <v-col class="d-flex flex-grow-0 flex-shrink-1" cols="8">
-        <v-select
-          v-model="selected"
-          :items="getInvestList"
-          item-value="seq"
-          item-text="name"
-          class="font-weight-bold text-h5"
-          align="center"
-          flat
-          solo
-        ></v-select>
+        <h2 class="font-weight-bold" align="center">{{ selected.name }}</h2>
       </v-col>
       <v-col text-right class="flex-grow-1 flex-shrink-0 mt-1 mr-3" align="center" justify="end"
         ><div style="font-size: 13px" class="d-flex flex-column">
@@ -57,13 +48,33 @@
 
           <v-col cols="2" class="pl-2">{{ unit }}</v-col>
           <v-col>
-            <v-btn
-              block
-              color="parent01"
-              class="font-weight-bold white--text"
-              @click.native="updatePrice"
-              >업데이트</v-btn
-            >
+            <div class="text-center">
+              <v-btn
+                block
+                color="parent01"
+                class="font-weight-bold white--text"
+                @click.native="updatePrice"
+                >업데이트</v-btn
+              >
+              <!-- <v-btn dark color="orange darken-2" @click="snackbar = true"> Open Snackbar </v-btn> -->
+
+              <v-snackbar
+                v-model="snackbar"
+                :timeout="timeout"
+                color="parent01"
+                text
+                bottom
+                class="mb-16"
+              >
+                {{ text }}
+
+                <template v-slot:action="{ attrs }">
+                  <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+                    <v-icon>close</v-icon>
+                  </v-btn>
+                </template>
+              </v-snackbar>
+            </div>
           </v-col>
         </v-list-item>
       </v-card>
@@ -113,6 +124,9 @@ export default {
       colorList: ["red--text", "grey--text", "blue--text"],
       selected: null,
       color: "red--text",
+      snackbar: false,
+      text: "가격 업데이트가 완료되었습니다.",
+      timeout: 2000,
     };
   },
   computed: {
@@ -137,6 +151,7 @@ export default {
           // this.vuexGetPriceList(priceInfo.investSeq);
         }
       );
+      this.snackbar = true;
     },
   },
 };
