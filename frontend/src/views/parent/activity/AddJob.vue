@@ -96,6 +96,15 @@
 
       <!-- 직업 생성 submit -->
       <v-btn @click="clickAddJob" block color="parent01" class="white--text mt-4">직업 생성 </v-btn>
+      <modal
+        :visible.sync="dialog"
+        :isParent="true"
+        :title="`직업이 생성되었습니다`"
+        :content="`직업 관리 페이지로 이동합니다`"
+        :textPositiveBtn="`확인`"
+        :positiveAction="go"
+        :ishaveNegBtn="false"
+      ></modal>
     </v-form>
   </div>
 </template>
@@ -103,12 +112,14 @@
 <script>
 import { apiAddJob } from '@/api/jobsAPI.js';
 import { mapGetters } from 'vuex';
+import Modal from '../../../components/common/Modal.vue';
 
 export default {
-  components: {},
+  components: { Modal },
   name: 'AddJob',
   data() {
     return {
+      dialog: false,
       newJob: {
         jobImageSeq: 0,
         name: 'd',
@@ -150,11 +161,18 @@ export default {
         (response) => {
           console.log(response.data);
           console.log('성공');
+          this.dialog = !this.dialog;
         },
         (error) => {
           console.log(error);
         }
       );
+    },
+    go() {
+      this.gotoJobManage();
+    },
+    gotoJobManage() {
+      this.$router.push('/parent/activity/job');
     },
   },
 };
