@@ -45,7 +45,7 @@ public class SavingHistory {
     private int balance;
 
     @Column(name="saving_history_content")
-    private String content;
+    private String catetory;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
@@ -53,19 +53,19 @@ public class SavingHistory {
     private Date date;
 
     @Builder
-    public SavingHistory(Saving saving, int money, int balance, String content) {
+    public SavingHistory(Saving saving, int money, int balance, String catetory) {
         this.saving = saving;
         this.money = money;
         this.balance = balance;
-        this.content = content;
+        this.catetory = catetory;
     }
 
     public SavingHistoryResponse toResponse() {
         return SavingHistoryResponse.builder()
-                .savingDate(date)
+                .date(date)
                 .balance(balance)
                 .money(money)
-                .content(content)
+                .catetory(catetory)
                 .build();
     }
 }
