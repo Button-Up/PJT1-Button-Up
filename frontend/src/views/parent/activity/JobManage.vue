@@ -21,6 +21,7 @@
             :isParent="true"
             :job="job"
             :checkboxOn="false"
+            :doList="job.toDos"
           ></JobWithTodoListCard>
         </v-slide-item>
       </v-slide-group>

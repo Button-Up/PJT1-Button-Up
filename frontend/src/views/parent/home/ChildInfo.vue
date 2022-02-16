@@ -36,15 +36,15 @@
 </template>
 
 <script>
-import BottomSheet from "@/components/common/BottomSheet";
-import JobWithTodoListCard from "../../../components/common/JobWithTodoListCard.vue";
-import ChildAccount from "../../../components/parent/home/ChildAccount.vue";
-import Deposit from "../../../components/parent/home/Deposit.vue";
-import { mapGetters } from "vuex";
-import { apiGetChildsJob } from "@/api/jobsAPI.js";
+import BottomSheet from '@/components/common/BottomSheet';
+import JobWithTodoListCard from '../../../components/common/JobWithTodoListCard.vue';
+import ChildAccount from '../../../components/parent/home/ChildAccount.vue';
+import Deposit from '../../../components/parent/home/Deposit.vue';
+import { mapGetters } from 'vuex';
+import { apiGetChildsJob } from '@/api/jobsAPI.js';
 
 export default {
-  name: "ChildInfo",
+  name: 'ChildInfo',
   components: { BottomSheet, JobWithTodoListCard, ChildAccount, Deposit },
   props: {
     child: Object,
@@ -87,10 +87,10 @@ export default {
     );
   },
   computed: {
-    ...mapGetters("accountStore", ["getDefaultBalance"]),
+    ...mapGetters('accountStore', ['getDefaultBalance']),
   },
   mounted() {
-    this.$store.dispatch("accountStore/vuexUpdateDefaultBalance", this.child.seq);
+    this.$store.dispatch('accountStore/vuexUpdateDefaultBalance', this.child.seq);
   },
 };
 </script>
