@@ -27,7 +27,7 @@
         </v-list-item>
       </v-list-item>
       <div class="ml-2 mr-2 mt-4 mb-6">
-        <v-list-item v-for="(todo, t) in checkList" :key="t" class="pa-4" style="display: contents">
+        <v-list-item v-for="(todo, t) in doList" :key="t" class="pa-4" style="display: contents">
           <TodoList
             class="pb-1"
             :todo="todo"
@@ -42,11 +42,11 @@
 </template>
 
 <script>
-import TodoList from "./TodoList.vue";
-import { apiGetCheckListRow } from "@/api/checkListAPI.js";
+import TodoList from './TodoList.vue';
+// import { apiGetCheckListRow } from '@/api/checkListAPI.js';
 
 export default {
-  name: "JobCard",
+  name: 'JobCard',
   components: {
     TodoList,
   },
@@ -58,23 +58,24 @@ export default {
     job: Object,
     isParent: Boolean,
     child: Object,
+    doList: Array,
   },
   data() {
     return {
       checkList: [],
     };
   },
-  created() {
-    apiGetCheckListRow(
-      this.child.seq,
-      (response) => {
-        this.checkList = response.data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  },
+  // created() {
+  //   apiGetCheckListRow(
+  //     this.child.seq,
+  //     (response) => {
+  //       this.checkList = response.data;
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // },
 };
 </script>
 

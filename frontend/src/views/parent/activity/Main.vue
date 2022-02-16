@@ -45,10 +45,10 @@ export default {
     ...mapGetters("userStore", ["checkUserInfo"]),
   },
   mounted() {
-    this.vuexUpdateNewsList(this.checkUserInfo.seq);
+    this.vuexGetInvestList(this.checkUserInfo.seq);
   },
   methods: {
-    ...mapActions("investStore", ["vuexUpdateNewsList"]),
+    ...mapActions("investStore", ["vuexGetInvestList"]),
   },
 };
 </script>
