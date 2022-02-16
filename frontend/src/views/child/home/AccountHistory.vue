@@ -40,7 +40,7 @@ modified: 우정연 - 계좌 내역 정렬 적용
 
     <!-- 적금 만기일 그래프 -->
     <v-sheet v-if="!isDeposit">
-      <div class="pa-5">
+      <v-sheet class="mx-5 my-5 pa-5" elevation="1" rounded="lg">
         <h3>적금 만기까지 {{ getSavingAccountDetail.restDate }}일!</h3>
         <v-progress-linear
           class="mt-4"
@@ -60,8 +60,10 @@ modified: 우정연 - 계좌 내역 정렬 적용
             <div class="red--text font-weight-bold">+ {{ Math.ceil(getBalance * 0.05) }} 단추</div>
           </div>
         </div>
-      </div>
+      </v-sheet>
     </v-sheet>
+
+    <v-subheader v-if="!isDeposit">입금내역</v-subheader>
 
     <!-- 거래내역 리스트 -->
     <AccountHistoryList
@@ -155,6 +157,8 @@ export default {
       this.accountHistories = this.getAccountList;
     } else {
       this.$store.dispatch("savingStore/vuexGetSavingDetails", this.checkUserInfo.seq);
+      console.log(this.getSavingAccountDetail.histories);
+      this.accountHistories = this.getSavingAccountDetail.histories;
     }
   },
 };
