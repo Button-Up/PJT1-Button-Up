@@ -13,6 +13,7 @@ import com.ssafy.buttonup.domain.repository.invest.InvestPresetRepository;
 import com.ssafy.buttonup.domain.repository.invest.InvestRepository;
 import com.ssafy.buttonup.domain.repository.user.ChildRepository;
 import com.ssafy.buttonup.domain.repository.user.ParentRepository;
+import com.ssafy.buttonup.domain.service.account.AccountService;
 import com.ssafy.buttonup.exception.ExistInvestException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +35,8 @@ public class InvestService extends InvestStatusService {
     private final ParentRepository parentRepository;
     private final ChildRepository childRepository;
 
-    public InvestService(SharePriceRepository priceRepository, InvestRepository investRepository, InvestStatusRepository statusRepository, InvestRepository investRepository1, InvestPresetRepository presetRepository, ParentRepository parentRepository, ChildRepository childRepository) {
-        super(priceRepository, investRepository, statusRepository);
+    public InvestService(SharePriceRepository priceRepository, InvestRepository investRepository, InvestStatusRepository statusRepository, InvestRepository investRepository1, InvestPresetRepository presetRepository, ParentRepository parentRepository, ChildRepository childRepository, AccountService accountService) {
+        super(priceRepository, investRepository, statusRepository, accountService);
         this.investRepository = investRepository1;
         this.presetRepository = presetRepository;
         this.parentRepository = parentRepository;

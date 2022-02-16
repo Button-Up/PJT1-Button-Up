@@ -7,7 +7,6 @@ import com.ssafy.buttonup.exception.BalanceOverException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -74,15 +73,11 @@ public class InvestStatus {
      */
     public void buyOrSellInvest(int count, int price) throws BalanceOverException {
         double totalPrice = this.averagePrice * this.count;
-        if(this.count + count < 0)
+        if (this.count + count < 0)
             throw new BalanceOverException("매도 가능 개수 초과");
         this.count += count;
 
-        if (count > 0) { // 매수
-            totalPrice += count * price;
-        } else { //매도
-            totalPrice -= count * price;
-        }
+        totalPrice += count * price;
 
         this.averagePrice = totalPrice / this.count;
     }
