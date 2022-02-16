@@ -8,7 +8,7 @@
       max-width="250"
       outlined
       shaped
-      class="ma-4 justify-center"
+      class="my-4 mr-3 ml-1 justify-center"
       height="200"
       width="150"
     >
