@@ -10,7 +10,6 @@
           :topic="topic"
           @click.native="$router.push(`/child/activity/study/${topic.topicSeq}/1`)"
         ></StudyCard>
-        <!-- 라우터가면서 토픽 보낼수 있는지 물어보기-->
       </v-col>
     </v-row>
   </div>
