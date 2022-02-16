@@ -15,7 +15,7 @@
       <v-container class="pa-2" width="200" fluid>
         <v-row align="center" class="mx-0" id="space-between" @click="clickEvent">
           <v-checkbox
-            v-if="!isParent || (onlyRead && isParent)"
+            v-if="!isParent || (onlyRead && isParent && checkboxOn)"
             v-model="todo.flag"
             class="ml-2 pa-0 font-weight-black black--text"
             :color="isParent ? 'parent01' : 'child01'"
@@ -36,9 +36,9 @@
 </template>
 
 <script>
-import { apiPutCheckListRow } from "@/api/checkListAPI";
+import { apiPutCheckListRow } from '@/api/checkListAPI';
 export default {
-  name: "TodoList",
+  name: 'TodoList',
   data() {
     return {};
   },
@@ -63,7 +63,7 @@ export default {
         flag: this.todo.flag,
       };
       apiPutCheckListRow(toDoCheckRequest, () => {
-        console.log("체크리스트 수정 완료!");
+        console.log('체크리스트 수정 완료!');
       });
     },
   },
