@@ -74,7 +74,7 @@ public class RequestService {
      * @param status
      * @throws BalanceOverException
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void changeStatus(long responseHistorySeq, RequestHistoryStatus status) throws BalanceOverException {
         RequestHistory requestHistory = requestHistoryRepository.getById(responseHistorySeq);
         requestHistory.changeStatus(status);

@@ -122,7 +122,7 @@ public class JobService extends ImageService {
      *
      * @param request 새 직업 정보
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void insertJob(JobRequest request) {
         // 직업 이미지 추가
         /*JobImage jobImage = null;
@@ -164,7 +164,7 @@ public class JobService extends ImageService {
      * @param request 직업 내역
      * @return 새 직업
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public JobResponse insertJobHistory(JobHistoryRequest request) {
         // 기존 직업 내역 업데이트
         JobHistory jobHistory = jobHistoryRepository.findTopByChild_SeqOrderBySeqDesc(request.getChildSeq());
