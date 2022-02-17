@@ -11,11 +11,11 @@
           연결이 필요해요!
         </h2>
         <p class="mt-3 text-subtitle-2">
-          부모님 회원가입 페이지에서 <br />
-          아래 아이디를 입력하면 계정을 연결할 수 있어요.
+          부모님 튜토리얼 페이지에서 <br />
+          내 아이디를 입력하면 계정을 연결할 수 있어요.
         </p>
         <v-sheet class="my-3 pa-3 rounded-lg text-center font-weight-bold" color="child01">
-          내 아이디: {{ checkUserInfo.name }}
+          내 아이디: {{ checkUserInfo.nickname }}
         </v-sheet>
       </div>
     </v-sheet>
