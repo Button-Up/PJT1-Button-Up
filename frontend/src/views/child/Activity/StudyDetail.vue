@@ -13,7 +13,7 @@
 
       <!-- 본문 -->
       <v-col class="flex-shrink-1">
-        <v-card class="d-flex justify-center align-center" min-height="480px">
+        <v-card class="d-flex justify-center align-center" min-height="440px">
           <div class="d-flex flex-column align-center pa-6">
             <h2 class="mb-6">{{ postList[$route.params.postSeq - 1].title }}</h2>
             <div v-html="postList[$route.params.postSeq - 1].content">
