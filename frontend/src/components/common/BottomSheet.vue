@@ -42,6 +42,10 @@ export default {
     };
   },
   props: {
+    closeSheet: {
+      type: Boolean,
+      default: false,
+    },
     sheetHeight: {
       type: String,
       default: "fit-content",
@@ -73,6 +77,14 @@ export default {
     iconName: {
       type: String,
       default: "",
+    },
+  },
+  watch: {
+    closeSheet() {
+      if (this.closeSheet) {
+        this.sheet = false;
+        this.$emit("sheetClosed");
+      }
     },
   },
 };

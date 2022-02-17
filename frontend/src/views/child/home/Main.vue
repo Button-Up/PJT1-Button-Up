@@ -7,52 +7,65 @@ modified: 우정연 - 아이 체크리스트 조회 및 직업 조회
 -->
 
 <template>
-  <div>
-    <NotSync v-if="checkNotSync"></NotSync>
-    <div v-else>
-      <!-- 단추 계좌 슬라이드 -->
-      <h2 class="mx-6 mt-4">나의 단추 계좌</h2>
-      <v-sheet elevation="">
-        <v-slide-group class="mt-2 mx-4" center-active>
-          <v-slide-item>
-            <MainAccountCard
-              :item="{
-                isDeposit: true,
-                balance: this.getDefaultBalance,
-              }"
-            ></MainAccountCard>
-          </v-slide-item>
+  <NotSync v-if="checkNotSync"></NotSync>
+  <div v-else>
+    <!-- 단추 계좌 슬라이드 -->
+    <h2 class="mx-6 mt-4">나의 단추 계좌</h2>
+    <v-sheet elevation="">
+      <v-slide-group class="mt-2 mx-4" center-active>
+        <v-slide-item>
+          <MainAccountCard
+            :item="{
+              isDeposit: true,
+              balance: this.getDefaultBalance,
+            }"
+          ></MainAccountCard>
+        </v-slide-item>
 
-          <!-- 적금 계좌 -->
-          <v-slide-item v-if="getSavingStatus">
-            <MainAccountCard
-              :item="{
-                isDeposit: false,
-                balance: getBalance,
-              }"
-            ></MainAccountCard>
-          </v-slide-item>
-        </v-slide-group>
-      </v-sheet>
+        <!-- 적금 계좌 -->
+        <v-slide-item v-if="getSavingStatus">
+          <MainAccountCard
+            :item="{
+              isDeposit: false,
+              balance: getBalance,
+            }"
+          ></MainAccountCard>
+        </v-slide-item>
+      </v-slide-group>
+    </v-sheet>
 
-      <!-- 오늘 할 일 -->
-      <div class="mx-6 mt-6">
-        <v-row class="mb-4" align="center">
-          <v-col class="col-8 text-left"><h2>오늘 할 일</h2></v-col>
-          <v-col class="col-4 text-center"
-            ><h3>{{ job.name }}</h3></v-col
-          >
-        </v-row>
-        <v-list-item
-          v-for="(todo, t) in todoList"
-          :key="t"
-          class="mb-2 py-2"
-          style="display: contents"
+    <!-- 오늘 할 일 -->
+    <div class="mx-6 mt-6">
+      <v-row class="mb-4" align="center">
+        <v-col class="col-8 text-left"><h2>오늘 할 일</h2></v-col>
+        <v-col class="col-4 text-center"
+          ><h3>{{ job.name }}</h3></v-col
         >
-          <todo-list :todo="todo" :isParent="false"></todo-list>
-        </v-list-item>
-      </div>
+      </v-row>
+      <v-list-item
+        v-for="(todo, t) in todoList"
+        :key="t"
+        class="mb-2 py-2"
+        style="display: contents"
+      >
+        <TodoList :todo="todo" :isParent="false" @clickCheckBox="snackbar.isOpen = true"></TodoList>
+      </v-list-item>
     </div>
+    <!-- 스낵바 -->
+    <v-snackbar app v-model="snackbar.isOpen" :timeout="snackbar.timeout" color="child02">
+      <span class="black--text font-weight-bold">할 일 상태가 업데이트 되었습니다.</span>
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="red"
+          text
+          v-bind="attrs"
+          @click="snackbar.isOpen = false"
+          class="font-weight-bold"
+        >
+          닫기
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -75,6 +88,11 @@ export default {
     return {
       todoList: [],
       job: {},
+      snackbar: {
+        isOpen: false,
+        text: null,
+        timeout: 2000,
+      },
     };
   },
   created() {

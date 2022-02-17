@@ -3,9 +3,9 @@
     <v-row justify="center">
       <v-dialog v-model="visible" persistent max-width="290">
         <v-card>
-          <v-card-title class="text-h5">{{ title }} </v-card-title>
+          <v-card-title class="text-h6">{{ title }} </v-card-title>
           <v-card-text> {{ content }}</v-card-text>
-          <v-card-actions>
+          <v-card-actions class="pb-4">
             <v-spacer></v-spacer>
 
             <v-btn
@@ -70,11 +70,11 @@ export default {
   methods: {
     clickPositive() {
       // this.visible = false;
-      this.$emit('update:visible', false);
+      this.$emit("update:visible", false);
       this.positiveAction();
     },
     clickNegative() {
-      this.$emit('update:visible', false);
+      this.$emit("update:visible", false);
     },
   },
 };

@@ -2,7 +2,7 @@
   author : 정은이
 -->
 <template>
-  <div class="mx-9 mt-2">
+  <div class="mx-9 mt-2 mb-10">
     <!-- selectedImageIdx는 images list의 인덱스 -->
     <v-slide-group v-model="selectedImageIdx" class="pa-0 ma-0" center-active>
       <v-slide-item v-for="(img, index) in images" :key="index" v-slot="{ active, toggle }">
@@ -121,59 +121,59 @@
 </template>
 
 <script>
-import { apiAddJob } from '@/api/jobsAPI.js';
-import { mapGetters } from 'vuex';
-import Modal from '../../../components/common/Modal.vue';
+import { apiAddJob } from "@/api/jobsAPI.js";
+import { mapGetters } from "vuex";
+import Modal from "../../../components/common/Modal.vue";
 
 export default {
   components: { Modal },
-  name: 'AddJob',
+  name: "AddJob",
   data() {
     return {
       isValidate: true,
       checkValid: {
-        name: [(v) => !!v || '직업의 이름을 입력해주세요.'],
+        name: [(v) => !!v || "직업의 이름을 입력해주세요."],
         pay: [
-          (v) => !!v || '월급을 입력해주세요',
-          (v) => /^[0-9]*$/.test(v) || '급여는 숫자만 입력 가능합니다.',
+          (v) => !!v || "월급을 입력해주세요",
+          (v) => /^[0-9]*$/.test(v) || "급여는 숫자만 입력 가능합니다.",
         ],
-        todo: [(v) => !!v || '할일을 입력해주세요.'],
+        todo: [(v) => !!v || "할일을 입력해주세요."],
       },
       dialog: false,
       newJob: {
         jobImageSeq: 0,
-        jobImagePath: '',
+        jobImagePath: "",
         name: null,
         parentSeq: null,
         pay: null,
         payTerm: null,
-        toDoContents: [''],
+        toDoContents: [""],
       },
       passwordConfirm: null,
       images: [
-        'https://cdn-icons-png.flaticon.com/512/3461/3461602.png',
-        'https://cdn-icons-png.flaticon.com/512/4605/4605529.png',
-        'https://cdn-icons-png.flaticon.com/512/1983/1983164.png',
-        'https://cdn-icons-png.flaticon.com/512/1995/1995539.png',
-        'https://cdn-icons-png.flaticon.com/512/3598/3598055.png',
-        'https://cdn-icons-png.flaticon.com/512/3048/3048404.png',
-        'https://cdn-icons-png.flaticon.com/512/6618/6618581.png',
-        'https://cdn-icons-png.flaticon.com/512/2451/2451319.png',
-        'https://cdn-icons-png.flaticon.com/512/2302/2302164.png',
-        'https://cdn-icons-png.flaticon.com/512/3255/3255797.png',
-        'https://cdn-icons-png.flaticon.com/512/1810/1810006.png',
-        'https://cdn-icons-png.flaticon.com/512/1809/1809376.png',
+        "https://cdn-icons-png.flaticon.com/512/3461/3461602.png",
+        "https://cdn-icons-png.flaticon.com/512/4605/4605529.png",
+        "https://cdn-icons-png.flaticon.com/512/1983/1983164.png",
+        "https://cdn-icons-png.flaticon.com/512/1995/1995539.png",
+        "https://cdn-icons-png.flaticon.com/512/3598/3598055.png",
+        "https://cdn-icons-png.flaticon.com/512/3048/3048404.png",
+        "https://cdn-icons-png.flaticon.com/512/6618/6618581.png",
+        "https://cdn-icons-png.flaticon.com/512/2451/2451319.png",
+        "https://cdn-icons-png.flaticon.com/512/2302/2302164.png",
+        "https://cdn-icons-png.flaticon.com/512/3255/3255797.png",
+        "https://cdn-icons-png.flaticon.com/512/1810/1810006.png",
+        "https://cdn-icons-png.flaticon.com/512/1809/1809376.png",
       ],
       selectedImageIdx: 0,
     };
   },
   computed: {
-    ...mapGetters('userStore', ['checkUserInfo']),
+    ...mapGetters("userStore", ["checkUserInfo"]),
   },
   methods: {
     addTodo() {
       if (this.newJob.toDoContents.length < 3) {
-        this.newJob.toDoContents.push('');
+        this.newJob.toDoContents.push("");
       }
     },
     removeTodo(index) {
@@ -191,7 +191,7 @@ export default {
         param,
         (response) => {
           console.log(response.data);
-          console.log('성공');
+          console.log("성공");
           this.dialog = !this.dialog;
         },
         (error) => {
@@ -203,7 +203,7 @@ export default {
       this.gotoJobManage();
     },
     gotoJobManage() {
-      this.$router.push('/parent/activity/job');
+      this.$router.push("/parent/activity/job");
     },
   },
 };
