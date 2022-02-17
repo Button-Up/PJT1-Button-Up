@@ -92,7 +92,7 @@ export default {
   components: { InvestGraph, InvestTable, InvestBtmSheet, CardMenu },
   data() {
     return {
-      colorList: ["red--text", "grey--text", "blue--text"],
+      colorList: ["blue--text", "grey--text", "red--text"],
       averagePrice: 0,
       count: 0,
       nowInvestment: null,
