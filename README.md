@@ -11,6 +11,59 @@
 
 1.
 
+## 🤳Simulation
+
+### Landing
+
+<img src = "image/simulation/랜딩페이지.gif" width=" 300px">
+
+### Sign In
+
+<img src = "image/simulation/부모_회원가입.gif" width=" 300px">
+<img src = "image/simulation/자녀_회원가입.gif" width=" 300px">
+
+### Login
+
+<img src = "image/simulation/부모_로그인.gif" width=" 300px">
+<img src = "image/simulation/자녀_로그인.gif" width=" 300px">
+
+### 부모 튜토리얼
+
+<img src = "image/simulation/부모_튜토리얼_1.gif" width=" 300px">
+<img src = "image/simulation/부모_튜토리얼_2.gif" width="300px">
+<img src = "image/simulation/부모_튜토리얼_3.gif" width="300px">
+<img src = "image/simulation/부모_튜토리얼_4.gif" width="300px">
+
+### 입금
+
+<img src = "image/simulation/부모_입금.gif" width=" 300px">
+<img src = "image/simulation/자녀_입금.gif" width=" 300px">
+
+### 투자
+
+<img src = "image/simulation/부모_투자.gif" width=" 300px">
+<img src = "image/simulation/자녀_투자.gif" width=" 300px">
+
+### 적금
+
+<img src = "image/simulation/자녀_적금.gif" width=" 300px">
+
+### 환전
+
+<img src = "image/simulation/부모_환전.gif" width="300px">
+<img src = "image/simulation/아이_환전.gif" width="300px">
+
+### 할 일
+
+<img src = "image/simulation/부모_할일.gif" width=" 300px">
+<img src = "image/simulation/자녀_할일.gif" width=" 300px">
+
+### 경제공부방
+
+<img src = "image/simulation/자녀_경제공부방.gif" width=" 300px">
+
+<br>
+
 ### ✨Developed by
 
 |   **Name**   |                김응철                 |                김지언                |                  우정연                   |               유현수                |                 정은이                  |               황승연                |
