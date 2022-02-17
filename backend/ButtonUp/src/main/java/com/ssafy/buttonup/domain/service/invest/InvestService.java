@@ -63,7 +63,7 @@ public class InvestService extends InvestStatusService {
      *
      * @param request 추가할 종목 정보
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void insertInvest(InvestRequest request) throws ExistInvestException {
         Parent parent = parentRepository.getById(request.getParentSeq());
         InvestPreset preset = presetRepository.getById(request.getInvestPresetSeq());

@@ -67,7 +67,7 @@ public class AccountService {
      * @param type 입/출금 구분 값
      * @return 추가한 내역
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public HistoryResponse insertAccountHistory(HistoryRequest request, AccountHistoryType type) throws BalanceOverException {
         AccountHistory.AccountHistoryBuilder builder = AccountHistory.builder();
 
