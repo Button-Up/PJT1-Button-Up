@@ -11,14 +11,14 @@
     <div class="px-3">
       <div class="d-flex justify-space-between align-center pt-3">
         <h1 class="text-body-2 font-weight-bold">{{ topic.title }}</h1>
-        <v-chip v-if="!topic.isFirstTry" :color="isPass ? 'green' : 'red'" text-color="white" small>
+        <!-- <v-chip v-if="!topic.isFirstTry" :color="isPass ? 'green' : 'red'" text-color="white" small>
           <v-icon v-if="isPass" size="16" left> mdi-check </v-icon>
           <v-icon v-else size="20" left> mdi-close </v-icon>
           {{ topic.quizScore }} / {{ topic.quizTotal }}
         </v-chip>
-        <v-chip v-else color="gray" small> 학습 전 </v-chip>
+        <v-chip v-else color="gray" small> 학습 전 </v-chip> -->
       </div>
-      <p v-if="!isPass" class="pt-1 text-caption">{{ "완료 시 500단추" }}</p>
+      <!-- <p v-if="!isPass" class="pt-1 text-caption">{{ "완료 시 500단추" }}</p> -->
     </div>
   </v-card>
 </template>
