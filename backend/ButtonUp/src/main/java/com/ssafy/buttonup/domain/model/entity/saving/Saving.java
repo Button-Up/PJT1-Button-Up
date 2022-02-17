@@ -72,7 +72,7 @@ public class Saving {
         LocalDate nowDate = LocalDate.now();
         LocalDate endDate = date.toInstant() // Date -> Instant
                 .atZone(ZoneId.systemDefault()) // Instant -> ZonedDateTime
-                .toLocalDate().plusDays(100);
+                .toLocalDate().plusDays(99);
         int restDate = Math.toIntExact(ChronoUnit.DAYS.between(nowDate, endDate));
 
         return SavingDetailResponse.builder()
