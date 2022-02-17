@@ -21,6 +21,14 @@ export default {
     ...mapGetters("investStore", ["getNewsList"]),
     ...mapGetters("userStore", ["checkUserInfo"]),
   },
+  watch: {
+    getNewsList: {
+      handler: function () {
+        this.setNewsList();
+      },
+      deep: true,
+    },
+  },
   methods: {
     ...mapActions("investStore", ["vuexUpdateNewsList"]),
     setNewsList() {
@@ -53,8 +61,6 @@ export default {
   },
   created() {
     this.vuexUpdateNewsList(this.checkUserInfo.parentSeq);
-    console.log(this.getNewsList);
-    this.setNewsList();
   },
 };
 </script>

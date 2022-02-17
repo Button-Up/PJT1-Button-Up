@@ -34,7 +34,11 @@ author: 유현수
                 </v-col>
               </v-row>
             </div>
-            <v-btn block color="child04" class="font-weight-bold" @click="addSavingHistory"
+            <v-btn
+              block
+              color="child04"
+              class="font-weight-bold"
+              @click="[addSavingHistory(), $emit('updateSavingHistory')]"
               >입금하기</v-btn
             >
           </div>
