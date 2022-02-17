@@ -29,7 +29,7 @@ export default {
       topicList: [
         {
           topicSeq: 1,
-          imagePath: "/512/3061/3061341",
+          imagePath: "/512/2474/2474455",
           title: "",
           isFirstTry: true,
           quizTotal: 0,
@@ -48,7 +48,7 @@ export default {
         },
         {
           topicSeq: 3,
-          imagePath: "/512/2474/2474455",
+          imagePath: "/512/3061/3061341",
           title: "",
           isFirstTry: false,
           quizTotal: 4,
