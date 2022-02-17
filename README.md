@@ -7,9 +7,58 @@
 > 우리 아이의 경제 교육 **첫 단추**를 꿰어줍니다.  
 > 가정에서의 경제 조기 교육을 통해 성인이 되어서 경험할 경제 활동을 이론이 아닌 실제 활동으로 쉽고 재밌게 체험해 볼 수 있습니다.
 
-## Main Features
+## 🤳Simulation
 
-1.
+### Landing
+
+<img src = "image/simulation/랜딩페이지.gif" width=" 300px">
+
+### Sign In
+
+<img src = "image/simulation/부모_회원가입.gif" width=" 300px">
+<img src = "image/simulation/자녀_회원가입.gif" width=" 300px">
+
+### Login
+
+<img src = "image/simulation/부모_로그인.gif" width=" 300px">
+<img src = "image/simulation/자녀_로그인.gif" width=" 300px">
+
+### 부모 튜토리얼
+
+<img src = "image/simulation/부모_튜토리얼_1.gif" width=" 300px">
+<img src = "image/simulation/부모_튜토리얼_2.gif" width="300px">
+<img src = "image/simulation/부모_튜토리얼_3.gif" width="300px">
+<img src = "image/simulation/부모_튜토리얼_4.gif" width="300px">
+
+### 입금
+
+<img src = "image/simulation/부모_입금.gif" width=" 300px">
+<img src = "image/simulation/자녀_입금.gif" width=" 300px">
+
+### 투자
+
+<img src = "image/simulation/부모_투자.gif" width=" 300px">
+<img src = "image/simulation/자녀_투자.gif" width=" 300px">
+
+### 적금
+
+<img src = "image/simulation/자녀_적금.gif" width=" 300px">
+
+### 환전
+
+<img src = "image/simulation/부모_환전.gif" width="300px">
+<img src = "image/simulation/아이_환전.gif" width="300px">
+
+### 할 일
+
+<img src = "image/simulation/부모_할일.gif" width=" 300px">
+<img src = "image/simulation/자녀_할일.gif" width=" 300px">
+
+### 경제공부방
+
+<img src = "image/simulation/자녀_경제공부방.gif" width=" 300px">
+
+<br>
 
 ### ✨Developed by
 
