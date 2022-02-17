@@ -19,7 +19,10 @@ modified: 우정연 - 계좌 내역 정렬 적용
         <h2 class="text-center">{{ isDeposit ? getDefaultBalance : getBalance }} 단추</h2>
 
         <!-- 입금하기 버튼 & 바텀시트 -->
-        <SavingHistoryBtmSheet v-if="!isDeposit"></SavingHistoryBtmSheet>
+        <SavingHistoryBtmSheet
+          v-if="!isDeposit"
+          @updateSavingHistory="updateSavingHistory"
+        ></SavingHistoryBtmSheet>
         <!-- 환전 요청 or 적금 해지 버튼 & 바텀시트 -->
         <AccountHistoryBtmSheet :isDeposit="isDeposit"></AccountHistoryBtmSheet>
       </div>
@@ -140,6 +143,10 @@ export default {
           (account) => account.type === this.filter
         );
     },
+    updateSavingHistory() {
+      this.$store.dispatch("savingStore/vuexGetSavingDetails", this.checkUserInfo.seq);
+      this.accountHistories = this.getSavingAccountDetail.histories;
+    },
   },
   watch: {
     getAccountList: {
@@ -156,9 +163,7 @@ export default {
       this.$store.dispatch("accountStore/vuexFetchAccountHistory", this.checkUserInfo.seq);
       this.accountHistories = this.getAccountList;
     } else {
-      this.$store.dispatch("savingStore/vuexGetSavingDetails", this.checkUserInfo.seq);
-      console.log(this.getSavingAccountDetail.histories);
-      this.accountHistories = this.getSavingAccountDetail.histories;
+      this.updateSavingHistory();
     }
   },
 };
