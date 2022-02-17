@@ -60,6 +60,27 @@
         </v-btn>
       </v-form>
     </div>
+    <!-- 스낵바 -->
+    <v-snackbar
+      app
+      v-model="snackbar.isOpen"
+      :timeout="snackbar.timeout"
+      :color="isParent ? 'parent02' : 'child02'"
+      class="pb-10"
+    >
+      <span class="black--text font-weight-bold">아이디 혹은 비밀번호가 맞지 않습니다.</span>
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="red"
+          text
+          v-bind="attrs"
+          @click="snackbar.isOpen = false"
+          class="font-weight-bold"
+        >
+          닫기
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -79,6 +100,11 @@ export default {
       },
       nicknameRules: [(v) => !!v || "아이디를 입력해주세요."],
       passwordRules: [(v) => !!v || "비밀번호를 입력해주세요."],
+      snackbar: {
+        isOpen: false,
+        text: null,
+        timeout: 2000,
+      },
     };
   },
   computed: {
@@ -109,7 +135,7 @@ export default {
         }
         this.$router.push(this.isParent ? "/parent/home" : "/child/home");
       } else {
-        alert("아이디 혹은 비밀번호가 맞지 않습니다.");
+        this.snackbar.isOpen = true;
       }
     },
     loginTypeParent() {
