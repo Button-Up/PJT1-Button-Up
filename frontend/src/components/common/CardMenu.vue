@@ -53,7 +53,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .card-menu {
   cursor: pointer;
 }
