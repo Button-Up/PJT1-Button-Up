@@ -27,7 +27,14 @@
           <v-icon left size="20"> mdi-pencil</v-icon>
           내 정보 수정
         </v-btn>
-        <v-btn v-if="isParent" text class="text-h6 mt-6" max-width="300px" color="#4e4e4e">
+        <v-btn
+          v-if="isParent"
+          to="/parent/tutorial/child-sync/1"
+          text
+          class="text-h6 mt-6"
+          max-width="300px"
+          color="#4e4e4e"
+        >
           <v-icon left size="20"> mdi-account-plus</v-icon>
           자녀 계정 연결
         </v-btn>
