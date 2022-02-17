@@ -56,7 +56,7 @@ modified: 우정연 - 계좌 내역 정렬 적용
           <div>{{ startDate }}</div>
           <div>{{ endDate }}</div>
         </div>
-        <div v-if="getDefaultBalance">
+        <div v-if="getBalance != null">
           <v-divider class="my-3"></v-divider>
           <div class="d-flex justify-space-between">
             <div>만기 시 이자</div>
