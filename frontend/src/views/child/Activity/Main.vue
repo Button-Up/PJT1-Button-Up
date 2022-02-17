@@ -3,7 +3,8 @@
 -->
 
 <template>
-  <v-sheet class="my-5 mx-6">
+  <NotSync v-if="checkNotSync"></NotSync>
+  <v-sheet v-else class="my-5 mx-6">
     <CardMenu
       iconName="mdi-book-multiple"
       customColor="child02"
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import NotSync from "@/components/child/NotSync";
 import CardMenu from "@/components/common/CardMenu";
 import { mapGetters } from "vuex";
 
@@ -39,9 +41,11 @@ export default {
   name: "Activity",
   components: {
     CardMenu,
+    NotSync,
   },
   computed: {
     ...mapGetters("savingStore", ["getSavingStatus"]),
+    ...mapGetters("userStore", ["checkNotSync"]),
   },
 };
 </script>
