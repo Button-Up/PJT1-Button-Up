@@ -32,7 +32,6 @@ public class ToDoCheckService {
     private final ToDoCheckRepository toDoCheckRepository;
     private final JobHistoryRepository jobHistoryRepository;
     private final ToDoRepository toDoRepository;
-    private final ChildRepository childRepository;
 
     /**
      * 체크 리스트 조회
