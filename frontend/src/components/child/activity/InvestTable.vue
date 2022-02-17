@@ -20,8 +20,8 @@
         <tr>
           <td class="text-center">{{ nowPrice }}</td>
           <td class="text-center">{{ count }}</td>
-          <td class="text-center">{{ avaragePrice }}</td>
-          <td class="text-center">{{ profit }}</td>
+          <td class="text-center">{{ Math.round(averagePrice) }}</td>
+          <td class="text-center">{{ Math.round(profit) }}</td>
           <td class="text-center">{{ Math.round(profitRate) }}%</td>
         </tr>
       </tbody>
@@ -38,14 +38,14 @@ export default {
   },
   computed: {
     profit() {
-      return this.nowPrice * this.count - this.avaragePrice * this.count;
+      return this.nowPrice * this.count - this.averagePrice * this.count;
     },
     profitRate() {
       if (this.count == 0) return 0;
       else
         return (
-          ((this.nowPrice * this.count - this.avaragePrice * this.count) * 100) /
-          (this.avaragePrice * this.count)
+          ((this.nowPrice * this.count - this.averagePrice * this.count) * 100) /
+          (this.averagePrice * this.count)
         );
     },
   },
@@ -58,7 +58,7 @@ export default {
       type: Number,
       default: 0,
     },
-    avaragePrice: {
+    averagePrice: {
       type: Number,
       default: 0,
     },

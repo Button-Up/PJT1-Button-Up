@@ -52,7 +52,7 @@ public class InvestStatusService extends SharePriceService {
      *
      * @param request 투자 현황 업데이트 요청 정보
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateInvestStatus(InvestStatusRequest request) throws BalanceOverException {
         InvestStatus status = statusRepository.getById(request.getSeq());
         status.buyOrSellInvest(request.getCount(), request.getPrice());
@@ -68,7 +68,7 @@ public class InvestStatusService extends SharePriceService {
         HistoryRequest historyRequest = HistoryRequest.builder()
                 .category(category)
                 .content(content)
-                .money(request.getPrice())
+                .money(Math.abs(request.getPrice() * request.getCount()))
                 .childSeq(status.getChild().getSeq())
                 .build();
         accountService.insertAccountHistory(historyRequest, accountHistoryType);       // 입출금 내역 추가(출금)
