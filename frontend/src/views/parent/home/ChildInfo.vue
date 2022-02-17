@@ -89,6 +89,7 @@ export default {
         text: null,
         timeout: 2000,
       },
+      saving: null,
     };
   },
   created() {
@@ -121,6 +122,7 @@ export default {
         isDeposit: true,
         amount: this.getDefaultBalance,
       });
+      if (this.saving != null) accounts.push(this.saving);
       return accounts;
     },
   },
@@ -139,7 +141,9 @@ export default {
               isDeposit: false,
               amount: response.data.balance,
             };
+            console.log(saving);
             this.accounts.push(saving);
+            this.saving = saving;
           }
         },
         (error) => {
