@@ -71,15 +71,13 @@
           경제 공부방에서 퀴즈로 배울 수 있어요
         </p>
         <v-img :src="mockupImg3" max-width="260px" class="mt-6"></v-img>
-        <div>
-          <v-fab-transition
-            ><v-btn bottom right fixed fab dark small @click="$vuetify.goTo('#header')">
-              <v-icon>fas fa-angle-double-up</v-icon></v-btn
-            ></v-fab-transition
-          >
-        </div>
       </div>
     </v-sheet>
+    <v-fab-transition>
+      <v-btn bottom right fixed color="gray" fab small @click="$vuetify.goTo('#header')">
+        <v-icon>mdi-arrow-up</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </div>
 </template>
 
