@@ -15,7 +15,7 @@
           내 아이디를 입력하면 계정을 연결할 수 있어요.
         </p>
         <v-sheet class="my-3 pa-3 rounded-lg text-center font-weight-bold" color="child01">
-          내 아이디: {{ checkUserInfo.nickname }}
+          내 아이디: {{ checkUserInfo.nickName }}
         </v-sheet>
       </div>
     </v-sheet>
