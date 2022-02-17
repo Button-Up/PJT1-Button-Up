@@ -73,7 +73,7 @@
               block
               color="parent01"
               class="white--text"
-              @click.native="[putTutorialStage(), $router.push('/parent/activity/job')]"
+              @click.native="[putTutorialStage(), $router.push('/parent/home/job')]"
               >직업 만들러 가기</v-btn
             >
           </v-col>

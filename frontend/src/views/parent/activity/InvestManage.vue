@@ -25,7 +25,7 @@
 
     <div class="mt-8">
       <h2>오늘의 투자 뉴스</h2>
-      <p class="caption font-weight-normal">
+      <p class="body-2 font-weight-normal">
         아이가 정보를 바탕으로 투자할 수 있도록 뉴스를 전달해보세요!
       </p>
     </div>

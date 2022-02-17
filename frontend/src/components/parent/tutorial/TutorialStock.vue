@@ -77,7 +77,7 @@
               block
               color="parent01"
               class="white--text"
-              @click.native="[putTutorialStage(), $router.push('/parent/activity')]"
+              @click.native="[putTutorialStage(), $router.push('/parent/activity/invest/new/1')]"
               >투자 활동 살펴보기</v-btn
             >
           </v-col>
@@ -88,21 +88,21 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: 'TutorialStock',
+  name: "TutorialStock",
   data() {
     return {
-      imagePath1: require('../../../assets/svg/piggy-bank-animate.svg'),
-      imagePath2: require('../../../assets/svg/finance-app-animate.svg'),
+      imagePath1: require("../../../assets/svg/piggy-bank-animate.svg"),
+      imagePath2: require("../../../assets/svg/finance-app-animate.svg"),
     };
   },
   computed: {
-    ...mapGetters('userStore', ['checkUserInfo']),
+    ...mapGetters("userStore", ["checkUserInfo"]),
   },
   methods: {
-    ...mapActions('parentStore', ['vuexPutTutorialStage', 'vuexGetTutorialStage']),
+    ...mapActions("parentStore", ["vuexPutTutorialStage", "vuexGetTutorialStage"]),
     async putTutorialStage() {
       const tutorialInfo = {
         parentSeq: this.checkUserInfo.seq,
