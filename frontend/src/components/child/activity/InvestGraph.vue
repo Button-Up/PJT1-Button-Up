@@ -6,10 +6,12 @@
     <v-sparkline
       :labels="labels"
       :value="values"
-      color="#55C1C4"
+      :smooth="radius || false"
+      :gradient="gradients"
       line-width="2"
       padding="16"
       height="120px"
+      auto-draw
     ></v-sparkline>
   </v-sheet>
 </template>
@@ -18,8 +20,11 @@
 export default {
   data() {
     return {
+      radius: 10,
       labels: [],
       values: [],
+      // values: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
+      gradients: ["#00c6ff", "#F0F", "#FF0"],
     };
   },
   props: {
@@ -46,14 +51,14 @@ export default {
         this.labels.unshift(this.prices[0].date.substr(5, 5));
         this.values.unshift(this.prices[0].price);
         this.labels.unshift(this.prices[0].date.substr(5, 5));
-        this.values.unshift(0);
+        this.values.unshift(this.prices[this.prices.length - 1].price);
       } else if (this.prices != null) {
         this.prices.forEach((e) => {
           this.labels.unshift(e.date.substr(5, 5));
           this.values.unshift(e.price);
         });
-        this.labels.unshift(this.prices[this.prices.length - 1].date.substr(5, 5));
-        this.values.unshift(0);
+        // this.labels.unshift(this.prices[this.prices.length - 1].date.substr(5, 5));
+        // this.values.unshift(this.prices[this.prices.length - 1].price);
       }
     },
   },
