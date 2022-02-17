@@ -58,6 +58,7 @@ export default {
       }
     },
     putCheckListRow() {
+      this.$emit("clickCheckBox");
       let toDoCheckRequest = {
         checkListSeq: this.todo.seq,
         flag: this.todo.flag,
