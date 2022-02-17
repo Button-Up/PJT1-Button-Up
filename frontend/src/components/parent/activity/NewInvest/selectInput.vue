@@ -2,12 +2,12 @@
     author: 김지언
 -->
 <template>
-  <v-list-item class="justify-space-between align-baseline" cols="12">
+  <v-list-item class="justify-space-between align-baseline px-0" cols="12">
     <v-text-field
       cols="5"
-      v-model="target"
-      hide-details
-      required
+      v-model="targetData"
+      :rules="targetRules"
+      hide-details="auto"
       color="parent01"
       placeholder="ex) 어머니"
       outlined
@@ -18,12 +18,14 @@
     <v-select
       cols="5"
       class="ma-0 pa-0"
-      v-model="selectPreset"
+      v-model="preset"
       :items="getPresetList"
       item-value="seq"
       item-text="name"
       :color="`parent01`"
       :item-color="`parent01`"
+      :rules="selectRules"
+      hide-details="auto"
       outlined
       solo
       align-center
@@ -42,10 +44,16 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "selectInput",
+  props: {
+    selectPreset: {},
+    target: {},
+  },
   data() {
     return {
-      selectPreset: null,
-      target: null,
+      preset: null,
+      targetData: null,
+      targetRules: [(value) => !!value || "입력해주세요."],
+      selectRules: [(value) => !!value || "선택해주세요."],
     };
   },
   computed: {
@@ -53,9 +61,13 @@ export default {
   },
   mounted() {
     this.updatePreset();
+    this.preset = this.selectPreset;
+    this.targetData = this.target;
+    // console.log(this.preset, this.targetData);
   },
   updated() {
-    this.$emit("setPreset", this.selectPreset, this.target);
+    this.$emit("setPreset", this.preset, this.targetData);
+    // console.log(this.preset, this.targetData);
   },
   methods: {
     ...mapActions("investStore", ["vuexUpdatePreset"]),

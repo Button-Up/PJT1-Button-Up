@@ -63,6 +63,15 @@
         </v-card>
       </v-col>
 
+      <Modal
+        :visible.sync="dialog"
+        :isParent="true"
+        title="계정 연동이 완료되었습니다."
+        textPositiveBtn="확인"
+        :positiveAction="goToHome"
+        :ishaveNegBtn="false"
+      ></Modal>
+
       <!-- 하단 버튼 -->
       <v-col class="flex-grow-0">
         <v-row dense>
@@ -102,11 +111,15 @@
 </template>
 
 <script>
+import Modal from "@/components/common/Modal";
 import { apiPutChildrenConnect } from "@/api/parentAPI";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "TutorialChildSync",
+  components: {
+    Modal,
+  },
   data() {
     return {
       // 1페이지 데이터
@@ -117,6 +130,8 @@ export default {
       pageTwoValid: true,
       childrendNicknames: [],
       childrendNicknameRule: [(v) => !!v || "아이디를 입력해주세요."],
+      // 모달 데이터
+      dialog: false,
     };
   },
   computed: {
@@ -149,8 +164,10 @@ export default {
         parentSeq: this.checkUserInfo.seq,
         stage: 2,
       };
-      alert("자녀 계정 연동이 완료되었습니다.");
       await this.vuexPutTutorialStage(tutorialInfo);
+      this.dialog = true;
+    },
+    goToHome() {
       this.$router.push("/parent/home");
     },
   },

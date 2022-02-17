@@ -43,15 +43,17 @@ export default {
       this.values = [];
       if (this.prices != null && this.prices.length == 1) {
         // 값 1개일때도 그래프 뜨도록
-        this.labels.unshift(this.prices[0].date);
-        this.labels.unshift(this.prices[0].date);
+        this.labels.unshift(this.prices[0].date.substr(5, 5));
         this.values.unshift(this.prices[0].price);
-        this.values.unshift(this.prices[0].price);
+        this.labels.unshift(this.prices[0].date.substr(5, 5));
+        this.values.unshift(0);
       } else if (this.prices != null) {
         this.prices.forEach((e) => {
-          this.labels.unshift(e.date);
+          this.labels.unshift(e.date.substr(5, 5));
           this.values.unshift(e.price);
         });
+        this.labels.unshift(this.prices[this.prices.length - 1].date.substr(5, 5));
+        this.values.unshift(0);
       }
     },
   },

@@ -39,8 +39,8 @@
     <!-- 테이블 -->
     <invest-table
       :nowPrice="nowInvestment.todayPrice"
-      :count="nowInvestment.count"
-      :avaragePrice="nowInvestment.averagePrice"
+      :count="nowCount"
+      :averagePrice="nowAveragePrice"
     ></invest-table>
 
     <v-row dense justify="center">
@@ -50,6 +50,7 @@
           :price="nowInvestment.todayPrice"
           :name="nowInvestment.name"
           :investStatusSeq="nowInvestment.statusSeq"
+          @getData="getTableInfo"
         >
           <!--주식현황키-->
           ></InvestBtmSheet
@@ -61,6 +62,7 @@
           :price="nowInvestment.todayPrice"
           :name="nowInvestment.name"
           :investStatusSeq="nowInvestment.statusSeq"
+          @getData="getTableInfo"
         ></InvestBtmSheet
       ></v-col>
     </v-row>
@@ -91,19 +93,22 @@ export default {
   data() {
     return {
       colorList: ["red--text", "grey--text", "blue--text"],
-      nowInvestment: {
-        info: {},
-        status: {},
-        prices: [],
-        todayPrice: 0,
-        changePrice: 0,
-        color: "",
-      },
+      averagePrice: 0,
+      count: 0,
+      nowInvestment: null,
       investmentList: [],
     };
   },
   computed: {
     ...mapGetters("userStore", ["checkUserInfo"]),
+    nowAveragePrice() {
+      if (this.nowInvestment == null) return 0;
+      return this.nowInvestment.averagePrice;
+    },
+    nowCount() {
+      if (this.count == null) return 0;
+      return this.nowInvestment.count;
+    },
   },
   methods: {
     resetAllData() {
@@ -118,12 +123,14 @@ export default {
         this.getInvestStatusByChild();
       });
     },
-    getInvestStatusByChild() {
+    // 아이의 주식별 현황 가져옴
+    async getInvestStatusByChild() {
       for (let i = 0; i < this.investmentList.length; i++) {
-        apiGetInvestStatusByChild(
+        await apiGetInvestStatusByChild(
           this.investmentList[i].seq,
           this.checkUserInfo.seq,
           ({ data }) => {
+            console.log(data);
             this.investmentList[i].averagePrice = data.averagePrice;
             this.investmentList[i].count = data.count;
             this.investmentList[i].statusSeq = data.seq;
@@ -131,16 +138,37 @@ export default {
 
             this.investmentList[i].prices = data.prices;
             if (i == 0) {
-              this.nowInvestment = this.investmentList[i];
-              this.setAllNowInvestInfo();
+              this.nowInvestment = this.investmentList[0];
+              this.setAllNowInvestInfo(); // 모든 주식 관련 정보 셋팅
             }
           }
         );
       }
     },
+    // 구매/판매한 경우, 보유주식 수와 평균가격 변경
+    async getTableInfo(investStatusSeq) {
+      const newInvestment = { ...this.nowInvestment };
+      console.log(newInvestment);
+      for (let i = 0; i < this.investmentList.length; i++) {
+        if (investStatusSeq == this.investmentList[i].statusSeq) {
+          await apiGetInvestStatusByChild(
+            this.investmentList[i].seq,
+            this.checkUserInfo.seq,
+            ({ data }) => {
+              this.investmentList[i].averagePrice = data.averagePrice;
+              this.investmentList[i].count = data.count;
+              newInvestment.averagePrice = data.averagePrice;
+              newInvestment.count = data.count;
+              this.nowInvestment = newInvestment;
+              console.log("----");
+              console.log(this.nowInvestment);
+            }
+          );
+        }
+      }
+    },
+    // 오늘의 가격, 변동금액, 색깔 셋팅
     setAllNowInvestInfo() {
-      console.log("0000");
-      console.log(this.nowInvestment);
       this.nowInvestment.todayPrice = this.getTodayPrice();
       this.nowInvestment.changePrice = this.getChangePrice();
       if (this.nowInvestment.changePrice < 0) {
@@ -177,7 +205,7 @@ export default {
 </script>
 
 <style scoped>
-.v-select__selections {
+::v-deep .v-select__selections {
   line-height: 30px;
 }
 </style>
