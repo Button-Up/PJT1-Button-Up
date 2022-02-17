@@ -1,6 +1,6 @@
 <template>
-  <v-container class="fill-height">
-    <v-row class="fill-height flex-column">
+  <v-container class="">
+    <v-row class="flex-column">
       <!-- 프로그레스 바 -->
       <v-col class="flex-grow-0">
         <v-progress-linear
@@ -12,11 +12,19 @@
       </v-col>
 
       <!-- 본문 -->
-      <v-col>
-        <v-card class="fill-height d-flex flex-column justify-center">
-          <div class="px-6 pb-16">
-            <h2>{{ postList[$route.params.postSeq - 1].title }}</h2>
-            <p>{{ postList[$route.params.postSeq - 1].content }}</p>
+      <v-col class="flex-shrink-1">
+        <v-card class="d-flex justify-center align-center" min-height="440px">
+          <div class="d-flex flex-column align-center pa-6">
+            <h2 class="mb-6">{{ postList[$route.params.postSeq - 1].title }}</h2>
+            <div v-html="postList[$route.params.postSeq - 1].content">
+              {{ postList[$route.params.postSeq - 1].content }}
+            </div>
+            <v-img
+              v-if="postList[$route.params.postSeq - 1].image != null"
+              :src="postList[$route.params.postSeq - 1].image"
+              width="100px"
+            >
+            </v-img>
           </div>
         </v-card>
       </v-col>
@@ -43,7 +51,14 @@
             >
           </v-col>
           <v-col v-else>
-            <v-btn block color="child04" class="font-weight-bold">복습 퀴즈 풀기</v-btn>
+            <v-btn
+              block
+              color="child04"
+              class="font-weight-bold"
+              @click.native="$router.push(`/child/activity/study`)"
+              >학습 완료</v-btn
+            >
+            <!-- 퀴즈 추가되면 '복습 퀴즈 풀기'로 변경-->
           </v-col>
         </v-row>
       </v-col>
@@ -52,38 +67,53 @@
 </template>
 
 <script>
+import { apiGetContentOfTopic } from "@/api/economyAPI.js";
+
 export default {
   name: "StudyDetail",
   data() {
     return {
-      postList: [
-        {
-          // 포스트 순서
-          postSeq: 1,
-          title: "title1",
-          content: "content",
-          imageURL: "",
-        },
-        {
-          postSeq: 2,
-          title: "title2",
-          content: "content",
-          imageURL: "",
-        },
-        {
-          postSeq: 3,
-          title: "title3",
-          content: "content",
-          imageURL: "",
-        },
-        {
-          postSeq: 4,
-          title: "title4",
-          content: "content",
-          imageURL: "",
-        },
-      ],
+      postList: [],
+      // postList: [
+      //   {
+      //     // 포스트 순서
+      //     postSeq: 1,
+      //     title: "title1",
+      //     content: "content",
+      //     imageURL: "",
+      //   },
+      //   {
+      //     postSeq: 2,
+      //     title: "title2",
+      //     content: "content",
+      //     imageURL: "",
+      //   },
+      //   {
+      //     postSeq: 3,
+      //     title: "title3",
+      //     content: "content",
+      //     imageURL: "",
+      //   },
+      //   {
+      //     postSeq: 4,
+      //     title: "title4",
+      //     content: "content",
+      //     imageURL: "",
+      //   },
+      // ],
     };
+  },
+  created() {
+    apiGetContentOfTopic(
+      this.$route.params.topicSeq,
+      (response) => {
+        console.log(response.data);
+        this.postList = response.data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
 };
 </script>

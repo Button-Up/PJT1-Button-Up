@@ -9,6 +9,8 @@ import BottomNav from "../../components/common/BottomNav";
 // 페이지
 import ParentHome from "../../views/parent/home/Home";
 import ChlidInfo from "../../views/parent/home/ChildInfo";
+import InvestManage from "../../views/parent/activity/InvestManage.vue";
+import JobManager from "../../views/parent/activity/JobManage";
 
 export default [
   {
@@ -36,6 +38,40 @@ export default [
         backBtnPath: "/parent/home",
       },
       default: true,
+    },
+    meta: {
+      isParentPage: true,
+    },
+  },
+  {
+    path: "/parent/todo/invest",
+    name: "TodoInvest",
+    components: {
+      default: InvestManage,
+      header: BackHeader,
+      footer: BottomNav,
+    },
+    props: {
+      header: {
+        backBtnPath: "/parent/home",
+      },
+    },
+    meta: {
+      isParentPage: true,
+    },
+  },
+  {
+    path: "/parent/home/job",
+    name: "JobInvest",
+    components: {
+      default: JobManager,
+      header: BackHeader,
+      footer: BottomNav,
+    },
+    props: {
+      header: {
+        backBtnPath: "/parent/home",
+      },
     },
     meta: {
       isParentPage: true,

@@ -4,7 +4,7 @@
   modified : 우정연 - 아이 체크리스트 수정되도록, 부모쪽 체크리스트 안보이도록 수정
 -->
 <template>
-  <div class="ma-2">
+  <div class="my-2 mx-0">
     <v-card
       :disabled="onlyRead"
       class="px-0"
@@ -15,7 +15,7 @@
       <v-container class="pa-2" width="200" fluid>
         <v-row align="center" class="mx-0" id="space-between" @click="clickEvent">
           <v-checkbox
-            v-if="!isParent || (onlyRead && isParent)"
+            v-if="(!isParent || (onlyRead && isParent && checkboxOn)) && Number(todo.seq) != -1"
             v-model="todo.flag"
             class="ml-2 pa-0 font-weight-black black--text"
             :color="isParent ? 'parent01' : 'child01'"
@@ -58,6 +58,7 @@ export default {
       }
     },
     putCheckListRow() {
+      this.$emit("clickCheckBox");
       let toDoCheckRequest = {
         checkListSeq: this.todo.seq,
         flag: this.todo.flag,

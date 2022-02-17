@@ -26,7 +26,7 @@
       <!-- 부모의 할일 -->
       <div class="mt-2">
         <h2>확인해주세요!</h2>
-        <p class="caption font-weight-normal">오늘 확인해야 할 항목들이에요</p>
+        <p class="body-2 font-weight-normal">오늘 확인해야 할 항목들이에요</p>
       </div>
       <v-list-item
         v-for="(todo, t) in TodoList"
@@ -56,19 +56,19 @@ export default {
     return {
       TodoList: [
         {
-          done: false,
+          done: true,
           content: "환전/결제 요청 확인",
           url: "/parent/request-list",
         },
         {
           done: true,
           content: "투자 가격 업데이트",
-          url: "/parent/userinfo",
+          url: "/parent/todo/invest",
         },
         {
           done: true,
-          content: "투자 가격 업데이트",
-          url: "/parent/userinfo",
+          content: "오늘의 투자 뉴스 작성",
+          url: "/parent/todo/invest",
         },
       ],
     };
@@ -81,7 +81,7 @@ export default {
     ...mapActions("parentStore", ["vuexGetTutorialStage"]),
   },
   async mounted() {
-    await this.vuexGetTutorialStage(this.checkUserInfo.seq);
+    await this.$store.dispatch("parentStore/vuexGetTutorialStage", this.checkUserInfo.seq);
   },
 };
 </script>

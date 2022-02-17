@@ -7,7 +7,8 @@ import com.ssafy.buttonup.exception.BalanceOverException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 @Entity
 @Table(name = "investment_statuses")
 @Getter
+@DynamicUpdate
 @NoArgsConstructor
 public class InvestStatus {
     @Id
@@ -74,16 +76,13 @@ public class InvestStatus {
      */
     public void buyOrSellInvest(int count, int price) throws BalanceOverException {
         double totalPrice = this.averagePrice * this.count;
-        if(this.count + count < 0)
+        if (this.count + count < 0)
             throw new BalanceOverException("매도 가능 개수 초과");
         this.count += count;
 
-        if (count > 0) { // 매수
-            totalPrice += count * price;
-        } else { //매도
-            totalPrice -= count * price;
-        }
+        totalPrice += count * price;
 
-        this.averagePrice = totalPrice / this.count;
+        if(this.count != 0) this.averagePrice = totalPrice / this.count;
+        else this.averagePrice = 0;
     }
 }

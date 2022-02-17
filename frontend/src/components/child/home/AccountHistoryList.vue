@@ -5,18 +5,29 @@ author: 유현수
 
 <template>
   <v-list two-line>
-    <v-divider v-if="isDeposit"></v-divider>
-    <template v-for="(accountHistory, idx) in accountHistories">
+    <v-divider></v-divider>
+    <template
+      v-for="(accountHistory, idx) in isDeposit
+        ? accountHistories
+        : getSavingAccountDetail.histories"
+    >
       <v-list-item :key="`item-${idx}`" three-line>
         <div>
           <div class="d-flex align-center">
-            <span class="mr-2 gray--text">{{ accountHistory.category }}</span>
-            <span class="text-caption">{{ accountHistory.content }}</span>
+            <!-- 카테고리 -->
+            <span class="mr-2 gray--text">{{
+              isDeposit ? accountHistory.category : accountHistory.catetory
+            }}</span>
+            <!-- 이벤트(content) -->
+            <span v-if="isDeposit" class="text-caption">{{ accountHistory.content }}</span>
           </div>
+          <!-- 날짜 -->
           <v-list-item-subtitle>{{ accountHistory.date }}</v-list-item-subtitle>
         </div>
         <v-list-item-content class="text-right">
+          <!-- 예금 입출금 금액 -->
           <v-list-item-title
+            v-if="isDeposit"
             :class="accountHistory.type === '입금' ? 'blue--text' : 'red--text'"
             class="font-weight-bold"
             >{{
@@ -24,6 +35,11 @@ author: 유현수
             }}
             단추</v-list-item-title
           >
+          <!-- 적금 입금 금액 -->
+          <v-list-item-title v-else class="font-weight-bold blue--text"
+            >{{ accountHistory.money }}단추</v-list-item-title
+          >
+          <!-- 잔액 -->
           <v-list-item-subtitle>{{ accountHistory.balance }} 단추</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -33,6 +49,8 @@ author: 유현수
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "AccountHistoryList",
   props: {
@@ -44,6 +62,9 @@ export default {
       type: Array,
       default: null,
     },
+  },
+  computed: {
+    ...mapGetters("savingStore", ["getSavingAccountDetail"]),
   },
 };
 </script>

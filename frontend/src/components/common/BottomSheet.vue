@@ -16,6 +16,7 @@
             v-bind="attrs"
             v-on="on"
             :block="isBlockBtn"
+            :width="customBtnWidth"
           >
             <v-icon v-if="isIcon">{{ iconName }}</v-icon>
             {{ btnName }}
@@ -41,6 +42,10 @@ export default {
     };
   },
   props: {
+    closeSheet: {
+      type: Boolean,
+      default: false,
+    },
     sheetHeight: {
       type: String,
       default: "fit-content",
@@ -48,6 +53,10 @@ export default {
     isBlockBtn: {
       type: Boolean,
       default: false,
+    },
+    customBtnWidth: {
+      type: String,
+      default: null,
     },
     btnColor: {
       type: String,
@@ -68,6 +77,14 @@ export default {
     iconName: {
       type: String,
       default: "",
+    },
+  },
+  watch: {
+    closeSheet() {
+      if (this.closeSheet) {
+        this.sheet = false;
+        this.$emit("sheetClosed");
+      }
     },
   },
 };

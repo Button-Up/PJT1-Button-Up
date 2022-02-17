@@ -67,6 +67,7 @@ public class ChildService {
 
         ChildResponse childResponse = ChildResponse.builder()
                 .seq(child.getSeq())
+                .nickName(child.getNickname())
                 .phone(child.getPhone())
                 .name(child.getName())
                 .birthDate(child.getBirthDate())
@@ -89,6 +90,7 @@ public class ChildService {
         for(Child child : children) {
             ChildResponse childResponse = ChildResponse.builder()
                     .seq(child.getSeq())
+                    .nickName(child.getNickname())
                     .phone(child.getPhone())
                     .name(child.getName())
                     .birthDate(child.getBirthDate())

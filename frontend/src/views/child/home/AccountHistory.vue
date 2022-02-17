@@ -16,9 +16,14 @@ modified: 우정연 - 계좌 내역 정렬 적용
     >
       <div>
         <!-- 단추 잔액 -->
-        <h2 class="text-center">{{ getDefaultBalance }} 단추</h2>
+        <h2 class="text-center">{{ isDeposit ? getDefaultBalance : getBalance }} 단추</h2>
 
-        <!-- 환전 요청 버튼 & 바텀시트 -->
+        <!-- 입금하기 버튼 & 바텀시트 -->
+        <SavingHistoryBtmSheet
+          v-if="!isDeposit"
+          @updateSavingHistory="updateSavingHistory"
+        ></SavingHistoryBtmSheet>
+        <!-- 환전 요청 or 적금 해지 버튼 & 바텀시트 -->
         <AccountHistoryBtmSheet :isDeposit="isDeposit"></AccountHistoryBtmSheet>
       </div>
     </v-sheet>
@@ -38,8 +43,8 @@ modified: 우정연 - 계좌 내역 정렬 적용
 
     <!-- 적금 만기일 그래프 -->
     <v-sheet v-if="!isDeposit">
-      <div class="pa-5">
-        <h3>적금 만기까지 {{ calcDDay }}일!</h3>
+      <v-sheet class="mx-5 my-5 pa-5" elevation="1" rounded="lg">
+        <h3>적금 만기까지 {{ getSavingAccountDetail.restDate }}일!</h3>
         <v-progress-linear
           class="mt-4"
           color="child04"
@@ -48,20 +53,20 @@ modified: 우정연 - 계좌 내역 정렬 적용
           :value="calcProgress"
         ></v-progress-linear>
         <div class="d-flex justify-space-between mt-1">
-          <div>{{ savingInfo.startDate }}</div>
-          <div>{{ savingInfo.endDate }}</div>
+          <div>{{ startDate }}</div>
+          <div>{{ endDate }}</div>
         </div>
         <div v-if="getDefaultBalance">
           <v-divider class="my-3"></v-divider>
           <div class="d-flex justify-space-between">
             <div>만기 시 이자</div>
-            <div class="red--text font-weight-bold">
-              + {{ Math.ceil(getDefaultBalance * 0.05) }} 단추
-            </div>
+            <div class="red--text font-weight-bold">+ {{ Math.ceil(getBalance * 0.05) }} 단추</div>
           </div>
         </div>
-      </div>
+      </v-sheet>
     </v-sheet>
+
+    <v-subheader v-if="!isDeposit">입금내역</v-subheader>
 
     <!-- 거래내역 리스트 -->
     <AccountHistoryList
@@ -73,6 +78,7 @@ modified: 우정연 - 계좌 내역 정렬 적용
 
 <script>
 import AccountHistoryBtmSheet from "@/components/child/home/AccountHistoryBtmSheet.vue";
+import SavingHistoryBtmSheet from "@/components/child/home/SavingHistoryBtmSheet.vue";
 import AccountHistoryList from "@/components/child/home/AccountHistoryList.vue";
 import { mapActions, mapGetters } from "vuex";
 
@@ -81,6 +87,7 @@ export default {
   components: {
     AccountHistoryBtmSheet,
     AccountHistoryList,
+    SavingHistoryBtmSheet,
   },
   props: {
     isDeposit: {
@@ -96,12 +103,50 @@ export default {
       historyFilter: ["전체", "입금", "출금"],
       accountHistories: [],
       filter: "전체",
-      // 적금 정보
-      savingInfo: {
-        startDate: "2022-02-14",
-        endDate: "2022-05-15",
-      },
     };
+  },
+  computed: {
+    // 예금 getters
+    ...mapGetters("accountStore", ["getDefaultBalance", "getAccountList"]),
+    // 적금 getters
+    ...mapGetters("savingStore", ["getBalance", "getSavingAccountDetail"]),
+    ...mapGetters("userStore", ["checkUserInfo"]),
+    accountColor() {
+      return this.isDeposit ? "child01" : "child04";
+    },
+    // 오늘 기준 적금 만기일까지 진행 상황
+    calcProgress() {
+      return ((90 - this.getSavingAccountDetail.restDate) / 90) * 100;
+    },
+    startDate() {
+      const date = new Date(this.getSavingAccountDetail.createdDate);
+      return date.toLocaleDateString();
+    },
+    endDate() {
+      const date = new Date(this.getSavingAccountDetail.endDate);
+      return date.toLocaleDateString();
+    },
+  },
+  methods: {
+    ...mapActions({ accountStore: ["vuexUpdateDefaultBalance", "vuexFetchAccountHistory"] }),
+    ...mapActions({ savingStore: ["vuexGetSavingDetails"] }),
+    // 필터 적용(전체, 입금, 출금)
+    onChange(event) {
+      this.filter = event;
+      this.sortByFilter();
+    },
+    // 필터 정렬
+    sortByFilter() {
+      if (this.filter === "전체") this.accountHistories = this.getAccountList;
+      else
+        this.accountHistories = this.getAccountList.filter(
+          (account) => account.type === this.filter
+        );
+    },
+    updateSavingHistory() {
+      this.$store.dispatch("savingStore/vuexGetSavingDetails", this.checkUserInfo.seq);
+      this.accountHistories = this.getSavingAccountDetail.histories;
+    },
   },
   watch: {
     getAccountList: {
@@ -112,43 +157,14 @@ export default {
       deep: true,
     },
   },
-  computed: {
-    ...mapGetters("accountStore", ["getDefaultBalance", "getAccountList"]),
-    ...mapGetters("userStore", ["checkUserInfo"]),
-    accountColor() {
-      return this.isDeposit ? "child01" : "child04";
-    },
-    // 적금 만기일까지 남은 날짜
-    calcDDay() {
-      const startDate = new Date(this.savingInfo.startDate);
-      const endDate = new Date(this.savingInfo.endDate);
-      const dateDiff = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24));
-      return dateDiff;
-    },
-    // 오늘 기준 적금 만기일까지 진행 상황
-    calcProgress() {
-      return ((90 - this.calcDDay) / 90) * 100;
-    },
-  },
   mounted() {
-    this.$store.dispatch("accountStore/vuexUpdateDefaultBalance", this.checkUserInfo.seq);
-    this.$store.dispatch("accountStore/vuexFetchAccountHistory", this.checkUserInfo.seq);
-    this.accountHistories = this.getAccountList;
-  },
-  methods: {
-    ...mapActions({ accountStore: ["vuexUpdateDefaultBalance", "vuexFetchAccountHistory"] }),
-    // 필터 적용(전체, 입금, 출금)
-    onChange(event) {
-      this.filter = event;
-      this.sortByFilter();
-    },
-    sortByFilter() {
-      if (this.filter === "전체") this.accountHistories = this.getAccountList;
-      else
-        this.accountHistories = this.getAccountList.filter(
-          (account) => account.type === this.filter
-        );
-    },
+    if (this.isDeposit) {
+      this.$store.dispatch("accountStore/vuexUpdateDefaultBalance", this.checkUserInfo.seq);
+      this.$store.dispatch("accountStore/vuexFetchAccountHistory", this.checkUserInfo.seq);
+      this.accountHistories = this.getAccountList;
+    } else {
+      this.updateSavingHistory();
+    }
   },
 };
 </script>

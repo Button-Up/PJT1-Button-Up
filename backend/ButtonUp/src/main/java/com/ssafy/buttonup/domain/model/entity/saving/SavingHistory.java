@@ -1,12 +1,17 @@
 package com.ssafy.buttonup.domain.model.entity.saving;
 
+import com.ssafy.buttonup.domain.model.dto.saving.response.SavingDetailResponse;
+import com.ssafy.buttonup.domain.model.dto.saving.response.SavingHistoryResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 import static javax.persistence.GenerationType.*;
 
@@ -35,23 +40,32 @@ public class SavingHistory {
     @Column(name = "saving_history_money")
     private int money;
 
+    @Setter
     @Column(name ="saving_history_balance")
     private int balance;
 
     @Column(name="saving_history_content")
-    private String content;
+    private String catetory;
 
+    @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="saving_history_date")
     private Date date;
 
     @Builder
-    public SavingHistory(Long seq, Saving saving, int money, int balance, String content, Date date) {
-        this.seq = seq;
+    public SavingHistory(Saving saving, int money, int balance, String catetory) {
         this.saving = saving;
         this.money = money;
         this.balance = balance;
-        this.content = content;
-        this.date = date;
+        this.catetory = catetory;
+    }
+
+    public SavingHistoryResponse toResponse() {
+        return SavingHistoryResponse.builder()
+                .date(date)
+                .balance(balance)
+                .money(money)
+                .catetory(catetory)
+                .build();
     }
 }

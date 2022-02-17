@@ -22,8 +22,11 @@ function addAccountDeposit(formData, success, fail) {
 }
 
 // 출금 내역 추가
-function addAccountWithdraw(formData, success, fail) {
-  api.post(`/accounts/histories/withdraw`, JSON.stringify(formData)).then(success).catch(fail);
+async function addAccountWithdraw(formData, success, fail) {
+  await api
+    .post(`/accounts/histories/withdraw`, JSON.stringify(formData))
+    .then(success)
+    .catch(fail);
 }
 
 export { getAccountBalance, getAccountList, addAccountDeposit, addAccountWithdraw };
