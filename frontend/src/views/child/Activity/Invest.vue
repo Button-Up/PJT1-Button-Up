@@ -147,6 +147,8 @@ export default {
     },
     // 구매/판매한 경우, 보유주식 수와 평균가격 변경
     async getTableInfo(investStatusSeq) {
+      const newInvestment = { ...this.nowInvestment };
+      console.log(newInvestment);
       for (let i = 0; i < this.investmentList.length; i++) {
         if (investStatusSeq == this.investmentList[i].statusSeq) {
           await apiGetInvestStatusByChild(
@@ -155,8 +157,9 @@ export default {
             ({ data }) => {
               this.investmentList[i].averagePrice = data.averagePrice;
               this.investmentList[i].count = data.count;
-              this.nowInvestment.averagePrice = data.averagePrice;
-              this.nowInvestment.count = data.count;
+              newInvestment.averagePrice = data.averagePrice;
+              newInvestment.count = data.count;
+              this.nowInvestment = newInvestment;
               console.log("----");
               console.log(this.nowInvestment);
             }
