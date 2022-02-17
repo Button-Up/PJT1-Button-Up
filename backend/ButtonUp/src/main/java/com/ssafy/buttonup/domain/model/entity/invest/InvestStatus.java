@@ -7,6 +7,8 @@ import com.ssafy.buttonup.exception.BalanceOverException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 @Entity
 @Table(name = "investment_statuses")
 @Getter
+@DynamicUpdate
 @NoArgsConstructor
 public class InvestStatus {
     @Id
@@ -79,6 +82,7 @@ public class InvestStatus {
 
         totalPrice += count * price;
 
-        this.averagePrice = totalPrice / this.count;
+        if(this.count != 0) this.averagePrice = totalPrice / this.count;
+        else this.averagePrice = 0;
     }
 }
