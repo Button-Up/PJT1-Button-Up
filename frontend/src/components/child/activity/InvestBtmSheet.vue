@@ -100,6 +100,9 @@ export default {
         },
         (error) => {
           console.log(error);
+          alert(
+            this.isBuy ? "잔액이 부족합니다!" : "보유 주식 수보다 초과해서 판매할 수 없습니다!"
+          );
         }
       );
     },
