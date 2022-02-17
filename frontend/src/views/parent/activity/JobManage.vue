@@ -86,9 +86,9 @@
 </template>
 
 <script>
-import JobWithTodoListCard from '@/components/common/JobWithTodoListCard.vue';
-import { apiGetJobsList, apiModifyJob, apiGetChildsJob } from '@/api/jobsAPI.js';
-import { mapGetters } from 'vuex';
+import JobWithTodoListCard from "@/components/common/JobWithTodoListCard.vue";
+import { apiGetJobsList, apiModifyJob, apiGetChildsJob } from "@/api/jobsAPI.js";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -97,7 +97,7 @@ export default {
   data() {
     return {
       snackbar: false,
-      text: '아이의 직업이 설정되었습니다',
+      text: "아이의 직업이 설정되었습니다",
       timeout: 2000,
       jobs: [],
       children: [],
@@ -105,7 +105,7 @@ export default {
   },
   created() {
     console.log(this.childrenInfo);
-    console.log(this.childrenInfo + '여기는 created의 childrenInfo다');
+    console.log(this.childrenInfo + "여기는 created의 childrenInfo다");
     apiGetJobsList(
       this.checkUserInfo.seq,
       (response) => {
@@ -119,15 +119,15 @@ export default {
     this.getJobchildren();
   },
   computed: {
-    ...mapGetters('parentStore', ['childrenInfo']),
-    ...mapGetters('userStore', ['checkUserInfo']),
+    ...mapGetters("parentStore", ["childrenInfo"]),
+    ...mapGetters("userStore", ["checkUserInfo"]),
   },
   methods: {
     selectJob(event) {
       console.log(event.name);
     },
     setChildJob(child) {
-      console.log('childreninfo');
+      console.log("childreninfo");
       console.log(child);
       console.log(child.job.name);
       var param = {
@@ -138,9 +138,9 @@ export default {
         param,
         (response) => {
           console.log(response.data);
-          console.log('성공');
+          console.log("성공");
           this.snackbar = true;
-          this.text = child.name + '의 직업은 ' + response.data.name + '입니다. ';
+          this.text = response.data.name + "(으)로 설정되었습니다. ";
         },
         (error) => {
           console.log(error);
@@ -165,7 +165,7 @@ export default {
           }
         );
       }
-      console.log('computed');
+      console.log("computed");
       console.log(this.children);
       // return children;
     },

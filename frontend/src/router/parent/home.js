@@ -10,6 +10,7 @@ import BottomNav from "../../components/common/BottomNav";
 import ParentHome from "../../views/parent/home/Home";
 import ChlidInfo from "../../views/parent/home/ChildInfo";
 import InvestManage from "../../views/parent/activity/InvestManage.vue";
+import JobManager from "../../views/parent/activity/JobManage";
 
 export default [
   {
@@ -52,7 +53,23 @@ export default [
     },
     props: {
       header: {
-        pageTitle: "투자 활동 관리",
+        backBtnPath: "/parent/home",
+      },
+    },
+    meta: {
+      isParentPage: true,
+    },
+  },
+  {
+    path: "/parent/home/job",
+    name: "JobInvest",
+    components: {
+      default: JobManager,
+      header: BackHeader,
+      footer: BottomNav,
+    },
+    props: {
+      header: {
         backBtnPath: "/parent/home",
       },
     },
