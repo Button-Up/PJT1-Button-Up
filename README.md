@@ -59,6 +59,14 @@
 <summary>🎨Frontend 기술 자세히 보기</summary>
 <div markdown="1">
 
+    - vue
+    - vue/cli
+    - vue-router
+    - vuex
+    - vuex-persistedstate
+    - vuetify
+    - axios
+
 </div>
 </details>
 
@@ -277,6 +285,10 @@
 
 ### 🎨Frontend
 
+> api: axios 인스턴스를 활용한 API 모듈 <br>
+> views: Router에서 default로 지정된 컴포넌트 <br>
+> components: views에서 사용하는 컴포넌트, children으로 사용하는 컴포넌트, header, footer
+
 <details>
 <summary>Frontend 구조 자세히 보기</summary>
 <div markdown="1">
@@ -467,6 +479,32 @@
   - 프론트에서 보내줘야하는 데이터
 
 ## 🎨Frontend
+
+### 컴포넌트 구조
+
+- views: router에서 default로 등록되는 컴포넌트
+- components
+  - views 내부에서 사용되는 컴포넌트
+  - router에서 header, footer, children으로 연결되는 컴포넌트
+
+### 함수 작성 시 접두사
+
+> 함수명만 보고 어느 모듈에서 온 함수인지 구분할 수 있도록
+
+```javascript
+// 컴포넌트 내에서 만든 메서드 - 별도 접두사 없음
+getUserInfo();
+
+// vuex actions - vuex 접두사
+vuexGetUserInfo();
+
+// API function - api 접두사
+apiGetUserInfo();
+```
+
+### 라우터, vuex, api 모듈화
+
+> 코드 가독성과 유지보수를 위해 router, vuex, api 파일을 모듈화
 
 <br>
 <br>
