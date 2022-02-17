@@ -12,13 +12,19 @@
       </v-col>
 
       <!-- 본문 -->
-      <v-col>
-        <v-card class="fill-height d-flex flex-column justify-center">
-          <div class="px-6 pb-16">
+      <v-col class="flex-shrink-1">
+        <v-card class="fill-height text-center d-flex justify-center align-center">
+          <div class="d-flex flex-column align-center">
             <h2 class="mb-6">{{ postList[$route.params.postSeq - 1].title }}</h2>
             <div v-html="postList[$route.params.postSeq - 1].content">
               {{ postList[$route.params.postSeq - 1].content }}
             </div>
+            <v-img
+              v-if="postList[$route.params.postSeq - 1].image != null"
+              :src="postList[$route.params.postSeq - 1].image"
+              width="150px"
+            >
+            </v-img>
           </div>
         </v-card>
       </v-col>
