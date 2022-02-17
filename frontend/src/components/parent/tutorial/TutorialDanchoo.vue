@@ -115,7 +115,6 @@ export default {
         stage: 1,
       };
       await this.vuexPutTutorialStage(tutorialInfo);
-      await this.vuexGetTutorialStage(this.checkUserInfo.seq);
       this.$router.push("/parent/home");
     },
   },
