@@ -24,6 +24,10 @@ public class ChildResponse {
     @ApiModelProperty(value = "아이 키", required = true)
     private long seq;
 
+    /* 자녀 닉네임 */
+    @ApiModelProperty(value = "아이 닉네임", required = true)
+    private String nickName;
+
     /* 핸드폰 번호 */
     @ApiModelProperty(value = "아이 핸드폰번호", required = true)
     private String phone;

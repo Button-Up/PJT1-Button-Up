@@ -81,7 +81,7 @@ export default {
     ...mapActions("parentStore", ["vuexGetTutorialStage"]),
   },
   async mounted() {
-    await this.vuexGetTutorialStage(this.checkUserInfo.seq);
+    await this.$store.dispatch("parentStore/vuexGetTutorialStage", this.checkUserInfo.seq);
   },
 };
 </script>

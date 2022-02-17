@@ -82,7 +82,7 @@
             >
           </v-col>
           <v-col v-else>
-            <v-btn block color="parent01" class="white--text" @click.native="[putTutorialStage()]"
+            <v-btn block color="parent01" class="white--text" @click.native="putTutorialStage()"
               >잘 이해했어요!</v-btn
             >
           </v-col>
