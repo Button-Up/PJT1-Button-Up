@@ -42,6 +42,7 @@ public class SavingService {
      *
      * @param childSeq
      */
+    @Transactional(rollbackFor = Exception.class)
     public void insertSavingAccount(long childSeq) {
         Saving saving = savingRepository.save(Saving.builder()
                 .interestRate(0.05)
@@ -140,7 +141,7 @@ public class SavingService {
      *
      * @param request
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void insertSavingAccountHistory(SavingRequest request) {
         Saving savingSeq = savingRepository.findTopByChild_SeqOrderByDateDesc(request.getChildSeq());
         SavingHistory recentHistory = savingHistoryRepository.findTopBySaving_SeqOrderByDateDesc(savingSeq.getSeq());
