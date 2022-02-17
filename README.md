@@ -19,6 +19,8 @@
 | **Position** |          Jira <br> Assignee           |          Git <br> Assignee           |           Release <br> Assignee           |        Frontend <br> Leader         |            Team <br> Leader             |         Backend <br> Leader         |
 |   **Git**    | [GitHub](https://github.com/zbqlr456) | [GitHub](https://github.com/rlajiun) | [GitHub](https://github.com/WooJeongYeon) | [GitHub](https://github.com/82surf) | [GitHub](https://github.com/EuneeChung) | [GitHub](https://github.com/yeon-s) |
 
+<br>
+
 # 📃Tech Specifications
 
 ## 📚기술 스택
@@ -55,19 +57,32 @@
 
 <details>
 <summary>🎨Frontend 기술 자세히 보기</summary>
-<div markdown="1">  
-기술스택 ⚙
+<div markdown="1">
+
+    - vue
+    - vue/cli
+    - vue-router
+    - vuex
+    - vuex-persistedstate
+    - vuetify
+    - axios
 
 </div>
 </details>
+
+<br>
 
 ## 시스템 아키텍처
 
 ![시스템 아키텍처](image/specifications/system_structure.png)
 
+<br>
+
 ## [ERD](https://www.erdcloud.com/d/fEbqnr9diEWmQQvGZ)
 
 ![ERD](image/specifications/erd.png)
+
+<br>
 
 ## 📂Package Structure
 
@@ -270,6 +285,10 @@
 
 ### 🎨Frontend
 
+> api: axios 인스턴스를 활용한 API 모듈 <br>
+> views: Router에서 default로 지정된 컴포넌트 <br>
+> components: views에서 사용하는 컴포넌트, children으로 사용하는 컴포넌트, header, footer
+
 <details>
 <summary>Frontend 구조 자세히 보기</summary>
 <div markdown="1">
@@ -417,7 +436,78 @@
 </div>
 </details>
 
----
+<br>
+
+# 🔥Team Rules
+
+## 🖥Backend
+
+### 1. Entity Annotation
+
+```java
+@Entity  // table과 매핑할 클래스에 붙여주는 어노테이션
+@Table(name = "table_name") // 엔티티와 매핑할 테이블 지정 - 동일해도 name 속성 필수 작성
+@Getter // 클래스 위에서 붙여주면 클래스가 가지는 모든 멤버변수에 대한 get 함수생성
+@DynamicInsert // INSERT구문 생성 시점에 null인 필드 제외 - 필요시에만 추가
+@DynamicUpdate // update 시에 null인 필드 제외 - 필요시에만 추가
+@NoArgsConstructor // 기본생성자 생성해주는 어노테이션
+```
+
+### 2. Entity Strategy
+
+- **FK 설정시**  
+   ManyToOne 쪽만 설정시, 반대 컬럼에 OneToMany 설정시 양방향 관계를 가지게 됨.  
+   ⇒ **`양방향 지양`** , 반대 컬럼에 명시 X 해주고 **`단방향 연관 관계`** 로 사용!
+
+### 3. DTO Annotation
+
+```java
+@ApiModel(value = "table data 추가 요청 정보") // swagger용 설명 수정
+@Getter // 위와 동일
+@Builder // DTO 생성 패턴
+@NoArgsConstructor // 기본생성자
+@AllArgsConstructor // 모든 필드값을 가지는 생성자
+```
+
+- **ResponseDTO**
+
+  - 클라이언트에서 api를 호출해서 `서버에서 받는 데이터`
+  - 서버에서 보내줘야하는 데이터
+
+- **RequestDTO**
+  - 클라이언트의 요청을 처리하기 위해 `서버에서 받아야하는 데이터`
+  - 프론트에서 보내줘야하는 데이터
+
+## 🎨Frontend
+
+### 컴포넌트 구조
+
+- views: router에서 default로 등록되는 컴포넌트
+- components
+  - views 내부에서 사용되는 컴포넌트
+  - router에서 header, footer, children으로 연결되는 컴포넌트
+
+### 함수 작성 시 접두사
+
+> 함수명만 보고 어느 모듈에서 온 함수인지 구분할 수 있도록
+
+```javascript
+// 컴포넌트 내에서 만든 메서드 - 별도 접두사 없음
+getUserInfo();
+
+// vuex actions - vuex 접두사
+vuexGetUserInfo();
+
+// API function - api 접두사
+apiGetUserInfo();
+```
+
+### 라우터, vuex, api 모듈화
+
+> 코드 가독성과 유지보수를 위해 router, vuex, api 파일을 모듈화
+
+<br>
+<br>
 
 ## 첫단추 Wiki 바로가기
 
