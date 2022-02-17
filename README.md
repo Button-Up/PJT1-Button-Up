@@ -19,6 +19,8 @@
 | **Position** |          Jira <br> Assignee           |          Git <br> Assignee           |           Release <br> Assignee           |        Frontend <br> Leader         |            Team <br> Leader             |         Backend <br> Leader         |
 |   **Git**    | [GitHub](https://github.com/zbqlr456) | [GitHub](https://github.com/rlajiun) | [GitHub](https://github.com/WooJeongYeon) | [GitHub](https://github.com/82surf) | [GitHub](https://github.com/EuneeChung) | [GitHub](https://github.com/yeon-s) |
 
+<br>
+
 # 📃Tech Specifications
 
 ## 📚기술 스택
@@ -60,13 +62,19 @@
 </div>
 </details>
 
+<br>
+
 ## 시스템 아키텍처
 
 ![시스템 아키텍처](image/specifications/system_structure.png)
 
+<br>
+
 ## [ERD](https://www.erdcloud.com/d/fEbqnr9diEWmQQvGZ)
 
 ![ERD](image/specifications/erd.png)
+
+<br>
 
 ## 📂Package Structure
 
@@ -416,11 +424,13 @@
 </div>
 </details>
 
+<br>
+
 # 🔥Team Rules
 
-## Backend
+## 🖥Backend
 
-### Entity Annotation
+### 1. Entity Annotation
 
 ```java
 @Entity  // table과 매핑할 클래스에 붙여주는 어노테이션
@@ -431,13 +441,13 @@
 @NoArgsConstructor // 기본생성자 생성해주는 어노테이션
 ```
 
-### Entity Strategy
+### 2. Entity Strategy
 
 - **FK 설정시**  
    ManyToOne 쪽만 설정시, 반대 컬럼에 OneToMany 설정시 양방향 관계를 가지게 됨.  
    ⇒ **`양방향 지양`** , 반대 컬럼에 명시 X 해주고 **`단방향 연관 관계`** 로 사용!
 
-### DTO Annotation
+### 3. DTO Annotation
 
 ```java
 @ApiModel(value = "table data 추가 요청 정보") // swagger용 설명 수정
@@ -456,9 +466,10 @@
   - 클라이언트의 요청을 처리하기 위해 `서버에서 받아야하는 데이터`
   - 프론트에서 보내줘야하는 데이터
 
-## Frontend
+## 🎨Frontend
 
----
+<br>
+<br>
 
 ## 첫단추 Wiki 바로가기
 
