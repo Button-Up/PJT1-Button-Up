@@ -1,6 +1,6 @@
 <template>
-  <v-container class="fill-height">
-    <v-row class="fill-height flex-column">
+  <v-container class="">
+    <v-row class="flex-column">
       <!-- 프로그레스 바 -->
       <v-col class="flex-grow-0">
         <v-progress-linear
@@ -13,8 +13,8 @@
 
       <!-- 본문 -->
       <v-col class="flex-shrink-1">
-        <v-card class="fill-height text-center d-flex justify-center align-center">
-          <div class="d-flex flex-column align-center">
+        <v-card class="d-flex justify-center align-center" min-height="480px">
+          <div class="d-flex flex-column align-center pa-6">
             <h2 class="mb-6">{{ postList[$route.params.postSeq - 1].title }}</h2>
             <div v-html="postList[$route.params.postSeq - 1].content">
               {{ postList[$route.params.postSeq - 1].content }}
@@ -22,7 +22,7 @@
             <v-img
               v-if="postList[$route.params.postSeq - 1].image != null"
               :src="postList[$route.params.postSeq - 1].image"
-              width="150px"
+              width="100px"
             >
             </v-img>
           </div>
