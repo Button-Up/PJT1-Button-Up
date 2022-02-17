@@ -20,8 +20,8 @@
         <tr>
           <td class="text-center">{{ nowPrice }}</td>
           <td class="text-center">{{ count }}</td>
-          <td class="text-center">{{ averagePrice }}</td>
-          <td class="text-center">{{ profit }}</td>
+          <td class="text-center">{{ Math.round(averagePrice) }}</td>
+          <td class="text-center">{{ Math.round(profit) }}</td>
           <td class="text-center">{{ Math.round(profitRate) }}%</td>
         </tr>
       </tbody>

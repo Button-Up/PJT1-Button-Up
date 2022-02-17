@@ -93,10 +93,15 @@ export default {
         seq: this.investStatusSeq,
       };
       console.log(info);
-      apiPutInvestStatus(info, (resp) => {
-        console.log(resp);
-        this.$emit("getData", this.investStatusSeq);
-      });
+      apiPutInvestStatus(
+        info,
+        () => {
+          this.$emit("getData", this.investStatusSeq);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
   },
   data() {
