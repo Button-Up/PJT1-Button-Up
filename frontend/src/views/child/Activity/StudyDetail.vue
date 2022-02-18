@@ -107,12 +107,13 @@ export default {
     apiGetContentOfTopic(
       this.$route.params.topicSeq,
       (response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.postList = response.data;
       },
-      (error) => {
-        console.log(error);
-      }
+      // (err) => {
+      //   console.log(err);
+      // }
+      () => {}
     );
   },
 };

@@ -122,18 +122,35 @@
           </v-col>
         </v-row>
       </v-col>
+      <Modal
+        :visible.sync="successDialog"
+        :isParent="false"
+        :title="`적금 개설이 완료되었습니다.`"
+        :content="`100일 동안 열심히 단추를 모아봅시다 !! 확인을 누르시면 홈으로 이동합니다`"
+        :textPositiveBtn="`확인`"
+        :positiveAction="go"
+        :ishaveNegBtn="false"
+      ></Modal>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Modal from "../../../components/common/Modal.vue";
 
 export default {
+  components: { Modal },
   name: "ChildSaving",
   data() {
     return {
       dialog: false,
+      successDialog: false,
+      snackbar: {
+        isOpen: false,
+        text: null,
+        timeout: 2000,
+      },
     };
   },
   computed: {
@@ -143,9 +160,17 @@ export default {
     ...mapActions("savingStore", ["vuexPostOpenSavings"]),
     openSavings() {
       this.vuexPostOpenSavings(this.checkUserInfo.seq).then(() => {
-        alert("적금 개설이 완료되었습니다.");
-        this.$router.push("/child/home");
+        this.snackbar.text = "적금 개설이 완료되었습니다.";
+        this.snackbar.isOpen = true;
+        // this.$router.push("/child/home");
+        this.successDialog = true;
       });
+    },
+    go() {
+      this.gotoHome();
+    },
+    gotoHome() {
+      this.$router.push("/child/home");
     },
   },
 };

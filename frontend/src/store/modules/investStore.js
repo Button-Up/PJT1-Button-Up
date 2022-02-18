@@ -88,8 +88,8 @@ const investStore = {
      * @param {*} status 투자 현황
      */
     async vuexUpdateInvestStatus(status) {
-      await apiPutInvestStatus(status, (resp) => {
-        console.log(resp, "현황 업데이트 완료");
+      await apiPutInvestStatus(status, () => {
+        // console.log(resp, "현황 업데이트 완료");
         // 현황 다시 불러오기
         // this.vuexGetInvestStatus(investSeq, childSeq);
       });
@@ -159,10 +159,10 @@ const investStore = {
      * @param {*} news 새 뉴스
      */
     async vuexAddNews({ commit }, news) {
-      console.log(news);
-      await apiPostNews(news, (resp) => {
+      // console.log(news);
+      await apiPostNews(news, () => {
         commit("SET_IS_WRITED_NEWS", true);
-        console.log(resp, "뉴스 등록 완료");
+        // console.log(resp, "뉴스 등록 완료");
         // 뉴스 다시 업데이트
         // this.vuexUpdateNewsList({ commit }, news.parentSeq);
       });

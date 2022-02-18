@@ -89,9 +89,10 @@ export default {
           this.topicList[i].title = arr[i];
         }
       },
-      (error) => {
-        console.log(error);
-      }
+      // (err) => {
+      //   console.log(err);
+      // }
+      () => {}
     );
   },
 };
