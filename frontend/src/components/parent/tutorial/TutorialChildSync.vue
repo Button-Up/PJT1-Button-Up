@@ -149,12 +149,13 @@ export default {
         await apiPutChildrenConnect(
           nicknameInfo,
           () => {
-            console.log("부모-아이 연결 완료");
+            // console.log("부모-아이 연결 완료");
           },
-          (err) => {
-            console.log(err);
-            console.log("부모-아이 연결 실패");
-          }
+          // (err) => {
+          //   console.log(err);
+          //   console.log("부모-아이 연결 실패");
+          // }
+          () => {}
         );
       }
       // 부모 유저의 아이 정보 업데이트

@@ -29,7 +29,7 @@ function modifyRequestStatusApprove(requestSeq, success, fail) {
 
 // 요청 상태 거절로 변경
 function modifyRequestStatusReject(requestSeq, success, fail) {
-  console.log(requestSeq);
+  // console.log(requestSeq);
   api.put(`/requests/status/reject`, { request_seq: requestSeq }).then(success).catch(fail);
 }
 

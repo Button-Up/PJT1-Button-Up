@@ -57,12 +57,13 @@ const userStore = {
           commit("SET_IS_PARENT", loginInfo.isParent);
           sessionStorage.setItem("access-token", res.data.token);
           dispatch("vuexCheckJWT");
-          console.log("로그인 성공!");
+          // console.log("로그인 성공!");
         },
-        (err) => {
-          console.log(err);
-          console.log("로그인 실패!");
-        }
+        // (err) => {
+        //   console.log(err);
+        //   console.log("로그인 실패!");
+        // }
+        () => {}
       );
     },
     vuexLogout({ commit }) {
@@ -75,11 +76,12 @@ const userStore = {
         state.userSeq,
         (res) => {
           commit("SET_USER_INFO", res.data);
-          console.log("유저 정보 저장 완료!");
+          // console.log("유저 정보 저장 완료!");
         },
-        (err) => {
-          console.log(err);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
     vuexCheckJWT({ commit }) {

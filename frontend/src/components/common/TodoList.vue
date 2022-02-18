@@ -64,7 +64,7 @@ export default {
         flag: this.todo.flag,
       };
       apiPutCheckListRow(toDoCheckRequest, () => {
-        console.log("체크리스트 수정 완료!");
+        // console.log("체크리스트 수정 완료!");
       });
     },
   },

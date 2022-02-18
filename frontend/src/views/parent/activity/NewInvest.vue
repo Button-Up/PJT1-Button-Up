@@ -135,8 +135,8 @@ export default {
           price: this.price,
           target: this.target,
         },
-        (resp) => {
-          console.log(resp, "투자 등록 완료");
+        () => {
+          // console.log(resp, "투자 등록 완료");
           // 투자 목록 다시 업데이트
           this.vuexGetInvestList(this.checkUserInfo.seq);
         }
