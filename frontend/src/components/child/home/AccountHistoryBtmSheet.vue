@@ -66,7 +66,7 @@ modified: 우정연 - 환전 요청 api 연결, 환전할 단추 개수 입력�
     </BottomSheet>
     <!-- 스낵바 -->
     <v-snackbar app v-model="snackbar.isOpen" :timeout="snackbar.timeout" color="child02">
-      <span class="black--text font-weight-bold">환전 요청이 완료되었습니다.</span>
+      <span class="black--text font-weight-bold">{{ snackbar.text }}</span>
       <template v-slot:action="{ attrs }">
         <v-btn
           color="red"
@@ -117,7 +117,8 @@ export default {
     async requestExchange() {
       if (this.isDeposit) {
         if (this.exchangeAmount <= 0 || this.exchangeAmount == null) {
-          alert("환전할 단추 개수를 확인해 주세요!");
+          this.snackbar.text = "환전할 단추 개수를 확인해주세요!";
+          this.snackbar.isOpen = true;
           return;
         }
         let formData = {
@@ -127,19 +128,22 @@ export default {
         await addExchangeRequest(
           formData,
           () => {
-            console.log("성공!");
+            // console.log("성공!");
             this.$store.dispatch("accountStore/vuexUpdateDefaultBalance", this.checkUserInfo.seq);
             this.$store.dispatch("accountStore/vuexFetchAccountHistory", this.checkUserInfo.seq);
             // 입출금 내역 갱신하는 부분 필요할 듯
           },
-          (err) => {
+          () => {
+            // (err) => {
             // 잔액이 부족하면 에러
-            console.log(err);
-            alert("잔액이 부족합니다!");
+            // console.log(err);
+            this.snackbar.text = "잔액이 부족합니다!";
+            this.snackbar.isOpen = true;
           }
         );
         this.closeSheet = true;
         this.exchangeAmount = null;
+        this.snackbar.text = "환전 요청이 완료되었습니다.";
         this.snackbar.isOpen = true;
       }
     },

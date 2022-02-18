@@ -93,18 +93,15 @@ export default {
       this.$store.dispatch("investStore/vuexGetInvestList", this.checkUserInfo.seq);
     },
     submitNews() {
-      console.log(this.news);
+      // console.log(this.news);
       var param = {
         content: this.news,
         parentSeq: this.checkUserInfo.seq,
       };
-      console.log(param);
+      // console.log(param);
       this.$store.dispatch("investStore/vuexAddNews", param);
       this.news = "";
       this.snackbar = true;
-    },
-    clicYesBtn() {
-      console.log("yes 버튼 눌렀다");
     },
     setDialog(value) {
       this.dialog = value;

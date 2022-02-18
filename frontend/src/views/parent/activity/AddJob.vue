@@ -107,7 +107,7 @@
         >직업 생성
       </v-btn>
 
-      <modal
+      <Modal
         :visible.sync="dialog"
         :isParent="true"
         :title="`직업이 생성되었습니다`"
@@ -115,7 +115,7 @@
         :textPositiveBtn="`확인`"
         :positiveAction="go"
         :ishaveNegBtn="false"
-      ></modal>
+      ></Modal>
     </v-form>
   </div>
 </template>
@@ -189,14 +189,15 @@ export default {
       console.log(param);
       apiAddJob(
         param,
-        (response) => {
-          console.log(response.data);
-          console.log("성공");
+        () => {
+          // console.log(response.data);
+          // console.log("성공");
           this.dialog = !this.dialog;
         },
-        (error) => {
-          console.log(error);
-        }
+        // (error) => {
+        //   console.log(error);
+        // }
+        () => {}
       );
     },
     go() {

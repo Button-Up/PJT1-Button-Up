@@ -51,22 +51,24 @@ const savingStore = {
           commit("SET_SAVING_BALANCE", res.data.balance);
           commit("SET_IS_SAVING_EXIST", res.data.stateType);
         },
-        (err) => {
-          console.log(err);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
     async vuexCloseSaving({ commit }, childSeq) {
       await apiCloseSavings(
         childSeq,
         () => {
-          console.log("적금 해지 완료!");
+          // console.log("적금 해지 완료!");
           commit("SET_IS_SAVING_EXIST", false);
-          alert("적금이 해지되었습니다.");
+          // alert("적금이 해지되었습니다.");
         },
-        (err) => {
-          console.log(err);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
     async vuexGetSavingDetails({ commit }, childSeq) {
@@ -78,23 +80,25 @@ const savingStore = {
       await apiPostAddSavingsHistory(
         formData,
         () => {
-          console.log("입금 완료!");
+          // console.log("입금 완료!");
         },
-        (err) => {
-          console.log(err);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
     async vuexPostOpenSavings({ commit }, childSeq) {
       await apiPostOpenSavings(
         childSeq,
         () => {
-          console.log("적금 개설 완료!");
+          // console.log("적금 개설 완료!");
           commit("SET_IS_SAVING_EXIST", true);
         },
-        (err) => {
-          console.log(err);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
   },

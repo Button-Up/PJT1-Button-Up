@@ -50,7 +50,7 @@ const accountStore = {
      */
     async vuexAddAccountHistoryDeposit({ commit }, accountHistory) {
       await apiAddAccountDeposit(accountHistory, (resp) => {
-        console.log(resp);
+        // console.log(resp);
         commit("ADD_ACCOUNT_HISTORY", resp.data);
         commit("SET_DEFAULT_BALANCE", resp.data.balance);
       });
@@ -63,7 +63,7 @@ const accountStore = {
      */
     async vuexAddAccountHistoryWithdraw({ commit }, accountHistory) {
       await apiAddAccountWithdraw(accountHistory, (resp) => {
-        console.log(resp);
+        // console.log(resp);
         commit("ADD_ACCOUNT_HISTORY", resp.data);
         commit("SET_DEFAULT_BALANCE", resp.data.balance);
       });
@@ -76,7 +76,7 @@ const accountStore = {
      */
     async vuexFetchAccountHistory({ commit }, childSeq) {
       await apiGetAccountList(childSeq, (resp) => {
-        console.log(resp.data);
+        // console.log(resp.data);
         commit("FETCH_ACCOUNT_HISTORY", resp.data);
       });
     },

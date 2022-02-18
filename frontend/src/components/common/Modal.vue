@@ -4,7 +4,9 @@
       <v-dialog v-model="visible" persistent max-width="290">
         <v-card>
           <v-card-title class="text-h6">{{ title }} </v-card-title>
-          <v-card-text> {{ content }}</v-card-text>
+          <v-card-text
+            ><strong>{{ content }}</strong></v-card-text
+          >
           <v-card-actions class="pb-4">
             <v-spacer></v-spacer>
 
