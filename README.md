@@ -68,10 +68,10 @@
 ### 환전
 
 ![image](image/simulation/부모_환전.gif)
-![image](image/simulation/아이_환전.gif)
+![image](image/simulation/자녀_환전.gif)
 
 <!-- <img src = "image/simulation/부모_환전.gif" width="300px"> -->
-<!-- <img src = "image/simulation/아이_환전.gif" width="300px"> -->
+<!-- <img src = "image/simulation/자녀_환전.gif" width="300px"> -->
 
 ### 할 일
 
