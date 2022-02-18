@@ -98,27 +98,29 @@ export default {
   methods: {
     parentSignup() {
       apiSignup(this.isParent, this.signupInfo)
-        .then((res) => {
-          console.log(res);
-          console.log(this.signupInfo);
+        .then(() => {
+          // console.log(res);
           this.$router.push({ name: "Login" });
         })
-        .catch((err) => {
-          console.log(err);
-          console.log(this.signupInfo);
-        });
+        .catch(
+          // (err) => {
+          //   console.log(err);
+          // }
+          () => {}
+        );
     },
     childSignup() {
       apiSignup(this.isParent, this.signupInfo)
-        .then((res) => {
-          console.log(res);
-          console.log(this.signupInfo);
+        .then(() => {
+          // console.log(res);
           this.$router.push({ name: "Login" });
         })
-        .catch((err) => {
-          console.log(err);
-          console.log(this.signupInfo);
-        });
+        .catch(
+          // (err) => {
+          //   console.log(err);
+          // }
+          () => {}
+        );
     },
   },
 };

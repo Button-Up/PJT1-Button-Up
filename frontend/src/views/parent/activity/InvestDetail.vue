@@ -91,7 +91,7 @@ export default {
   components: { InvestGraph },
   created() {
     this.$store.dispatch("investStore/vuexGetPriceList", this.$route.params.seq);
-    console.log(this.getPriceList);
+    // console.log(this.getPriceList);
     for (let i = 0; i < this.getInvestList.length; i++) {
       if (this.getInvestList[i].seq == this.$route.params.seq) {
         this.selected = this.getInvestList[i];
@@ -146,9 +146,10 @@ export default {
           investSeq: this.selected.seq,
           price: this.price,
         },
-        (resp) => {
+        // (resp) => {
+        () => {
           this.$store.dispatch("investStore/vuexGetPriceList", this.$route.params.seq);
-          console.log(resp, "새로운 가격 정보 추가 완료");
+          // console.log(resp, "새로운 가격 정보 추가 완료");
           // this.vuexGetPriceList(priceInfo.investSeq);
         }
       );

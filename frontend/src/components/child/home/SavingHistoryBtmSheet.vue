@@ -47,7 +47,7 @@ author: 유현수
     </BottomSheet>
     <!-- 스낵바 -->
     <v-snackbar app v-model="snackbar.isOpen" :timeout="snackbar.timeout" color="child05">
-      <span class="black--text font-weight-bold">입금이 완료되었습니다.</span>
+      <span class="black--text font-weight-bold">{{ snackbar.text }}}</span>
       <template v-slot:action="{ attrs }">
         <v-btn
           color="red"
@@ -80,7 +80,7 @@ export default {
       closeSheet: false,
       snackbar: {
         isOpen: false,
-        text: null,
+        text: "입금이 완료되었습니다.",
         timeout: 2000,
       },
     };
@@ -107,7 +107,7 @@ export default {
       await addAccountWithdraw(
         formData,
         async () => {
-          console.log("출금 성공");
+          // console.log("출금 성공");
           const formData = {
             childSeq: this.checkUserInfo.seq,
             transferAmount: this.depositAmount,
@@ -116,11 +116,14 @@ export default {
           await this.vuexGetSavingBalance(this.checkUserInfo.seq);
           await this.vuexGetSavingDetails(this.checkUserInfo.seq);
           // alert("적금 통장으로 입금이 완료되었습니다.");
+          this.snackbar.text = "적금 통장으로 입금이 완료되었습니다.";
           this.snackbar.isOpen = true;
         },
         (err) => {
           console.log(err);
-          alert("잔액이 부족합니다.");
+          this.snackbar.text = "잔액이 부족합니다.";
+          this.snackbar.text = "적금 통장으로 입금이 완료되었습니다.";
+          this.snackbar.isOpen = true;
         }
       );
       this.closeSheet = true;

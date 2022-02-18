@@ -43,22 +43,23 @@ const parentStore = {
         (res) => {
           commit("SET_TUTORIAL_STAGE", res.data.stage);
         },
-        (err) => {
-          console.log(err);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
     async vuexPutTutorialStage(context, tutorialInfo) {
       await apiPutTutorialStep(
         tutorialInfo,
-        (res) => {
-          console.log(res);
-          console.log("튜토리얼 단계 수정 완료");
+        () => {
+          // console.log(res);
+          // console.log("튜토리얼 단계 수정 완료");
         },
-        (err) => {
-          console.log(err);
-          console.log(tutorialInfo);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
   },

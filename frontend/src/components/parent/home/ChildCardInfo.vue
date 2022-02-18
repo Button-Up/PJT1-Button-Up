@@ -63,9 +63,10 @@ export default {
       (response) => {
         this.checkList = response.data;
       },
-      (error) => {
-        console.log(error);
-      }
+      // (error) => {
+      //   console.log(error);
+      // }
+      () => {}
     );
   },
   computed: {

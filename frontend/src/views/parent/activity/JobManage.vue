@@ -54,7 +54,6 @@
             item-text="name"
             :color="`parent01`"
             :item-color="`parent01`"
-            @change="selectJob"
             outlined
             solo
             align-center
@@ -104,17 +103,16 @@ export default {
     };
   },
   created() {
-    console.log(this.childrenInfo);
-    console.log(this.childrenInfo + "여기는 created의 childrenInfo다");
     apiGetJobsList(
       this.checkUserInfo.seq,
       (response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.jobs = response.data;
       },
-      (error) => {
-        console.log(error);
-      }
+      // (error) => {
+      //   console.log(error);
+      // }
+      () => {}
     );
     this.getJobchildren();
   },
@@ -123,13 +121,10 @@ export default {
     ...mapGetters("userStore", ["checkUserInfo"]),
   },
   methods: {
-    selectJob(event) {
-      console.log(event.name);
-    },
+    // selectJob(event) {
+    //   // console.log(event.name);
+    // },
     setChildJob(child) {
-      console.log("childreninfo");
-      console.log(child);
-      console.log(child.job.name);
       var param = {
         childSeq: child.seq,
         jobSeq: child.job.seq,
@@ -137,14 +132,15 @@ export default {
       apiModifyJob(
         param,
         (response) => {
-          console.log(response.data);
-          console.log("성공");
+          // console.log(response.data);
+          // console.log("성공");
           this.snackbar = true;
           this.text = response.data.name + "(으)로 설정되었습니다. ";
         },
-        (error) => {
-          console.log(error);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
     async getJobchildren() {
@@ -153,21 +149,18 @@ export default {
           c.seq,
           (response) => {
             var child = c;
-            console.log(response.data);
+            // console.log(response.data);
             child.job = response.data;
             this.children.push(child);
           },
-          (error) => {
-            console.log(error);
+          () => {
+            // console.log(error);
             var child = c;
             child.job = null;
             this.children.push(child);
           }
         );
       }
-      console.log("computed");
-      console.log(this.children);
-      // return children;
     },
   },
 };

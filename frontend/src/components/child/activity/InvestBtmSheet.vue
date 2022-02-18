@@ -79,7 +79,7 @@
     </BottomSheet>
     <!-- 스낵바 -->
     <v-snackbar app v-model="snackbar.isOpen" :timeout="snackbar.timeout" color="child02">
-      <span class="black--text font-weight-bold">주식 거래가 완료되었습니다.</span>
+      <span class="black--text font-weight-bold">{{ snackbar.text }}</span>
       <template v-slot:action="{ attrs }">
         <v-btn
           color="red"
@@ -115,20 +115,26 @@ export default {
         price: this.price,
         seq: this.investStatusSeq,
       };
-      console.log(info);
+      // console.log(info);
       await apiPutInvestStatus(
         info,
         () => {
           this.$emit("getData", this.investStatusSeq);
         },
-        (error) => {
-          console.log(error);
-          alert(
-            this.isBuy ? "잔액이 부족합니다!" : "보유 주식 수보다 초과해서 판매할 수 없습니다!"
-          );
+        () => {
+          // (error) => {
+          // console.log(error);
+          // alert(
+          //   this.isBuy ? "잔액이 부족합니다!" : "보유 주식 수보다 초과해서 판매할 수 없습니다!"
+          // );
+          this.snackbar.text = this.isBuy
+            ? "잔액이 부족합니다!"
+            : "보유 주식 수보다 초과해서 판매할 수 없습니다!";
+          this.snackbar.isOpen = true;
         }
       );
       this.closeSheet = true;
+      this.snackbar.text = "주식 거래가 완료되었습니다";
       this.snackbar.isOpen = true;
     },
   },

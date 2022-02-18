@@ -119,7 +119,7 @@ export default {
       this.resetAllData();
       await apiGetAllInvest(this.checkUserInfo.parentSeq, ({ data }) => {
         this.investmentList = data;
-        console.log(this.investmentList);
+        // console.log(this.investmentList);
         this.getInvestStatusByChild();
       });
     },
@@ -130,7 +130,7 @@ export default {
           this.investmentList[i].seq,
           this.checkUserInfo.seq,
           ({ data }) => {
-            console.log(data);
+            // console.log(data);
             this.investmentList[i].averagePrice = data.averagePrice;
             this.investmentList[i].count = data.count;
             this.investmentList[i].statusSeq = data.seq;
@@ -148,7 +148,7 @@ export default {
     // 구매/판매한 경우, 보유주식 수와 평균가격 변경
     async getTableInfo(investStatusSeq) {
       const newInvestment = { ...this.nowInvestment };
-      console.log(newInvestment);
+      // console.log(newInvestment);
       for (let i = 0; i < this.investmentList.length; i++) {
         if (investStatusSeq == this.investmentList[i].statusSeq) {
           await apiGetInvestStatusByChild(
@@ -160,8 +160,8 @@ export default {
               newInvestment.averagePrice = data.averagePrice;
               newInvestment.count = data.count;
               this.nowInvestment = newInvestment;
-              console.log("----");
-              console.log(this.nowInvestment);
+              // console.log("----");
+              // console.log(this.nowInvestment);
             }
           );
         }

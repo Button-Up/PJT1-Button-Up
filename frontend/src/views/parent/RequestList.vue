@@ -276,7 +276,7 @@ export default {
             else if (a.date < b.date) return 1;
             else return 0;
           });
-          console.log(data);
+          // console.log(data);
         });
       });
     },
@@ -286,9 +286,10 @@ export default {
         () => {
           this.getList();
         },
-        (err) => {
-          console.log(err);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
     changeStatusReject(requestSeq) {
@@ -297,9 +298,10 @@ export default {
         () => {
           this.getList();
         },
-        (err) => {
-          console.log(err);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
   },

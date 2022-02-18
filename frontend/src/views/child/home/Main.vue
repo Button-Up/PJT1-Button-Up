@@ -116,7 +116,7 @@ export default {
       this.todoList = [];
       apiGetCheckListRow(this.checkUserInfo.seq, ({ data }) => {
         this.todoList = data;
-        console.log(this.todoList);
+        // console.log(this.todoList);
       });
     },
     getChildJob() {

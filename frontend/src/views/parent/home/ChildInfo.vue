@@ -98,9 +98,10 @@ export default {
       (response) => {
         this.job = response.data;
       },
-      (error) => {
-        console.log(error);
-      }
+      // (err) => {
+      //   console.log(err);
+      // }
+      () => {}
     );
     this.getSaving();
     apiGetCheckListRow(
@@ -108,9 +109,10 @@ export default {
       (response) => {
         this.doList = response.data;
       },
-      (error) => {
-        console.log(error);
-      }
+      // (err) => {
+      //   console.log(err);
+      // }
+      () => {}
     );
   },
   computed: {
@@ -134,29 +136,26 @@ export default {
       apiGetSavingsBalance(
         this.child.seq,
         (response) => {
-          console.log(response);
           var savingAccount = response.data;
           if (savingAccount.stateType) {
             var saving = {
               isDeposit: false,
               amount: response.data.balance,
             };
-            console.log(saving);
             this.accounts.push(saving);
             this.saving = saving;
           }
         },
-        (error) => {
-          console.log(error);
-        }
+        // (err) => {
+        //   console.log(err);
+        // }
+        () => {}
       );
     },
     openSnackbar() {
-      console.log("openSnackbar");
       this.snackbar.isOpen = true;
     },
     changeCloseSheet() {
-      console.log("changeCloseSheet");
       this.closeSheet = true;
     },
   },

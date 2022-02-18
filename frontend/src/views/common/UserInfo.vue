@@ -40,14 +40,32 @@
         </v-btn>
       </div>
     </v-sheet>
+    <Modal
+      :visible.sync="dialog"
+      :isParent="isParent"
+      :title="`로그아웃 되었습니다.`"
+      :content="``"
+      :textPositiveBtn="`확인`"
+      :positiveAction="goLogout"
+      :ishaveNegBtn="false"
+    ></Modal>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Modal from "../../components/common/Modal.vue";
 
 export default {
   name: "UserInfo",
+  components: {
+    Modal,
+  },
+  data() {
+    return {
+      dialog: false,
+    };
+  },
   props: {
     isParent: {
       type: Boolean,
@@ -60,9 +78,17 @@ export default {
   methods: {
     ...mapActions("userStore", ["vuexLogout"]),
     logout() {
+      // this.vuexLogout();
+      // this.$router.push("/login");
+      // alert("로그아웃 되었습니다.");
+      this.dialog = true;
+    },
+    goLogout() {
       this.vuexLogout();
+      this.goToLogin();
+    },
+    goToLogin() {
       this.$router.push("/login");
-      alert("로그아웃 되었습니다.");
     },
   },
 };
