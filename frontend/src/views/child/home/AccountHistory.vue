@@ -16,7 +16,14 @@ modified: 우정연 - 계좌 내역 정렬 적용
     >
       <div>
         <!-- 단추 잔액 -->
-        <h2 class="text-center">{{ isDeposit ? getDefaultBalance : getBalance }} 단추</h2>
+        <h2 class="text-center">
+          {{
+            isDeposit
+              ? getDefaultBalance.toLocaleString(locales, options)
+              : getBalance.toLocaleString(locales, options)
+          }}
+          단추
+        </h2>
 
         <!-- 입금하기 버튼 & 바텀시트 -->
         <SavingHistoryBtmSheet

@@ -31,16 +31,23 @@ author: 유현수
             :class="accountHistory.type === '입금' ? 'blue--text' : 'red--text'"
             class="font-weight-bold"
             >{{
-              accountHistory.type === "입금" ? accountHistory.money : -accountHistory.money
+              accountHistory.type === "입금"
+                ? accountHistory.money.toLocaleString(locales, options)
+                : (-accountHistory.money).toLocaleString(locales, options)
             }}
             단추</v-list-item-title
           >
           <!-- 적금 입금 금액 -->
           <v-list-item-title v-else class="font-weight-bold blue--text"
-            >{{ accountHistory.money }}단추</v-list-item-title
+            >{{ accountHistory.money.toLocaleString(locales, options) }}단추</v-list-item-title
           >
           <!-- 잔액 -->
-          <v-list-item-subtitle>{{ accountHistory.balance }} 단추</v-list-item-subtitle>
+          <v-list-item-subtitle
+            >{{
+              accountHistory.balance.toLocaleString(locales, options)
+            }}
+            단추</v-list-item-subtitle
+          >
         </v-list-item-content>
       </v-list-item>
       <v-divider v-if="idx < accountHistories.length" :key="`divider-${idx}`"></v-divider>

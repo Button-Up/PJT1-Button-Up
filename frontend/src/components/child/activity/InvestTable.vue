@@ -18,11 +18,15 @@
       </thead>
       <tbody>
         <tr>
-          <td class="text-center">{{ nowPrice }}</td>
-          <td class="text-center">{{ count }}</td>
-          <td class="text-center">{{ Math.round(averagePrice) }}</td>
-          <td class="text-center">{{ Math.round(profit) }}</td>
-          <td class="text-center">{{ Math.round(profitRate) }}%</td>
+          <td class="text-center">{{ nowPrice.toLocaleString(locales, options) }}</td>
+          <td class="text-center">{{ count.toLocaleString(locales, options) }}</td>
+          <td class="text-center">
+            {{ Math.round(averagePrice).toLocaleString(locales, options) }}
+          </td>
+          <td class="text-center">{{ Math.round(profit).toLocaleString(locales, options) }}</td>
+          <td class="text-center">
+            {{ Math.round(profitRate).toLocaleString(locales, options) }}%
+          </td>
         </tr>
       </tbody>
     </template>
