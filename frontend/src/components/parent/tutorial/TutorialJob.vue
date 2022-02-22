@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       svg1: require("../../../assets/svg/child-work.svg"),
-      img1: require("../../../assets/image/mockup-parent-job-crop.png"),
+      img1: require("../../../assets/image/galaxy/mockup-parent-job-crop.png"),
     };
   },
   computed: {

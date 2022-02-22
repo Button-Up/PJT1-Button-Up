@@ -47,7 +47,7 @@
           자녀는 자신의 역할을 다 하고 받는 용돈이라<br />
           책임감도 기르고 보람도 느낄 수 있어요.
         </p>
-        <v-img :src="mockupImg1" max-width="260px" class="mt-6"></v-img>
+        <v-img :src="mockupImg1" max-width="240px" class="mt-6"></v-img>
       </div>
     </v-sheet>
     <!-- 파트 3 -->
@@ -59,7 +59,7 @@
           적금과 투자 기능이 준비되어 있어요! <br />
           현금으로 하지 않으니 더더욱 안심 :D
         </p>
-        <v-img :src="mockupImg2" max-width="260px" class="mt-6"></v-img>
+        <v-img :src="mockupImg2" max-width="240px" class="mt-6"></v-img>
       </div>
     </v-sheet>
     <!-- 파트 4 -->
@@ -70,7 +70,7 @@
           낯선 경제 단어들도 차근차근, <br />
           경제 공부방에서 퀴즈로 배울 수 있어요
         </p>
-        <v-img :src="mockupImg3" max-width="260px" class="mt-6"></v-img>
+        <v-img :src="mockupImg3" max-width="240px" class="mt-6"></v-img>
       </div>
     </v-sheet>
     <v-fab-transition>
@@ -88,9 +88,9 @@ export default {
     return {
       model: null,
       growingSvg: require("../../assets/svg/growing.svg"),
-      mockupImg1: require("../../assets/image/mockup-child-home.png"),
-      mockupImg2: require("../../assets/image/mockup-child-invest.png"),
-      mockupImg3: require("../../assets/image/mockup-child-study.png"),
+      mockupImg1: require("../../assets/image/galaxy/mockup-child-deposit.png"),
+      mockupImg2: require("../../assets/image/galaxy/mockup-child-invest.png"),
+      mockupImg3: require("../../assets/image/galaxy/mockup-child-study.png"),
     };
   },
   methods: {
