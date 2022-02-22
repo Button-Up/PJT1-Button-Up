@@ -67,7 +67,9 @@ modified: 우정연 - 계좌 내역 정렬 적용
           <v-divider class="my-3"></v-divider>
           <div class="d-flex justify-space-between">
             <div>만기 시 이자</div>
-            <div class="red--text font-weight-bold">+ {{ Math.ceil(getBalance * 0.05) }} 단추</div>
+            <div class="red--text font-weight-bold">
+              + {{ Math.ceil(getBalance * 0.05).toLocaleString(locales, options) }} 단추
+            </div>
           </div>
         </div>
       </v-sheet>
