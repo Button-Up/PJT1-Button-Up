@@ -21,7 +21,7 @@
               {{ job.name }}
             </v-list-item-title>
             <v-list-item-content class="text-subtitle ma-0 pa-1"
-              >{{ job.payTerm }} {{ job.pay }}</v-list-item-content
+              >{{ job.payTerm }} {{ job.pay.toLocaleString(locales, options) }}</v-list-item-content
             >
           </v-list-item-content>
         </v-list-item>
@@ -42,11 +42,11 @@
 </template>
 
 <script>
-import TodoList from './TodoList.vue';
+import TodoList from "./TodoList.vue";
 // import { apiGetCheckListRow } from '@/api/checkListAPI.js';
 
 export default {
-  name: 'JobCard',
+  name: "JobCard",
   components: {
     TodoList,
   },

@@ -13,7 +13,9 @@
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>{{ request.childName }}의 {{ request.type }} 요청</v-list-item-title>
-          <v-list-item-subtitle v-text="`${request.price}원`"></v-list-item-subtitle>
+          <v-list-item-subtitle
+            v-text="`${request.price.toLocaleString(locales, options)}원`"
+          ></v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
           <v-list-item-action-text v-text="request.date"></v-list-item-action-text>
@@ -26,12 +28,20 @@
                 </v-toolbar>
                 <v-subheader>{{ request.date }}</v-subheader>
                 <div class="mx-4">
-                  <div class="text-h4 font-weight-bold">{{ request.price }}원</div>
+                  <div class="text-h4 font-weight-bold">
+                    {{ request.price.toLocaleString(locales, options) }}원
+                  </div>
                   <div class="text-subtitle-1 my-2">환전 방법</div>
                   <div class="text-body-2 mb-4">
-                    <div>1. {{ request.price }}원을 현금으로 지급해주세요.</div>
+                    <div>
+                      1. {{ request.price.toLocaleString(locales, options) }}원을 현금으로
+                      지급해주세요.
+                    </div>
                     <div>2. '현금 지급 완료' 버튼을 눌러주세요.</div>
-                    <div>3. 자녀의 단추 계좌에서 {{ request.price }} 단추가 차감됩니다.</div>
+                    <div>
+                      3. 자녀의 단추 계좌에서
+                      {{ request.price.toLocaleString(locales, options) }} 단추가 차감됩니다.
+                    </div>
                   </div>
                   <v-row dense>
                     <v-col
@@ -105,7 +115,9 @@
 
         <v-list-item-content>
           <v-list-item-title v-text="request.childName"></v-list-item-title>
-          <v-list-item-subtitle v-text="`${request.price}원`"></v-list-item-subtitle>
+          <v-list-item-subtitle
+            v-text="`${request.price.toLocaleString(locales, options)}원`"
+          ></v-list-item-subtitle>
         </v-list-item-content>
 
         <v-list-item-action>
@@ -123,7 +135,9 @@
                 </v-toolbar>
                 <v-subheader>{{ request.date }}</v-subheader>
                 <div class="mx-4">
-                  <div class="text-h4 font-weight-bold">{{ request.price }}원</div>
+                  <div class="text-h4 font-weight-bold">
+                    {{ request.price.toLocaleString(locales, options) }}원
+                  </div>
                   <div class="text-subtitle-1 my-2">
                     {{ request.status }}
                   </div>

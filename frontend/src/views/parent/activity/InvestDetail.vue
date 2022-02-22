@@ -9,7 +9,9 @@
       </v-col>
       <v-col text-right class="flex-grow-1 flex-shrink-0 mt-1 mr-3" align="center" justify="end"
         ><div style="font-size: 13px" class="d-flex flex-column">
-          <div class="align-end" align="end" :class="color">{{ getPriceList[0].price }} 단추</div>
+          <div class="align-end" align="end" :class="color">
+            {{ getPriceList[0].price.toLocaleString(locales, options) }} 단추
+          </div>
           <div class="align-start" align="end" :class="color">
             <span v-if="getPriceList.length > 1 && getPriceList[0].price > getPriceList[1].price"
               >▲</span
@@ -19,7 +21,9 @@
             ><span v-else>-</span>
             <span
               v-text="
-                getPriceList.length > 1 ? getPriceList[0].price - getPriceList[1].price : null
+                getPriceList.length > 1
+                  ? (getPriceList[0].price - getPriceList[1].price).toLocaleString(locales, options)
+                  : null
               "
             ></span>
           </div></div

@@ -19,7 +19,7 @@
           class="pt-3 pb-0"
         ></v-card-text>
         <v-list-item-title
-          v-text="amount"
+          v-text="amount.toLocaleString(locales, options)"
           class="text-h4 ma-1 font-weight-bold"
           :class="isDeposit ? 'white--text' : 'black--text'"
         >

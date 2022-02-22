@@ -21,11 +21,13 @@
       <v-col text-right class="flex-grow-1 flex-shrink-0 mt-1 mr-3" align="center" justify="end"
         ><div style="font-size: 13px" class="d-flex flex-column">
           <div class="align-end" align="end" :class="nowInvestment.color">
-            {{ nowInvestment.todayPrice }} 단추
+            {{ nowInvestment.todayPrice.toLocaleString(locales, options) }} 단추
           </div>
           <div class="align-start" align="end" :class="nowInvestment.color">
-            <span v-if="nowInvestment.changePrice > 0">▲{{ nowInvestment.changePrice }}</span
-            ><span v-else-if="nowInvestment.changePrice < 0">▼{{ -nowInvestment.changePrice }}</span
+            <span v-if="nowInvestment.changePrice > 0"
+              >▲{{ nowInvestment.changePrice.toLocaleString(locales, options) }}</span
+            ><span v-else-if="nowInvestment.changePrice < 0"
+              >▼{{ (-nowInvestment.changePrice).toLocaleString(locales, options) }}</span
             ><span v-else>-</span>
           </div>
         </div></v-col
