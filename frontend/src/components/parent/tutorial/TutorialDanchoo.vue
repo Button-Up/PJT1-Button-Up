@@ -99,9 +99,9 @@ export default {
   name: "TutorialDanchoo",
   data() {
     return {
-      mockupImg1: require("../../../assets/image/mockup-child-home-crop.png"),
-      mockupImg2: require("../../../assets/image/mockup-child-invest-crop.png"),
-      mockupImg3: require("../../../assets/image/mockup-parent-exchange-crop.png"),
+      mockupImg1: require("../../../assets/image/galaxy/mockup-child-home-crop.png"),
+      mockupImg2: require("../../../assets/image/galaxy/mockup-child-invest-crop.png"),
+      mockupImg3: require("../../../assets/image/galaxy/mockup-parent-exchange-crop.png"),
     };
   },
   computed: {
