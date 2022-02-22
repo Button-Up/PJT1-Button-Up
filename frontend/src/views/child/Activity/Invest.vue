@@ -24,8 +24,10 @@
             {{ nowInvestment.todayPrice }} 단추
           </div>
           <div class="align-start" align="end" :class="nowInvestment.color">
-            <span v-if="nowInvestment.changePrice > 0">▲{{ nowInvestment.changePrice }}</span
-            ><span v-else-if="nowInvestment.changePrice < 0">▼{{ -nowInvestment.changePrice }}</span
+            <span v-if="nowInvestment.changePrice > 0"
+              >▲{{ nowInvestment.changePrice.toLocaleString(locales, options) }}</span
+            ><span v-else-if="nowInvestment.changePrice < 0"
+              >▼{{ (-nowInvestment.changePrice).toLocaleString(locales, options) }}</span
             ><span v-else>-</span>
           </div>
         </div></v-col
