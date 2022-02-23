@@ -109,6 +109,7 @@ export default {
     this.$store.dispatch("accountStore/vuexUpdateDefaultBalance", this.checkUserInfo.seq);
     // 적금 잔액 & 존재 여부 vuex 업데이트
     this.$store.dispatch("savingStore/vuexGetSavingBalance", this.checkUserInfo.seq);
+    this.$store.dispatch("userStore/vuexGetUserInfo", { isParent: false });
   },
   methods: {
     ...mapActions({ accountStore: ["updateDefaultBalance", "vuexFetchAccountHistory"] }),
