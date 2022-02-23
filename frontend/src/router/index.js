@@ -18,7 +18,7 @@ import childUserInfo from "./child/userInfo";
 import childShop from "./child/shop";
 
 // vuex store
-// import store from "@/store/index";
+import store from "@/store/index";
 
 Vue.use(VueRouter);
 
@@ -50,25 +50,25 @@ const router = new VueRouter({
  * 3. 로그인이 되어 있다면 정상적으로 이동
  */
 
-// router.beforeEach((to, from, next) => {
-//   store.dispatch("userStore/vuexCheckJWT");
-//   const isAuthFree = to.matched.some((record) => record.meta.isAuthFree); // 인증이 필요 없는 페이지인지
-//   const isLogin = store.getters["userStore/checkIsLogin"]; // 로그인이 되어있는지
-//   const isParent = store.getters["userStore/checkIsParent"]; // 부모 유저인지
-//   const isParentPage = to.matched.some((record) => record.meta.isParentPage); // 페이지 타입
+router.beforeEach((to, from, next) => {
+  store.dispatch("userStore/vuexCheckJWT");
+  const isAuthFree = to.matched.some((record) => record.meta.isAuthFree); // 인증이 필요 없는 페이지인지
+  const isLogin = store.getters["userStore/checkIsLogin"]; // 로그인이 되어있는지
+  const isParent = store.getters["userStore/checkIsParent"]; // 부모 유저인지
+  const isParentPage = to.matched.some((record) => record.meta.isParentPage); // 페이지 타입
 
-//   if (!isAuthFree && !isLogin) {
-//     alert("로그인이 필요합니다.");
-//     next("/login");
-//   } else if (isAuthFree && isLogin) {
-//     console.log("이미 로그인 된 유저입니다.");
-//     next(isParent ? "/parent/home" : "/child/home");
-//   } else if (!isAuthFree && isParent !== isParentPage) {
-//     console.log("잘못된 접근입니다.");
-//     next(isParent ? "/parent/home" : "/child/home");
-//   } else {
-//     next();
-//   }
-// });
+  if (!isAuthFree && !isLogin) {
+    alert("로그인이 필요합니다.");
+    next("/login");
+  } else if (isAuthFree && isLogin) {
+    console.log("이미 로그인 된 유저입니다.");
+    next(isParent ? "/parent/home" : "/child/home");
+  } else if (!isAuthFree && isParent !== isParentPage) {
+    console.log("잘못된 접근입니다.");
+    next(isParent ? "/parent/home" : "/child/home");
+  } else {
+    next();
+  }
+});
 
 export default router;
